@@ -183,10 +183,17 @@ in
       }
       {
         mode = "n";
+        key = "<leader>ef";
+        options.silent = true;
+        action = "<cmd>:Neotree filesystem reveal<CR>";
+	options.desc = "Filesystem";
+      }
+      {
+        mode = "n";
         key = "<leader>efl";
         options.silent = true;
         action = "<cmd>:Neotree filesystem reveal left<CR>";
-	options.desc = "Show file explorer";
+	options.desc = "Show file explorer (left)";
       }
       {
         mode = "n";
@@ -197,24 +204,38 @@ in
       }
       {
         mode = "n";
+        key = "<leader>eb";
+        options.silent = true;
+        action = "<cmd>:Neotree buffers reveal<CR>";
+	options.desc = "Open files";
+      }
+      {
+        mode = "n";
         key = "<leader>ebl";
         options.silent = true;
         action = "<cmd>:Neotree buffers reveal left<CR>";
-	options.desc = "Show open files in explorer";
+	options.desc = "Show all open files in explorer (left)";
       }
       {
         mode = "n";
         key = "<leader>ebr";
         options.silent = true;
         action = "<cmd>:Neotree buffers reveal right<CR>";
-	options.desc = "Show open files in explorer (right)";
+	options.desc = "Show all open files in explorer (right)";
+      }
+      {
+        mode = "n";
+        key = "<leader>eg";
+        options.silent = true;
+        action = "<cmd>:Neotree git_status reveal<CR>";
+	options.desc = "Changed files";
       }
       {
         mode = "n";
         key = "<leader>egl";
         options.silent = true;
         action = "<cmd>:Neotree git_status reveal left<CR>";
-	options.desc = "Show git status in explorer";
+	options.desc = "Show git status in explorer (left)";
       }
       {
         mode = "n";
