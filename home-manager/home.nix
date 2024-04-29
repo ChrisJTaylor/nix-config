@@ -147,6 +147,14 @@ in
     plugins.navic.enable = true;
     plugins.which-key.enable = true;
 
+    plugins.neo-tree = {
+      enable = true;
+      enableGitStatus = true;
+      enableModifiedMarkers = true;
+      enableRefreshOnWrite = true;
+      closeIfLastWindow = true;
+    };
+
     options = {
       number = true;
       relativenumber = true;
@@ -172,6 +180,48 @@ in
         mode = "n";
 	key = "<ESC>";
 	action = "<cmd>nohlsearch<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>efl";
+        options.silent = true;
+        action = "<cmd>:Neotree filesystem reveal left<CR>";
+	options.desc = "Show file explorer";
+      }
+      {
+        mode = "n";
+        key = "<leader>efr";
+        options.silent = true;
+        action = "<cmd>:Neotree filesystem reveal right<CR>";
+	options.desc = "Show file explorer (right)";
+      }
+      {
+        mode = "n";
+        key = "<leader>ebl";
+        options.silent = true;
+        action = "<cmd>:Neotree buffers reveal left<CR>";
+	options.desc = "Show open files in explorer";
+      }
+      {
+        mode = "n";
+        key = "<leader>ebr";
+        options.silent = true;
+        action = "<cmd>:Neotree buffers reveal right<CR>";
+	options.desc = "Show open files in explorer (right)";
+      }
+      {
+        mode = "n";
+        key = "<leader>egl";
+        options.silent = true;
+        action = "<cmd>:Neotree git_status reveal left<CR>";
+	options.desc = "Show git status in explorer";
+      }
+      {
+        mode = "n";
+        key = "<leader>egr";
+        options.silent = true;
+        action = "<cmd>:Neotree git_status reveal right<CR>";
+	options.desc = "Show git status in explorer (right)";
       }
       {
         mode = "n";
