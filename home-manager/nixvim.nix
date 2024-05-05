@@ -32,6 +32,13 @@
       enable = true;
     };
 
+    plugins.treesitter = {
+      enable = true;
+      ensureInstalled = "all";
+      folding = false;
+      nixvimInjections = true;
+    };
+
     plugins.lspsaga.enable = true;
 
     plugins.lsp = {
