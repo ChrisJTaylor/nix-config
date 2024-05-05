@@ -12,6 +12,7 @@
     plugins.lightline.enable = true;
     plugins.navic.enable = true;
     plugins.which-key.enable = true;
+    plugins.surround.enable = true;
 
     plugins.auto-save = {
       enable = true;
@@ -31,17 +32,12 @@
       enable = true;
     };
 
+    plugins.lspsaga.enable = true;
+
     plugins.lsp = {
       enable = true;
       servers = {
 	nil_ls.enable = true;
-      };
-      keymaps.lspBuf = {
-	K = "hover";
-	gD = "references";
-	gd = "definition";
-	gi = "implementation";
-	gt = "type_definition";
       };
       servers = {
         pylsp = {
@@ -90,21 +86,6 @@
         {name = "buffer";}
         {name = "luasnip";}
       ];
-      mapping = {
-	"<CR>" = "cmp.mapping.confirm({ select = true })";
-	"<Tab>" = {
-	  action = ''
-	    function(fallback)
-	      if cmp.visible() then
-	        cmp.select_next_item()
-	      else
-	        fallback()
-	      end
-	    end
-	  '';
-	  modes = [ "i" "s" ];
-	};
-      };
     };
 
     options = {

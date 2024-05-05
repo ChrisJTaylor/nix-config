@@ -209,8 +209,40 @@
       action = ">at";
       options.desc = "Indent inner block with angle brackets";
     }
+    {
+      mode = "n";
+      key = "K";
+      options.silent = true;
+      action = "<CMD>Lspsaga hover_doc<Enter>";
+      options.desc = "Tooltip";
+    }
     ];
-  };
 
+    plugins.lsp.keymaps = {
+      lspBuf = {
+	gD = "references";
+	gd = "definition";
+	gi = "implementation";
+	gt = "type_definition";
+      };
+    };
+
+    plugins.nvim-cmp.mapping = {
+      "<CR>" = "cmp.mapping.confirm({ select = true })";
+      "<Tab>" = {
+	action = ''
+	  function(fallback)
+	  if cmp.visible() then
+	    cmp.select_next_item()
+	  else
+	    fallback()
+	      end
+	      end
+	      '';
+	modes = [ "i" "s" ];
+      };
+    };
+
+  };
 }
 
