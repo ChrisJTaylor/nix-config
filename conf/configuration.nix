@@ -41,8 +41,6 @@
     pkgs.zoxide
     pkgs.lolcat
     pkgs.cowsay
-    pkgs.tmux
-    pkgs.aichat
   ];
 
   environment.pathsToLink = [ "/share/zsh" ];
@@ -99,13 +97,6 @@
 
   programs.git = {
     enable = true;
-  };
-
-  programs.tmux = {
-    enable = true;
-    newSession = true;
-    keyMode = "vi";
-    baseIndex = 1;
   };
 
 }
