@@ -2,7 +2,7 @@
 
 ## First steps!
 - Clone the repo
-- `CD` into the folder
+- `cd` into the folder
 - run the following command to ensure you have permission to run the scripts:
   - `chmod +x ./*.sh`
 
