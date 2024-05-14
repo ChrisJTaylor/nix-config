@@ -14,8 +14,8 @@ in
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "nixos";
-  home.homeDirectory = "/home/nixos";
+  home.username = "christian";
+  home.homeDirectory = "/home/christian";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -32,8 +32,6 @@ in
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     pkgs.hello
-    pkgs.cowsay
-    pkgs.lolcat
     pkgs.aichat
 
     # # It is sometimes useful to fine-tune packages, for example, by applying

@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      <home-manager/nixos>
     ];
 
   # Bootloader.
@@ -99,7 +100,22 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
+    pkgs.fzf
+    pkgs.fzf-git-sh
+    pkgs.fd
+    pkgs.bat
+    pkgs.atuin
+    pkgs.delta
+    pkgs.eza
+    pkgs.ripgrep
+    pkgs.zoxide
+    pkgs.lolcat
+    pkgs.cowsay
   ];
+
+  environment.pathsToLink = ["/share/zsh"];
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -128,4 +144,44 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 
+  # zsh and oh-my-zsh settings
+
+  # for global user
+  users.defaultUserShell=pkgs.zsh;
+
+  programs = {
+     zsh = {
+        enable = true;
+        autosuggestions.enable = true;
+        zsh-autoenv.enable = true;
+        syntaxHighlighting.enable = true;
+        enableCompletion = true;
+        ohMyZsh = {
+           enable = true;
+           theme = "robbyrussell";
+           plugins = [
+             "git"
+             "direnv"
+             "fzf"
+	     "ripgrep"
+           ];
+	};
+     };
+  };
+
+  programs.direnv = {
+    enable = true;
+    package = pkgs.direnv;
+    silent = true;
+    loadInNixShell = true;
+    nix-direnv = {
+      enable = true;
+      package = pkgs.nix-direnv;
+    };
+  };
+
+  programs.git = {
+    enable = true;
+  };
+  
 }
