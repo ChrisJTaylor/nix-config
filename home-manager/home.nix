@@ -34,6 +34,10 @@ in
     pkgs.hello
     pkgs.aichat
 
+    pkgs.alacritty
+    pkgs.alacritty-theme
+    pkgs.gnomeExtensions.toggle-alacritty
+
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -139,6 +143,29 @@ in
   programs.navi = {
     enable = true;
     enableZshIntegration = true;
+  };
+
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      shell = "$SHELL";
+      working_directory = "~/workarea/";
+      live_config_reload = true;
+      window = {
+        decorations = "Full";
+	opacity = 0.66;
+      };
+      font = {
+        normal = { 
+	  family = "FiraCode";
+	  style = "Regular";
+	};
+	size = 12.0;
+      };
+      mouse = {
+        hide_when_typing = true;
+      };
+    };
   };
 
 }
