@@ -157,6 +157,10 @@ in
 	  columns = 160;
 	  lines = 60;
 	};
+	padding = {
+	  x = 22;
+	  y = 22;
+	};
       };
       font = {
         normal = { 
