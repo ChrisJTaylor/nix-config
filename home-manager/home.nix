@@ -148,22 +148,22 @@ in
   programs.alacritty = {
     enable = true;
     settings = {
-      shell = "$SHELL";
-      working_directory = "~/workarea/";
-      live_config_reload = true;
+      shell = "zsh";
       window = {
-        decorations = "Full";
-	opacity = 0.66;
+        opacity = 0.6;
+	dimensions = {
+	  columns = 160;
+	  lines = 60;
+	};
       };
       font = {
         normal = { 
-	  family = "FiraCode";
+	  family = "FiraCode Nerd Font";
 	  style = "Regular";
 	};
-	size = 12.0;
       };
-      mouse = {
-        hide_when_typing = true;
+      terminal = {
+        osc52 = "CopyPaste";
       };
     };
   };
