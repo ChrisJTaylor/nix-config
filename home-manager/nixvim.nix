@@ -39,7 +39,15 @@
       nixvimInjections = true;
     };
 
-    plugins.lspsaga.enable = true;
+    plugins.lspsaga = {
+      enable = true;
+      extraOptions = {
+        lightbulb = {
+	  enable = true;
+	  sign = false;
+	};
+      };
+    };
 
     plugins.lsp = {
       enable = true;
