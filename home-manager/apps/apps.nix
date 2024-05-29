@@ -3,7 +3,7 @@
 {
   imports =
     [ 
-      ./nixvim.nix
+#      ./nixvim.nix
       ./alacritty.nix
       ./zsh.nix
     ];
