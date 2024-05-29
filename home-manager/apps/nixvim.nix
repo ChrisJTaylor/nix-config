@@ -1,6 +1,13 @@
-{ ... }: {
-  
+{ ... }: 
+
+let
+  nixvim = import (builtins.fetchGit {
+    url = "https://github.com/nix-community/nixvim";
+  });
+in
+{
   imports = [
+    nixvim.homeManagerModules.nixvim
     ./nixvim-keymaps.nix
   ];
 
