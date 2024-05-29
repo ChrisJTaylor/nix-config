@@ -13,16 +13,18 @@
       unstable = nixpkgs-unstable.legacyPackages.${prev.system};
     };
   in {
-    nixosConfigurations.machinology = nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [
-        # overlays-module makes "pkgs.unstable" available in configuration.nix
-	({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
-	./configuration.nix
-	./users/users.nix
-	./system/system.nix
-	./apps/apps.nix
-      ];
+    nixosConfigurations = {
+      big-mach = nixpkgs.lib.nixosSystem {
+	inherit system;
+	modules = [
+          # overlays-module makes "pkgs.unstable" available in configuration.nix
+	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+	    ./nixos/hosts/big-mach/configuration.nix
+	    ./nixos/users/users.nix
+	    ./nixos/system/system.nix
+	    ./nixos/apps/apps.nix
+	];
+      };
     };
   };
 }
