@@ -17,20 +17,6 @@
       unstable = nixpkgs.legacyPackages.${prev.system};
     };
   in {
-    homeConfigurations = {
-      big-mach = nixpkgs.lib.nixosSystem {
-	inherit system;
-	specialArgs = { inherit inputs; };
-	modules = [
-          # overlays-module makes "pkgs.unstable" available in configuration.nix
-	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
-	    ./home-manager/home.nix
-	    ./home-manager/apps/apps.nix
-	    ./home-manager/files/files.nix
-	];
-      };
-    };
-
     nixosConfigurations = {
       big-mach = nixpkgs.lib.nixosSystem {
 	inherit system;
@@ -42,6 +28,11 @@
 	    ./nixos/users/users.nix
 	    ./nixos/system/system.nix
 	    ./nixos/apps/apps.nix
+	    home-manager.nixosModules.home-manager {
+	      home-manager.useGlobalPkgs = true;
+	      home-manager.useUserPackages = true;
+	      home-manager.users.christian = import ./home-manager/home.nix;
+	    }
 	];
       };
     };

@@ -1,20 +1,104 @@
-{ ... }: 
-
-let
-  nixvim = import (builtins.fetchGit {
-    url = "https://github.com/nix-community/nixvim";
-  });
-in
-{
+{ pkgs, ... }: {
+  
   imports = [
-    nixvim.homeManagerModules.nixvim
     ./nixvim-keymaps.nix
   ];
 
   programs.nixvim = {
     enable = true;
+    defaultEditor = true;
 
     colorschemes.tokyonight.enable = true;
+
+    options = {
+      number = true;
+      relativenumber = true;
+      shiftwidth = 2;
+      clipboard = "unnamedplus";
+      undofile = true;
+      ignorecase = true;
+      smartcase = true;
+      timeoutlen = 300;
+      splitright = true;
+      splitbelow = true;
+      scrolloff = 10;
+      hlsearch = true;
+    };
+
+    clipboard.providers.xclip.enable = true;
+
+    plugins.neotest = {
+      enable = true;
+      adapters = {
+        dotnet = {
+	  enable = true;
+	};
+        go = {
+	  enable = true;
+	};
+        java = {
+	  enable = true;
+	};
+        plenary = {
+	  enable = true;
+	};
+        rust = {
+	  enable = true;
+	};
+        rspec = {
+	  enable = true;
+	};
+        python = {
+	  enable = true;
+	};
+        scala = {
+	  enable = true;
+	};
+        zig = {
+	  enable = true;
+	};
+      };
+      settings = {
+        output = {
+	  enabled = true;
+	  open_on_run = true;
+	};
+	output_panel = {
+	  enabled = true;
+	  open = "botright split | resize 15";
+	};
+	quickfix = {
+	  enabled = true;
+	};
+	watch = {
+	  enabled = true;
+	};
+	running = {
+	  concurrent = true;
+	};
+	state = {
+	  enabled = true;
+	};
+	discovery = {
+	  enabled = true;
+	};
+      };
+    };
+
+    plugins.coverage = {
+      enable = true;
+      autoReload = true;
+      autoReloadTimeoutMs = 1000;
+      lang = {
+        python = {
+	  coverage_file = ".coverage";
+	  coverage_command = "coverage json --fail-under=100 -q -o";
+	};
+	ruby = {
+	  coverage_file = "coverage/coverage.json";
+	};
+      };
+    };
 
     plugins.lightline.enable = true;
     plugins.navic.enable = true;
@@ -46,15 +130,7 @@ in
       nixvimInjections = true;
     };
 
-    plugins.lspsaga = {
-      enable = true;
-      extraOptions = {
-        lightbulb = {
-	  enable = true;
-	  sign = false;
-	};
-      };
-    };
+    plugins.lspsaga.enable = true;
 
     plugins.lsp = {
       enable = true;
@@ -110,20 +186,6 @@ in
       ];
     };
 
-    options = {
-      number = true;
-      relativenumber = true;
-      shiftwidth = 2;
-      clipboard = "unnamedplus";
-      undofile = true;
-      ignorecase = true;
-      smartcase = true;
-      timeoutlen = 300;
-      splitright = true;
-      splitbelow = true;
-      scrolloff = 10;
-      hlsearch = true;
-    };
-
   };
 }
+
