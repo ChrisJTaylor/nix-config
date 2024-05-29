@@ -1,16 +1,15 @@
 {
-  description = "NixOS configuration";
+  description = "Home Manager and NixOS configurations";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-23.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable }:
+  outputs = inputs @ { self, nixpkgs }:
   let 
     system = "x86_64-linux";
     overlay-unstable = final: prev: {
-      unstable = nixpkgs-unstable.legacyPackages.${prev.system};
+      unstable = nixpkgs.legacyPackages.${prev.system};
     };
   in {
     nixosConfigurations = {
