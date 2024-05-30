@@ -15,7 +15,7 @@
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, nixvim }:
+  outputs = inputs @ { self, nixpkgs, nixvim, home-manager, ... }:
   let 
     system = "x86_64-linux";
     overlay-unstable = final: prev: {
@@ -33,10 +33,12 @@
 	    ./nixos/users/users.nix
 	    ./nixos/system/system.nix
 	    ./nixos/apps/apps.nix
-	    nixvim.homeManagerModules.nixvim
 	    home-manager.nixosModules.home-manager {
 	      home-manager.useGlobalPkgs = true;
 	      home-manager.useUserPackages = true;
+	      home-manager.sharedModules = [
+	        nixvim.homeManagerModules.nixvim
+	      ];
 	      home-manager.users.christian = import ./home-manager/home.nix;
 	    }
 	];
