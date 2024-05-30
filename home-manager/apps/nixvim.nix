@@ -2,6 +2,7 @@
   
   imports = [
     ./nixvim-keymaps.nix
+    ./nixvim-highlight.nix
   ];
 
   programs.nixvim = {
@@ -26,6 +27,11 @@
     };
 
     clipboard.providers.xclip.enable = true;
+
+    plugins.persistence.enable = true;
+
+    plugins.refactoring.enable = true;
+    plugins.refactoring.enableTelescope = true;
 
     plugins.neotest = {
       enable = true;
@@ -132,13 +138,13 @@
     };
 
     plugins.lspsaga.enable = true;
+    plugins.lspsaga.lightbulb.enable = false;
 
     plugins.lsp = {
       enable = true;
+      capabilities = "";
       servers = {
 	nil_ls.enable = true;
-      };
-      servers = {
         pylsp = {
 	  enable = true;
 	  autostart = true;
