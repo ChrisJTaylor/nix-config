@@ -2,7 +2,6 @@
 
 {
   imports = [
-    <nixvim_import>
     ./apps/apps.nix
     ./files/files.nix
   ];
