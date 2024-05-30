@@ -100,6 +100,7 @@
       };
     };
 
+    plugins.nvim-lightbulb.enable = false;
     plugins.lightline.enable = true;
     plugins.navic.enable = true;
     plugins.which-key.enable = true;

@@ -271,6 +271,11 @@
       };
     };
 
+    plugins.cmp.settings.mapping = {
+      "<CR>" = "cmp.mapping.confirm({ select = true })";
+      "<Tab>" = "cmp.mapping.select_next_item(), {'i', 's'}";
+    };
+
   };
 }
 
