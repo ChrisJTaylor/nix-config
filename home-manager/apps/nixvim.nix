@@ -3,6 +3,7 @@
   imports = [
     ./nixvim-keymaps.nix
     ./nixvim-highlight.nix
+    ./nixvim-autocmds.nix
   ];
 
   programs.nixvim = {
@@ -98,7 +99,7 @@
       lang = {
         python = {
 	  coverage_file = ".coverage";
-	  coverage_command = "coverage json --fail-under=100 -q -o";
+	  coverage_command = "coverage json --fail-under=100 -q -o -";
 	};
 	ruby = {
 	  coverage_file = "coverage/coverage.json";
@@ -116,6 +117,7 @@
       enable = true;
       enableAutoSave = true;
       triggerEvents = ["InsertLeave" "TextChanged"];
+      writeAllBuffers = true;
     };
 
     plugins.neo-tree = {
