@@ -42,7 +42,7 @@
     '';
     initExtra = ''
       source ~/fzf-git.sh/fzf-git.sh
-      source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+      # source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
     
       eval "$(atuin init zsh)"
       eval "$(direnv hook zsh)"
