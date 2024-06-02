@@ -8,10 +8,9 @@
 - `cd` into the repo folder
 - Run the `sudo nixos-rebuild switch --flake '.#<host-name>'`
 
-## Now what?
-Here are a few links to help you on your way:
+## Useful links
 - [Nix Learn](https://nixos.org/learn/)
 - [Nix Search Packages](https://search.nixos.org/packages)
-- [Nix options](https://search.nixos.org/options)
+- [Nix Options](https://search.nixos.org/options)
 - [The Nix Way: dev-templates](https://github.com/the-nix-way/dev-templates)
 - [NixVim - documentation](https://nix-community.github.io/nixvim/)
