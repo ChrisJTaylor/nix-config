@@ -2,7 +2,7 @@
 
 ## How to setup
 - Install basic NixOS installation
-  - [downloads and installs](https://nixos.org/download/)
+  - [Downloads and installs](https://nixos.org/download/)
   - [NixOS-WSL](https://github.com/nix-community/NixOS-WSL)
 - Clone the repo with `nix-shell -p git --run git clone https://github.com/ChrisJTaylor/nix-configs.git`
 - `cd` into the repo folder
