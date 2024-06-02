@@ -38,6 +38,8 @@
 	    ./nixos/apps/direnv.nix
 	    ./nixos/apps/git.nix
 	    ./nixos/apps/zsh.nix
+	    ./nixos/apps/common.nix
+	    ./nixos/apps/games.nix
 	    # ./nixos/services/hydra.nix
 	    home-manager.nixosModules.home-manager {
 	      home-manager.useGlobalPkgs = true;
