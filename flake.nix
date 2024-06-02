@@ -23,6 +23,7 @@
     };
   in {
     nixosConfigurations = {
+
       big-mach = nixpkgs.lib.nixosSystem {
 	inherit system;
 	specialArgs = { inherit inputs; };
@@ -51,6 +52,107 @@
 	    }
 	];
       };
+
+      big-machbook = nixpkgs.lib.nixosSystem {
+	inherit system;
+	specialArgs = { inherit inputs; };
+	modules = [
+          # overlays-module makes "pkgs.unstable" available in configuration.nix
+	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+	    ./nixos/hosts/big-machbook/configuration.nix
+	    ./nixos/users/christian.nix
+	    ./nixos/system/desktop.nix
+	    ./nixos/system/locale.nix
+	    ./nixos/system/sound.nix
+	    ./nixos/system/xserver.nix
+	    ./nixos/apps/direnv.nix
+	    ./nixos/apps/git.nix
+	    ./nixos/apps/zsh.nix
+	    ./nixos/apps/common.nix
+	    ./nixos/apps/games.nix
+	    home-manager.nixosModules.home-manager {
+	      home-manager.useGlobalPkgs = true;
+	      home-manager.useUserPackages = true;
+	      home-manager.sharedModules = [
+	        nixvim.homeManagerModules.nixvim
+	      ];
+	      home-manager.users.christian = import ./home-manager/home.nix;
+	    }
+	];
+      };
+
+      home-wsl = nixpkgs.lib.nixosSystem {
+	inherit system;
+	specialArgs = { inherit inputs; };
+	modules = [
+          # overlays-module makes "pkgs.unstable" available in configuration.nix
+	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+	    ./nixos/hosts/home-wsl/configuration.nix
+	    ./nixos/users/christian-home.nix
+	    ./nixos/system/wsl.nix
+	    ./nixos/apps/direnv.nix
+	    ./nixos/apps/git.nix
+	    ./nixos/apps/zsh.nix
+	    ./nixos/apps/common.nix
+	    ./nixos/apps/games.nix
+	    home-manager.nixosModules.home-manager {
+	      home-manager.useGlobalPkgs = true;
+	      home-manager.useUserPackages = true;
+	      home-manager.sharedModules = [
+	        nixvim.homeManagerModules.nixvim
+	      ];
+	      home-manager.users.christian = import ./home-manager/home.nix;
+	    }
+	];
+      };
+
+      work-wsl = nixpkgs.lib.nixosSystem {
+	inherit system;
+	specialArgs = { inherit inputs; };
+	modules = [
+          # overlays-module makes "pkgs.unstable" available in configuration.nix
+	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+	    ./nixos/hosts/work-wsl/configuration.nix
+	    ./nixos/users/ukctay.nix
+	    ./nixos/system/wsl.nix
+	    ./nixos/apps/direnv.nix
+	    ./nixos/apps/git.nix
+	    ./nixos/apps/zsh.nix
+	    ./nixos/apps/common.nix
+	    home-manager.nixosModules.home-manager {
+	      home-manager.useGlobalPkgs = true;
+	      home-manager.useUserPackages = true;
+	      home-manager.sharedModules = [
+	        nixvim.homeManagerModules.nixvim
+	      ];
+	      home-manager.users.ukctay = import ./home-manager/home.nix;
+	    }
+	];
+      };
+
+      machbook = nixpkgs.lib.nixosSystem {
+	inherit system;
+	specialArgs = { inherit inputs; };
+	modules = [
+          # overlays-module makes "pkgs.unstable" available in configuration.nix
+	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+	    ./nixos/hosts/machbook/configuration.nix
+	    ./nixos/users/christiantaylor.nix
+	    ./nixos/apps/direnv.nix
+	    ./nixos/apps/git.nix
+	    ./nixos/apps/zsh.nix
+	    ./nixos/apps/common.nix
+	    home-manager.nixosModules.home-manager {
+	      home-manager.useGlobalPkgs = true;
+	      home-manager.useUserPackages = true;
+	      home-manager.sharedModules = [
+	        nixvim.homeManagerModules.nixvim
+	      ];
+	      home-manager.users.christiantaylor = import ./home-manager/home.nix;
+	    }
+	];
+      };
+
     };
   };
 }
