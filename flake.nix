@@ -30,9 +30,15 @@
           # overlays-module makes "pkgs.unstable" available in configuration.nix
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/big-mach/configuration.nix
-	    ./nixos/users/users.nix
-	    ./nixos/system/system.nix
-	    ./nixos/apps/apps.nix
+	    ./nixos/users/christian.nix
+	    ./nixos/system/desktop.nix
+	    ./nixos/system/locale.nix
+	    ./nixos/system/sound.nix
+	    ./nixos/system/xserver.nix
+	    ./nixos/apps/direnv.nix
+	    ./nixos/apps/git.nix
+	    ./nixos/apps/zsh.nix
+	    # ./nixos/services/hydra.nix
 	    home-manager.nixosModules.home-manager {
 	      home-manager.useGlobalPkgs = true;
 	      home-manager.useUserPackages = true;
