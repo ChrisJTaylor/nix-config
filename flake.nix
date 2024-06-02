@@ -88,20 +88,18 @@
           # overlays-module makes "pkgs.unstable" available in configuration.nix
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/home-wsl/configuration.nix
-	    ./nixos/users/christian-home.nix
-	    ./nixos/system/wsl.nix
+	    ./nixos/users/nixos.nix
 	    ./nixos/apps/direnv.nix
 	    ./nixos/apps/git.nix
 	    ./nixos/apps/zsh.nix
 	    ./nixos/apps/common.nix
-	    ./nixos/apps/games.nix
 	    home-manager.nixosModules.home-manager {
 	      home-manager.useGlobalPkgs = true;
 	      home-manager.useUserPackages = true;
 	      home-manager.sharedModules = [
 	        nixvim.homeManagerModules.nixvim
 	      ];
-	      home-manager.users.christian = import ./home-manager/home.nix;
+	      home-manager.users.nixos = import ./home-manager/home.nix;
 	    }
 	];
       };
@@ -114,7 +112,6 @@
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/work-wsl/configuration.nix
 	    ./nixos/users/ukctay.nix
-	    ./nixos/system/wsl.nix
 	    ./nixos/apps/direnv.nix
 	    ./nixos/apps/git.nix
 	    ./nixos/apps/zsh.nix

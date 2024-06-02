@@ -2,12 +2,29 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
-    <home-manager/nixos>
+    <nixos-wsl/modules>
   ];
+
+  wsl = {
+    enable = true;
+    defaultUser = "nixos";
+    extraBin = with pkgs; [
+      # Binaries for Docker Desktop wsl-distro-proxy
+      { src = "${coreutils}/bin/mkdir"; }
+      { src = "${coreutils}/bin/cat"; }
+      { src = "${coreutils}/bin/whoami"; }
+      { src = "${coreutils}/bin/ls"; }
+      { src = "${busybox}/bin/addgroup"; }
+      { src = "${su}/bin/groupadd"; }
+      { src = "${su}/bin/usermod"; }
+    ];
+  }; 
+
+  virtualisation.docker.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
