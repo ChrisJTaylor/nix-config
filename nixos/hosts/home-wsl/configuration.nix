@@ -11,7 +11,7 @@
 
   wsl = {
     enable = true;
-    defaultUser = "nixos";
+    defaultUser = "christian";
     extraBin = with pkgs; [
       # Binaries for Docker Desktop wsl-distro-proxy
       { src = "${coreutils}/bin/mkdir"; }
