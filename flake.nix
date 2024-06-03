@@ -67,6 +67,7 @@
 	    ./nixos/system/locale.nix
 	    ./nixos/system/sound.nix
 	    ./nixos/system/xserver.nix
+	    ./nixos/network/hosts.nix
 	    ./nixos/apps/direnv.nix
 	    ./nixos/apps/git.nix
 	    ./nixos/apps/zsh.nix
@@ -91,6 +92,7 @@
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/home-wsl/configuration.nix
 	    ./nixos/users/nixos.nix
+	    ./nixos/network/hosts.nix
 	    ./nixos/apps/direnv.nix
 	    ./nixos/apps/git.nix
 	    ./nixos/apps/zsh.nix
@@ -137,6 +139,7 @@
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/machbook/configuration.nix
 	    ./nixos/users/christiantaylor.nix
+	    ./nixos/network/hosts.nix
 	    ./nixos/apps/direnv.nix
 	    ./nixos/apps/git.nix
 	    ./nixos/apps/zsh.nix
