@@ -1,0 +1,8 @@
+{ ... }:
+
+{
+  services.jenkins = {
+    enable = true;
+  };
+
+}
