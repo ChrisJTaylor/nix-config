@@ -41,6 +41,7 @@
 	    ./nixos/apps/zsh.nix
 	    ./nixos/apps/common.nix
 	    ./nixos/apps/games.nix
+	    ./nixos/network/hosts.nix
 	    ./nixos/services/jenkins.nix
 	    ./nixos/services/nginx.nix
 	    home-manager.nixosModules.home-manager {
