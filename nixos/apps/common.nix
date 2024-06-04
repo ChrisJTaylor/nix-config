@@ -17,6 +17,7 @@
     zoxide
     lolcat
     cowsay
+    just
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

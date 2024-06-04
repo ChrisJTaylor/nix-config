@@ -14,6 +14,28 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+
+    "justfile".text = ''
+      [no-cd]
+      clear:
+        dotnet nuget locals all --clear
+
+      [no-cd]
+      clean:
+        dotnet clean --verbosity quiet
+
+      [no-cd]
+      restore:
+        dotnet restore
+
+      [no-cd]
+      build:
+        dotnet build --no-restore
+
+      [no-cd]
+      test:
+        dotnet test --no-build
+    '';
   };
 
 }
