@@ -13,6 +13,8 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 
   outputs = inputs @ { self, nixpkgs, nixvim, home-manager, ... }:
@@ -32,10 +34,10 @@
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/big-mach/configuration.nix
 	    ./nixos/users/christian.nix
-	    ./nixos/system/desktop.nix
 	    ./nixos/system/locale.nix
 	    ./nixos/system/sound.nix
 	    ./nixos/system/xserver.nix
+	    ./nixos/system/gnome.nix
 	    ./nixos/apps/direnv.nix
 	    ./nixos/apps/git.nix
 	    ./nixos/apps/zsh.nix
@@ -64,10 +66,10 @@
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/big-machbook/configuration.nix
 	    ./nixos/users/christian.nix
-	    ./nixos/system/desktop.nix
 	    ./nixos/system/locale.nix
 	    ./nixos/system/sound.nix
 	    ./nixos/system/xserver.nix
+	    ./nixos/system/hyprland-cachix.nix
 	    ./nixos/system/hyprland.nix
 	    ./nixos/network/hosts.nix
 	    ./nixos/apps/direnv.nix
