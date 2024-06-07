@@ -41,6 +41,7 @@
 	    ./nixos/apps/zsh.nix
 	    ./nixos/apps/common.nix
 	    ./nixos/apps/games.nix
+	    ./nixos/apps/personal.nix
 	    ./nixos/network/hosts.nix
 	    ./nixos/services/jenkins.nix
 	    ./nixos/services/nginx.nix
@@ -73,6 +74,7 @@
 	    ./nixos/apps/zsh.nix
 	    ./nixos/apps/common.nix
 	    ./nixos/apps/games.nix
+	    ./nixos/apps/personal.nix
 	    home-manager.nixosModules.home-manager {
 	      home-manager.useGlobalPkgs = true;
 	      home-manager.useUserPackages = true;
