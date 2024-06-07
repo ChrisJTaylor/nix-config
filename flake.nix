@@ -68,6 +68,7 @@
 	    ./nixos/system/locale.nix
 	    ./nixos/system/sound.nix
 	    ./nixos/system/xserver.nix
+	    ./nixos/system/hyprland.nix
 	    ./nixos/network/hosts.nix
 	    ./nixos/apps/direnv.nix
 	    ./nixos/apps/git.nix
