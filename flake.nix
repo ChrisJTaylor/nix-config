@@ -37,7 +37,8 @@
 	    ./nixos/system/locale.nix
 	    ./nixos/system/sound.nix
 	    ./nixos/system/xserver.nix
-	    ./nixos/system/gnome.nix
+	    ./nixos/system/hyprland-cachix.nix
+	    ./nixos/system/hyprland.nix
 	    ./nixos/apps/direnv.nix
 	    ./nixos/apps/git.nix
 	    ./nixos/apps/zsh.nix
