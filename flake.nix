@@ -37,8 +37,7 @@
 	    ./nixos/system/locale.nix
 	    ./nixos/system/sound.nix
 	    ./nixos/system/xserver.nix
-	    ./nixos/system/hyprland-cachix.nix
-	    ./nixos/system/hyprland.nix
+	    ./nixos/system/gnome.nix
 	    ./nixos/services/jenkins.nix
 	    ./nixos/services/nginx.nix
 	    ./nixos/network/hosts.nix
