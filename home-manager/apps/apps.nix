@@ -5,6 +5,7 @@
     [ 
       ./nixvim.nix
       ./alacritty.nix
+      ./kitty.nix
       ./zsh.nix
     ];
 
@@ -18,9 +19,10 @@
 
     pkgs.alacritty
     pkgs.alacritty-theme
-    pkgs.gnomeExtensions.toggle-alacritty
 
     pkgs.cider
+
+    pkgs.kitty
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
