@@ -33,6 +33,7 @@
           # overlays-module makes "pkgs.unstable" available in configuration.nix
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/big-mach/configuration.nix
+	    ./nixos/users/jenkins.nix
 	    ./nixos/users/christian.nix
 	    ./nixos/system/locale.nix
 	    ./nixos/system/sound.nix
