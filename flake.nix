@@ -33,8 +33,8 @@
           # overlays-module makes "pkgs.unstable" available in configuration.nix
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/big-mach/configuration.nix
-	    ./nixos/users/jenkins.nix
 	    ./nixos/users/christian.nix
+	    ./nixos/system/common.nix
 	    ./nixos/system/locale.nix
 	    ./nixos/system/sound.nix
 	    ./nixos/system/xserver.nix
@@ -67,6 +67,7 @@
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/big-machbook/configuration.nix
 	    ./nixos/users/christian.nix
+	    ./nixos/system/common.nix
 	    ./nixos/system/locale.nix
 	    ./nixos/system/sound.nix
 	    ./nixos/system/xserver.nix
@@ -97,6 +98,7 @@
           # overlays-module makes "pkgs.unstable" available in configuration.nix
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/home-wsl/configuration.nix
+	    ./nixos/system/common.nix
 	    ./nixos/users/nixos.nix
 	    ./nixos/network/hosts.nix
 	    ./nixos/apps/direnv.nix
@@ -121,6 +123,7 @@
           # overlays-module makes "pkgs.unstable" available in configuration.nix
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/work-wsl/configuration.nix
+	    ./nixos/system/common.nix
 	    ./nixos/system/xserver.nix
 	    ./nixos/users/ukctay.nix
 	    ./nixos/apps/direnv.nix
@@ -145,6 +148,7 @@
           # overlays-module makes "pkgs.unstable" available in configuration.nix
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/machbook/configuration.nix
+	    ./nixos/system/common.nix
 	    ./nixos/users/christiantaylor.nix
 	    ./nixos/network/hosts.nix
 	    ./nixos/apps/direnv.nix
