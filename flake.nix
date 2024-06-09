@@ -40,7 +40,7 @@
 	    ./nixos/system/gnome.nix
 	    ./nixos/services/jenkins.nix
 	    ./nixos/services/nginx.nix
-	    ./nixos/network/hosts.nix
+	    ./nixos/network/internalhosts.nix
 	    ./nixos/apps/direnv.nix
 	    ./nixos/apps/git.nix
 	    ./nixos/apps/zsh.nix

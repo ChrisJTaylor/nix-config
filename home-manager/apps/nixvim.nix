@@ -1,9 +1,11 @@
-{ pkgs, ... }: {
+{ ... }: {
   
   imports = [
     ./nixvim-keymaps.nix
     ./nixvim-highlight.nix
     ./nixvim-autocmds.nix
+    ./nixvim-lsp.nix
+    ./nixvim-testing.nix
   ];
 
   programs.nixvim = {
@@ -31,108 +33,11 @@
 
     plugins.persistence.enable = true;
 
-    plugins.refactoring.enable = true;
-    plugins.refactoring.enableTelescope = true;
-
-    plugins.neotest = {
-      enable = true;
-      adapters = {
-        dotnet = {
-	  enable = true;
-	};
-        go = {
-	  enable = true;
-	};
-        java = {
-	  enable = true;
-	};
-        plenary = {
-	  enable = true;
-	};
-        rust = {
-	  enable = true;
-	};
-        rspec = {
-	  enable = true;
-	};
-        python = {
-	  enable = true;
-	};
-        scala = {
-	  enable = true;
-	};
-        zig = {
-	  enable = true;
-	};
-      };
-      settings = {
-        output = {
-	  enabled = true;
-	  open_on_run = true;
-	};
-	output_panel = {
-	  enabled = true;
-	  open = "botright split | resize 15";
-	};
-	quickfix = {
-	  enabled = true;
-	};
-	watch = {
-	  enabled = true;
-	};
-	running = {
-	  concurrent = true;
-	};
-	state = {
-	  enabled = true;
-	};
-	discovery = {
-	  enabled = true;
-	};
-      };
-    };
-
-    plugins.coverage = {
-      enable = true;
-      autoReload = true;
-      autoReloadTimeoutMs = 1000;
-      lang = {
-        python = {
-	  coverage_file = ".coverage";
-	  coverage_command = "coverage json --fail-under=100 -q -o -";
-	};
-	ruby = {
-	  coverage_file = "coverage/coverage.json";
-	};
-      };
-    };
-
     plugins.nvim-lightbulb.enable = false;
     plugins.lightline.enable = true;
     plugins.navic.enable = true;
     plugins.which-key.enable = true;
     plugins.surround.enable = true;
-
-    plugins.auto-save = {
-      enable = true;
-      enableAutoSave = true;
-      triggerEvents = [
-        "InsertLeave"
-	"TextChanged"
-      ];
-      writeAllBuffers = true;
-      executionMessage = {
-        dim = 0.50;
-	cleaningInterval = 1250;
-	message = {
-	  __raw = ''
-	    function()
-	      return ("AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"))
-	    end
-	 '';
-	};
-      };
-    };
 
     plugins.neo-tree = {
       enable = true;
@@ -144,6 +49,27 @@
 
     plugins.telescope = {
       enable = true;
+      keymaps = {
+	"<C-p>" = {
+	  action = "git_files";
+	    options = {
+	      desc = "Telescope Git Files";
+	    };
+	};
+	"<leader>fg" = "live_grep";
+      };
+      settings = {
+        defaults = {
+	  file_ignore_patterns = [
+	    "^.git/"
+            "^.mypy_cache/"
+            "^__pycache__/"
+            "^output/"
+            "^data/"
+            "%.ipynb"
+	  ];
+	};
+      };
     };
 
     plugins.treesitter = {
@@ -151,56 +77,6 @@
       ensureInstalled = "all";
       folding = false;
       nixvimInjections = true;
-    };
-
-    plugins.lspsaga.enable = true;
-    plugins.lspsaga.lightbulb.enable = false;
-
-    plugins.lsp = {
-      enable = true;
-      capabilities = "";
-      servers = {
-	nil_ls.enable = true;
-        pylsp = {
-	  enable = true;
-	  autostart = true;
-	};
-	csharp-ls = {
-	  enable = true;
-	  autostart = true;
-	};
-	gopls = {
-	  enable = true;
-	  autostart = true;
-	};
-	html = {
-	  enable = true;
-	  autostart = true;
-	};
-	lua-ls = {
-	  enable = true;
-	  autostart = true;
-	};
-	rust-analyzer = {
-	  enable = true;
-	  autostart = true;
-	  installCargo = true;
-	  installRustc = true;
-	};
-	terraformls = {
-	  enable = true;
-	  autostart = true;
-	};
-	yamlls = {
-	  enable = true;
-	  autostart = true;
-	};
-      };
-    };
-
-    plugins.cmp = {
-      enable = true;
-      autoEnableSources = true;
     };
 
   };
