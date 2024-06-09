@@ -2,9 +2,6 @@
   
   programs.nixvim = {
 
-    plugins.refactoring.enable = true;
-    plugins.refactoring.enableTelescope = true;
-
     plugins.neotest = {
       enable = true;
       adapters = {

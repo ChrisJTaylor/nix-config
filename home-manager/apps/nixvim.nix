@@ -6,6 +6,7 @@
     ./nixvim-autocmds.nix
     ./nixvim-lsp.nix
     ./nixvim-testing.nix
+    ./nixvim-treesitter.nix
   ];
 
   programs.nixvim = {
@@ -47,6 +48,9 @@
       closeIfLastWindow = true;
     };
 
+    plugins.refactoring.enable = true;
+    plugins.refactoring.enableTelescope = true;
+
     plugins.telescope = {
       enable = true;
       keymaps = {
@@ -70,13 +74,6 @@
 	  ];
 	};
       };
-    };
-
-    plugins.treesitter = {
-      enable = true;
-      ensureInstalled = "all";
-      folding = false;
-      nixvimInjections = true;
     };
 
   };
