@@ -120,6 +120,7 @@
           # overlays-module makes "pkgs.unstable" available in configuration.nix
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/work-wsl/configuration.nix
+	    ./nixos/system/xserver.nix
 	    ./nixos/users/ukctay.nix
 	    ./nixos/apps/direnv.nix
 	    ./nixos/apps/git.nix

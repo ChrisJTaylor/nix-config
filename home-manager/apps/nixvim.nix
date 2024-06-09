@@ -116,8 +116,22 @@
     plugins.auto-save = {
       enable = true;
       enableAutoSave = true;
-      triggerEvents = ["InsertLeave" "TextChanged"];
+      triggerEvents = [
+        "InsertLeave"
+	"TextChanged"
+      ];
       writeAllBuffers = true;
+      executionMessage = {
+        dim = 0.50;
+	cleaningInterval = 1250;
+	message = {
+	  __raw = ''
+	    function()
+	      return ("AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S"))
+	    end
+	 '';
+	};
+      };
     };
 
     plugins.neo-tree = {
