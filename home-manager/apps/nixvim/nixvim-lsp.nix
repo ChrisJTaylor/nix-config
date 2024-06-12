@@ -5,7 +5,7 @@
     plugins.lspsaga = {
       enable = true;
       lightbulb = {
-        enable = true;
+        enable = false;
 	virtualText = true;
       };
       outline = {
@@ -34,9 +34,18 @@
 	  enable = true;
 	  autostart = true;
 	};
-	csharp-ls = {
+	omnisharp = {
 	  enable = true;
 	  autostart = true;
+	  filetypes = [
+	    "cs" "vb" "csproj" "sln" "slnx" "props" "csx" "targets"
+	  ];
+	  settings = {
+	    analyzeOpenDocumentsOnly = true;
+	    enableImportCompletion = true;
+	    organizeImportsOnFormat = true;
+	    enableRoslynAnalyzers = true;
+	  };
 	};
 	gopls = {
 	  enable = true;
