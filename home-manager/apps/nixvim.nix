@@ -7,6 +7,8 @@
     ./nixvim/nixvim-lsp.nix
     ./nixvim/nixvim-testing.nix
     ./nixvim/nixvim-treesitter.nix
+    ./nixvim/nixvim-git.nix
+    ./nixvim/nixvim-godot.nix
   ];
 
   programs.nixvim = {
