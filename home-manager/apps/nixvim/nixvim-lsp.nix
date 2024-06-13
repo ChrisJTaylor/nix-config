@@ -2,8 +2,28 @@
   
   programs.nixvim = {
 
-    plugins.lspsaga.enable = true;
-    plugins.lspsaga.lightbulb.enable = false;
+    plugins.lspsaga = {
+      enable = true;
+      lightbulb = {
+        enable = false;
+	virtualText = true;
+      };
+      outline = {
+        autoPreview = true;
+	detail = true;
+      };
+      rename = {
+        autoSave = true;
+      };
+      implement = {
+        enable = true;
+	virtualText = true;
+      };
+      hover = {
+        maxHeight = 0.8;
+	maxWidth = 0.9;
+      };
+    };
 
     plugins.lsp = {
       enable = true;
@@ -14,9 +34,18 @@
 	  enable = true;
 	  autostart = true;
 	};
-	csharp-ls = {
+	omnisharp = {
 	  enable = true;
 	  autostart = true;
+	  filetypes = [
+	    "cs" "vb" "csproj" "sln" "slnx" "props" "csx" "targets"
+	  ];
+	  settings = {
+	    analyzeOpenDocumentsOnly = true;
+	    enableImportCompletion = true;
+	    organizeImportsOnFormat = true;
+	    enableRoslynAnalyzers = true;
+	  };
 	};
 	gopls = {
 	  enable = true;

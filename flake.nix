@@ -35,6 +35,7 @@
 	    ./nixos/hosts/big-mach/configuration.nix
 	    ./nixos/users/christian.nix
 	    ./nixos/system/common.nix
+	    ./nixos/system/virtualbox.nix
 	    ./nixos/system/locale.nix
 	    ./nixos/system/sound.nix
 	    ./nixos/system/xserver.nix

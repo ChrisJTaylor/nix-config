@@ -1,12 +1,14 @@
 { ... }: {
   
   imports = [
-    ./nixvim-keymaps.nix
-    ./nixvim-highlight.nix
-    ./nixvim-autocmds.nix
-    ./nixvim-lsp.nix
-    ./nixvim-testing.nix
-    ./nixvim-treesitter.nix
+    ./nixvim/nixvim-keymaps.nix
+    ./nixvim/nixvim-highlight.nix
+    ./nixvim/nixvim-autocmds.nix
+    ./nixvim/nixvim-lsp.nix
+    ./nixvim/nixvim-testing.nix
+    ./nixvim/nixvim-treesitter.nix
+    ./nixvim/nixvim-git.nix
+    ./nixvim/nixvim-godot.nix
   ];
 
   programs.nixvim = {
