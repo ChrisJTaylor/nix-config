@@ -65,6 +65,10 @@
       autoReload = true;
       autoReloadTimeoutMs = 1000;
       lang = {
+	dotnet = {
+	  coverage_file = "test-results/lcov.info";
+	  coverage_command = "just t";
+	};
         python = {
 	  coverage_file = ".coverage";
 	  coverage_command = "coverage json --fail-under=100 -q -o -";

@@ -16,25 +16,48 @@
     # '';
 
     "justfile".text = ''
-      [no-cd]
-      clear:
-        dotnet nuget locals all --clear
+alias b := build-and-test
+test_results := "./test-results"
+coverage_results := "./coverage-results"
+artifacts := "./artifacts"
+configuration := "Release"
+project_test_result_name := "coverage.cobertura.xml"
+test_filter := "FullyQualifiedName!~IntegrationTests&FullyQualifiedName!~StagingTests&FullyQualifiedName!~ContractTests"
 
-      [no-cd]
-      clean:
-        dotnet clean --verbosity quiet
+[no-cd]
+clean: 
+  dotnet clean
+  dotnet nuget locals all --clear
 
-      [no-cd]
-      restore:
-        dotnet restore
+[no-cd]
+restore:
+  dotnet restore
+  dotnet tool restore
 
-      [no-cd]
-      build:
-        dotnet build --no-restore
+[no-cd]
+build:
+  dotnet build --no-restore -c "{{configuration}}"
 
-      [no-cd]
-      test:
-        dotnet test --no-build
+[no-cd]
+clear-previous-results:
+  find . -type f -name "{{project_test_result_name}}" -exec sh -c 'rm -r "$(dirname "{}")"' \;  
+
+[no-cd]
+test: clear-previous-results
+  dotnet test --filter "{{test_filter}}" --configuration "{{configuration}}" --no-build --collect "XPlat Code Coverage" --results-directory "{{test_results}}" 
+
+[no-cd]
+coverage:
+  #!/usr/bin/env bash
+  dotnet reportgenerator -reports:**/test-results/*/coverage.cobertura.xml -reporttypes:lcov -targetdir:test-results 
+
+[no-cd]
+package:
+  dotnet pack --no-build --configuration "{{configuration}}" -o "{{artifacts}}"
+
+[no-cd]
+build-and-test: clean restore build test coverage
+  @echo "Done."
     '';
   };
 
