@@ -17,6 +17,7 @@
 
     "justfile".text = ''
 alias b := build-and-test
+alias t := coverage
 test_results := "./test-results"
 coverage_results := "./coverage-results"
 artifacts := "./artifacts"
@@ -44,19 +45,24 @@ clear-previous-results:
 
 [no-cd]
 test: clear-previous-results
-  dotnet test --filter "{{test_filter}}" --configuration "{{configuration}}" --no-build --collect "XPlat Code Coverage" --results-directory "{{test_results}}" 
+  dotnet test --filter "{{test_filter}}" --configuration "{{configuration}}" --collect "XPlat Code Coverage" --results-directory "{{test_results}}" 
 
 [no-cd]
-coverage:
+coverage: 
   #!/usr/bin/env bash
-  dotnet reportgenerator -reports:**/test-results/*/coverage.cobertura.xml -reporttypes:lcov -targetdir:test-results 
+  dotnet reportgenerator -reports:**/{{test_results}}/*/coverage.cobertura.xml -reporttypes:lcov -targetdir:{{test_results}} 
 
 [no-cd]
 package:
   dotnet pack --no-build --configuration "{{configuration}}" -o "{{artifacts}}"
 
 [no-cd]
-build-and-test: clean restore build test coverage
+sloc:
+  @echo "`wc -l **/*.cs` lines of code"
+
+[no-cd]
+build-and-test: clean restore build test 
+  just coverage
   @echo "Done."
     '';
   };
