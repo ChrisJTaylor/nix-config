@@ -209,6 +209,8 @@
       action = ">at";
       options.desc = "Indent inner block with angle brackets";
     }
+    
+    # Lspsaga
     {
       mode = "n";
       key = "K";
@@ -216,8 +218,6 @@
       action = "<CMD>Lspsaga hover_doc<Enter>";
       options.desc = "Tooltip";
     }
-    
-    # Lspsaga
     {
       mode = "n";
       key = "<leader>a";

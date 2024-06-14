@@ -2,6 +2,15 @@
   
   programs.nixvim = {
 
+    plugins.lsp-format = {
+      enable = true;
+      lspServersToEnable = "all";
+    };
+
+    plugins.lsp-lines = {
+      enable = true;
+    };
+
     plugins.lspsaga = {
       enable = true;
       lightbulb = {
@@ -70,6 +79,18 @@
 	  autostart = true;
 	};
 	yamlls = {
+	  enable = true;
+	  autostart = true;
+	};
+	bashls = {
+	  enable = true;
+	  autostart = true;
+	};
+	gleam = {
+	  enable = true;
+	  autostart = true;
+	};
+	marksman = {
 	  enable = true;
 	  autostart = true;
 	};

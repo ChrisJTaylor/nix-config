@@ -7,11 +7,14 @@
       ensureInstalled = "all";
       folding = false;
       nixvimInjections = true;
+      nixGrammars = true;
     };
 
     plugins.treesitter-context = {
       enable = true;
       settings = {
+        enable = true;
+	mode = "topline";
 	line_numbers = true;
       };
     };
