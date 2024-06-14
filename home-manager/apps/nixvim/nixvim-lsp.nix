@@ -38,7 +38,7 @@
       enable = true;
       capabilities = "";
       servers = {
-	nil_ls.enable = true;
+	nil-ls.enable = true;
         pylsp = {
 	  enable = true;
 	  autostart = true;
