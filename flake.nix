@@ -2,7 +2,7 @@
   description = "Home Manager and NixOS configurations";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=24.05";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -72,8 +72,7 @@
 	    ./nixos/system/locale.nix
 	    ./nixos/system/sound.nix
 	    ./nixos/system/xserver.nix
-	    ./nixos/system/hyprland-cachix.nix
-	    ./nixos/system/hyprland.nix
+	    ./nixos/system/gnome.nix
 	    ./nixos/network/hosts.nix
 	    ./nixos/apps/direnv.nix
 	    ./nixos/apps/git.nix
