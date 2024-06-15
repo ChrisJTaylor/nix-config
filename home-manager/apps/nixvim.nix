@@ -15,6 +15,23 @@
     enable = true;
     defaultEditor = true;
 
+    colorschemes.cyberdream.enable = true;
+
+    opts = {
+      number = true;
+      relativenumber = true;
+      shiftwidth = 2;
+      clipboard = "unnamedplus";
+      undofile = true;
+      ignorecase = true;
+      smartcase = true;
+      timeoutlen = 300;
+      splitright = true;
+      splitbelow = true;
+      scrolloff = 10;
+      hlsearch = true;
+    };
+
     plugins.neo-tree = {
       enable = true;
       enableGitStatus = true;
