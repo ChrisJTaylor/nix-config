@@ -8,6 +8,7 @@
     ./nixvim/nixvim-treesitter.nix
     ./nixvim/nixvim-cmp.nix
     ./nixvim/nixvim-lsp-exp.nix
+    ./nixvim/nixvim-lspsaga.nix
 #    ./nixvim/nixvim-testing.nix
 #    ./nixvim/nixvim-git.nix
 #    ./nixvim/nixvim-godot.nix
