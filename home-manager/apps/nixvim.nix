@@ -4,6 +4,7 @@
     ./nixvim/nixvim-keymaps.nix
 #    ./nixvim/nixvim-highlight.nix
 #    ./nixvim/nixvim-autocmds.nix
+    ./nixvim/nixvim-telescope.nix
     ./nixvim/nixvim-cmp.nix
     ./nixvim/nixvim-lsp-exp.nix
 #    ./nixvim/nixvim-testing.nix
