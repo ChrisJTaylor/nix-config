@@ -11,7 +11,13 @@
       settings = {
         autocomplete = ["require('cmp.types').cmp.TriggerEvent,TextChanged,BufReadPre,BufNewFile"];
 
-	view.docs.auto_open = true;
+        view = {
+	  entries = {
+	    name = "custom";
+	    selection_order = "top_down";
+	  };
+	  docs.auto_open = true;
+	};
 	preselect = "cmp.PreselectMode.Item";
 	sorting = {
 	  comparators = [
