@@ -2,14 +2,14 @@
   
   imports = [
     ./nixvim/nixvim-keymaps.nix
-#    ./nixvim/nixvim-highlight.nix
     ./nixvim/nixvim-autocmds.nix
     ./nixvim/nixvim-telescope.nix
     ./nixvim/nixvim-treesitter.nix
     ./nixvim/nixvim-cmp.nix
     ./nixvim/nixvim-lsp.nix
     ./nixvim/nixvim-lspsaga.nix
-#    ./nixvim/nixvim-testing.nix
+    ./nixvim/nixvim-testing.nix
+    ./nixvim/nixvim-coverage.nix
 #    ./nixvim/nixvim-git.nix
 #    ./nixvim/nixvim-godot.nix
   ];
