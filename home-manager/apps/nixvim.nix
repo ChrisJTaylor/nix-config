@@ -2,11 +2,14 @@
   
   imports = [
     ./nixvim/nixvim-keymaps.nix
-    ./nixvim/nixvim-highlight.nix
     ./nixvim/nixvim-autocmds.nix
-    ./nixvim/nixvim-lsp.nix
-    ./nixvim/nixvim-testing.nix
+    ./nixvim/nixvim-telescope.nix
     ./nixvim/nixvim-treesitter.nix
+    ./nixvim/nixvim-cmp.nix
+    ./nixvim/nixvim-lsp.nix
+    ./nixvim/nixvim-lspsaga.nix
+    ./nixvim/nixvim-testing.nix
+    ./nixvim/nixvim-coverage.nix
     ./nixvim/nixvim-git.nix
     ./nixvim/nixvim-godot.nix
   ];
@@ -15,7 +18,9 @@
     enable = true;
     defaultEditor = true;
 
-    colorschemes.tokyonight.enable = true;
+    colorschemes.cyberdream.enable = true;
+
+    clipboard.providers.xclip.enable = true;
 
     opts = {
       number = true;
@@ -32,16 +37,6 @@
       hlsearch = true;
     };
 
-    clipboard.providers.xclip.enable = true;
-
-    plugins.persistence.enable = true;
-
-    plugins.nvim-lightbulb.enable = false;
-    plugins.lightline.enable = true;
-    plugins.navic.enable = true;
-    plugins.which-key.enable = true;
-    plugins.surround.enable = true;
-
     plugins.neo-tree = {
       enable = true;
       enableGitStatus = true;
@@ -50,34 +45,8 @@
       closeIfLastWindow = true;
     };
 
-    plugins.refactoring.enable = true;
-    plugins.refactoring.enableTelescope = true;
-
-    plugins.telescope = {
-      enable = true;
-      keymaps = {
-	"<C-p>" = {
-	  action = "git_files";
-	    options = {
-	      desc = "Telescope Git Files";
-	    };
-	};
-	"<leader>fg" = "live_grep";
-      };
-      settings = {
-        defaults = {
-	  file_ignore_patterns = [
-	    "^.git/"
-            "^.mypy_cache/"
-            "^__pycache__/"
-            "^output/"
-            "^data/"
-            "%.ipynb"
-	  ];
-	};
-      };
-    };
-
+    plugins.lightline.enable = true;
+    plugins.which-key.enable = true;
   };
 }
 

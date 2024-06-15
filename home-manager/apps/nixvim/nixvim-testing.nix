@@ -7,9 +7,6 @@
       adapters = {
         dotnet = {
 	  enable = true;
-	  settings = {
-	    
-	  };
 	};
         go = {
 	  enable = true;
@@ -55,6 +52,10 @@
 	running = {
 	  concurrent = true;
 	};
+	status = {
+	  enabled = true;
+	  signs = true;
+	};
 	state = {
 	  enabled = true;
 	};
@@ -87,25 +88,6 @@
 	      target = "t";
 	      watch = "w";
 	  };
-	};
-      };
-    };
-
-    plugins.coverage = {
-      enable = true;
-      autoReload = true;
-      autoReloadTimeoutMs = 1000;
-      lang = {
-	dotnet = {
-	  coverage_file = "test-results/lcov.info";
-	  coverage_command = "just t";
-	};
-        python = {
-	  coverage_file = ".coverage";
-	  coverage_command = "coverage json --fail-under=100 -q -o -";
-	};
-	ruby = {
-	  coverage_file = "coverage/coverage.json";
 	};
       };
     };
