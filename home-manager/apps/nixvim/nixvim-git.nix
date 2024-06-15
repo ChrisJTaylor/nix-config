@@ -7,7 +7,7 @@
     };
 
     plugins.gitgutter = {
-      enable = true;
+      enable = false;
     };
 
     plugins.git-worktree = {
