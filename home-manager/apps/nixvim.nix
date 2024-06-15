@@ -3,7 +3,7 @@
   imports = [
     ./nixvim/nixvim-keymaps.nix
 #    ./nixvim/nixvim-highlight.nix
-#    ./nixvim/nixvim-autocmds.nix
+    ./nixvim/nixvim-autocmds.nix
     ./nixvim/nixvim-telescope.nix
     ./nixvim/nixvim-treesitter.nix
     ./nixvim/nixvim-cmp.nix
