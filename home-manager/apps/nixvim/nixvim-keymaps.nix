@@ -181,20 +181,6 @@
     }
     {
       mode = "n";
-      key = "<leader>y";
-      options.silent = true;
-      action = ''"+y'';
-      options.desc = "Yank to clipboard";
-    }
-    {
-      mode = "n";
-      key = "<leader>p";
-      options.silent = true;
-      action = ''"+p'';
-      options.desc = "Paste from clipboard";
-    }
-    {
-      mode = "n";
       key = "<leader>={";
       options.silent = true;
       action = "=%";
