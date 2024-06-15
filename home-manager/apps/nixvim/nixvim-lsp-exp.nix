@@ -21,60 +21,49 @@
 	    enableDecompilationSupport = true;
 	  };
 	};
-      };
-    };
-
-    plugins.lsp.keymaps = {
-      lspBuf = {
-	gD = "references";
-	gd = "definition";
-	gi = "implementation";
-	gt = "type_definition";
-      };
-    };
-    
-    plugins.cmp-nvim-lsp.enable = true;
-
-    plugins.cmp = {
-      enable = true;
-      autoEnableSources = true;
-
-      settings = {
-        autocomplete = ["require('cmp.types').cmp.TriggerEvent,TextChanged,BufReadPre,BufNewFile"];
-	view.docs.auto_open = true;
-	filetype = {
-	  python = {
-	    sources = [
-	      {
-	        name = "nvim_lsp";
-	      }
-	    ];
-	  };
-	  dotnet = {
-	    sources = [
-	      {
-	        name = "nvim_lsp";
-	      }
-	    ];
-	  };
+        pylsp = {
+	  enable = true;
+	  autostart = true;
 	};
-
-        sources = [
-	  {
-	    name = "nvim_lsp";
-	  }
-	  {
-	    name = "luasnip";
-	  }
-	  {
-	    name = "path";
-	  }
-	  {
-	    name = "buffer";
-	  }
-	];
+	gopls = {
+	  enable = true;
+	  autostart = true;
+	};
+	html = {
+	  enable = true;
+	  autostart = true;
+	};
+	lua-ls = {
+	  enable = true;
+	  autostart = true;
+	};
+	rust-analyzer = {
+	  enable = true;
+	  autostart = true;
+	  installCargo = true;
+	  installRustc = true;
+	};
+	terraformls = {
+	  enable = true;
+	  autostart = true;
+	};
+	yamlls = {
+	  enable = true;
+	  autostart = true;
+	};
+	bashls = {
+	  enable = true;
+	  autostart = true;
+	};
+	gleam = {
+	  enable = true;
+	  autostart = true;
+	};
+	marksman = {
+	  enable = true;
+	  autostart = true;
+	};
       };
-
     };
 
   };

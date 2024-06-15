@@ -39,10 +39,6 @@
       capabilities = "";
       servers = {
 	nil-ls.enable = true;
-        pylsp = {
-	  enable = true;
-	  autostart = true;
-	};
 	omnisharp = {
 	  enable = true;
 	  autostart = true;
@@ -55,6 +51,10 @@
 	    organizeImportsOnFormat = true;
 	    enableRoslynAnalyzers = true;
 	  };
+	};
+        pylsp = {
+	  enable = true;
+	  autostart = true;
 	};
 	gopls = {
 	  enable = true;
