@@ -5,10 +5,10 @@
 #    ./nixvim/nixvim-highlight.nix
 #    ./nixvim/nixvim-autocmds.nix
     ./nixvim/nixvim-telescope.nix
+    ./nixvim/nixvim-treesitter.nix
     ./nixvim/nixvim-cmp.nix
     ./nixvim/nixvim-lsp-exp.nix
 #    ./nixvim/nixvim-testing.nix
-#    ./nixvim/nixvim-treesitter.nix
 #    ./nixvim/nixvim-git.nix
 #    ./nixvim/nixvim-godot.nix
   ];
