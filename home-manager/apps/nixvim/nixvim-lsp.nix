@@ -2,36 +2,12 @@
   
   programs.nixvim = {
 
-    plugins.lsp-format = {
+    plugins.lsp-status = {
       enable = true;
-      lspServersToEnable = "all";
     };
 
     plugins.lsp-lines = {
       enable = true;
-    };
-
-    plugins.lspsaga = {
-      enable = true;
-      lightbulb = {
-        enable = false;
-	virtualText = true;
-      };
-      outline = {
-        autoPreview = true;
-	detail = true;
-      };
-      rename = {
-        autoSave = true;
-      };
-      implement = {
-        enable = true;
-	virtualText = true;
-      };
-      hover = {
-        maxHeight = 0.8;
-	maxWidth = 0.9;
-      };
     };
 
     plugins.lsp = {
@@ -50,6 +26,7 @@
 	    enableImportCompletion = true;
 	    organizeImportsOnFormat = true;
 	    enableRoslynAnalyzers = true;
+	    enableDecompilationSupport = true;
 	  };
 	};
         pylsp = {
@@ -95,26 +72,6 @@
 	  autostart = true;
 	};
       };
-    };
-
-    plugins.lsp.keymaps = {
-      lspBuf = {
-	gD = "references";
-	gd = "definition";
-	gi = "implementation";
-	gt = "type_definition";
-      };
-    };
-
-    plugins.cmp = {
-      enable = true;
-      autoEnableSources = true;
-    };
-
-    plugins.cmp.settings.mapping = {
-      "<C-Space>" = "cmp.mapping.complete()";
-      "<CR>" = "cmp.mapping.confirm({ select = true })";
-      "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
     };
 
   };

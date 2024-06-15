@@ -7,7 +7,7 @@
     ./nixvim/nixvim-telescope.nix
     ./nixvim/nixvim-treesitter.nix
     ./nixvim/nixvim-cmp.nix
-    ./nixvim/nixvim-lsp-exp.nix
+    ./nixvim/nixvim-lsp.nix
     ./nixvim/nixvim-lspsaga.nix
 #    ./nixvim/nixvim-testing.nix
 #    ./nixvim/nixvim-git.nix
@@ -19,6 +19,8 @@
     defaultEditor = true;
 
     colorschemes.cyberdream.enable = true;
+
+    clipboard.providers.xclip.enable = true;
 
     opts = {
       number = true;
@@ -42,6 +44,9 @@
       enableRefreshOnWrite = true;
       closeIfLastWindow = true;
     };
+
+    plugins.lightline.enable = true;
+    plugins.which-key.enable = true;
   };
 }
 
