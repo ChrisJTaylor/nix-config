@@ -12,6 +12,8 @@
         enable = true;
 	folderLevel = 1;
 	showFile = true;
+	colorMode = true;
+	hideKeyword = false;
       };
 
     };

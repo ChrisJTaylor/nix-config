@@ -2,6 +2,10 @@
   
   programs.nixvim = {
 
+    plugins.lsp-status = {
+      enable = true;
+    };
+
     plugins.lsp = {
       enable = true;
       capabilities = "";

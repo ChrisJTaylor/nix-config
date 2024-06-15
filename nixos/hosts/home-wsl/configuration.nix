@@ -12,6 +12,7 @@
   wsl = {
     enable = true;
     defaultUser = "christian";
+    useWindowsDriver = true;
     extraBin = with pkgs; [
       # Binaries for Docker Desktop wsl-distro-proxy
       { src = "${coreutils}/bin/mkdir"; }
