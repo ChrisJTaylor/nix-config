@@ -3,6 +3,19 @@
   programs.nixvim = {
 
     autoCmd = [
+
+      {
+        event = [ "VimEnter" ];
+	pattern = ["*.cs"];
+	command = ":lua vim.fn.system('just t')";
+      }
+
+      {
+        event = [ "BufWritePost" ];
+	pattern = ["*.cs"];
+	command = ":lua vim.fn.system('just t')";
+      }
+      
       {
         event = [ "Filetype" ];
 	pattern = ["*.py"];

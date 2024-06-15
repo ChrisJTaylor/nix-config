@@ -45,10 +45,10 @@ clear-previous-results:
 
 [no-cd]
 test: clear-previous-results
-  dotnet test --filter "{{test_filter}}" --configuration "{{configuration}}" --collect "XPlat Code Coverage" --results-directory "{{test_results}}" 
+  -dotnet test --filter "{{test_filter}}" --configuration "{{configuration}}" --collect "XPlat Code Coverage" --results-directory "{{test_results}}" 
 
 [no-cd]
-coverage: 
+coverage: test 
   #!/usr/bin/env bash
   dotnet reportgenerator -reports:**/{{test_results}}/*/coverage.cobertura.xml -reporttypes:lcov -targetdir:{{test_results}} 
 
