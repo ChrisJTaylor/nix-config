@@ -279,6 +279,13 @@
     # coverage
     {
       mode = "n";
+      key = "<A-l>";
+      options.silent = true;
+      action = "<cmd>:CoverageLoad<CR>";
+      options.desc = "Load coverage";
+    }
+    {
+      mode = "n";
       key = "<A-s>";
       options.silent = true;
       action = "<cmd>:CoverageSummary<CR>";
