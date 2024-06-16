@@ -4,7 +4,6 @@
   imports =
     [ 
       ./nixvim.nix
-      ./alacritty.nix
       ./kitty.nix
       ./zsh.nix
     ];

@@ -278,13 +278,6 @@
     }
     {
       mode = "n";
-      key = "<A-l>";
-      options.silent = true;
-      action = "<cmd>:CoverageLoad<CR>";
-      options.desc = "Load coverage";
-    }
-    {
-      mode = "n";
       key = "<A-c>";
       options.silent = true;
       action = "<cmd>:CoverageToggle<CR>";

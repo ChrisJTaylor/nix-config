@@ -8,7 +8,7 @@
       autoReloadTimeoutMs = 1000;
       commands = true;
       lang = {
-	dotnet = {
+	cs = {
 	  coverage_file = "test-results/lcov.info";
 	};
         python = {

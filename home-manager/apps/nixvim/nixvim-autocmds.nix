@@ -7,30 +7,12 @@
       {
         event = [ "VimEnter" ];
 	pattern = ["*.cs"];
-	command = ":lua vim.fn.system('just t')";
+	command = ":CoverageLoad";
       }
 
-      {
-        event = [ "BufWritePost" ];
-	pattern = ["*.cs"];
-	command = ":lua vim.fn.system('just t')";
-      }
-      
       {
         event = [ "Filetype" ];
 	pattern = ["*.py"];
-	command = ":CoverageShow";
-      }
-
-      {
-        event = [ "BufEnter" "WinEnter" ];
-	pattern = ["*.cs"];
-	command = ":CoverageLoadLcov test-results/lcov.info";
-      }
-
-      {
-        event = [ "BufWinEnter" ];
-	pattern = ["*.cs"];
 	command = ":CoverageShow";
       }
 
