@@ -5,8 +5,8 @@
     enable = true;
     shellIntegration.enableZshIntegration = true;
     font = {
-      name = "FiraCode Nerd Font";
-      size = 12;
+      name = "SourceCodePro Nerd Font";
+      size = 10;
     };
     settings = {
       background_opacity = "0.8";

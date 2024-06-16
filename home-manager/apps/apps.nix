@@ -29,7 +29,13 @@
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+    (pkgs.nerdfonts.override { fonts = [ 
+        "FiraCode"
+        "DroidSansMono"
+	"JetBrainsMono"
+	"SourceCodePro"
+      ]; 
+    })
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -47,39 +53,6 @@
   programs.navi = {
     enable = true;
     enableZshIntegration = true;
-  };
-
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      shell = "zsh";
-      window = {
-        opacity = 0.6;
-	dimensions = {
-	  columns = 160;
-	  lines = 60;
-	};
-	padding = {
-	  x = 22;
-	  y = 22;
-	};
-      };
-      font = {
-        normal = { 
-	  family = "FiraCode Nerd Font";
-	  style = "Regular";
-	};
-      };
-      terminal = {
-        osc52 = "CopyPaste";
-      };
-      selection = {
-        save_to_clipboard = true;
-      };
-      mouse = {
-        hide_when_typing = true;
-      };
-    };
   };
 
 }
