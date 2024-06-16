@@ -30,6 +30,9 @@
       smartRename.enable = true;
     };
 
+    plugins.refactoring.enable = true;
+    plugins.refactoring.enableTelescope = true;
+
   };
 
 }

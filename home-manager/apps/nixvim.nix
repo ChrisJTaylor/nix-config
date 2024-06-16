@@ -12,14 +12,13 @@
     ./nixvim/nixvim-coverage.nix
     ./nixvim/nixvim-git.nix
     ./nixvim/nixvim-godot.nix
-    ./nixvim/nixvim-toggleterm.nix
   ];
 
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
 
-    colorschemes.cyberdream.enable = true;
+    colorschemes.kanagawa.enable = true;
 
     clipboard.providers.xclip.enable = true;
 
@@ -46,8 +45,15 @@
       closeIfLastWindow = true;
     };
 
+    plugins.dressing.enable = true;
+
     plugins.lightline.enable = true;
     plugins.which-key.enable = true;
+
+    plugins.diffview.enable = true;
+
+    plugins.nix.enable = true;
+    plugins.nix-develop.enable = true;
   };
 }
 
