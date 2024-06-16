@@ -11,14 +11,28 @@
 	    discovery_root = "solution";
 	  };
 	};
+        go = {
+	  enable = true;
+	};
+        java = {
+	  enable = true;
+	};
+        plenary = {
+	  enable = true;
+	};
+        rust = {
+	  enable = true;
+	};
+        rspec = {
+	  enable = true;
+	};
+        python = {
+	  enable = true;
+	};
       };
 
       settings = {
         log_level = 1;
-	diagnostic = {
-	  enabled = true;
-	  severity = "error";
-	};
         output = {
 	  enabled = true;
 	  open_on_run = true;
