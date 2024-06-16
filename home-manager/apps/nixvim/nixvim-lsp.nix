@@ -12,7 +12,6 @@
 
     plugins.lsp = {
       enable = true;
-      capabilities = "";
       servers = {
 	nil-ls.enable = true;
 	omnisharp = {
