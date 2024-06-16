@@ -7,34 +7,18 @@
       adapters = {
         dotnet = {
 	  enable = true;
-	};
-        go = {
-	  enable = true;
-	};
-        java = {
-	  enable = true;
-	};
-        plenary = {
-	  enable = true;
-	};
-        rust = {
-	  enable = true;
-	};
-        rspec = {
-	  enable = true;
-	};
-        python = {
-	  enable = true;
-	};
-        scala = {
-	  enable = true;
-	};
-        zig = {
-	  enable = true;
+	  settings = {
+	    discovery_root = "solution";
+	  };
 	};
       };
 
       settings = {
+        log_level = 1;
+	diagnostic = {
+	  enabled = true;
+	  severity = "error";
+	};
         output = {
 	  enabled = true;
 	  open_on_run = true;

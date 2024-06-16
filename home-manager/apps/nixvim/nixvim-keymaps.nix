@@ -201,22 +201,6 @@
       options.desc = "Indent inner block with angle brackets";
     }
     
-    # neotest shortcuts
-    {
-      mode = "n";
-      key = "<C-t>";
-      options.silent = true;
-      action = "<cmd>:lua require('neotest').run.run()<CR>";
-      options.desc = "Run all tests";
-    }
-    {
-      mode = "n";
-      key = "<C-w>";
-      options.silent = true;
-      action = "<cmd>:lua require('neotest').watch.toggle(vim.fn.expand('%'))<CR>";
-      options.desc = "Toggle watch current file (neotest)";
-    }
-
     # Lspsaga
     {
       mode = "n";
@@ -267,6 +251,30 @@
       action = "<cmd>:Lspsaga finder def+ref+imp<CR>";
       options.desc = "Show LSP finder (definitions, references and implementations";
     }
+
+    # neotest shortcuts
+    {
+      mode = "n";
+      key = "<A-t>";
+      options.silent = true;
+      action = "<cmd>:Neotest summary<CR>";
+      options.desc = "Show test summary";
+    }
+    {
+      mode = "n";
+      key = "<A-r>";
+      options.silent = true;
+      action = "<cmd>:Neotest run<CR>";
+      options.desc = "Run all tests";
+    }
+    {
+      mode = "n";
+      key = "<C-w>";
+      options.silent = true;
+      action = "<cmd>:lua require('neotest').watch.toggle(vim.fn.expand('%'))<CR>";
+      options.desc = "Toggle watch current file (neotest)";
+    }
+
 
     # coverage
     {
