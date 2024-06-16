@@ -216,7 +216,83 @@
       action = "<cmd>:lua require('neotest').watch.toggle(vim.fn.expand('%'))<CR>";
       options.desc = "Toggle watch current file (neotest)";
     }
+
+    # Lspsaga
+    {
+      mode = "n";
+      key = "K";
+      options.silent = true;
+      action = "<CMD>Lspsaga hover_doc<Enter>";
+      options.desc = "Tooltip";
+    }
+    {
+      mode = "n";
+      key = "<leader>a";
+      options.silent = true;
+      action = "<cmd>:Lspsaga code_action<CR>";
+      options.desc = "Show code actions";
+    }
+    {
+      mode = "n";
+      key = "<leader>t";
+      options.silent = true;
+      action = "<cmd>:Lspsaga term_toggle<CR>";
+      options.desc = "Show floating terminal";
+    }
+    {
+      mode = "n";
+      key = "<leader>k";
+      options.silent = true;
+      action = "<cmd>:Lspsaga hover_doc<CR>";
+      options.desc = "Show doc";
+    }
+    {
+      mode = "n";
+      key = "<leader>K";
+      options.silent = true;
+      action = "<cmd>:Lspsaga hover_doc ++keep<CR>";
+      options.desc = "Show doc (keep open)";
+    }
+    {
+      mode = "n";
+      key = "<leader>f";
+      options.silent = true;
+      action = "<cmd>:Lspsaga finder ref<CR>";
+      options.desc = "Show LSP finder (references)";
+    }
+    {
+      mode = "n";
+      key = "<leader>F";
+      options.silent = true;
+      action = "<cmd>:Lspsaga finder def+ref+imp<CR>";
+      options.desc = "Show LSP finder (definitions, references and implementations";
+    }
+
+    # coverage
+    {
+      mode = "n";
+      key = "<A-s>";
+      options.silent = true;
+      action = "<cmd>:CoverageSummary<CR>";
+      options.desc = "Show coverage summary";
+    }
+    {
+      mode = "n";
+      key = "<A-l>";
+      options.silent = true;
+      action = "<cmd>:CoverageLoad<CR>";
+      options.desc = "Load coverage";
+    }
+    {
+      mode = "n";
+      key = "<A-c>";
+      options.silent = true;
+      action = "<cmd>:CoverageToggle<CR>";
+      options.desc = "Toggle coverage";
+    }
+
     ];
+
 
   };
 }
