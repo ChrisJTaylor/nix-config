@@ -2,18 +2,25 @@
 
   programs.nixvim = {
 
-    autoCmd = [
+    autoGroups = {
+      highlight_yank.clear = true;
+      coverage_load.clear = true;
+      coverage_show.clear = true;
+    };
 
+    autoCmd = [
       {
         event = [ "VimEnter" ];
-	pattern = ["*.cs"];
-	command = ":CoverageLoad";
+        group = "coverage_load";
+	pattern = ["*.py" "*.cs"];
+	command = "CoverageLoad";
       }
 
       {
-        event = [ "Filetype" ];
-	pattern = ["*.py"];
-	command = ":CoverageShow";
+        event = [ "Filetype" "BufReadPost" "BufWritePost" ];
+        group = "coverage_show";
+	pattern = ["*.py" "*.cs"];
+	command = "CoverageShow";
       }
 
       {
@@ -22,7 +29,6 @@
 	command = "silent! lua vim.highlight.on_yank{higroup='Search', timeout=200}";
       }
     ];
-    autoGroups.highlight_yank.clear = true;
   };
 
 }

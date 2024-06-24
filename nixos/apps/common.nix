@@ -15,6 +15,7 @@
     eza
     ripgrep
     zoxide
+    yazi
     lolcat
     cowsay
     just

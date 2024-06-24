@@ -17,13 +17,17 @@
 
     "justfile".text = ''
 alias b := build-and-test
-alias t := coverage
+alias t := test
+alias c := coverage
+alias pre-test := clear-previous-results
+
 test_results := "./test-results"
 coverage_results := "./coverage-results"
 artifacts := "./artifacts"
 configuration := "Release"
 project_test_result_name := "coverage.cobertura.xml"
 test_filter := "FullyQualifiedName!~IntegrationTests&FullyQualifiedName!~StagingTests&FullyQualifiedName!~ContractTests"
+solution_file := "*.sln"
 
 [no-cd]
 clean: 
@@ -48,13 +52,21 @@ test: clear-previous-results
   -dotnet test --filter "{{test_filter}}" --configuration "{{configuration}}" --collect "XPlat Code Coverage" --results-directory "{{test_results}}" 
 
 [no-cd]
-coverage: test 
+test-no-build: clear-previous-results
+  -dotnet test --no-build --filter "{{test_filter}}" --configuration "{{configuration}}" --collect "XPlat Code Coverage" --results-directory "{{test_results}}" 
+
+[no-cd]
+coverage: 
   #!/usr/bin/env bash
   dotnet reportgenerator -reports:**/{{test_results}}/*/coverage.cobertura.xml -reporttypes:lcov -targetdir:{{test_results}} 
 
 [no-cd]
 package:
   dotnet pack --no-build --configuration "{{configuration}}" -o "{{artifacts}}"
+
+[no-cd]
+watch:
+  dotnet watch --project {{solution_file}}
 
 [no-cd]
 sloc:

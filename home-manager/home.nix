@@ -3,7 +3,7 @@
 {
   imports = [
     ./apps/apps.nix
-    ./files/files.nix
+  #  ./files/files.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
