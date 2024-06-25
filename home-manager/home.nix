@@ -33,6 +33,7 @@
   #
   home.sessionVariables = {
     EDITOR = "nvim";
+    NIXPKGS_ALLOW_UNFREE = 1;
   };
 
   # Let Home Manager install and manage itself.
