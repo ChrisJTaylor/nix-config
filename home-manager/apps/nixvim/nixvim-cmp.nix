@@ -34,6 +34,20 @@
 	};
 
 	filetype = {
+	  go = {
+	    sources = [
+	      {
+	        name = "nvim_lsp";
+	      }
+	    ];
+	  };
+	  rust = {
+	    sources = [
+	      {
+	        name = "nvim_lsp";
+	      }
+	    ];
+	  };
 	  python = {
 	    sources = [
 	      {
