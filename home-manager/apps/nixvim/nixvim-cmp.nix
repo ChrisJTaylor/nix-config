@@ -40,6 +40,13 @@
 	};
 
 	filetype = {
+	  lua = {
+	    sources = [
+	      {
+	        name = "nvim_lsp";
+	      }
+	    ];
+	  };
 	  go = {
 	    sources = [
 	      {
@@ -85,16 +92,25 @@
 	  }
 	];
 
+        snippet.expand = ''
+          function(args)
+            -- vim.fn["vsnip#anonymous"](args.body)
+            require('luasnip').lsp_expand(args.body)
+            -- require('snippy').expand_snippet(args.body)
+          end
+          '';
+
 	mapping = {
 	  "<C-Space>" = "cmp.mapping.complete()";
 
 	  "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-	  "<S-Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+	  "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
 	  "<CR>" = "cmp.mapping.confirm({ select = true })";
 
 	  "<C-n>" = "cmp.mapping.scroll_docs(4)";
 	  "<C-p>" = "cmp.mapping.scroll_docs(-4)";
 	  "<C-q>" = "cmp.mapping.close()";
+	  "<C-e>" = "cmp.mapping.abort()";
 	};
 
       };
