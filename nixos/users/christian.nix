@@ -6,7 +6,7 @@
     useDefaultShell = true;
     isNormalUser = true;
     description = "christian";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "plugdev" ];
     packages = with pkgs; [
     #  thunderbird
     ];
