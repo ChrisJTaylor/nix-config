@@ -53,6 +53,7 @@
 	status = {
 	  enabled = true;
 	  signs = true;
+          virtual_text = true;
 	};
 	state = {
 	  enabled = true;
@@ -67,24 +68,24 @@
 	  follow = true;
 	  open = "botright vsplit | vertical resize 50";
 	  mappings = {
-	    attach = "a";
-	      clear_marked = "M";
-	      clear_target = "T";
-	      debug = "d";
-	      debug_marked = "D";
-	      expand = ["<CR>" "<2-LeftMouse>"];
-	      expand_all = "e";
-	      jumpto = "i";
-	      mark = "m";
-	      next_failed = "J";
-	      output = "o";
-	      prev_failed = "K";
-	      run = "r";
-	      run_marked = "R";
-	      short = "O";
-	      stop = "u";
-	      target = "t";
-	      watch = "w";
+            attach = "a";
+            clear_marked = "M";
+            clear_target = "T";
+            debug = "d";
+            debug_marked = "D";
+            expand = ["<CR>" "<2-LeftMouse>"];
+            expand_all = "e";
+            jumpto = "i";
+            mark = "m";
+            next_failed = "J";
+            output = "o";
+            prev_failed = "K";
+            run = "r";
+            run_marked = "R";
+            short = "O";
+            stop = "u";
+            target = "t";
+            watch = "w";
 	  };
 	};
       };
