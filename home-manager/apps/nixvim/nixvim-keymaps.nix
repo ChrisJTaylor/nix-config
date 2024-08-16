@@ -264,7 +264,7 @@
       mode = "n";
       key = "<A-r>";
       options.silent = true;
-      action = "<cmd>:Neotest run<CR>";
+      action = "<cmd>:lua require('neotest').run.run(vim.loop.cwd())<CR>";
       options.desc = "Run all tests";
     }
     {
