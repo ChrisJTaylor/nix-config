@@ -299,8 +299,16 @@
       options.desc = "Toggle coverage";
     }
 
-    ];
+    # refactoring
+    {
+      mode = "n";
+      key = "<leader>rr";
+      options.silent = true;
+      action = "<cmd>:lua require('telescope').extensions.refactoring.refactors()<CR>";
+      options.desc = "Toggle coverage";
+    }
 
+    ];
 
   };
 }
