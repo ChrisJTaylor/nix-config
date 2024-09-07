@@ -31,6 +31,9 @@
         pylsp = {
 	  enable = true;
 	  autostart = true;
+          settings = {
+            configurationSources = "pycodestyle";
+          };
 	};
 	gopls = {
 	  enable = true;
@@ -40,9 +43,49 @@
 	  enable = true;
 	  autostart = true;
 	};
+        kotlin-language-server = {
+          enable = true;
+          autostart = true;
+        };
 	lua-ls = {
 	  enable = true;
 	  autostart = true;
+          settings = {
+            completion = {
+              enable = true;
+              callSnippet = "Both";
+              displayContext = 4;
+              keywordSnippet = "Both";
+              showParams = true;
+              showWord = "Enable";
+              workspaceWord = true;
+            };
+            format = {
+              enable = true;
+            };
+            hint = {
+              enable = true;
+            };
+            hover = {
+              enable = true;
+              enumsLimit = 5;
+              expandAlias = true;
+              previewField = 50;
+              viewNumber = true;
+              viewString = true;
+              viewStringMax = 1000;
+            };
+            semantic = {
+              enable = true;
+              annotation = true;
+              keyword = true;
+              variable = true;
+            };
+            signatureHelp.enable = true;
+            spell.dict = [
+            ];
+            telemetry.enable = true;
+          };
 	};
 	rust-analyzer = {
 	  enable = true;
