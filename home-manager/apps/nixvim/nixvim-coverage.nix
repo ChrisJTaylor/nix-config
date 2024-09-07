@@ -23,6 +23,24 @@
 	  coverage_command = "coverprofile=coverage/coverage.out";
 	};
       };
+      highlights = {
+        covered = {
+          fg = "#B7F071";
+          bg = "#4a622e";
+        };
+        partial = {
+          fg = "#AA71F0";
+          bg = "#452d64";
+        };
+        uncovered = {
+          fg = "#F07178";
+          bg = "#6b3237";
+        };
+      };
+      keymaps = {
+        coverage = "<A-c>";
+        summary = "<A-s>";
+      };
     };
 
   };
