@@ -99,7 +99,7 @@
 	  ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
 	    ./nixos/hosts/home-wsl/configuration.nix
 	    ./nixos/system/common.nix
-	    ./nixos/users/nixos.nix
+	    ./nixos/users/christian.nix
 	    ./nixos/network/hosts.nix
 	    ./nixos/apps/direnv.nix
 	    ./nixos/apps/git.nix

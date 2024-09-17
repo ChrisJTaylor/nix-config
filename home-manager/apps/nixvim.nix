@@ -11,7 +11,6 @@
     ./nixvim/nixvim-testing.nix
     ./nixvim/nixvim-coverage.nix
     ./nixvim/nixvim-git.nix
-    ./nixvim/nixvim-obsidian.nix
     ./nixvim/nixvim-godot.nix
     ./nixvim/nixvim-extraConfigLua.nix
   ];
