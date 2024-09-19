@@ -137,18 +137,20 @@
 	];
       };
 
+    };
+
+	darwinConfigurations = {
+
       machbook = darwin.lib.darwinSystem {
     system = "aarch64-darwin";
 	specialArgs = { inherit inputs; };
 	modules = [
 	  ({ config, pkgs, ... }: { })
 	    ./nixos/hosts/machbook/configuration.nix
-	    ./nixos/system/common.nix
+	    ./nixos/system/common-darwin.nix
 	    ./nixos/users/christiantaylor.nix
-	    ./nixos/network/hosts.nix
 	    ./nixos/apps/direnv.nix
-	    ./nixos/apps/git.nix
-	    ./nixos/apps/zsh.nix
+	    ./nixos/apps/zsh-darwin.nix
 	    ./nixos/apps/common.nix
 	    home-manager.darwinModules.home-manager {
 	      home-manager.useGlobalPkgs = true;
@@ -156,11 +158,10 @@
 	      home-manager.sharedModules = [
 	        nixvim.homeManagerModules.nixvim
 	      ];
-	      home-manager.users.christiantaylor = import ./home-manager/home.nix;
+	      home-manager.users.christiantaylor = import ./home-manager/home-darwin.nix;
 	    }
 	];
       };
-
-    };
+	};
   };
 }

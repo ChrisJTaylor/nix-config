@@ -19,8 +19,8 @@
     lolcat
     cowsay
     just
-    keymapp
     watchman
+    iterm2
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -31,6 +31,5 @@
   #   enableSSHSupport = true;
   # };
 
-  programs.firefox.enable = true;
 }
 
