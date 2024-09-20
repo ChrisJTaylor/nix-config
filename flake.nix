@@ -149,6 +149,8 @@
           ({ config, pkgs, ... }: { })
           ./nixos/hosts/machbook/configuration.nix
           ./nixos/system/common-darwin.nix
+          ./nixos/system/spacebar.nix
+          ./nixos/system/yabai.nix
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/direnv.nix
           ./nixos/apps/zsh-darwin.nix

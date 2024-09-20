@@ -21,6 +21,7 @@
 	  family = "JetBrainsMono Nerd Font";
 	  style = "Regular";
 	};
+        size = 14;
       };
       terminal = {
         osc52 = "CopyPaste";
