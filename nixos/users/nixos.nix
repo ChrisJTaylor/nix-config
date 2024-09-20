@@ -6,6 +6,8 @@
     useDefaultShell = true;
     isNormalUser = true;
     description = "nixos";
+    home = "/home/nixos";
+    shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
     #  thunderbird

@@ -5,10 +5,12 @@
   users.users.christian = {
     useDefaultShell = true;
     isNormalUser = true;
-    description = "christian";
+    description = "Christian Taylor";
+    home = "/home/christian";
+    shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" "docker" "plugdev" ];
     packages = with pkgs; [
     #  thunderbird
-    ];
-  };
+  ];
+};
 }

@@ -5,7 +5,8 @@
   users.users.taylch = {
     useDefaultShell = true;
     isNormalUser = true;
-    description = "taylch";
+    description = "Christian Taylor";
+    home = "/home/taylch";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
     #  thunderbird

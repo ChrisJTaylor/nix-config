@@ -18,6 +18,7 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
   };
 
   outputs = inputs @ { self, nixpkgs, darwin, nixvim, home-manager, ... }:
@@ -132,7 +133,7 @@
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
             ];
-            home-manager.users.taylch = import ./home-manager/home.nix;
+            home-manager.users.taylch = import ./home-manager/home-work.nix;
           }
         ];
       };
