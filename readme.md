@@ -8,6 +8,7 @@
 - `cd` into the repo folder
 - For MacOS based nix, run `darwin-rebuild switch --flake '.#<host-name>'`
 - For all others, run `sudo nixos-rebuild switch --flake '.#<host-name>'`
+  - You may have to add `--impure` for wsl
 
 ## Useful links
 - [Nix Learn](https://nixos.org/learn/)
