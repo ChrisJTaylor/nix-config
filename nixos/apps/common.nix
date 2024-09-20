@@ -19,7 +19,6 @@
     lolcat
     cowsay
     just
-    keymapp
     watchman
   ];
 
@@ -31,6 +30,5 @@
   #   enableSSHSupport = true;
   # };
 
-  programs.firefox.enable = true;
 }
 

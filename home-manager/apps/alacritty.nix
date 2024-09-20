@@ -6,7 +6,7 @@
     settings = {
       shell = "zsh";
       window = {
-        opacity = 0.6;
+        opacity = 0.9;
 	dimensions = {
 	  columns = 160;
 	  lines = 60;
