@@ -6,6 +6,7 @@
     settings = {
       shell = "zsh";
       window = {
+        decorations = "None";
         opacity = 0.9;
 	dimensions = {
 	  columns = 160;
@@ -21,7 +22,7 @@
 	  family = "JetBrainsMono Nerd Font";
 	  style = "Regular";
 	};
-        size = 14;
+        size = 13;
       };
       terminal = {
         osc52 = "CopyPaste";

@@ -13,6 +13,7 @@
       left_padding        = 10;
       right_padding       = 10;
       window_gap          = 10;
+      layout              = "bsp";
     };
   };
 }
