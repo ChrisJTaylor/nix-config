@@ -17,17 +17,9 @@
     pkgs.hello
     pkgs.aichat
 
-    pkgs.alacritty
-    pkgs.alacritty-theme
-
     pkgs.cider
 
-    pkgs.kitty
     pkgs.ranger
-
-    pkgs.obsidian
-
-    pkgs.warp-terminal
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

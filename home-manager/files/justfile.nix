@@ -65,16 +65,8 @@ package:
   dotnet pack --no-build --configuration "{{configuration}}" -o "{{artifacts}}"
 
 [no-cd]
-watch:
-  dotnet watch --project {{solution_file}}
-
-[no-cd]
-sloc:
-  @echo "`wc -l **/*.cs` lines of code"
-
-[no-cd]
 build-and-test: clean restore build test 
-  just coverage
+  @just coverage
   @echo "Done."
     '';
   };

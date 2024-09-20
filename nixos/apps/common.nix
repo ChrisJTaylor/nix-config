@@ -20,7 +20,6 @@
     cowsay
     just
     watchman
-    iterm2
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

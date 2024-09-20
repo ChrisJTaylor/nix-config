@@ -4,7 +4,6 @@
   imports =
     [ 
       ./nixvim.nix
-      ./kitty.nix
       ./zsh.nix
       ./git.nix
     ];
@@ -17,8 +16,8 @@
     pkgs.hello
     pkgs.aichat
 
-    pkgs.kitty
     pkgs.ranger
+    pkgs.iterm2
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
