@@ -6,7 +6,8 @@
   - [NixOS-WSL](https://github.com/nix-community/NixOS-WSL)
 - Clone the repo with `nix-shell -p git --run git clone https://github.com/ChrisJTaylor/nix-configs.git`
 - `cd` into the repo folder
-- Run the `sudo nixos-rebuild switch --flake '.#<host-name>'`
+- For MacOS based nix, run `darwin-rebuild switch --flake '.#<host-name>'`
+- For all others, run `sudo nixos-rebuild switch --flake '.#<host-name>'`
 
 ## Useful links
 - [Nix Learn](https://nixos.org/learn/)
