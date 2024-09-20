@@ -25,143 +25,145 @@
     nixosConfigurations = {
 
       big-mach = nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
-	specialArgs = { inherit inputs; };
-	modules = [
-	  ({ config, pkgs, ... }: {  })
-	    ./nixos/hosts/big-mach/configuration.nix
-	    ./nixos/users/christian.nix
-	    ./nixos/system/common.nix
-	    ./nixos/system/virtualbox.nix
-	    ./nixos/system/locale.nix
-	    ./nixos/system/sound.nix
-	    ./nixos/system/xserver.nix
-	    ./nixos/system/gnome.nix
-	    ./nixos/rules/zsa.nix
-	    ./nixos/services/jenkins.nix
-	    ./nixos/services/nginx.nix
-	    ./nixos/network/internalhosts.nix
-	    ./nixos/apps/direnv.nix
-	    ./nixos/apps/git.nix
-	    ./nixos/apps/zsh.nix
-	    ./nixos/apps/common.nix
-	    ./nixos/apps/games.nix
-	    ./nixos/apps/personal.nix
-	    home-manager.nixosModules.home-manager {
-	      home-manager.useGlobalPkgs = true;
-	      home-manager.useUserPackages = true;
-	      home-manager.sharedModules = [
-	        nixvim.homeManagerModules.nixvim
-	      ];
-	      home-manager.users.christian = import ./home-manager/home.nix;
-	    }
-	];
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ({ config, pkgs, ... }: {  })
+          ./nixos/hosts/big-mach/configuration.nix
+          ./nixos/users/christian.nix
+          ./nixos/system/common.nix
+          ./nixos/system/virtualbox.nix
+          ./nixos/system/locale.nix
+          ./nixos/system/sound.nix
+          ./nixos/system/xserver.nix
+          ./nixos/system/gnome.nix
+          ./nixos/rules/zsa.nix
+          ./nixos/services/jenkins.nix
+          ./nixos/services/nginx.nix
+          ./nixos/network/internalhosts.nix
+          ./nixos/apps/direnv.nix
+          ./nixos/apps/git.nix
+          ./nixos/apps/zsh.nix
+          ./nixos/apps/common.nix
+          ./nixos/apps/games.nix
+          ./nixos/apps/personal.nix
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [
+              nixvim.homeManagerModules.nixvim
+            ];
+            home-manager.users.christian = import ./home-manager/home.nix;
+          }
+        ];
       };
 
       big-machbook = nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
-	specialArgs = { inherit inputs; };
-	modules = [
-	  ({ config, pkgs, ... }: {  })
-	    ./nixos/hosts/big-machbook/configuration.nix
-	    ./nixos/users/christian.nix
-	    ./nixos/system/common.nix
-	    ./nixos/system/locale.nix
-	    ./nixos/system/sound.nix
-	    ./nixos/system/xserver.nix
-	    ./nixos/system/gnome.nix
-	    ./nixos/rules/zsa.nix
-	    ./nixos/network/hosts.nix
-	    ./nixos/apps/direnv.nix
-	    ./nixos/apps/git.nix
-	    ./nixos/apps/zsh.nix
-	    ./nixos/apps/common.nix
-	    ./nixos/apps/games.nix
-	    ./nixos/apps/personal.nix
-	    home-manager.nixosModules.home-manager {
-	      home-manager.useGlobalPkgs = true;
-	      home-manager.useUserPackages = true;
-	      home-manager.sharedModules = [
-	        nixvim.homeManagerModules.nixvim
-	      ];
-	      home-manager.users.christian = import ./home-manager/home.nix;
-	    }
-	];
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ({ config, pkgs, ... }: {  })
+          ./nixos/hosts/big-machbook/configuration.nix
+          ./nixos/users/christian.nix
+          ./nixos/system/common.nix
+          ./nixos/system/locale.nix
+          ./nixos/system/sound.nix
+          ./nixos/system/xserver.nix
+          ./nixos/system/gnome.nix
+          ./nixos/rules/zsa.nix
+          ./nixos/network/hosts.nix
+          ./nixos/apps/direnv.nix
+          ./nixos/apps/git.nix
+          ./nixos/apps/zsh.nix
+          ./nixos/apps/common.nix
+          ./nixos/apps/games.nix
+          ./nixos/apps/personal.nix
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [
+              nixvim.homeManagerModules.nixvim
+            ];
+            home-manager.users.christian = import ./home-manager/home.nix;
+          }
+        ];
       };
 
       home-wsl = nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
-	specialArgs = { inherit inputs; };
-	modules = [
-	  ({ config, pkgs, ... }: {  })
-	    ./nixos/hosts/home-wsl/configuration.nix
-	    ./nixos/system/common.nix
-	    ./nixos/users/christian.nix
-	    ./nixos/network/hosts.nix
-	    ./nixos/apps/direnv.nix
-	    ./nixos/apps/git.nix
-	    ./nixos/apps/zsh.nix
-	    ./nixos/apps/common.nix
-	    home-manager.nixosModules.home-manager {
-	      home-manager.useGlobalPkgs = true;
-	      home-manager.useUserPackages = true;
-	      home-manager.sharedModules = [
-	        nixvim.homeManagerModules.nixvim
-	      ];
-	      home-manager.users.christian = import ./home-manager/home.nix;
-	    }
-	];
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ({ config, pkgs, ... }: {  })
+          ./nixos/hosts/home-wsl/configuration.nix
+          ./nixos/system/common.nix
+          ./nixos/users/christian.nix
+          ./nixos/network/hosts.nix
+          ./nixos/apps/direnv.nix
+          ./nixos/apps/git.nix
+          ./nixos/apps/zsh.nix
+          ./nixos/apps/common.nix
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [
+              nixvim.homeManagerModules.nixvim
+            ];
+            home-manager.users.christian = import ./home-manager/home.nix;
+          }
+        ];
       };
 
       work-wsl = nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
-	specialArgs = { inherit inputs; };
-	modules = [
-	  ({ config, pkgs, ... }: {  })
-	    ./nixos/hosts/work-wsl/configuration.nix
-	    ./nixos/system/common.nix
-	    ./nixos/system/xserver.nix
-	    ./nixos/users/ukctay.nix
-	    ./nixos/apps/direnv.nix
-	    ./nixos/apps/git.nix
-	    ./nixos/apps/zsh.nix
-	    ./nixos/apps/common.nix
-	    home-manager.nixosModules.home-manager {
-	      home-manager.useGlobalPkgs = true;
-	      home-manager.useUserPackages = true;
-	      home-manager.sharedModules = [
-	        nixvim.homeManagerModules.nixvim
-	      ];
-	      home-manager.users.ukctay = import ./home-manager/home.nix;
-	    }
-	];
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ({ config, pkgs, ... }: {  })
+          ./nixos/hosts/work-wsl/configuration.nix
+          ./nixos/system/common.nix
+          ./nixos/system/xserver.nix
+          ./nixos/users/workprofile.nix
+          ./nixos/apps/direnv.nix
+          ./nixos/apps/git.nix
+          ./nixos/apps/zsh.nix
+          ./nixos/apps/common.nix
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [
+              nixvim.homeManagerModules.nixvim
+            ];
+            home-manager.users.taylch = import ./home-manager/home.nix;
+          }
+        ];
       };
 
     };
 
-	darwinConfigurations = {
-
+    darwinConfigurations = {
+      
       machbook = darwin.lib.darwinSystem {
-    system = "aarch64-darwin";
-	specialArgs = { inherit inputs; };
-	modules = [
-	  ({ config, pkgs, ... }: { })
-	    ./nixos/hosts/machbook/configuration.nix
-	    ./nixos/system/common-darwin.nix
-	    ./nixos/users/christiantaylor.nix
-	    ./nixos/apps/direnv.nix
-	    ./nixos/apps/zsh-darwin.nix
-	    ./nixos/apps/common.nix
-	    home-manager.darwinModules.home-manager {
-	      home-manager.useGlobalPkgs = true;
-	      home-manager.useUserPackages = true;
-	      home-manager.sharedModules = [
-	        nixvim.homeManagerModules.nixvim
-	      ];
-	      home-manager.users.christiantaylor = import ./home-manager/home-darwin.nix;
-	    }
-	];
+        system = "aarch64-darwin";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ({ config, pkgs, ... }: { })
+          ./nixos/hosts/machbook/configuration.nix
+          ./nixos/system/common-darwin.nix
+          ./nixos/users/christiantaylor.nix
+          ./nixos/apps/direnv.nix
+          ./nixos/apps/zsh-darwin.nix
+          ./nixos/apps/common.nix
+          home-manager.darwinModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [
+              nixvim.homeManagerModules.nixvim
+            ];
+            home-manager.users.christiantaylor = import ./home-manager/home-darwin.nix;
+          }
+        ];
       };
-	};
+
+    };
+
   };
 }
