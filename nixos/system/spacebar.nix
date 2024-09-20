@@ -16,7 +16,7 @@
     spacing_left               = 25;
     spacing_right              = 15;
     text_font                  = ''"SourceCodePro:Regular:14.0"'';
-    icon_font                  = ''"JetBrainsMono:Regular:14.0"'';
+    icon_font                  = ''"Font Awesome 5 Free:Solid:14.0"'';
     background_color           = "0xff202020";
     foreground_color           = "0xffa8a8a8";
     power_icon_color           = "0xffcd950c";
@@ -25,7 +25,7 @@
     clock_icon_color           = "0xffa8a8a8";
     power_icon_strip           = " ";
     space_icon                 = "•";
-    space_icon_strip           = "1 2 3 4 5 6 7 8 9 10";
+    space_icon_strip           = "Shulk Melia Rex Pyra Noah Mio Taion Eunie Sena Lanz";
     spaces_for_all_displays    = "on";
     display_separator          = "on";
     display_separator_icon     = "";
