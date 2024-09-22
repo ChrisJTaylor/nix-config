@@ -13,7 +13,7 @@
 	};
         python = {
 	  coverage_file = ".coverage";
-	  coverage_command = "coverage json --fail-under=100 -q -o -";
+	  coverage_command = "poetry run coverage json --fail-under=0 -o -";
 	};
 	ruby = {
 	  coverage_file = "coverage/coverage.json";
