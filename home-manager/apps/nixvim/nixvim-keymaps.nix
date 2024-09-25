@@ -255,21 +255,21 @@
     # neotest shortcuts
     {
       mode = "n";
-      key = "<A-t>";
+      key = "<leader>ms";
       options.silent = true;
       action = "<cmd>:Neotest summary<CR>";
       options.desc = "Show test summary";
     }
     {
       mode = "n";
-      key = "<A-r>";
+      key = "<leader>mr";
       options.silent = true;
       action = "<cmd>:lua require('neotest').run.run(vim.loop.cwd())<CR>";
       options.desc = "Run all tests";
     }
     {
       mode = "n";
-      key = "<C-w>";
+      key = "<leader>mw";
       options.silent = true;
       action = "<cmd>:lua require('neotest').watch.toggle(vim.fn.expand('%'))<CR>";
       options.desc = "Toggle watch current file (neotest)";
@@ -282,7 +282,7 @@
       key = "<leader>rr";
       options.silent = true;
       action = "<cmd>:lua require('telescope').extensions.refactoring.refactors()<CR>";
-      options.desc = "Toggle coverage";
+      options.desc = "Refactorings";
     }
 
     ];

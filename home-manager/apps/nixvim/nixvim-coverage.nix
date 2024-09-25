@@ -14,6 +14,7 @@
         python = {
 	  coverage_file = ".coverage";
 	  coverage_command = "poetry run coverage json --fail-under=0 -o -";
+          dynamic_context = true;
 	};
 	ruby = {
 	  coverage_file = "coverage/coverage.json";
@@ -38,8 +39,8 @@
         };
       };
       keymaps = {
-        coverage = "<A-c>";
-        summary = "<A-s>";
+        coverage = "<leader>mc";
+        summary = "<leader>mx";
       };
     };
 

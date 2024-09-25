@@ -6,6 +6,7 @@
       enable = true;
       lspServersToEnable = [
         "gopls"
+        "python"
         "html"
         "gleam"
         "yamlls"
