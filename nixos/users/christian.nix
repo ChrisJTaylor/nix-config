@@ -8,7 +8,7 @@
     description = "Christian Taylor";
     home = "/home/christian";
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "docker" "plugdev" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "plugdev" "podman" ];
     packages = with pkgs; [
     #  thunderbird
   ];

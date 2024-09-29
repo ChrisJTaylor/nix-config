@@ -40,6 +40,7 @@
           ./nixos/system/gnome.nix
           ./nixos/rules/zsa.nix
           ./nixos/services/jenkins.nix
+          ./nixos/services/podman.nix
           ./nixos/services/nginx.nix
           ./nixos/network/internalhosts.nix
           ./nixos/apps/direnv.nix
