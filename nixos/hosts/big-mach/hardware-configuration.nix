@@ -8,7 +8,7 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "ahci" "xhci_pci" "firewire_ohci" "usb_storage" "usbhid" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "ahci" "xhci_pci" "firewire_ohci" "usbhid" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
@@ -24,6 +24,21 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
+  fileSystems."/mnt/apps-slow" =
+    { device = "/dev/disk/by-uuid/db44d804-8eb3-434f-83c6-e60cea86bd06";
+      fsType = "ext4";
+    };
+
+  fileSystems."/mnt/artifacts" =
+    { device = "/dev/disk/by-uuid/eb468ef5-2279-42e7-a262-5643f0fd5fba";
+      fsType = "ext4";
+    };
+
+  fileSystems."/mnt/apps" =
+    { device = "/dev/disk/by-uuid/89d42016-be56-4536-9a70-fead42a81d40";
+      fsType = "ext4";
+    };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -33,6 +48,8 @@
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp7s0f0.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp7s0f1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.vboxnet0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wls6.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
