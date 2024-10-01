@@ -11,7 +11,6 @@
       ];
       volumes = [
         "/mnt/apps/teamcity/conf:/opt/teamcity/conf:rw"
-        # "/mnt/apps/teamcity/temp:/opt/teamcity/temp:rw"
         "/mnt/apps/teamcity/logs:/opt/teamcity/logs:rw"
         "/mnt/apps/teamcity_server/datadir:/data/teamcity_server/datadir:rw"
       ];
