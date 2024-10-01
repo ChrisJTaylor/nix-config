@@ -39,7 +39,6 @@
           ./nixos/system/xserver.nix
           ./nixos/system/gnome.nix
           ./nixos/rules/zsa.nix
-          ./nixos/services/jenkins.nix
           ./nixos/services/teamcity.nix
           ./nixos/services/podman.nix
           ./nixos/services/nginx.nix
