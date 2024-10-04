@@ -3,10 +3,10 @@
 {
   imports = [
     ./files/files.nix
-    ./nixvim.nix
-    ./kitty.nix
-    ./zsh.nix
-    ./git.nix
+    ./apps/nixvim.nix
+    ./apps/kitty.nix
+    ./apps/zsh.nix
+    ./apps/git.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
