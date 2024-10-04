@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=24.05";
 
-	# Controls system level software and settings including fonts
+    # Controls system level software and settings including fonts
     # https://daiderd.com/nix-darwin/manual/
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -19,9 +19,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = inputs @ { self, nixpkgs, darwin, nixvim, home-manager, ... }:
+  outputs = inputs @ { self, nixpkgs, darwin, nixvim, home-manager, sops-nix, ... }:
   {
     nixosConfigurations = {
 
@@ -31,10 +36,12 @@
         modules = [
           ({ config, pkgs, ... }: {  })
           ./nixos/hosts/big-mach/configuration.nix
+          sops-nix.nixosModules.sops
           ./nixos/users/christian.nix
           ./nixos/system/common.nix
           ./nixos/system/virtualbox.nix
           ./nixos/system/locale.nix
+          ./nixos/system/gnupg.nix
           ./nixos/system/sound.nix
           ./nixos/system/xserver.nix
           ./nixos/system/gnome.nix
@@ -71,6 +78,7 @@
           ./nixos/system/locale.nix
           ./nixos/system/sound.nix
           ./nixos/system/xserver.nix
+          ./nixos/system/gnupg.nix
           ./nixos/system/gnome.nix
           ./nixos/rules/zsa.nix
           ./nixos/network/hosts.nix
@@ -100,6 +108,7 @@
           ./nixos/system/common.nix
           ./nixos/users/christian.nix
           ./nixos/network/hosts.nix
+          ./nixos/system/gnupg.nix
           ./nixos/apps/direnv.nix
           ./nixos/apps/git.nix
           ./nixos/apps/zsh.nix
@@ -123,6 +132,7 @@
           ./nixos/hosts/work-wsl/configuration.nix
           ./nixos/system/common.nix
           ./nixos/system/xserver.nix
+          ./nixos/system/gnupg.nix
           ./nixos/users/workprofile.nix
           ./nixos/apps/direnv.nix
           ./nixos/apps/git.nix
@@ -151,6 +161,7 @@
           ./nixos/hosts/machbook/configuration.nix
           ./nixos/system/common-darwin.nix
           ./nixos/system/spacebar.nix
+          ./nixos/system/gnupg.nix
           ./nixos/system/yabai.nix
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/direnv.nix

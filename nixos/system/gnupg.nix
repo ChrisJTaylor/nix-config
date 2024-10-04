@@ -3,12 +3,12 @@
 {
   environment.systemPackages = [
     pkgs.gnupg
-    pkgs.pinentry
+    pkgs.pinentry-curses
   ];
 
   programs.gnupg.agent = {
     enable = true;
-    pinentryFlavor = "gtk2";
+    pinentryPackage = pkgs.pinentry-curses;
   };
 
 }
