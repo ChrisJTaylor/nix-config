@@ -79,6 +79,13 @@
 	      }
 	    ];
 	  };
+	  powershell = {
+	    sources = [
+	      {
+	        name = "nvim_lsp";
+	      }
+	    ];
+	  };
 	};
 
         sources = [
