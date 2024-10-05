@@ -5,6 +5,7 @@
     ./files/files.nix
     ./apps/nixvim.nix
     ./apps/kitty.nix
+    ./apps/tmux.nix
     ./apps/zsh.nix
     ./apps/git.nix
   ];
