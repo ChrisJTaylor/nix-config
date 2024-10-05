@@ -79,7 +79,6 @@
           ./nixos/system/sound.nix
           ./nixos/system/xserver.nix
           ./nixos/system/gnupg.nix
-          ./nixos/system/vmware.nix
           ./nixos/system/gnome.nix
           ./nixos/rules/zsa.nix
           ./nixos/network/hosts.nix
@@ -95,7 +94,7 @@
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
             ];
-            home-manager.users.christian = import ./home-manager/home.nix;
+            home-manager.users.christian = import ./home-manager/home-big-machbook.nix;
           }
         ];
       };
