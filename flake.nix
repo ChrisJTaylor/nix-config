@@ -119,7 +119,7 @@
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
             ];
-            home-manager.users.christian = import ./home-manager/home.nix;
+            home-manager.users.christian = import ./home-manager/home-wsl.nix;
           }
         ];
       };
