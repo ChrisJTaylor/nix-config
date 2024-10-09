@@ -13,8 +13,19 @@
     plugins.lsp = {
       enable = true;
       servers = {
-	nil-ls.enable = true;
-	omnisharp = {
+        nil-ls = {
+          enable = true;
+          settings = {
+            nix = {
+              maxMemoryMB = 8192;
+              flake = {
+                autoArchive = true;
+                autoEvalInputs = true;
+              };
+            };
+          };
+        };	
+        omnisharp = {
 	  enable = true;
 	  autostart = true;
 	  filetypes = [
