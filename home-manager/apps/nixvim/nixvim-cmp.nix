@@ -58,6 +58,13 @@
 	      }
 	    ];
 	  };
+	  rust = {
+	    sources = [
+	      {
+	        name = "nvim_lsp";
+	      }
+	    ];
+	  };
 	  python = {
 	    sources = [
 	      {

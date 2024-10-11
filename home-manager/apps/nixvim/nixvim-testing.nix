@@ -20,6 +20,9 @@
         plenary = {
 	  enable = true;
 	};
+        rust = {
+	  enable = true;
+	};
         rspec = {
 	  enable = true;
 	};
