@@ -2,25 +2,26 @@
   description = "Home Manager and NixOS configurations";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
+    nixpkgs = {
+      url = "github:nixos/nixpkgs?rev=b69de56fac8c2b6f8fd27f2eca01dcda8e0a4221";
+    };
 
     # Controls system level software and settings including fonts
     # https://daiderd.com/nix-darwin/manual/
-    darwin.url = "github:lnl7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+    };
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager?rev=342a1d682386d3a1d74f9555cb327f2f311dda6e";
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixvim?rev=af650ba9401501352d6eaaced192bbb4abfaec87";
     };
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
   };

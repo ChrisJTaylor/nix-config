@@ -20,7 +20,6 @@
              "git"
              "direnv"
              "fzf"
-	     "ripgrep"
            ];
 	};
      };
