@@ -12,6 +12,7 @@
     ./nixvim/nixvim-coverage.nix
     ./nixvim/nixvim-git.nix
     ./nixvim/nixvim-godot.nix
+    ./nixvim/nixvim-devicons.nix
     ./nixvim/nixvim-extraConfigLua.nix
   ];
 

@@ -4,10 +4,12 @@
 
     plugins.treesitter = {
       enable = true;
-      ensureInstalled = "all";
       folding = false;
       nixvimInjections = true;
       nixGrammars = true;
+      settings = {
+        ensure_installed = "all";
+      };
     };
 
     plugins.treesitter-context = {

@@ -12,9 +12,10 @@
         "yamlls"
         "terraformls"
         "bashls"
-        "rust-analyzer"
-        "kotlin-language-server"
-        "lua-ls"
+        "nil_ls"
+        "rust_analyzer"
+        "kotlin_language_server"
+        "lua_ls"
         "powershell_es"
       ];
     };
