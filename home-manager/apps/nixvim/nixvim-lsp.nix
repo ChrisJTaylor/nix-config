@@ -106,10 +106,6 @@
 	  enable = true;
 	  autostart = true;
 	};
-	bashls = {
-	  enable = true;
-	  autostart = true;
-	};
 	gleam = {
 	  enable = true;
 	  autostart = true;

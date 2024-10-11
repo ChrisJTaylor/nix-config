@@ -11,7 +11,6 @@
         "gleam"
         "yamlls"
         "terraformls"
-        "bashls"
         "kotlin-language-server"
         "lua-ls"
         "powershell_es"

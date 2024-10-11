@@ -2,7 +2,7 @@
   description = "Home Manager and NixOS configurations";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=24.05";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
 
     # Controls system level software and settings including fonts
     # https://daiderd.com/nix-darwin/manual/
@@ -10,8 +10,7 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
-      url = "github:nix-community/home-manager?ref=release-24.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager";
     };
 
     nixvim = {
