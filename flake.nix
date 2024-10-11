@@ -42,7 +42,6 @@
           ./nixos/system/virtualbox.nix
           ./nixos/system/locale.nix
           ./nixos/system/gnupg.nix
-          ./nixos/system/sound.nix
           ./nixos/system/xserver.nix
           ./nixos/system/gnome.nix
           ./nixos/rules/zsa.nix
@@ -76,7 +75,6 @@
           ./nixos/users/christian.nix
           ./nixos/system/common.nix
           ./nixos/system/locale.nix
-          ./nixos/system/sound.nix
           ./nixos/system/xserver.nix
           ./nixos/system/gnupg.nix
           ./nixos/system/gnome.nix
