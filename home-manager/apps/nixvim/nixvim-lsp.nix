@@ -98,12 +98,6 @@
             telemetry.enable = true;
           };
 	};
-	rust-analyzer = {
-	  enable = true;
-	  autostart = true;
-	  installCargo = true;
-	  installRustc = true;
-	};
 	terraformls = {
 	  enable = true;
 	  autostart = true;
