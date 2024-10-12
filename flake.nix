@@ -3,7 +3,8 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:nixos/nixpkgs?rev=b69de56fac8c2b6f8fd27f2eca01dcda8e0a4221";
+      url = "github:nixos/nixpkgs";
+      follows = "cosmic/nixpkgs";
     };
 
     # Controls system level software and settings including fonts
@@ -24,9 +25,13 @@
       url = "github:Mic92/sops-nix";
     };
 
+    cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic?rev=b744a190a610460e51fd2dbd10cf2bfc42711fe8";
+    };
+
   };
 
-  outputs = inputs @ { self, nixpkgs, darwin, nixvim, home-manager, sops-nix, ... }:
+  outputs = inputs @ { self, nixpkgs, darwin, nixvim, home-manager, sops-nix, cosmic, ... }:
   {
     nixosConfigurations = {
 
@@ -42,8 +47,8 @@
           ./nixos/system/virtualbox.nix
           ./nixos/system/locale.nix
           ./nixos/system/gnupg.nix
-          ./nixos/system/xserver.nix
-          ./nixos/system/gnome.nix
+          ./nixos/system/cosmic.nix
+          cosmic.nixosModules.default
           ./nixos/rules/zsa.nix
           ./nixos/services/teamcity.nix
           ./nixos/services/podman.nix
