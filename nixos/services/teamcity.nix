@@ -1,7 +1,7 @@
 { ... }:
 
 let version = {
-  teamcity = "2024.07.2";
+  teamcity = "2024.07.3";
   nevergreen = "7.0.0";
 };
   in
@@ -37,29 +37,6 @@ let version = {
       dependsOn = [ "teamcity" ];
       environment = {
         AGENT_NAME = "mach-01";
-        DOCKER_IN_DOCKER = "start";
-        SERVER_URL = "http://teamcity:8111";
-      };
-      extraOptions = [
-        "--privileged"
-      ];
-    };
-
-    teamcityAgent02 = {
-      image = "jetbrains/teamcity-agent:${version.teamcity}-linux-sudo";
-      autoStart = true;
-      volumes = [
-        "/var/run/podman/podman.sock:/var/run/docker.sock:rw"
-        "/mnt/apps/teamcity_agents/mach_02/conf:/data/teamcity_agent/conf:rw"
-        "/mnt/apps/teamcity_agents/mach_02/work:/opt/buildagent/work:rw"
-        "/mnt/apps/teamcity_agents/mach_02/temp:/opt/buildagent/temp:rw"
-        "/mnt/apps/teamcity_agents/mach_02/tools:/opt/buildagent/tools:rw"
-        "/mnt/apps/teamcity_agents/mach_02/plugins:/opt/buildagent/plugins:rw"
-        "/mnt/apps/teamcity_agents/mach_02/system:/opt/buildagent/system:rw"
-      ];
-      dependsOn = [ "teamcity" ];
-      environment = {
-        AGENT_NAME = "mach-02";
         DOCKER_IN_DOCKER = "start";
         SERVER_URL = "http://teamcity:8111";
       };
