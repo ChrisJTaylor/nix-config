@@ -17,6 +17,18 @@
 	  };
 	};
       };
+
+      nevergreen = {
+	serverName = "builds.machinology.local";
+	serverAliases = [ "builds-static.machinology.local" ];
+	forceSSL = false;
+	enableACME = false;
+	locations = {
+	  "/" = {
+	    proxyPass = "http://127.0.0.1:5000/";
+	  };
+	};
+      };
     };
   };
 

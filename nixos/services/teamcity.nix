@@ -1,12 +1,15 @@
 { ... }:
 
-  let teamcityVersion = "2024.07.2";
+let version = {
+  teamcity = "2024.07.2";
+  nevergreen = "7.0.0";
+};
   in
 {
   virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers = {
     teamcity = {
-      image = "jetbrains/teamcity-server:${teamcityVersion}";
+      image = "jetbrains/teamcity-server:${version.teamcity}";
       autoStart = true;
       ports = [
         "127.0.0.1:8111:8111"
@@ -18,7 +21,7 @@
       ];
     };
     teamcityAgent01 = {
-      image = "jetbrains/teamcity-agent:${teamcityVersion}-linux-sudo";
+      image = "jetbrains/teamcity-agent:${version.teamcity}-linux-sudo";
       autoStart = true;
       volumes = [
         "/var/run/podman/podman.sock:/var/run/docker.sock:rw"
@@ -40,7 +43,7 @@
       ];
     };
     teamcityAgent02 = {
-      image = "jetbrains/teamcity-agent:${teamcityVersion}-linux-sudo";
+      image = "jetbrains/teamcity-agent:${version.teamcity}-linux-sudo";
       autoStart = true;
       volumes = [
         "/var/run/podman/podman.sock:/var/run/docker.sock:rw"
@@ -59,6 +62,13 @@
       };
       extraOptions = [
         "--privileged"
+      ];
+    };
+    nevergreen = {
+      image = "buildcanariesteam/nevergreen:${version.nevergreen}";
+      autoStart = true;
+      ports = [
+        "127.0.0.1:5000:5000"
       ];
     };
   };
