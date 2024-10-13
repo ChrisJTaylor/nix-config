@@ -8,6 +8,7 @@ let version = {
 {
   virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers = {
+
     teamcity = {
       image = "jetbrains/teamcity-server:${version.teamcity}";
       autoStart = true;
@@ -20,6 +21,7 @@ let version = {
         "/mnt/apps/teamcity_server/datadir:/data/teamcity_server/datadir:rw"
       ];
     };
+
     teamcityAgent01 = {
       image = "jetbrains/teamcity-agent:${version.teamcity}-linux-sudo";
       autoStart = true;
@@ -42,6 +44,7 @@ let version = {
         "--privileged"
       ];
     };
+
     teamcityAgent02 = {
       image = "jetbrains/teamcity-agent:${version.teamcity}-linux-sudo";
       autoStart = true;
@@ -64,6 +67,7 @@ let version = {
         "--privileged"
       ];
     };
+
     nevergreen = {
       image = "buildcanariesteam/nevergreen:${version.nevergreen}";
       autoStart = true;
@@ -71,5 +75,7 @@ let version = {
         "127.0.0.1:5000:5000"
       ];
     };
+
   };
+
 }
