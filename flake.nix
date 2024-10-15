@@ -52,6 +52,7 @@
           ./nixos/rules/zsa.nix
           ./nixos/services/teamcity.nix
           ./nixos/services/podman.nix
+          ./nixos/services/atuin.nix
           ./nixos/services/nginx.nix
           ./nixos/network/internalhosts.nix
           ./nixos/apps/direnv.nix
@@ -83,6 +84,7 @@
           ./nixos/system/xserver.nix
           ./nixos/system/gnupg.nix
           ./nixos/system/gnome.nix
+          ./nixos/services/atuin.nix
           ./nixos/rules/zsa.nix
           ./nixos/network/hosts.nix
           ./nixos/apps/direnv.nix
@@ -112,9 +114,10 @@
           ./nixos/users/christian.nix
           ./nixos/network/hosts.nix
           ./nixos/system/gnupg.nix
+          ./nixos/services/atuin.nix
           ./nixos/apps/direnv.nix
           ./nixos/apps/git.nix
-          ./nixos/apps/zsh.nix
+          ./nixos/apps/fish.nix
           ./nixos/apps/common.nix
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
@@ -137,6 +140,7 @@
           ./nixos/system/xserver.nix
           ./nixos/system/gnupg.nix
           ./nixos/users/workprofile.nix
+          ./nixos/services/atuin.nix
           ./nixos/apps/direnv.nix
           ./nixos/apps/git.nix
           ./nixos/apps/zsh.nix
@@ -166,6 +170,7 @@
           ./nixos/system/spacebar.nix
           ./nixos/system/gnupg.nix
           ./nixos/system/yabai.nix
+          ./nixos/services/atuin.nix
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/direnv.nix
           ./nixos/apps/zsh-darwin.nix

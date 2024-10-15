@@ -6,6 +6,7 @@
     package = pkgs.direnv;
     silent = true;
     loadInNixShell = true;
+    enableFishIntegration = true;
     nix-direnv = {
       enable = true;
       package = pkgs.nix-direnv;

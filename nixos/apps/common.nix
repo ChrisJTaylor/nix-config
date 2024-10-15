@@ -9,7 +9,6 @@
     fzf
     fd
     bat
-    atuin
     delta
     eza
     ripgrep
@@ -19,6 +18,8 @@
     cowsay
     just
     watchman
+    grc
+    atuin
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

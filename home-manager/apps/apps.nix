@@ -5,7 +5,7 @@
     [ 
       ./nixvim.nix
       ./kitty.nix
-      ./zsh.nix
+      ./fish.nix
       ./git.nix
     ];
 
@@ -45,12 +45,12 @@
 
   programs.starship = {
     enable = true;
-    enableZshIntegration = true;
+    enableFishIntegration = true;
   };
 
   programs.navi = {
     enable = true;
-    enableZshIntegration = true;
+    enableFishIntegration = true;
   };
 
 }
