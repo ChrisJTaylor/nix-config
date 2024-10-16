@@ -3,9 +3,6 @@
 {
   environment.pathsToLink = ["/share/zsh"];
 
-  # for global user
-  users.defaultUserShell=pkgs.zsh;
-
   programs = {
      zsh = {
         enable = true;
