@@ -30,6 +30,7 @@
           echo -n -s "$nix_shell_info ~>"
           end
           )
+          fish_vi_key_bindings
           '';
      };
   };
