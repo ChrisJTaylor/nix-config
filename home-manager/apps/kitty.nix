@@ -7,7 +7,7 @@
     shellIntegration.enableFishIntegration = true;
     font = {
       name = "SourceCodePro Nerd Font";
-      size = 10;
+      size = 16;
     };
     settings = {
       background_opacity = "0.8";

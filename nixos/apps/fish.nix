@@ -8,7 +8,11 @@
         enable = true;
         shellAbbrs = {
           gst = "git status";
+          gfc = "git add -A; git checkout -f";
+          gco = "git add -A; git commit";
           vim = "nvim";
+          md = "mkdir";
+          rd = "rmdir";
         };
         vendor = {
           functions.enable = true;
@@ -25,11 +29,6 @@
           eval "$(zoxide init fish --cmd cd)"
           '';
         interactiveShellInit = ''
-          set -l nix_shell_info (
-          if test -n "$IN_NIX_SHELL"
-          echo -n -s "$nix_shell_info ~>"
-          end
-          )
           fish_vi_key_bindings
           '';
      };

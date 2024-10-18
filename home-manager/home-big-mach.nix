@@ -6,7 +6,7 @@
     ./apps/nixvim.nix
     ./apps/kitty.nix
     ./apps/tmux.nix
-    ./apps/zsh.nix
+    ./apps/fish.nix
     ./apps/git.nix
   ];
 
@@ -80,11 +80,13 @@
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
+    enableFishIntegration = true;
   };
 
   programs.navi = {
     enable = true;
     enableZshIntegration = true;
+    enableFishIntegration = true;
   };
 
 }

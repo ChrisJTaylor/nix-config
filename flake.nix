@@ -57,7 +57,7 @@
           ./nixos/network/internalhosts.nix
           ./nixos/apps/direnv.nix
           ./nixos/apps/git.nix
-          ./nixos/apps/zsh.nix
+          ./nixos/apps/fish.nix
           ./nixos/apps/common.nix
           ./nixos/apps/games.nix
           ./nixos/apps/personal.nix
