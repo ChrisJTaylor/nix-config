@@ -56,6 +56,7 @@
           ./nixos/services/nginx.nix
           ./nixos/network/internalhosts.nix
           ./nixos/apps/direnv.nix
+          ./nixos/apps/wine.nix
           ./nixos/apps/git.nix
           ./nixos/apps/fish.nix
           ./nixos/apps/common.nix
