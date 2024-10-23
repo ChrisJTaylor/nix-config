@@ -58,6 +58,8 @@
       eval "$(atuin init zsh)"
       eval "$(direnv hook zsh)"
       eval "$(zoxide init zsh --cmd cd)"
+
+      bindkey -v
     '';
   };
 }
