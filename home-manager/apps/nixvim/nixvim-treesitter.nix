@@ -4,10 +4,12 @@
 
     plugins.treesitter = {
       enable = true;
-      ensureInstalled = "all";
       folding = false;
       nixvimInjections = true;
       nixGrammars = true;
+      settings = {
+        ensure_installed = "all";
+      };
     };
 
     plugins.treesitter-context = {
@@ -32,6 +34,8 @@
 
     plugins.refactoring.enable = true;
     plugins.refactoring.enableTelescope = true;
+
+    plugins.web-devicons.enable = true;
 
   };
 

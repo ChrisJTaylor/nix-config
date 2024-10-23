@@ -13,7 +13,7 @@
     plugins.lsp = {
       enable = true;
       servers = {
-        nil-ls = {
+        nil_ls = {
           enable = true;
           settings = {
             nix = {
@@ -54,11 +54,11 @@
 	  enable = true;
 	  autostart = true;
 	};
-        kotlin-language-server = {
+        kotlin_language_server = {
           enable = true;
           autostart = true;
         };
-	lua-ls = {
+	lua_ls = {
 	  enable = true;
 	  autostart = true;
           settings = {
@@ -98,7 +98,7 @@
             telemetry.enable = true;
           };
 	};
-	rust-analyzer = {
+	rust_analyzer = {
 	  enable = true;
 	  autostart = true;
 	  installCargo = true;
