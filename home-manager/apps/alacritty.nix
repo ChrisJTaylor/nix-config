@@ -7,7 +7,7 @@
       shell = "zsh";
       window = {
         decorations = "None";
-        opacity = 0.7;
+        opacity = 0.85;
 	dimensions = {
 	  columns = 160;
 	  lines = 60;
