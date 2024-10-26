@@ -2,20 +2,59 @@
   
   programs.nixvim = {
 
-    plugins.gitblame = {
-      enable = true;
-    };
+    plugins = {
 
-    plugins.gitgutter = {
-      enable = false;
-    };
+      gitblame = {
+        enable = true;
+      };
 
-    plugins.git-worktree = {
-      enable = true;
-    };
+      gitgutter = {
+        enable = false;
+      };
 
-    plugins.git-conflict = {
-      enable = true;
+      git-worktree = {
+        enable = true;
+      };
+
+      git-conflict = {
+        enable = true;
+      };
+
+      gitsigns = {
+        enable = true;
+        settings = {
+          current_line_blame = false;
+          current_line_blame_opts = {
+            virt_text = true;
+            virt_text_pos = "eol";
+          };
+          signcolumn = true;
+          signs = {
+            add = {
+              text = "│";
+            };
+            change = {
+              text = "│";
+            };
+            changedelete = {
+              text = "~";
+            };
+            delete = {
+              text = "_";
+            };
+            topdelete = {
+              text = "‾";
+            };
+            untracked = {
+              text = "┆";
+            };
+          };
+          watch_gitdir = {
+            follow_files = true;
+          };
+        };
+      };
+
     };
 
   };

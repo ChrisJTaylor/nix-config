@@ -30,6 +30,12 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  nix.extraOptions = ''
+    trusted-users = root christian
+    extra-substituters = https://devenv.cachix.org;
+    extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=;
+  '';
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave
