@@ -8,6 +8,7 @@
     ./nixvim/nixvim-treesitter.nix
     ./nixvim/nixvim-cmp.nix
     ./nixvim/nixvim-lsp.nix
+    ./nixvim/nixvim-navic.nix
     ./nixvim/nixvim-lspsaga.nix
     ./nixvim/nixvim-testing.nix
     ./nixvim/nixvim-coverage.nix
@@ -57,6 +58,8 @@
     plugins.nix-develop.enable = true;
 
     plugins.hardtime.enable = true;
+
+    plugins.rainbow-delimiters.enable = true;
   };
 }
 
