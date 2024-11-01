@@ -57,12 +57,12 @@
               "bash"
               "-c"
               "echo '$DIFF' | delta"
-              ];
-              use_delta = true;
-              vim_diff_opts = {
+            ];
+            use_delta = true;
+            vim_diff_opts = {
               ctxlen = 8;
-              };
-              };
+            };
+          };
         };
       };
 
