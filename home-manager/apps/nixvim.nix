@@ -3,6 +3,7 @@
   imports = [
     ./nixvim/nixvim-keymaps.nix
     ./nixvim/nixvim-autocmds.nix
+    ./nixvim/nixvim-autosave.nix
     ./nixvim/nixvim-telescope.nix
     ./nixvim/nixvim-treesitter.nix
     ./nixvim/nixvim-cmp.nix
@@ -51,8 +52,6 @@
 
     plugins.lightline.enable = true;
     plugins.which-key.enable = true;
-
-    plugins.diffview.enable = true;
 
     plugins.nix.enable = true;
     plugins.nix-develop.enable = true;
