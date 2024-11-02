@@ -9,6 +9,7 @@
     ./nixvim/nixvim-cmp.nix
     ./nixvim/nixvim-lsp.nix
     ./nixvim/nixvim-navic.nix
+    ./nixvim/nixvim-neotree.nix
     ./nixvim/nixvim-lspsaga.nix
     ./nixvim/nixvim-testing.nix
     ./nixvim/nixvim-coverage.nix
@@ -38,14 +39,6 @@
       splitbelow = true;
       scrolloff = 10;
       hlsearch = true;
-    };
-
-    plugins.neo-tree = {
-      enable = true;
-      enableGitStatus = true;
-      enableModifiedMarkers = true;
-      enableRefreshOnWrite = true;
-      closeIfLastWindow = true;
     };
 
     plugins.dressing.enable = true;
