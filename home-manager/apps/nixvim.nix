@@ -6,6 +6,7 @@
     ./nixvim/nixvim-autosave.nix
     ./nixvim/nixvim-telescope.nix
     ./nixvim/nixvim-treesitter.nix
+    ./nixvim/nixvim-frecency.nix
     ./nixvim/nixvim-cmp.nix
     ./nixvim/nixvim-lsp.nix
     ./nixvim/nixvim-navic.nix
