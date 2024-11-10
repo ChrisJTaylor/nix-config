@@ -22,29 +22,6 @@ let version = {
       ];
     };
 
-    teamcityAgent01 = {
-      image = "jetbrains/teamcity-agent:${version.teamcity}-linux-sudo";
-      autoStart = true;
-      volumes = [
-        "/var/run/podman/podman.sock:/var/run/docker.sock:rw"
-        "/mnt/apps/teamcity_agents/mach_01/conf:/data/teamcity_agent/conf:rw"
-        "/mnt/apps/teamcity_agents/mach_01/work:/opt/buildagent/work:rw"
-        "/mnt/apps/teamcity_agents/mach_01/temp:/opt/buildagent/temp:rw"
-        "/mnt/apps/teamcity_agents/mach_01/tools:/opt/buildagent/tools:rw"
-        "/mnt/apps/teamcity_agents/mach_01/plugins:/opt/buildagent/plugins:rw"
-        "/mnt/apps/teamcity_agents/mach_01/system:/opt/buildagent/system:rw"
-      ];
-      dependsOn = [ "teamcity" ];
-      environment = {
-        AGENT_NAME = "mach-01";
-        DOCKER_IN_DOCKER = "start";
-        SERVER_URL = "http://teamcity:8111";
-      };
-      extraOptions = [
-        "--privileged"
-      ];
-    };
-
     nevergreen = {
       image = "buildcanariesteam/nevergreen:${version.nevergreen}";
       autoStart = true;
@@ -53,6 +30,35 @@ let version = {
       ];
     };
 
+  };
+
+  containers = {
+    agent01 = {
+      autoStart = true;
+      config = { config, pkgs, ...}: 
+      {
+        system.stateVersion = "24.05";
+
+        environment.systemPackages = [
+
+        ]; 
+
+        programs.java = {
+          enable = true;
+          package = pkgs.jetbrains.jdk;
+        };
+
+        users.groups.agents = {};
+
+        users.users.agent = {
+          isSystemUser = true;
+          isNormalUser = false;
+          description = "build agent";
+          home = "/home/agent";
+          group = "agents";
+        };
+      };
+    };
   };
 
 }
