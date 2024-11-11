@@ -116,6 +116,7 @@
           ./nixos/network/hosts.nix
           ./nixos/system/gnupg.nix
           ./nixos/services/atuin.nix
+          ./nixos/network/hosts.nix
           ./nixos/apps/direnv.nix
           ./nixos/apps/git.nix
           ./nixos/apps/fish.nix
@@ -171,6 +172,7 @@
           ./nixos/system/spacebar.nix
           ./nixos/system/gnupg.nix
           ./nixos/system/yabai.nix
+          ./nixos/network/hosts.nix
           ./nixos/services/atuin.nix
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/direnv.nix

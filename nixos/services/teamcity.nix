@@ -40,8 +40,9 @@ let version = {
       {
         system.stateVersion = "24.05";
 
-        environment.systemPackages = [
-
+        environment.systemPackages = with pkgs; [
+          curl
+          vim
         ]; 
 
         programs.java = {
