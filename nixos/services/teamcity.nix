@@ -33,6 +33,7 @@ let version = {
   };
 
   containers = {
+
     agent01 = {
       autoStart = true;
       config = { config, pkgs, ...}: 
@@ -51,14 +52,15 @@ let version = {
         users.groups.agents = {};
 
         users.users.agent = {
-          isSystemUser = true;
-          isNormalUser = false;
+          isSystemUser = false;
+          isNormalUser = true;
           description = "build agent";
           home = "/home/agent";
           group = "agents";
         };
       };
     };
+
   };
 
 }
