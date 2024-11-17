@@ -13,7 +13,7 @@
 	};
         python = {
 	  coverage_file = ".coverage";
-	  coverage_command = "poetry run coverage json --fail-under=0 -o -";
+	  coverage_command = "poetry run coverage json --fail-under=0 -o .coverage";
           dynamic_context = true;
 	};
 	ruby = {
