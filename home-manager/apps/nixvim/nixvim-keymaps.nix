@@ -131,7 +131,7 @@
       options.desc = "Move up";
     }
     {
-      mode = "n";
+    mode = "n";
       key = "<C-d>";
       options.silent = true;
       action = "<C-d>zz";
@@ -273,6 +273,29 @@
       options.silent = true;
       action = "<cmd>:lua require('neotest').watch.toggle(vim.fn.expand('%'))<CR>";
       options.desc = "Toggle watch current file (neotest)";
+    }
+
+    # coverage
+    {
+      mode = "n";
+      key = "<A-l>";
+      options.silent = true;
+      action = "<cmd>:CoverageLoad<CR>";
+      options.desc = "Load coverage";
+    }
+    {
+      mode = "n";
+      key = "<A-s>";
+      options.silent = true;
+      action = "<cmd>:CoverageSummary<CR>";
+      options.desc = "Show coverage summary";
+    }
+    {
+      mode = "n";
+      key = "<A-c>";
+      options.silent = true;
+      action = "<cmd>:CoverageToggle<CR>";
+      options.desc = "Toggle coverage";
     }
 
 
