@@ -5,6 +5,9 @@
     enable = true;
     clock24 = true;
     newSession = true;
+    terminal = "screen-256color";
+    shortcut = "b";
+    keyMode = "vi";
     plugins = [
       pkgs.tmuxPlugins.continuum
       pkgs.tmuxPlugins.fzf-tmux-url
