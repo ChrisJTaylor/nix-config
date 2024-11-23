@@ -96,7 +96,7 @@ let version = {
 
         networking = {
           hostName = "agent-01";
-          interfaces."enp7s0f0".useDHCP = true;
+          interfaces."wls6".useDHCP = true;
           useHostResolvConf = false;
           firewall.enable = false;
           firewall.rejectPackets = true;

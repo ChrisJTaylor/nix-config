@@ -7,7 +7,7 @@
 
     bridges = {
       br0 = {
-        interfaces = [ "enp7s0f0" ];
+        interfaces = [ "wls6" ];
       };
     };
 
