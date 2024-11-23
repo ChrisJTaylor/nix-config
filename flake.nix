@@ -41,6 +41,7 @@
         modules = [
           ({ config, pkgs, ... }: {  })
           ./nixos/hosts/big-mach/configuration.nix
+          ./nixos/network/bridge.nix
           sops-nix.nixosModules.sops
           ./nixos/users/christian.nix
           ./nixos/system/common.nix

@@ -32,31 +32,35 @@ let version = {
 
   };
 
-  networking = {
-    bridges.br0.interfaces = [ "enp7s0f0" ];
-
-    useDHCP = false;
-    interfaces."br0".useDHCP = true;
-
-    interfaces."br0".ipv4.addresses = [{
-      address = "192.168.100.3";
-      prefixLength = 24;
-    }];
-    defaultGateway = "192.168.100.1";
-    nameservers = [ "192.168.100.1" ];
+  networking.nat = {
+    enable = true;
+    internalInterfaces = [ "ve-agent-01" ]; 
+    externalInterface = "br0";
   };
 
   containers = {
 
     agent01 = {
+      extraFlags = [ "-U" ];
+      ephemeral = false;
       autoStart = true;
-      hostBridge = "br0";
       privateNetwork = true;
-      localAddress = "192.168.100.5/24";
+      hostBridge = "br0";
+      localAddress = "10.0.100.2/8";
     
-      config = { config, pkgs, ...}: 
+      config = { config, pkgs, lib, ...}: 
       {
-        system.stateVersion = "24.05";
+        system.stateVersion = "24.11";
+
+        services.avahi = {
+          nssmdns4 = true; # Allows software to use Avahi to resolve.
+          enable = true;
+          publish = {
+            enable = true;
+            addresses = true;
+            workstation = true;
+          };
+        };
 
         environment.systemPackages = with pkgs; [
           curl
@@ -76,6 +80,14 @@ let version = {
           description = "build agent";
           home = "/home/agent";
           group = "agents";
+        };
+
+        services.resolved.enable = true;
+
+        networking = {
+          hostName = "agent-01";
+          interfaces."eth0".useDHCP = true;
+          useHostResolvConf = false;
         };
       };
     };
