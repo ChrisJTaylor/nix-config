@@ -47,6 +47,13 @@ let version = {
       privateNetwork = true;
       hostBridge = "br0";
       localAddress = "10.0.100.2/8";
+
+      bindMounts = {
+        "/etc/resolv.conf" = {
+          hostPath = "/etc/resolv.conf";
+          isReadOnly = true;
+        };
+      };
     
       config = { config, pkgs, lib, ...}: 
       {
