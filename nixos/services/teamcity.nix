@@ -65,6 +65,7 @@ let version = {
         environment.systemPackages = with pkgs; [
           curl
           vim
+          traceroute
         ]; 
 
         programs.java = {
@@ -91,6 +92,8 @@ let version = {
           interfaces."enp7s0f0".useDHCP = true;
           useHostResolvConf = false;
           firewall.enable = false;
+          firewall.rejectPackets = true;
+          firewall.allowedTCPPorts = [ 80 443 ];
         };
       };
     };
