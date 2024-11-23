@@ -18,5 +18,10 @@
       };
     };
 
+    firewall = {
+      enable = true;
+      trustedInterfaces = [ "vb-+" "ve-+" ];
+    };
+
   };
 }
