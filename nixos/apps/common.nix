@@ -20,6 +20,8 @@
     watchman
     grc
     atuin
+    xclip
+    wl-clipboard
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
