@@ -80,14 +80,17 @@ let version = {
           description = "build agent";
           home = "/home/agent";
           group = "agents";
+          extraGroups = [ "wheel" ];
         };
 
         services.resolved.enable = true;
+        services.postfix.enable = true;
 
         networking = {
           hostName = "agent-01";
           interfaces."eth0".useDHCP = true;
           useHostResolvConf = false;
+          firewall.enable = false;
         };
       };
     };
