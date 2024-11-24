@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 let version = {
   teamcity = "2024.07.3";
@@ -34,33 +34,16 @@ let version = {
 
   containers.teamcity-agent = {
     autoStart = true;
-    config = {
-      system.stateVersion = "24.11"; # Replace with your NixOS version
-
-      environment.variables = {
-        TEAMCITY_AGENT_OPTS = "-Dsome.option=value";
-        TEAMCITY_SERVER_URL = "http://teamcity:8111";
-      };
-
-      networking.extraHosts = ''
-        127.0.0.1 localhost
-        10.88.0.3 teamcity 
-      '';
-
-      users.groups.teamcity-agents = {};
-
-      users.users.teamcity-agent = {
-        isSystemUser = true;
-        group = "teamcity-agents";
-      };
-
-      environment.systemPackages = with pkgs; [
-        git
-        openjdk
-        curl
-        vim
-      ];
-    };
+    config = import ./teamcity-agent-config.nix;
   };
 
+  containers.teamcity-agent-02 = {
+    autoStart = true;
+    config = import ./teamcity-agent-config.nix;
+  };
+
+  containers.teamcity-agent-03 = {
+    autoStart = true;
+    config = import ./teamcity-agent-config.nix;
+  };
 }
