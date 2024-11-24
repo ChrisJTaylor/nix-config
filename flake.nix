@@ -54,6 +54,7 @@
           ./nixos/services/podman.nix
           ./nixos/services/atuin.nix
           ./nixos/services/nginx.nix
+          ./nixos/network/nameservers.nix
           ./nixos/network/internalhosts.nix
           ./nixos/apps/direnv.nix
           ./nixos/apps/wine.nix
