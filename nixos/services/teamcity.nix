@@ -44,7 +44,7 @@ let version = {
 
       networking.extraHosts = ''
         127.0.0.1 localhost
-        10.88.0.1 teamcity 
+        10.88.0.3 teamcity 
       '';
 
       users.groups.teamcity-agents = {};
