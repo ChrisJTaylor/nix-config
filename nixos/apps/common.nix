@@ -20,6 +20,8 @@
     watchman
     grc
     atuin
+    systemd-container
+    podman
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
