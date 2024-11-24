@@ -32,7 +32,7 @@ let version = {
 
   };
 
-  containers.teamcity-agent = {
+  containers.teamcity-agent-01 = {
     autoStart = true;
     config = import ./teamcity-agent-config.nix;
   };
