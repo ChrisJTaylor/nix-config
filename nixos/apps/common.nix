@@ -20,7 +20,7 @@
     watchman
     grc
     atuin
-    systemd-container
+    systemd
     podman
   ];
 
