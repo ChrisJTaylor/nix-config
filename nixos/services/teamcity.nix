@@ -32,7 +32,7 @@ let version = {
 
   };
 
-  containers.agentx-1 = {
+  containers.mach-agent-01 = {
     autoStart = true;
     config = (import ./teamcity-agent-config.nix { 
       inherit config lib pkgs;
