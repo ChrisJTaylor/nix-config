@@ -1,4 +1,4 @@
-{ ... }:
+{ config, lib, pkgs, ... }:
 
 let version = {
   teamcity = "2024.07.3";
@@ -34,16 +34,12 @@ let version = {
 
   containers.teamcity-agent-01 = {
     autoStart = true;
-    config = import ./teamcity-agent-config.nix;
+    config = (import ./teamcity-agent-config.nix { 
+      inherit config lib pkgs;
+    } { 
+      agent_name = "nixagent01"; 
+      teamcity_server_url = "http://teamcity:8111";
+    });
   };
 
-  containers.teamcity-agent-02 = {
-    autoStart = true;
-    config = import ./teamcity-agent-config.nix;
-  };
-
-  containers.teamcity-agent-03 = {
-    autoStart = true;
-    config = import ./teamcity-agent-config.nix;
-  };
 }

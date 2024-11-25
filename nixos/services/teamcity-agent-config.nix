@@ -1,11 +1,41 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
+{ agent_name, teamcity_server_url }:
 {
   config = {
-    system.stateVersion = "24.11"; # Replace with your NixOS version
+    system.stateVersion = "24.11"; 
 
-    environment.variables = {
-      TEAMCITY_AGENT_OPTS = "-Dsome.option=value";
-      TEAMCITY_SERVER_URL = "http://teamcity:8111";
+    # system.activationScripts.fixPermissions = ''
+      # mkdir -p /opt/teamcity-agent
+      # mkdir -p /opt/teamcity-agent-work
+      # chown -R teamcity-agent:teamcity-agent /opt/teamcity-agent
+      # chown -R teamcity-agent:teamcity-agent /opt/teamcity-agent-work
+      # chmod -R 750 /opt/teamcity-agent
+      # chmod -R 750 /opt/teamcity-agent-work
+      # chmod -R +x /opt/teamcity-agent/bin/*.sh
+      # '';
+
+    systemd.services.teamcity-agent = {
+      description = "TeamCity Build Agent Service";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        ExecStart = "/opt/teamcity-agent/bin/agent.sh start";
+        ExecStop = "/opt/teamcity-agent/bin/agent.sh stop";
+        Restart = "on-failure";
+        User = "teamcity-agent";
+        WorkingDirectory = "/opt/teamcity-agent-work";
+        ReadWritePaths = [
+          "/opt/teamcity-agent"
+          "/opt/teamcity-agent-work"
+        ];
+        ProtectSystem = false;
+        ProtectHomw = false;
+        Environment = "PATH=/run/current-system/sw/bin:/bin:/usr/bin";
+      };
+      environment = {
+        AGENT_NAME = "${agent_name}";
+        SERVER_URL = "${teamcity_server_url}";
+      };
     };
 
     networking.extraHosts = ''
@@ -18,17 +48,36 @@
     users.users.teamcity-agent = {
       isSystemUser = true;
       group = "teamcity-agents";
+      description = "TeamCity Agent";
+      home = "/home/teamcity-agent";
+      extraGroups = [ "wheel" "docker" "podman" ];
     };
 
     environment.systemPackages = with pkgs; [
       git
       curl
       vim
+      bash
+      unzip
+      jq
+      just
     ];
 
     programs.java = {
       enable = true;
       package = pkgs.jdk17;
+    };
+
+    systemd.services.setup-teamcity-agent = {
+      description = "Setup TeamCity Agent";
+      before = [ "teamcity-agent.service" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.curl}/bin/curl -o /tmp/buildAgent.zip ${teamcity_server_url}/update/buildAgent.zip";
+        ExecStartPost = "mkdir -p /opt/teamcity-agent && ${pkgs.unzip}/bin/unzip -o /tmp/buildAgent.zip -d /opt/teamcity-agent";
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
     };
   };
 }

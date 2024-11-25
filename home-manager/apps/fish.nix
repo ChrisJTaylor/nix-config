@@ -13,8 +13,9 @@
     shellAbbrs = {
       gst = "git status";
       gfc = "git add -A; git checkout -f";
-      gco = "git add -A; git commit";
+      gcm = "git add -A; git commit";
       vim = "nvim";
+      v = "nvim .";
       md = "mkdir";
       rd = "rmdir";
     };
