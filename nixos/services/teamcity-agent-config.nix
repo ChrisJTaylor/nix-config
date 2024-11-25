@@ -4,39 +4,29 @@
   config = {
     system.stateVersion = "24.11"; 
 
-    # system.activationScripts.fixPermissions = ''
-      # mkdir -p /opt/teamcity-agent
-      # mkdir -p /opt/teamcity-agent-work
-      # chown -R teamcity-agent:teamcity-agent /opt/teamcity-agent
-      # chown -R teamcity-agent:teamcity-agent /opt/teamcity-agent-work
-      # chmod -R 750 /opt/teamcity-agent
-      # chmod -R 750 /opt/teamcity-agent-work
-      # chmod -R +x /opt/teamcity-agent/bin/*.sh
-      # '';
-
-    systemd.services.teamcity-agent = {
-      description = "TeamCity Build Agent Service";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        ExecStart = "/opt/teamcity-agent/bin/agent.sh start";
-        ExecStop = "/opt/teamcity-agent/bin/agent.sh stop";
-        Restart = "on-failure";
-        User = "teamcity-agent";
-        WorkingDirectory = "/opt/teamcity-agent-work";
-        ReadWritePaths = [
-          "/opt/teamcity-agent"
-          "/opt/teamcity-agent-work"
-        ];
-        ProtectSystem = false;
-        ProtectHomw = false;
-        Environment = "PATH=/run/current-system/sw/bin:/bin:/usr/bin";
-      };
-      environment = {
-        AGENT_NAME = "${agent_name}";
-        SERVER_URL = "${teamcity_server_url}";
-      };
-    };
+    # systemd.services.teamcity-agent = {
+      # description = "TeamCity Build Agent Service";
+      # after = [ "network.target" ];
+      # wantedBy = [ "multi-user.target" ];
+      # serviceConfig = {
+        # ExecStart = "/opt/teamcity-agent/bin/agent.sh start";
+        # ExecStop = "/opt/teamcity-agent/bin/agent.sh stop";
+        # Restart = "on-failure";
+        # User = "teamcity-agent";
+        # WorkingDirectory = "/opt/teamcity-agent-work";
+        # ReadWritePaths = [
+          # "/opt/teamcity-agent"
+          # "/opt/teamcity-agent-work"
+        # ];
+        # ProtectSystem = false;
+        # ProtectHome = false;
+        # Environment = "PATH=/run/current-system/sw/bin:/bin:/usr/bin";
+      # };
+      # environment = {
+        # AGENT_NAME = "${agent_name}";
+        # SERVER_URL = "${teamcity_server_url}";
+      # };
+    # };
 
     networking.extraHosts = ''
         127.0.0.1 localhost
@@ -73,11 +63,16 @@
       before = [ "teamcity-agent.service" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.curl}/bin/curl -o /tmp/buildAgent.zip ${teamcity_server_url}/update/buildAgent.zip";
-        ExecStartPost = "mkdir -p /opt/teamcity-agent && ${pkgs.unzip}/bin/unzip -o /tmp/buildAgent.zip -d /opt/teamcity-agent";
+        ExecStart = "mkdir -p /opt/teamcity-agent";
+        ExecStartPost = "bash -c ' \
+        chown -R teamcity-agent:teamcity-agent /opt/teamcity-agent && \
+        ${pkgs.curl}/bin/curl -o /tmp/buildAgent.zip ${teamcity_server_url}/update/buildAgent.zip && \
+        ${pkgs.unzip}/bin/unzip -o /tmp/buildAgent.zip -d /opt/teamcity-agent'";
         Type = "oneshot";
         RemainAfterExit = true;
+        Environment = "PATH=/run/current-system/sw/bin:/bin:/usr/bin";
       };
     };
+
   };
 }
