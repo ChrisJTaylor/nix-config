@@ -4,13 +4,10 @@ let
   setupScript = pkgs.writeShellScript "" ''
     set -e
     mkdir -p /opt/teamcity-agent
-    chown -R teamcity-agent:teamcity-agent /opt/teamcity-agent
-    chmod -R 750 /opt/teamcity-agent
     ${pkgs.curl}/bin/curl -o /tmp/buildAgent.zip ${teamcity_server_url}/update/buildAgent.zip
     ${pkgs.unzip}/bin/unzip -o /tmp/buildAgent.zip -d /opt/teamcity-agent
-
-    sed -i "s|^serverUrl=.*|serverUrl=${teamcity_server_url}|" /opt/teamcity-agent/conf/buildAgent.properties
-    sed -i "s|^name=.*|name=${agent_name}|" /opt/teamcity-agent/conf/buildAgent.properties
+    chown -R teamcity-agent:teamcity-agent /opt/teamcity-agent
+    chmod -R 750 /opt/teamcity-agent
     '';
 in
 {
