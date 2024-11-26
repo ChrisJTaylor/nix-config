@@ -50,8 +50,6 @@
     plugins.nix.enable = true;
     plugins.nix-develop.enable = true;
 
-    plugins.hardtime.enable = true;
-
     plugins.rainbow-delimiters.enable = true;
   };
 }
