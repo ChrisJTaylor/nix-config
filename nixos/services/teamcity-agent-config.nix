@@ -8,6 +8,9 @@ let
     ${pkgs.unzip}/bin/unzip -o /tmp/buildAgent.zip -d /opt/teamcity-agent
     chown -R teamcity-agent:teamcity-agent /opt/teamcity-agent
     chmod -R 750 /opt/teamcity-agent
+
+    sed -i "s|^serverUrl=.*|serverUrl=${teamcity_server_url}|" /opt/teamcity-agent/conf/buildAgent.properties
+    sed -i "s|^name=.*|name=${agent_name}|" /opt/teamcity-agent/conf/buildAgent.properties 
     '';
 in
 {
@@ -17,24 +20,39 @@ in
     systemd.services.teamcity-agent = {
       description = "TeamCity Build Agent Service";
       after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+
+      wantedBy = [ "default.target" ];
+
       serviceConfig = {
+        Type = "oneshot";
+
+        User = "teamcity-agent";
+        Group = "teamcity-agent";
         ExecStart = "/opt/teamcity-agent/bin/agent.sh start";
         ExecStop = "/opt/teamcity-agent/bin/agent.sh stop";
-        Restart = "on-failure";
-        User = "teamcity-agent";
+
+        RemainAfterExit = true;
+        SuccessExitStatus = [ 0 143 ];
         WorkingDirectory = "/opt/teamcity-agent";
         ReadWritePaths = [
           "/opt/teamcity-agent"
+          "/opt/teamcity-agent/logs"
+          "/opt/teamcity-agent/conf"
         ];
         ProtectSystem = false;
         ProtectHome = false;
-        Environment = "PATH=/run/current-system/sw/bin:/bin:/usr/bin";
+        PrivateTmp = false;
+        LogLevelMax = "debug";
+        Environment = ''
+          PATH="/run/current-system/sw/bin:/bin:/usr/bin"
+          JAVA_HOME="/run/current-system/sw/lib/openjdk"
+        '';
       };
       environment = {
-        AGENT_NAME = "${agent_name}";
-        SERVER_URL = "${teamcity_server_url}";
+        AwENT_NAME="${agent_name}";
+        SERVER_URL="${teamcity_server_url}";
       };
+
     };
 
     networking.extraHosts = ''
@@ -49,7 +67,7 @@ in
       group = "teamcity-agent";
       description = "TeamCity Agent";
       home = "/home/teamcity-agent";
-      extraGroups = [ "wheel" "docker" "podman" ];
+      extraGroups = [ "network" "wheel" "docker" "podman" ];
     };
 
     environment.systemPackages = with pkgs; [
