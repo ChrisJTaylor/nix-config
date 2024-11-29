@@ -3,6 +3,14 @@
 let
   setupScript = pkgs.writeShellScript "" ''
     set -e
+
+    FLAG_FILE="/opt/teamcity-agent/.setup-complete"
+    if [ -f "$FLAG_FILE" ]; then
+      echo "Teamcity Agent already installed."
+      exit 0
+    fi
+
+    echo "Begin setup for Teamcity Agent..."
     mkdir -p /opt/teamcity-agent
     ${pkgs.curl}/bin/curl -o /tmp/buildAgent.zip ${teamcity_server_url}/update/buildAgent.zip
     ${pkgs.unzip}/bin/unzip -o /tmp/buildAgent.zip -d /opt/teamcity-agent
@@ -11,6 +19,7 @@ let
 
     sed -i "s|^serverUrl=.*|serverUrl=${teamcity_server_url}|" /opt/teamcity-agent/conf/buildAgent.properties
     sed -i "s|^name=.*|name=${agent_name}|" /opt/teamcity-agent/conf/buildAgent.properties 
+    echo "Completed setup for Teamcity Agent."
     '';
 in
 {
