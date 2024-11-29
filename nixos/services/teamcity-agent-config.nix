@@ -21,7 +21,7 @@ in
       description = "TeamCity Build Agent Service";
       after = [ "network.target" ];
 
-      wantedBy = [ "default.target" ];
+      wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
         Type = "oneshot";
@@ -78,6 +78,7 @@ in
       unzip
       jq
       just
+      docker
     ];
 
     programs.java = {
