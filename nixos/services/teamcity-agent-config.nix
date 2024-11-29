@@ -19,6 +19,10 @@ let
 
     sed -i "s|^serverUrl=.*|serverUrl=${teamcity_server_url}|" /opt/teamcity-agent/conf/buildAgent.properties
     sed -i "s|^name=.*|name=${agent_name}|" /opt/teamcity-agent/conf/buildAgent.properties 
+
+    touch "$FLAG_FILE"
+    chown teamcity-agent:teamcity-agent "$FLAG_FILE"
+
     echo "Completed setup for Teamcity Agent."
     '';
 in
