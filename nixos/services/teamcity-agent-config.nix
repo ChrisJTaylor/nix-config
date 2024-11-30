@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-{ agent_name, teamcity_server_url }:
+{ agent_name, teamcity_server_url, additionalPackages ? [] }:
 let
   setupScript = pkgs.writeShellScript "" ''
     set -e
@@ -62,7 +62,7 @@ in
         '';
       };
       environment = {
-        AwENT_NAME="${agent_name}";
+        AGENT_NAME="${agent_name}";
         SERVER_URL="${teamcity_server_url}";
       };
 
@@ -91,8 +91,7 @@ in
       unzip
       jq
       just
-      docker
-    ];
+    ] ++ additionalPackages;
 
     programs.java = {
       enable = true;

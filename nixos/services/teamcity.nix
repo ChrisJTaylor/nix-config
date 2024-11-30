@@ -39,6 +39,9 @@ let version = {
     } { 
       agent_name = "nixagent01"; 
       teamcity_server_url = "http://teamcity:8111";
+      additionalPackages = with pkgs; [ 
+        unityhub
+      ];
     });
   };
 
