@@ -27,7 +27,12 @@ let
     '';
 in
 {
+  imports = [
+    ../../home-manager/apps/xdg_workaround.nix
+  ];
+
   config = {
+
     system.stateVersion = "24.11"; 
 
     systemd.services.teamcity-agent = {
@@ -41,8 +46,8 @@ in
 
         User = "teamcity-agent";
         Group = "teamcity-agent";
-        ExecStart = "/opt/teamcity-agent/bin/agent.sh start";
-        ExecStop = "/opt/teamcity-agent/bin/agent.sh stop";
+        ExecStart = "/run/current-system/sw/bin/bash /opt/teamcity-agent/bin/agent.sh start";
+        ExecStop = "/run/current-system/sw/bin/bash /opt/teamcity-agent/bin/agent.sh stop";
 
         RemainAfterExit = true;
         SuccessExitStatus = [ 0 143 ];
@@ -56,16 +61,14 @@ in
         ProtectHome = false;
         PrivateTmp = false;
         LogLevelMax = "debug";
-        Environment = ''
-          PATH="/run/current-system/sw/bin:/bin:/usr/bin"
-          JAVA_HOME="/run/current-system/sw/lib/openjdk"
-        '';
+        Environment = "DISPLAY=:1";
       };
-      environment = {
-        AGENT_NAME="${agent_name}";
-        SERVER_URL="${teamcity_server_url}";
-      };
+    };
 
+    environment.variables = {
+      DISPLAY = ":1";
+      AGENT_NAME = "${agent_name}";
+      SERVER_URL = "${teamcity_server_url}";
     };
 
     networking.extraHosts = ''
@@ -76,11 +79,11 @@ in
     users.groups.teamcity-agent = {};
 
     users.users.teamcity-agent = {
-      isSystemUser = true;
+      isNormalUser = true;
       group = "teamcity-agent";
       description = "TeamCity Agent";
       home = "/home/teamcity-agent";
-      extraGroups = [ "network" "wheel" "docker" "podman" ];
+      extraGroups = [ "networkmanager" "wheel" "docker" "plugdev" "podman" ];
     };
 
     environment.systemPackages = with pkgs; [
@@ -91,6 +94,8 @@ in
       unzip
       jq
       just
+      xorg.xhost
+      chromium
     ] ++ additionalPackages;
 
     programs.java = {

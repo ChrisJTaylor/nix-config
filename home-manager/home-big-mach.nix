@@ -8,6 +8,7 @@
     ./apps/tmux.nix
     ./apps/fish.nix
     ./apps/git.nix
+    ./apps/xdg_workaround.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
