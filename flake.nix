@@ -59,7 +59,7 @@
           ./nixos/apps/direnv.nix
           ./nixos/apps/wine.nix
           ./nixos/apps/git.nix
-          ./nixos/apps/fish.nix
+          ./nixos/apps/zsh.nix
           ./nixos/apps/common.nix
           ./nixos/apps/games.nix
           ./nixos/apps/personal.nix

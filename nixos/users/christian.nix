@@ -7,7 +7,7 @@
     isNormalUser = true;
     description = "Christian Taylor";
     home = "/home/christian";
-    shell = pkgs.fish;
+    shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" "docker" "plugdev" "podman" ];
     packages = with pkgs; [
     #  thunderbird
