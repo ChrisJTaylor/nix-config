@@ -27,10 +27,6 @@ let
     '';
 in
 {
-  imports = [
-    ../../home-manager/apps/xdg_workaround.nix
-  ];
-
   config = {
 
     system.stateVersion = "24.11"; 
@@ -94,8 +90,6 @@ in
       unzip
       jq
       just
-      xorg.xhost
-      chromium
     ] ++ additionalPackages;
 
     programs.java = {

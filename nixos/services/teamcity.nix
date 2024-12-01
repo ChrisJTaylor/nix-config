@@ -6,16 +6,6 @@ let version = {
 };
   in
 {
-  systemd.services.allowX11Access = {
-    description = "Allow systemd-nspawn containers access to X11";
-    wantedBy = [ "default.target" ];
-    script = ''
-      export DISPLAY=":1"
-      export PATH=$PATH:${pkgs.xorg.xhost}/bin
-      ${pkgs.xorg.xhost}/bin/xhost +local:systemd
-    '';
-  };
-
   virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers = {
 
@@ -45,17 +35,6 @@ let version = {
   containers.mach-agent-01 = {
     autoStart = true;
 
-    bindMounts = {
-      "/tmp/.X11-unix" = {
-        hostPath = "/tmp/.X11-unix";
-        isReadOnly = true;
-      };
-      "/dev/dri" = {
-        hostPath = "/dev/dri";
-        isReadOnly = true;
-      };
-    };
-
     config = (import ./teamcity-agent-config.nix { 
       inherit config lib pkgs;
     } { 
@@ -68,17 +47,6 @@ let version = {
   containers.mach-agent-02 = {
     autoStart = true;
 
-    bindMounts = {
-      "/tmp/.X11-unix" = {
-        hostPath = "/tmp/.X11-unix";
-        isReadOnly = true;
-      };
-      "/dev/dri" = {
-        hostPath = "/dev/dri";
-        isReadOnly = true;
-      };
-    };
-
     config = (import ./teamcity-agent-config.nix { 
       inherit config lib pkgs;
     } { 
@@ -89,17 +57,6 @@ let version = {
 
   containers.mach-agent-03 = {
     autoStart = true;
-
-    bindMounts = {
-      "/tmp/.X11-unix" = {
-        hostPath = "/tmp/.X11-unix";
-        isReadOnly = true;
-      };
-      "/dev/dri" = {
-        hostPath = "/dev/dri";
-        isReadOnly = true;
-      };
-    };
 
     config = (import ./teamcity-agent-config.nix { 
       inherit config lib pkgs;
