@@ -57,14 +57,11 @@ in
         ProtectHome = false;
         PrivateTmp = false;
         LogLevelMax = "debug";
-        Environment = "DISPLAY=:1";
+        Environment = ''
+          PATH="/run/current-system/sw/bin:/bin:/usr/bin"
+          JAVA_HOME="/run/current-system/sw/bin/jdk17"
+          '';
       };
-    };
-
-    environment.variables = {
-      DISPLAY = ":1";
-      AGENT_NAME = "${agent_name}";
-      SERVER_URL = "${teamcity_server_url}";
     };
 
     networking.extraHosts = ''
