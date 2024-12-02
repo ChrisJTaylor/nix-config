@@ -44,7 +44,6 @@
           sops-nix.nixosModules.sops
           ./nixos/users/christian.nix
           ./nixos/system/common.nix
-          # ./nixos/system/virtualbox.nix
           ./nixos/system/locale.nix
           ./nixos/system/gnupg.nix
           ./nixos/system/cosmic.nix
@@ -120,7 +119,7 @@
           ./nixos/network/hosts.nix
           ./nixos/apps/direnv.nix
           ./nixos/apps/git.nix
-          ./nixos/apps/fish.nix
+          ./nixos/apps/zsh.nix
           ./nixos/apps/common.nix
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;

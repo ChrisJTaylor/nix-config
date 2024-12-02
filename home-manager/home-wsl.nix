@@ -6,7 +6,7 @@
     ./apps/nixvim.nix
     ./apps/kitty.nix
     ./apps/tmux.nix
-    ./apps/fish.nix
+    ./apps/zsh.nix
     ./apps/git.nix
   ];
 
