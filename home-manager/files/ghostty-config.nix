@@ -49,11 +49,11 @@
       keybind = ctrl+b>shift+l=new_split:right
 
       keybind = ctrl+b>k=goto_split:top
-      keybind = ctrl+b>j=new_split:bottom
-      keybind = ctrl+b>h=new_split:left
-      keybind = ctrl+b>l=new_split:right
-      keybind = ctrl+b>p=new_split:previous
-      keybind = ctrl+b>n=new_split:next
+      keybind = ctrl+b>j=goto_split:bottom
+      keybind = ctrl+b>h=goto_split:left
+      keybind = ctrl+b>l=goto_split:right
+      keybind = ctrl+b>p=goto_split:previous
+      keybind = ctrl+b>n=goto_split:next
     '';
   };
 }
