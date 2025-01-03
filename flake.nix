@@ -45,6 +45,11 @@
         ./nixos/services/atuin.nix
         ./nixos/apps/direnv.nix
         ./nixos/apps/common.nix
+        {
+          environment.systemPackages = [
+            ghostty.packages.x86_64-linux.default
+          ];
+        }
       ];
     in {
       big-mach = nixpkgs.lib.nixosSystem {
@@ -145,10 +150,13 @@
         ./nixos/system/spacebar.nix
         ./nixos/system/yabai.nix
         ./nixos/apps/zsh-darwin.nix
-        ./nixos/system/gnupg.nix
-        ./nixos/services/atuin.nix
         ./nixos/apps/direnv.nix
         ./nixos/apps/common.nix
+        {
+          environment.systemPackages = [
+            ghostty.packages.x86_64-linux.default
+          ];
+        }
       ];
     in {
       
@@ -158,7 +166,6 @@
         modules = [
           ({ config, pkgs, ... }: { })
           ./nixos/hosts/machbook/configuration.nix
-          ./nixos/network/hosts.nix
           ./nixos/users/christiantaylor.nix
           home-manager.darwinModules.home-manager {
             home-manager.useGlobalPkgs = true;
