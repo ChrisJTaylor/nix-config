@@ -146,13 +146,6 @@
     }
     {
       mode = "n";
-      key = "t";
-      options.silent = true;
-      action = "<cmd>:ter<CR>";
-      options.desc = "Open a terminal window";
-    }
-    {
-      mode = "n";
       key = "<C-h>";
       options.silent = true;
       action = "<C-w><C-h>";
@@ -218,7 +211,7 @@
     }
     {
       mode = "n";
-      key = "<leader>t";
+      key = "t";
       options.silent = true;
       action = "<cmd>:Lspsaga term_toggle<CR>";
       options.desc = "Show floating terminal";
@@ -255,21 +248,21 @@
     # neotest shortcuts
     {
       mode = "n";
-      key = "<leader>ms";
+      key = "<leader>ts";
       options.silent = true;
       action = "<cmd>:Neotest summary<CR>";
-      options.desc = "Show test summary";
+      options.desc = "Show test panel";
     }
     {
       mode = "n";
-      key = "<leader>mr";
+      key = "<leader>tr";
       options.silent = true;
       action = "<cmd>:lua require('neotest').run.run(vim.loop.cwd())<CR>";
       options.desc = "Run all tests";
     }
     {
       mode = "n";
-      key = "<leader>mw";
+      key = "<leader>tw";
       options.silent = true;
       action = "<cmd>:lua require('neotest').watch.toggle(vim.fn.expand('%'))<CR>";
       options.desc = "Toggle watch current file (neotest)";
@@ -287,8 +280,15 @@
       mode = "n";
       key = "<A-s>";
       options.silent = true;
+      action = "<cmd>:CoverageShow<CR>";
+      options.desc = "Show coverage";
+    }
+    {
+      mode = "n";
+      key = "<A-d>";
+      options.silent = true;
       action = "<cmd>:CoverageSummary<CR>";
-      options.desc = "Show coverage summary";
+      options.desc = "Display coverage summary";
     }
     {
       mode = "n";
