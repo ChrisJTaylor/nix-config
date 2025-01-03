@@ -27,8 +27,33 @@
       clipboard-read = allow
       clipboard-write = allow
       clipboard-trim-trailing-spaces = true
+      clipboard-paste-protection = true
 
       background-opacity = 0.95
+
+      window-width = 160
+      window-height = 60
+
+      window-save-state = always
+
+      resize-overlay = always
+
+      keybind = ctrl+c=copy_to_clipboard
+      keybind = ctrl+v=paste_from_clipboard
+
+      keybind = alt+t=toggle_quick_terminal
+
+      keybind = ctrl+b>shift+k=new_split:up
+      keybind = ctrl+b>shift+j=new_split:down
+      keybind = ctrl+b>shift+h=new_split:left
+      keybind = ctrl+b>shift+l=new_split:right
+
+      keybind = ctrl+b>k=goto_split:top
+      keybind = ctrl+b>j=new_split:bottom
+      keybind = ctrl+b>h=new_split:left
+      keybind = ctrl+b>l=new_split:right
+      keybind = ctrl+b>p=new_split:previous
+      keybind = ctrl+b>n=new_split:next
     '';
   };
 }
