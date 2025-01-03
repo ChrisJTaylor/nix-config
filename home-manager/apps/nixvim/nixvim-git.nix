@@ -9,7 +9,7 @@
       };
 
       gitgutter = {
-        enable = false;
+        enable = true;
       };
 
       git-worktree = {
@@ -23,15 +23,11 @@
       gitsigns = {
         enable = true;
         settings = {
-          current_line_blame = true;
-          current_line_blame_opts = {
-            virt_text = true;
-            virt_text_pos = "eol";
-          };
+          current_line_blame = false;
           signcolumn = true;
           signs = {
             add = {
-              text = "│";
+              text = "+";
             };
             change = {
               text = "│";
