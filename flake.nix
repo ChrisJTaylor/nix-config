@@ -6,6 +6,10 @@
       url = "github:nixos/nixpkgs";
       follows = "cosmic/nixpkgs";
     };
+  
+    unstable = {
+      url = "github:nixos/nixpkgs/nixos-unstable";
+    };
 
     # Controls system level software and settings including fonts
     # https://daiderd.com/nix-darwin/manual/
@@ -29,12 +33,27 @@
       url = "github:lilyinstarlight/nixos-cosmic?rev=b744a190a610460e51fd2dbd10cf2bfc42711fe8";
     };
 
+    ghostty = {
+      url = "github:ghostty-org/ghostty?rev=e2f9eb6a6f4dc2108f91293938374c0ed314dcb8";
+    };
+
   };
 
-  outputs = inputs @ { self, nixpkgs, darwin, nixvim, home-manager, sops-nix, cosmic, ... }:
+  outputs = inputs @ { self, nixpkgs, unstable, darwin, nixvim, home-manager, sops-nix, cosmic, ghostty, ... }:
   {
-    nixosConfigurations = {
-
+    nixosConfigurations = let
+      commonModules = [
+        ./nixos/system/common.nix
+        ./nixos/system/locale.nix
+        ./nixos/rules/zsa.nix
+        ./nixos/apps/git.nix
+        ./nixos/apps/zsh.nix
+        ./nixos/system/gnupg.nix
+        ./nixos/services/atuin.nix
+        ./nixos/apps/direnv.nix
+        ./nixos/apps/common.nix
+      ];
+    in {
       big-mach = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
@@ -43,25 +62,21 @@
           ./nixos/hosts/big-mach/configuration.nix
           sops-nix.nixosModules.sops
           ./nixos/users/christian.nix
-          ./nixos/system/common.nix
-          ./nixos/system/locale.nix
-          ./nixos/system/gnupg.nix
           ./nixos/system/cosmic.nix
           cosmic.nixosModules.default
-          ./nixos/rules/zsa.nix
           ./nixos/services/teamcity.nix
           ./nixos/services/podman.nix
-          ./nixos/services/atuin.nix
           ./nixos/services/nginx.nix
           ./nixos/network/nameservers.nix
           ./nixos/network/internalhosts.nix
-          ./nixos/apps/direnv.nix
           ./nixos/apps/wine.nix
-          ./nixos/apps/git.nix
-          ./nixos/apps/zsh.nix
-          ./nixos/apps/common.nix
           ./nixos/apps/games.nix
           ./nixos/apps/personal.nix
+          {
+            environment.systemPackages = [
+              ghostty.packages.x86_64-linux.default
+            ];
+          }
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -70,7 +85,7 @@
             ];
             home-manager.users.christian = import ./home-manager/home-big-mach.nix;
           }
-        ];
+        ] ++ commonModules;
       };
 
       big-machbook = nixpkgs.lib.nixosSystem {
@@ -80,18 +95,9 @@
           ({ config, pkgs, ... }: {  })
           ./nixos/hosts/big-machbook/configuration.nix
           ./nixos/users/christian.nix
-          ./nixos/system/common.nix
-          ./nixos/system/locale.nix
           ./nixos/system/xserver.nix
-          ./nixos/system/gnupg.nix
           ./nixos/system/gnome.nix
-          ./nixos/services/atuin.nix
-          ./nixos/rules/zsa.nix
           ./nixos/network/hosts.nix
-          ./nixos/apps/direnv.nix
-          ./nixos/apps/git.nix
-          ./nixos/apps/zsh.nix
-          ./nixos/apps/common.nix
           ./nixos/apps/games.nix
           ./nixos/apps/personal.nix
           home-manager.nixosModules.home-manager {
@@ -102,7 +108,7 @@
             ];
             home-manager.users.christian = import ./home-manager/home-big-machbook.nix;
           }
-        ];
+        ] ++ commonModules;
       };
 
       home-wsl = nixpkgs.lib.nixosSystem {
@@ -111,16 +117,8 @@
         modules = [
           ({ config, pkgs, ... }: {  })
           ./nixos/hosts/home-wsl/configuration.nix
-          ./nixos/system/common.nix
           ./nixos/users/christian.nix
           ./nixos/network/hosts.nix
-          ./nixos/system/gnupg.nix
-          ./nixos/services/atuin.nix
-          ./nixos/network/hosts.nix
-          ./nixos/apps/direnv.nix
-          ./nixos/apps/git.nix
-          ./nixos/apps/zsh.nix
-          ./nixos/apps/common.nix
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -129,7 +127,7 @@
             ];
             home-manager.users.christian = import ./home-manager/home-wsl.nix;
           }
-        ];
+        ] ++ commonModules;
       };
 
       work-wsl = nixpkgs.lib.nixosSystem {
@@ -138,15 +136,8 @@
         modules = [
           ({ config, pkgs, ... }: {  })
           ./nixos/hosts/work-wsl/configuration.nix
-          ./nixos/system/common.nix
           ./nixos/system/xserver.nix
-          ./nixos/system/gnupg.nix
           ./nixos/users/workprofile.nix
-          ./nixos/services/atuin.nix
-          ./nixos/apps/direnv.nix
-          ./nixos/apps/git.nix
-          ./nixos/apps/zsh.nix
-          ./nixos/apps/common.nix
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -155,12 +146,23 @@
             ];
             home-manager.users.taylch = import ./home-manager/home-work.nix;
           }
-        ];
+        ] ++ commonModules;
       };
 
     };
 
-    darwinConfigurations = {
+    darwinConfigurations = let
+      commonModules = [
+        ./nixos/system/common-darwin.nix
+        ./nixos/system/spacebar.nix
+        ./nixos/system/yabai.nix
+        ./nixos/apps/zsh-darwin.nix
+        ./nixos/system/gnupg.nix
+        ./nixos/services/atuin.nix
+        ./nixos/apps/direnv.nix
+        ./nixos/apps/common.nix
+      ];
+    in {
       
       machbook = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
@@ -168,16 +170,8 @@
         modules = [
           ({ config, pkgs, ... }: { })
           ./nixos/hosts/machbook/configuration.nix
-          ./nixos/system/common-darwin.nix
-          ./nixos/system/spacebar.nix
-          ./nixos/system/gnupg.nix
-          ./nixos/system/yabai.nix
           ./nixos/network/hosts.nix
-          ./nixos/services/atuin.nix
           ./nixos/users/christiantaylor.nix
-          ./nixos/apps/direnv.nix
-          ./nixos/apps/zsh-darwin.nix
-          ./nixos/apps/common.nix
           home-manager.darwinModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -186,7 +180,7 @@
             ];
             home-manager.users.christiantaylor = import ./home-manager/home-darwin.nix;
           }
-        ];
+        ] ++ commonModules;
       };
 
     };
