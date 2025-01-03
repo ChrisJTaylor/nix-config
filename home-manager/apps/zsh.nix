@@ -6,8 +6,8 @@
     initExtraFirst = ''
       alias ls="eza --color=always --long --git --no-filesize --icons=always --no-user --no-permissions"
       alias vim=nvim
-      alias v="nvim v"
       alias gst="git status"
+      alias v="nvim ."
     
       source "$(fzf-share)/key-bindings.zsh"
       source "$(fzf-share)/completion.zsh"

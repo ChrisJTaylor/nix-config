@@ -19,7 +19,7 @@
       autoEnableSources = true;
 
       settings = {
-        autocomplete = ["require('cmp.types').cmp.TriggerEvent,TextChanged,BufReadPre,BufNewFile"];
+        autocomplete = ["require('cmp.types').cmp.TriggerEvent.TextChanged"];
 
         view = {
 	  entries = {

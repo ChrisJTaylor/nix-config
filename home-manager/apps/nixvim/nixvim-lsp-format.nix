@@ -8,7 +8,6 @@
         "gopls"
         "python"
         "html"
-        "gleam"
         "yamlls"
         "terraformls"
         "bashls"

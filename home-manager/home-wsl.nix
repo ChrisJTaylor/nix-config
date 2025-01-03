@@ -44,11 +44,13 @@
 
   programs.starship = {
     enable = true;
+    enableFishIntegration = true;
     enableZshIntegration = true;
   };
 
   programs.navi = {
     enable = true;
+    enableFishIntegration = true;
     enableZshIntegration = true;
   };
 }

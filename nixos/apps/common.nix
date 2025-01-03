@@ -9,7 +9,6 @@
     fzf
     fd
     bat
-    atuin
     delta
     eza
     ripgrep
@@ -19,6 +18,11 @@
     cowsay
     just
     watchman
+    grc
+    atuin
+    systemd
+    podman
+    xorg.xhost
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

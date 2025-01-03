@@ -6,7 +6,7 @@
     useDefaultShell = true;
     isSystemUser = true;
     description = "User account for Jenkins";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "podman" ];
     packages = with pkgs; [
     #  thunderbird
     ];

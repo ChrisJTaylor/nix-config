@@ -38,7 +38,7 @@
 	  open_on_run = true;
 	};
 	output_panel = {
-	  enabled = true;
+	  enabled = false;
 	  open = "botright split | resize 15";
 	};
 	quickfix = {

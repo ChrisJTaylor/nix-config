@@ -5,16 +5,15 @@
     plugins.coverage = {
       enable = true;
       autoReload = true;
-      autoReloadTimeoutMs = 1000;
+      autoReloadTimeoutMs = 4000;
       commands = true;
       lang = {
 	cs = {
-	  coverage_file = "test-results/lcov.info";
+	  lcovFile = "test-results/lcov.info";
 	};
         python = {
-	  coverage_file = ".coverage";
-	  coverage_command = "poetry run coverage json --fail-under=0 -o -";
-          dynamic_context = true;
+	  lcovFile = "coverage.lcov";
+          coverage_command = "poetry run coverage json -q -o -";
 	};
 	ruby = {
 	  coverage_file = "coverage/coverage.json";
@@ -36,6 +35,9 @@
         uncovered = {
           fg = "#F07178";
           bg = "#6b3237";
+        };
+        summaryCursorLine = {
+          link = "CursorLine";
         };
       };
       keymaps = {

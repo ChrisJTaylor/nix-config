@@ -15,7 +15,7 @@
     ./nixvim/nixvim-testing.nix
     ./nixvim/nixvim-coverage.nix
     ./nixvim/nixvim-git.nix
-    ./nixvim/nixvim-godot.nix
+    ./nixvim/nixvim-devicons.nix
     ./nixvim/nixvim-extraConfigLua.nix
   ];
 
@@ -44,11 +44,12 @@
 
     plugins.dressing.enable = true;
 
-    plugins.lightline.enable = true;
     plugins.which-key.enable = true;
 
     plugins.nix.enable = true;
     plugins.nix-develop.enable = true;
+
+    plugins.hardtime.enable = false;
 
     plugins.rainbow-delimiters.enable = true;
   };

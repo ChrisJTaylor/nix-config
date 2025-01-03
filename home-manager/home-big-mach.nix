@@ -8,6 +8,7 @@
     ./apps/tmux.nix
     ./apps/zsh.nix
     ./apps/git.nix
+    ./apps/xdg_workaround.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -55,7 +56,7 @@
     pkgs.ranger
     pkgs.wakatime
     pkgs.firefox
-    pkgs.vmware-horizon-client
+    pkgs.thunderbird-unwrapped
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

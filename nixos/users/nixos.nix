@@ -8,7 +8,7 @@
     description = "nixos";
     home = "/home/nixos";
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "podman" ];
     packages = with pkgs; [
     #  thunderbird
     ];
