@@ -119,6 +119,11 @@
           ./nixos/hosts/home-wsl/configuration.nix
           ./nixos/users/christian.nix
           ./nixos/network/hosts.nix
+          {
+            environment.systemPackages = [
+              ghostty.packages.x86_64-linux.default
+            ];
+          }
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

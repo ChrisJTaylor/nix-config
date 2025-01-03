@@ -15,20 +15,20 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
 
-    "ghostty/config".text = ''
+    ".config/ghostty/config".text = ''
       # The syntax is "key = value". The whitespace around the
       # equals doesn't matter.
       background = 282c34
       foreground = ffffff
 
       # Empty values reset the configuration to the default value
-      font-family =
+      font-family = 
 
       clipboard-read = allow
       clipboard-write = allow
       clipboard-trim-trailing-spaces = true
 
-      background-opacity = 0.1
+      background-opacity = 0.95
     '';
   };
 }
