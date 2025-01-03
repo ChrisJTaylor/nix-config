@@ -116,10 +116,6 @@
 	  enable = true;
 	  autostart = true;
 	};
-	gleam = {
-	  enable = true;
-	  autostart = true;
-	};
 	marksman = {
 	  enable = true;
 	  autostart = true;
