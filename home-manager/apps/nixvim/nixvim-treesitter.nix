@@ -1,9 +1,24 @@
-{ ... }: {
+{ pkgs, ... }: {
 
   programs.nixvim = {
 
     plugins.treesitter = {
       enable = true;
+
+      grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+        bash
+        json
+        lua
+        make
+        markdown
+        regex
+        toml
+        vim
+        vimdoc
+        xml
+        yaml
+      ];
+
       folding = false;
       nixvimInjections = true;
       nixGrammars = true;
