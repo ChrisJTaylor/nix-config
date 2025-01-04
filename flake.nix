@@ -41,7 +41,6 @@
           ./nixos/apps/zsh-darwin.nix
           ./nixos/apps/direnv.nix
           ./nixos/apps/common.nix
-          ./nixos/apps/homebrews.nix
           {
             environment.systemPackages = [
               #ghostty.packages.aarch64-darwin.default
@@ -49,6 +48,7 @@
           }
           ./nixos/hosts/machbook/configuration.nix
           ./nixos/users/christiantaylor.nix
+          ./nixos/apps/homebrews.nix
           home-manager.darwinModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

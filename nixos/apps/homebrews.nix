@@ -1,10 +1,14 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
-  homebrew.casks = [
-    "ghostty"
-    {
-      name = "ghostty";
-    }
-  ];
+  homebrew = {
+    enable = true;
+    casks = [
+      "ghostty"
+      {
+        name = "ghostty";
+        greedy = true;
+      }
+    ];
+  };
 }
