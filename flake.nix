@@ -41,6 +41,7 @@
           ./nixos/apps/zsh-darwin.nix
           ./nixos/apps/direnv.nix
           ./nixos/apps/common.nix
+          ./nixos/apps/homebrews.nix
           {
             environment.systemPackages = [
               #ghostty.packages.aarch64-darwin.default
