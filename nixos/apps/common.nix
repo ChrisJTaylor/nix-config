@@ -20,7 +20,6 @@
     watchman
     grc
     atuin
-    systemd
     podman
     xorg.xhost
   ];
