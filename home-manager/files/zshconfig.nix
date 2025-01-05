@@ -18,7 +18,8 @@
     ".zshrc".text = ''
       alias ls="eza --color=always --long --git --no-filesize --icons=always --no-user --no-permissions"
       alias vim=nvim
-      alias v="nvim v"
+      alias v="nvim ."
+      alias md=mkdir
       alias gst="git status"
     
       source "$(fzf-share)/key-bindings.zsh"

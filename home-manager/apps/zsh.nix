@@ -8,6 +8,7 @@
       alias vim=nvim
       alias gst="git status"
       alias v="nvim ."
+      alias md=mkdir
     
       source "$(fzf-share)/key-bindings.zsh"
       source "$(fzf-share)/completion.zsh"
