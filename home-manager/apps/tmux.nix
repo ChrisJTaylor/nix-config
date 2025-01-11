@@ -20,11 +20,16 @@
       set -g status-right '#[fg=black,bg=color15] #{cpu_percentage}  %H:%M '
       run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux-plugins
 
+      set -g xterm-keys on
+
       bind | split-window -h -c "#{pane_current_path}"
       bind - split-window -v -c "#{pane_current_path}"
       bind c new-window -c "#{pane_current_path}"
 
-
+      bind -n S-Left select-pane -L
+      bind -n S-Right select-pane -R
+      bind -n S-Up select-pane -U
+      bind -n S-Right select-pane -D
     '';
  
   };
