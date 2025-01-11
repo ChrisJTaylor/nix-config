@@ -26,10 +26,17 @@
       bind - split-window -v -c "#{pane_current_path}"
       bind c new-window -c "#{pane_current_path}"
 
+      bind -n S-Up select-pane -U
+      bind -n S-Down select-pane -D
       bind -n S-Left select-pane -L
       bind -n S-Right select-pane -R
-      bind -n S-Up select-pane -U
-      bind -n S-Right select-pane -D
+
+      bind -n C-Up resize-pane -U 5
+      bind -n C-Down resize-pane -D 5
+      bind -n C-Left resize-pane -L 5
+      bind -n C-Right resize-pane -R 5
+
+      bind w select-pane -t :.+ # next window
     '';
  
   };
