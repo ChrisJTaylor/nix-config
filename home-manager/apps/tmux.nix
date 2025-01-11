@@ -16,10 +16,16 @@
       pkgs.tmuxPlugins.tmux-fzf
     ];
     extraConfig = ''
-    set -g @continuum-boot-options 'on' 
-    set -g status-right '#[fg=black,bg=color15] #{cpu_percentage}  %H:%M '
-    run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux
-    '';
+      set -g @continuum-boot-options 'on' 
+      set -g status-right '#[fg=black,bg=color15] #{cpu_percentage}  %H:%M '
+      run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux-plugins
 
+      bind | split-window -h -c "#{pane_current_path}"
+      bind - split-window -v -c "#{pane_current_path}"
+      bind c new-window -c "#{pane_current_path}"
+
+
+    '';
+ 
   };
 }
