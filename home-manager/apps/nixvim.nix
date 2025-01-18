@@ -24,8 +24,8 @@
     colorschemes.kanagawa = {
       enable = true;
       settings = {
-        background.dark = "lotus";
-        background.light = "dragon";
+        background.dark = "dragon";
+        background.light = "lotus";
       };
     };
 
