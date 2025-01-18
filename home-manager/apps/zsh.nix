@@ -45,6 +45,8 @@
       source ~/fzf-git.sh/fzf-git.sh
       # source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
     
+      export PATH="/home/christian/.local/bin:$PATH"
+
       eval "$(atuin init zsh)"
       eval "$(direnv hook zsh)"
       eval "$(zoxide init zsh --cmd cd)"
