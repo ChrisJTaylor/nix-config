@@ -21,7 +21,13 @@
     enable = true;
     defaultEditor = true;
 
-    colorschemes.kanagawa.enable = true;
+    colorschemes.kanagawa = {
+      enable = true;
+      settings = {
+        background.dark = "lotus";
+        background.light = "dragon";
+      };
+    };
 
     clipboard.providers.xclip.enable = true;
 
