@@ -14,6 +14,7 @@
     ./nixvim/nixvim-git.nix
     ./nixvim/nixvim-devicons.nix
     ./nixvim/nixvim-extraConfigLua.nix
+    ./nixvim/nixvim-zig.nix
   ];
 
   programs.nixvim = {

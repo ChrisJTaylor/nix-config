@@ -54,6 +54,10 @@
 	  enable = true;
 	  autostart = true;
 	};
+	ts_ls = {
+	  enable = true;
+	  autostart = true;
+	};
 	html = {
 	  enable = true;
 	  autostart = true;
@@ -117,6 +121,10 @@
 	  autostart = true;
 	};
 	marksman = {
+	  enable = true;
+	  autostart = true;
+	};
+	zls = {
 	  enable = true;
 	  autostart = true;
 	};

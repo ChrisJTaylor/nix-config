@@ -44,6 +44,27 @@
 	};
 
 	filetype = {
+	  bash = {
+	    sources = [
+	      {
+	        name = "nvim_lsp";
+	      }
+	    ];
+	  };
+	  javascript = {
+	    sources = [
+	      {
+	        name = "nvim_lsp";
+	      }
+	    ];
+	  };
+	  typescript = {
+	    sources = [
+	      {
+	        name = "nvim_lsp";
+	      }
+	    ];
+	  };
 	  lua = {
 	    sources = [
 	      {
@@ -80,6 +101,13 @@
 	    ];
 	  };
 	  powershell = {
+	    sources = [
+	      {
+	        name = "nvim_lsp";
+	      }
+	    ];
+	  };
+	  zig = {
 	    sources = [
 	      {
 	        name = "nvim_lsp";
