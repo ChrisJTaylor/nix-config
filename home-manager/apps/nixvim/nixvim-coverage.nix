@@ -19,8 +19,8 @@
 	  coverage_file = "coverage/coverage.json";
 	};
 	go = {
-	  coverage_file = "coverage/coverage.out";
-	  coverage_command = "coverprofile=coverage/coverage.out";
+	  coverage_file = "coverage.out";
+	  coverage_command = "coverprofile=coverage.out";
 	};
       };
       highlights = {

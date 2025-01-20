@@ -21,6 +21,8 @@
       background = 282c34
       foreground = ffffff
 
+      shell-integration = zsh
+
       # Empty values reset the configuration to the default value
       font-family = 
 

@@ -17,13 +17,20 @@
     ./nixvim/nixvim-git.nix
     ./nixvim/nixvim-devicons.nix
     ./nixvim/nixvim-extraConfigLua.nix
+    ./nixvim/nixvim-zig.nix
   ];
 
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
 
-    colorschemes.kanagawa.enable = true;
+    colorschemes.kanagawa = {
+      enable = true;
+      settings = {
+        background.dark = "dragon";
+        background.light = "lotus";
+      };
+    };
 
     clipboard.providers.xclip.enable = true;
 
