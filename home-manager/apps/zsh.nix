@@ -48,6 +48,16 @@
       eval "$(atuin init zsh)"
       eval "$(direnv hook zsh)"
       eval "$(zoxide init zsh --cmd cd)"
+
+      # Only proceed if this is an interactive shell
+      [[ $- != *i* ]] && return
+
+      # Check if tmux is installed; if yes, check if we are not inside a tmux session
+      if command -v tmux >/dev/null 2>&1; then
+        if [ -z "$TMUX" ]; then
+          tmux new-session -A -s main
+        fi
+      fi
     '';
   };
 }
