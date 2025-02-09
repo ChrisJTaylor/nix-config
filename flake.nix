@@ -3,9 +3,10 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:nixos/nixpkgs";
-      follows = "cosmic/nixpkgs";
+      follows = "nixos-cosmic/nixpkgs-stable";
     };
+
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
   
     unstable = {
       url = "github:nixos/nixpkgs/nixos-unstable";
@@ -29,17 +30,13 @@
       url = "github:Mic92/sops-nix";
     };
 
-    cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic?rev=b744a190a610460e51fd2dbd10cf2bfc42711fe8";
-    };
-
     ghostty = {
       url = "github:ghostty-org/ghostty?rev=e2f9eb6a6f4dc2108f91293938374c0ed314dcb8";
     };
 
   };
 
-  outputs = inputs @ { self, nixpkgs, unstable, darwin, nixvim, home-manager, sops-nix, cosmic, ghostty, ... }:
+  outputs = inputs @ { self, nixpkgs, unstable, darwin, nixvim, home-manager, sops-nix, nixos-cosmic, ghostty, ... }:
   {
     nixosConfigurations = let
       commonModules = [
@@ -63,7 +60,7 @@
           sops-nix.nixosModules.sops
           ./nixos/users/christian.nix
           ./nixos/system/cosmic.nix
-          cosmic.nixosModules.default
+          nixos-cosmic.nixosModules.default
           ./nixos/services/teamcity.nix
           ./nixos/services/podman.nix
           ./nixos/services/nginx.nix
