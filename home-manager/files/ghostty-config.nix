@@ -40,8 +40,8 @@
 
       resize-overlay = always
 
-      keybind = ctrl+c=copy_to_clipboard
-      keybind = ctrl+v=paste_from_clipboard
+      # keybind = ctrl+c=copy_to_clipboard
+      # keybind = ctrl+v=paste_from_clipboard
 
       keybind = alt+t=toggle_quick_terminal
 
