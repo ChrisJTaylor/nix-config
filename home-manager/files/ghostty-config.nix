@@ -40,7 +40,22 @@
 
       resize-overlay = always
 
+      # keybind = alt+c=copy_to_clipboard
+      # keybind = alt+v=paste_from_clipboard
+
       keybind = alt+t=toggle_quick_terminal
+
+      keybind = alt+b>shift+k=new_split:up
+      keybind = alt+b>shift+j=new_split:down
+      keybind = alt+b>shift+h=new_split:left
+      keybind = alt+b>shift+l=new_split:right
+
+      keybind = alt+b>k=goto_split:top
+      keybind = alt+b>j=goto_split:bottom
+      keybind = alt+b>h=goto_split:left
+      keybind = alt+b>l=goto_split:right
+      keybind = alt+b>p=goto_split:previous
+      keybind = alt+b>n=goto_split:next
     '';
   };
 }
