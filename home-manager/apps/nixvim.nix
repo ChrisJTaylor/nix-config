@@ -22,11 +22,28 @@
     enable = true;
     defaultEditor = true;
 
-    colorschemes.kanagawa = {
+    colorschemes.cyberdream = {
       enable = true;
       settings = {
-        background.dark = "dragon";
-        background.light = "lotus";
+        borderless_telescope = true;
+        hide_fillchars = true;
+        italic_comments = true;
+        terminal_colors = true;
+        theme = {
+          colors = {
+            bg = "#000000";
+            green = "#00ff00";
+            magenta = "#ff00ff";
+          };
+          highlights = {
+            Comment = {
+              bg = "#111133";
+              fg = "#cccccc";
+              italic = true;
+            };
+          };
+          transparent = true;
+        };
       };
     };
 

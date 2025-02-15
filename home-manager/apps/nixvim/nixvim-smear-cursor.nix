@@ -2,9 +2,10 @@
 
   programs.nixvim = {
 
-    plugins.zig = {
+    plugins.smear-cursor = {
       enable = true;
       settings = {
+
       };
     };
 
