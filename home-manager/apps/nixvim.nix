@@ -55,6 +55,8 @@
       closeIfLastWindow = true;
     };
 
+    plugins.precognition.enable = true;
+
     plugins.dressing.enable = true;
 
     plugins.which-key.enable = true;
