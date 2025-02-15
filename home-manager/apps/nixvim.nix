@@ -15,6 +15,7 @@
     ./nixvim/nixvim-devicons.nix
     ./nixvim/nixvim-extraConfigLua.nix
     ./nixvim/nixvim-zig.nix
+    ./nixvim/nixvim-smear-cursor.nix
   ];
 
   programs.nixvim = {

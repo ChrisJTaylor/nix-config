@@ -19,11 +19,11 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager?rev=342a1d682386d3a1d74f9555cb327f2f311dda6e";
+      url = "github:nix-community/home-manager/release-24.11";
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim?rev=af650ba9401501352d6eaaced192bbb4abfaec87";
+      url = "github:nix-community/nixvim";
     };
 
     sops-nix = {
@@ -31,7 +31,7 @@
     };
 
     ghostty = {
-      url = "github:ghostty-org/ghostty?rev=e2f9eb6a6f4dc2108f91293938374c0ed314dcb8";
+      url = "github:ghostty-org/ghostty";
     };
 
   };
