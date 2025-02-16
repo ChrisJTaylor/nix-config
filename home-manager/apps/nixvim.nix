@@ -1,5 +1,5 @@
 { ... }: {
-  
+
   imports = [
     ./nixvim/nixvim-keymaps.nix
     ./nixvim/nixvim-autocmds.nix
@@ -32,14 +32,24 @@
         theme = {
           colors = {
             bg = "#000000";
-            green = "#00ff00";
-            magenta = "#ff00ff";
+            bg_alt = "##44F24F";
+            bg_highlight = "#ff5ef1";
+            grey = "#0D0D0D";
+            fg = "#ffffff";
+            blue = "#34BF49";
+            green = "#44F24F";
+            cyan = "#44F24F";
+            # red = "#01260A";
+            yellow = "#44F24F";
+            # magenta = "#ff5ef1";
+            # pink = "#ff5ea0";
+            orange = "#12732A";
+            # purple = "#bd5eff";
           };
           highlights = {
             Comment = {
-              bg = "#111133";
-              fg = "#cccccc";
-              italic = true;
+              bg = "#01260A";
+              fg = "#12732A";
             };
           };
           transparent = true;
@@ -74,14 +84,10 @@
 
     plugins.precognition.enable = true;
 
-    plugins.dressing.enable = true;
-
     plugins.which-key.enable = true;
 
     plugins.nix.enable = true;
     plugins.nix-develop.enable = true;
-
-    plugins.hardtime.enable = false;
 
     plugins.rainbow-delimiters.enable = true;
   };
