@@ -30,13 +30,9 @@
       url = "github:Mic92/sops-nix";
     };
 
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
-
   };
 
-  outputs = inputs @ { self, nixpkgs, unstable, darwin, nixvim, home-manager, sops-nix, nixos-cosmic, ghostty, ... }:
+  outputs = inputs @ { self, nixpkgs, unstable, darwin, nixvim, home-manager, sops-nix, nixos-cosmic, ... }:
   {
     nixosConfigurations = let
       commonModules = [
@@ -69,11 +65,6 @@
           ./nixos/apps/wine.nix
           ./nixos/apps/games.nix
           ./nixos/apps/personal.nix
-          {
-            environment.systemPackages = [
-              ghostty.packages.x86_64-linux.default
-            ];
-          }
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -116,11 +107,6 @@
           ./nixos/hosts/home-wsl/configuration.nix
           ./nixos/users/christian.nix
           ./nixos/network/hosts.nix
-          {
-            environment.systemPackages = [
-              ghostty.packages.x86_64-linux.default
-            ];
-          }
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

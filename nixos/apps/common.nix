@@ -24,6 +24,7 @@
     podman
     xorg.xhost
     uv
+    ghostty
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
