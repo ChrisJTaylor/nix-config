@@ -17,6 +17,13 @@
         vimdoc
         xml
         yaml
+        javascript
+        java
+        kotlin
+        rust
+        go
+        zig
+        asm
       ];
 
       folding = false;

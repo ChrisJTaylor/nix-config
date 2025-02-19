@@ -22,6 +22,10 @@
           settings = {
           };
         };	
+        asm_lsp = {
+          enable = true;
+          autostart = true;
+        };
         omnisharp = {
 	  enable = true;
 	  autostart = true;
