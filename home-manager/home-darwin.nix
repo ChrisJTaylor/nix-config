@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./apps/tmux.nix
     ./apps/apps-darwin.nix
     ./files/files-darwin.nix
   ];

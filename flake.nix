@@ -10,8 +10,6 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
-    # Controls system level software and settings including fonts
-    # https://daiderd.com/nix-darwin/manual/
     darwin = {
       url = "github:lnl7/nix-darwin/nix-darwin-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
