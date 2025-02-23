@@ -47,7 +47,6 @@
         ./nixos/apps/common.nix
         {
           environment.systemPackages = [
-            ghostty.packages.x86_64-linux.default
           ];
         }
       ];
@@ -154,7 +153,6 @@
         ./nixos/apps/common.nix
         {
           environment.systemPackages = [
-            ghostty.packages.x86_64-linux.default
           ];
         }
       ];
