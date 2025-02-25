@@ -23,15 +23,6 @@
             end";
         };
       }
-      {
-        event = [ "BufWritePost" ];
-        pattern = [ "*.go" ];
-        callback = {
-          __raw = "function()
-              vim.lsp.buf.execute_command({ command = 'gopls.workspace.reload' })
-            end";
-        };
-      }
     ];
   };
 
