@@ -44,6 +44,7 @@
             # magenta = "#ff5ef1";
             # pink = "#ff5ea0";
             # orange = "#12732A";
+            orange = "#44F24F";
             # purple = "#bd5eff";
           };
           highlights = {
