@@ -83,7 +83,7 @@
       closeIfLastWindow = true;
     };
 
-    plugins.precognition.enable = true;
+    plugins.precognition.enable = false;
 
     plugins.which-key.enable = true;
 
