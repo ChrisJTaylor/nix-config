@@ -88,7 +88,6 @@
           ./nixos/hosts/big-machbook/configuration.nix
           ./nixos/users/christian.nix
           ./nixos/system/xserver.nix
-          ./nixos/system/gnome.nix
           ./nixos/network/hosts.nix
           ./nixos/apps/games.nix
           ./nixos/apps/personal.nix
