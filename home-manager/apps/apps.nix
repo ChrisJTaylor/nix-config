@@ -4,10 +4,11 @@
   imports =
     [ 
       ./nixvim.nix
-      ./kitty.nix
+      ./tmux.nix
       ./zsh.nix
       ./git.nix
       ./btop.nix
+      ./lazygit.nix
     ];
 
   # The home.packages option allows you to install Nix packages into your
@@ -31,12 +32,12 @@
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
     (pkgs.nerdfonts.override { fonts = [ 
-        "FiraCode"
-        "DroidSansMono"
-	"JetBrainsMono"
-	"SourceCodePro"
-      ]; 
-    })
+      "FiraCode"
+      "DroidSansMono"
+      "JetBrainsMono"
+      "SourceCodePro"
+    ]; 
+  })
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your

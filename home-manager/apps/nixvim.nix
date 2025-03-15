@@ -7,6 +7,7 @@
     ./nixvim/nixvim-telescope.nix
     ./nixvim/nixvim-treesitter.nix
     ./nixvim/nixvim-cmp.nix
+    ./nixvim/nixvim-lazygit.nix
     ./nixvim/nixvim-lsp.nix
     ./nixvim/nixvim-lspsaga.nix
     ./nixvim/nixvim-testing.nix

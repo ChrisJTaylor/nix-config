@@ -1,4 +1,6 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+
+{
   programs.btop = {
     enable = true;
     package = pkgs.btop.override {
@@ -17,6 +19,8 @@
       only_physical = true;
       io_mode = true;
       io_graph_combined = false;
+      color_theme = "flat-remix";
+      theme_background = true;
     };
   };
 }

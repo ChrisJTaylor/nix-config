@@ -70,6 +70,7 @@
           ./nixos/apps/games.nix
           ./nixos/apps/personal.nix
           home-manager.nixosModules.home-manager {
+            home-manager.backupFileExtension = "bakk";
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.sharedModules = [
