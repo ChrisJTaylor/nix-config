@@ -1,11 +1,12 @@
 { ... }:
 
 {
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Configure keymap in X11
   services.xserver = {
+    enable = true;
+
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
+
     xkb = {
       layout = "us";
       variant = "";
