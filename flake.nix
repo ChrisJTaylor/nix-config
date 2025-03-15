@@ -39,7 +39,6 @@
         ./nixos/system/common.nix
         ./nixos/system/locale.nix
         ./nixos/rules/zsa.nix
-        ./nixos/apps/btop.nix
         ./nixos/apps/git.nix
         ./nixos/apps/zsh.nix
         ./nixos/system/gnupg.nix
