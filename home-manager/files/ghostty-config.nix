@@ -45,6 +45,9 @@
 
       keybind = alt+t=toggle_quick_terminal
 
+      keybind = ctrl+b>f=toggle_fullscreen
+      keybind = ctrl+b>d=toggle_window_decorations
+
       custom-shader = ~/workarea/ghostty-shaders/bettercrt.glsl
       custom-shader = ~/workarea/ghostty-shaders/bloom.glsl
     '';
