@@ -25,6 +25,7 @@
     xorg.xhost
     uv
     ghostty
+    vmware-horizon-client
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
