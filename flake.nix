@@ -5,6 +5,8 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
     };
+
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
   
     unstable = {
       url = "github:nixos/nixpkgs/nixos-unstable";
@@ -20,7 +22,11 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-24.11";
+      url = "github:nix-community/nixvim";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
     };
 
   };

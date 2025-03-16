@@ -20,15 +20,12 @@
         nil_ls = {
           enable = true;
           settings = {
-            nix = {
-              maxMemoryMB = 8192;
-              flake = {
-                autoArchive = true;
-                autoEvalInputs = true;
-              };
-            };
           };
         };	
+        asm_lsp = {
+          enable = true;
+          autostart = true;
+        };
         omnisharp = {
 	  enable = true;
 	  autostart = true;
