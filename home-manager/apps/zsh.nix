@@ -7,6 +7,7 @@
       alias ls="eza --color=always --long --git --no-filesize --icons=always --no-user --no-permissions"
       alias vim=nvim
       alias v="nvim ."
+      alias g="lazygit"
     
       source "$(fzf-share)/key-bindings.zsh"
       source "$(fzf-share)/completion.zsh"
