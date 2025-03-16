@@ -19,6 +19,8 @@
 
       window-width = 160;
       window-height = 60;
+      window-padding-x = 24;
+      window-padding-y = 12;
 
       window-save-state = "always";
 
