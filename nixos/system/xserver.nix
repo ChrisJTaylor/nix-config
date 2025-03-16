@@ -1,11 +1,15 @@
-{ ... }:
+{ config, ... }:
 
 {
   services.xserver = {
     enable = true;
 
-    displayManager.gdm.enable = true;
+    videoDrivers = [
+      "nvidia"
+    ];
+
     desktopManager.gnome.enable = true;
+    displayManager.gdm.enable = true;
 
     xkb = {
       layout = "us";
@@ -13,4 +17,5 @@
     };
   };
 
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
 }

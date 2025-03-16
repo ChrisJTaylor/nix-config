@@ -128,7 +128,6 @@
         modules = [
           ({ config, pkgs, ... }: {  })
           ./nixos/hosts/work-wsl/configuration.nix
-          ./nixos/system/xserver.nix
           ./nixos/users/workprofile.nix
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
