@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   programs.ghostty = {
@@ -24,7 +24,7 @@
 
       resize-overlay = "always";
 
-      custom-shader = ~/workarea/ghostty-shaders/bloom.glsl;
+      custom-shader = "~/workarea/ghostty-shaders/bloom.glsl";
 
       keybind = [
         "alt+t=toggle_quick_terminal"
