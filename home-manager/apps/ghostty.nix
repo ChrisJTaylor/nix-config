@@ -26,7 +26,7 @@
 
       resize-overlay = "always";
 
-      custom-shader = "~/workarea/ghostty-shaders/in-game-crt.glsl";
+      custom-shader = "~/workarea/ghostty-shaders/bloom.glsl";
 
       keybind = [
         "alt+t=toggle_quick_terminal"
