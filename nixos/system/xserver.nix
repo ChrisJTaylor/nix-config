@@ -1,10 +1,19 @@
 { config, ... }:
 
 {
+  services.gnome.gnome-keyring.enable = true;
+
+  security.pam.services.gdm.enableGnomeKeyring = true;
+  security.pam.services.login.enableGnomeKeyring = true;
+  security.pam.services.sudo.enableGnomeKeyring = true;
+
+  services.dbus.enable = true;
+  
   services.xserver = {
     enable = true;
 
     videoDrivers = [
+      "nvidia"
     ];
 
     desktopManager.gnome.enable = true;
