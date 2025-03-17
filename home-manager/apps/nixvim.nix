@@ -8,6 +8,7 @@
     ./nixvim/nixvim-treesitter.nix
     ./nixvim/nixvim-frecency.nix
     ./nixvim/nixvim-cmp.nix
+    ./nixvim/nixvim-lazygit.nix
     ./nixvim/nixvim-lsp.nix
     ./nixvim/nixvim-navic.nix
     ./nixvim/nixvim-neotree.nix
@@ -34,19 +35,20 @@
         terminal_colors = true;
         theme = {
           colors = {
-            bg = "#000000";
-            bg_alt = "##44F24F";
-            bg_highlight = "#ff5ef1";
-            grey = "#0D0D0D";
-            fg = "#ffffff";
-            blue = "#34BF49";
-            green = "#44F24F";
-            cyan = "#44F24F";
+            # bg = "#000000";
+            # bg_alt = "#44F24F";
+            # bg_highlight = "#ff5ef1";
+            # grey = "#0D0D0D";
+            # fg = "#ffffff";
+            # blue = "#34BF49";
+            # green = "#44F24F";
+            # cyan = "#44F24F";
             # red = "#01260A";
-            yellow = "#44F24F";
+            # yellow = "#44F24F";
             # magenta = "#ff5ef1";
             # pink = "#ff5ea0";
-            orange = "#12732A";
+            # orange = "#12732A";
+            orange = "#44F24F";
             # purple = "#bd5eff";
           };
           highlights = {
@@ -86,7 +88,7 @@
       closeIfLastWindow = true;
     };
 
-    plugins.precognition.enable = true;
+    plugins.precognition.enable = false;
 
     plugins.which-key.enable = true;
 

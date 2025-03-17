@@ -9,6 +9,7 @@
       alias gst="git status"
       alias v="nvim ."
       alias md=mkdir
+      alias g="lazygit"
     
       source "$(fzf-share)/key-bindings.zsh"
       source "$(fzf-share)/completion.zsh"

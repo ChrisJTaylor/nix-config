@@ -308,6 +308,14 @@
       options.desc = "Refactorings";
     }
 
+    {
+      mode = "n";
+      key = "<leader>gg";
+      options.silent = true;
+      action = "<cmd>:LazyGit<CR>";
+      options.desc = "LazyGit";
+    }
+
     ];
 
   };

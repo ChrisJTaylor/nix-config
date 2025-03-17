@@ -23,6 +23,7 @@
     podman
     xorg.xhost
     uv
+    lazydocker
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
