@@ -17,6 +17,7 @@
     ./nixvim/nixvim-extraConfigLua.nix
     ./nixvim/nixvim-zig.nix
     ./nixvim/nixvim-smear-cursor.nix
+    ./nixvim/nixvim-vimwiki.nix
   ];
 
   programs.nixvim = {
