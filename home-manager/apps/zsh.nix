@@ -8,6 +8,8 @@
       alias vim=nvim
       alias v="nvim ."
       alias g="lazygit"
+      alias w="vim -c VimwikiIndex"
+      alias _just="just --global-justfile"
     
       source "$(fzf-share)/key-bindings.zsh"
       source "$(fzf-share)/completion.zsh"

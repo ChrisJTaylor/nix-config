@@ -3,8 +3,11 @@
   programs.nixvim = {
 
     highlight = {
-      Comment.fg = "#014406";
-      Comment.bg = "#00F714";
+      Comment = {
+        fg = "#000000";
+        bg = "#FFFFFF";
+        italic = true;
+      };
     };
 
   };

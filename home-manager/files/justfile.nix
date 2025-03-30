@@ -16,58 +16,27 @@
     # '';
 
     "justfile".text = ''
-alias b := build-and-test
-alias t := test
-alias c := coverage
-alias pre-test := clear-previous-results
+      # show all available tasks
+      _default:
+        @just --list
 
-test_results := "./test-results"
-coverage_results := "./coverage-results"
-artifacts := "./artifacts"
-configuration := "Release"
-project_test_result_name := "coverage.cobertura.xml"
-test_filter := "FullyQualifiedName!~IntegrationTests&FullyQualifiedName!~StagingTests&FullyQualifiedName!~ContractTests"
-solution_file := "*.sln"
+      # show all justfile templates
+      [no-cd]
+      show-all-templates:
+        ls -a ~/_justfile_templates/
 
-[no-cd]
-clean: 
-  dotnet clean
-  dotnet nuget locals all --clear
+      # copy justfile template to target directory
+      [no-cd]
+      copy-template template_name target_directory:
+        cp ~./_justfile_templates/{{template_name}} {{target_directory}}/_justfile_templates
 
-[no-cd]
-restore:
-  dotnet restore
-  dotnet tool restore
+      # enable direnv
+      enable-direnv:
+        echo "use nix" >> .envrc && direnv allow
 
-[no-cd]
-build:
-  dotnet build --no-restore -c "{{configuration}}"
-
-[no-cd]
-clear-previous-results:
-  find . -type f -name "{{project_test_result_name}}" -exec sh -c 'rm -r "$(dirname "{}")"' \;  
-
-[no-cd]
-test: clear-previous-results
-  -dotnet test --filter "{{test_filter}}" --configuration "{{configuration}}" --collect "XPlat Code Coverage" --results-directory "{{test_results}}" 
-
-[no-cd]
-test-no-build: clear-previous-results
-  -dotnet test --no-build --filter "{{test_filter}}" --configuration "{{configuration}}" --collect "XPlat Code Coverage" --results-directory "{{test_results}}" 
-
-[no-cd]
-coverage: 
-  #!/usr/bin/env bash
-  dotnet reportgenerator -reports:**/{{test_results}}/*/coverage.cobertura.xml -reporttypes:lcov -targetdir:{{test_results}} 
-
-[no-cd]
-package:
-  dotnet pack --no-build --configuration "{{configuration}}" -o "{{artifacts}}"
-
-[no-cd]
-build-and-test: clean restore build test 
-  @just coverage
-  @echo "Done."
+      # enable direnv for flake
+      enable-direnv-for-flake:
+        echo "use flake" >> .envrc && direnv allow
     '';
   };
 
