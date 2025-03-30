@@ -1,51 +1,60 @@
+#!/usr/bin/env just --justfile
+
+
 # show all available tasks
 _default:
   @just --list
 
 
 # setup dev environment for language
-setup-devenv-for language nix_type="flake":
-  @just copy-justfile-template {{language}} .
-  @just copy-{{nix_type}}-template {{language}} .
+[no-cd]
+setup-devenv-for language nix_type="flake": 
+  @just copy-{{nix_type}}-template {{language}}
   @just enable-direnv-for-{{nix_type}}
+  @just copy-justfile-template {{language}}
+  direnv allow
 
 # enable direnv for nixshell
+[no-cd]
 enable-direnv-for-nixshell:
-  echo "use nix" >> .envrc && direnv allow
+  echo "use nix" >> .envrc
 
 # enable direnv for flake
+[no-cd]
 enable-direnv-for-flake:
-  echo "use flake" >> .envrc && direnv allow
+  echo "use flake" >> .envrc
+
+# allow direnv to read environment
+[no-cd]
+allow:
+  direnv allow
 
 
 # show all justfile templates
-[no-cd]
 show-all-justfile-templates:
   ls -a ~/_justfile_templates/
 
-# copy justfile template to target directory
+# copy justfile template to current directory
 [no-cd]
-copy-justfile-template template_name target_directory:
-  cp ~./_justfile_templates/{{template_name}} {{target_directory}}/justfile
+copy-justfile-template template_name:
+  cp ~/_justfile_templates/{{template_name}} justfile
 
 
 # show all flake templates
-[no-cd]
 show-all-flake-templates:
   ls -a ~/_flake_templates/
 
-# copy flake template to target directory
+# copy flake template to current directory
 [no-cd]
-copy-flake-template template_name target_directory:
-  cp ~./_flake_templates/{{template_name}} {{target_directory}}/flake.nix
+copy-flake-template template_name:
+  cp ~/_flake_templates/{{template_name}} flake.nix
 
 
 # show all nix-shell templates
-[no-cd]
 show-all-nixshell-templates:
   ls -a ~/_nixshell_templates/
 
-# copy nix-shell template to target directory
+# copy nix-shell template to current directory
 [no-cd]
-copy-nixshell-template template_name target_directory:
-  cp ~./_nixshell_templates/{{template_name}} {{target_directory}}/shell.nix
+copy-nixshell-template template_name:
+  cp ~/_nixshell_templates/{{template_name}} shell.nix
