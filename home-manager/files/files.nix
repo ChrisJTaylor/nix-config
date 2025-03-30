@@ -1,7 +1,7 @@
 { ... }:
 
 let
-  nixshellTemplateDir = ./files/_nixshell_templates;
+  nixshellTemplateDir = ./_nixshell_templates;
   nixshellTemplates = builtins.listToAttrs (map
     (name: {
       name = "_nixshell_templates/${name}";
@@ -12,7 +12,7 @@ let
     (builtins.attrNames (builtins.readDir nixshellTemplateDir))
   );
 
-  flakeTemplateDir = ./files/_flake_templates;
+  flakeTemplateDir = ./_flake_templates;
   flakeTemplates = builtins.listToAttrs (map
     (name: {
       name = "_flake_templates/${name}";
@@ -23,7 +23,7 @@ let
     (builtins.attrNames (builtins.readDir flakeTemplateDir))
   );
 
-  justfileTemplateDir = ./files/_justfile_templates;
+  justfileTemplateDir = ./_justfile_templates;
   justfileTemplates = builtins.listToAttrs (map
     (name: {
       name = "_justfile_templates/${name}";
