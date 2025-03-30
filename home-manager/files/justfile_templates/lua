@@ -1,0 +1,19 @@
+#!/usr/bin/env just --justfile
+
+# list all available tasks
+_default:
+  @just --list
+
+# make all lua scripts executable
+chmod-all:
+  chmod +x *.lua
+
+# run all tests
+[no-cd]
+test:
+  busted --verbose
+
+# auto run tests on change
+[no-cd]
+watch:
+  ls *.lua | entr -c just test

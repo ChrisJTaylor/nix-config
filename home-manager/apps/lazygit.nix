@@ -9,6 +9,9 @@
         showIcons = true;
         border = "rounded";
       };
+      os = {
+        disableStartupPopups = true;
+      };
     };
   };
 }

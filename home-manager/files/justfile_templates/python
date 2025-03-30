@@ -1,0 +1,18 @@
+#!/usr/bin/env just --justfile
+
+alias t := test-with-coverage
+
+# list all available tasks
+_default:
+  @just --list
+
+# run all tests
+test:
+  -poetry run pytest --cov=sum tests/ --cov-report=lcov
+
+# generate code coverage
+coverage:
+  -poetry run coverage json --fail-under=0 -o coverage.json
+
+# run all tests with coverage
+test-with-coverage: test coverage

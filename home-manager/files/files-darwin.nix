@@ -1,9 +1,0 @@
-{ ... }:
-
-{
-  imports =
-    [ 
-      ./justfile.nix
-    ];
-
-}
