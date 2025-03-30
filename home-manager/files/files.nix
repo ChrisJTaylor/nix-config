@@ -33,10 +33,13 @@ let
     })
     (builtins.attrNames (builtins.readDir justfileTemplateDir))
   );
+
+  globalJustfile = {
+    "justfile".source = ./justfile;
+  };
+
+  allTemplates = flakeTemplates // nixshellTemplates // justfileTemplates;
 in
 {
-  home.file = nixshellTemplates;
-  home.file = flakeTemplates;
-  home.file = justfileTemplates;
-  home.file = "justfile".source = ./justfile
+  home.file = allTemplates // globalJustfile;
 }
