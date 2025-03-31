@@ -29,6 +29,15 @@ enable-direnv-for-flake:
 allow:
   direnv allow
 
+# show all dev env templates
+show-all-dev-env-templates:
+  ls -a ~/_dev_envs/
+
+# copy dev env template to current directory
+[no-cd]
+copy-dev-env-template template_name:
+  cp ~/nix-configs/home-manager/files/_dev_envs/{{template_name}}/* .
+
 
 # show all justfile templates
 show-all-justfile-templates:

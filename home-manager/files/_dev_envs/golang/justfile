@@ -1,0 +1,56 @@
+#!/usr/bin/env just --justfile
+
+# list all available tasks
+_default:
+  @just --list
+
+# init module
+[no-cd]
+init-module name="":
+  go mod init {{name}}
+
+# restore dependencies
+[no-cd]
+restore:
+  go mod tidy
+
+# build solution
+[no-cd]
+build:
+  go build
+
+# run tests 
+[no-cd]
+test:
+  go test
+
+# run all tests with coverage
+[no-cd]
+test-with-coverage:
+  go test -cover -v ./... || true
+
+# generate coverage report
+[no-cd]
+generate-coverage:
+  go test -coverprofile=coverage.out ./... || true
+  go tool cover -html=coverage.out
+
+# run benchmarks
+[no-cd]
+benchmark:
+  go test -bench=. ./...
+
+# run tests with race detector
+[no-cd]
+test-with-race-detector:
+  go test -race ./...
+
+# run module
+[no-cd]
+run:
+  go run .
+
+# Watch for file changes and run tests automatically (requires `watchexec`)
+[no-cd]
+watch-tests:
+  watchexec -c -e go "just test"
