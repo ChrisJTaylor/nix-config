@@ -1,45 +1,31 @@
-{ ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  nixshellTemplateDir = ./_nixshell_templates;
-  nixshellTemplates = builtins.listToAttrs (map
-    (name: {
-      name = "_nixshell_templates/${name}";
-      value = {
-        source = "${nixshellTemplateDir}/${name}";
-      };
-    })
-    (builtins.attrNames (builtins.readDir nixshellTemplateDir))
-  );
+  inherit (builtins) readDir attrNames path filter isAttrs;
 
-  flakeTemplateDir = ./_flake_templates;
-  flakeTemplates = builtins.listToAttrs (map
-    (name: {
-      name = "_flake_templates/${name}";
-      value = {
-        source = "${flakeTemplateDir}/${name}";
-      };
-    })
-    (builtins.attrNames (builtins.readDir flakeTemplateDir))
-  );
+  devEnvsRoot = ./files/_dev_envs;
 
-  justfileTemplateDir = ./_justfile_templates;
-  justfileTemplates = builtins.listToAttrs (map
-    (name: {
-      name = "_justfile_templates/${name}";
-      value = {
-        source = "${justfileTemplateDir}/${name}";
-      };
-    })
-    (builtins.attrNames (builtins.readDir justfileTemplateDir))
-  );
+  envFolders = filter (name: (readDir "${devEnvsRoot}/${name}").?type == "directory")
+    (attrNames (readDir devEnvsRoot));
+
+  flatten = lib.flatten;
+
+  mapFolder = lang:
+    let
+      envDir = "${devEnvsRoot}/${lang}";
+      files = attrNames (readDir envDir);
+    in
+      map (name: {
+        name = "_dev_envs/${lang}/${name}";
+        value.source = "${envDir}/${name}";
+      }) files;
+
+  allDevEnvFiles = builtins.listToAttrs (flatten (map mapFolder envFolders));
 
   globalJustfile = {
-    "justfile".source = ./justfile;
+    "_justfile".source = ./files/justfile;
   };
-
-  allTemplates = flakeTemplates // nixshellTemplates // justfileTemplates;
 in
 {
-  home.file = allTemplates // globalJustfile;
+  home.file = allDevEnvFiles // globalJustfile;
 }

@@ -1,69 +1,37 @@
 #!/usr/bin/env just --justfile
 
-
 # show all available tasks
 _default:
   @just --list
 
 
-# setup dev environment for language
-[no-cd]
-setup-devenv-for language nix_type="flake": 
-  @just copy-{{nix_type}}-template {{language}}
-  @just enable-direnv-for-{{nix_type}}
-  @just copy-justfile-template {{language}}
-  direnv allow
-
 # enable direnv for nixshell
+[group('direnv helpers')]
 [no-cd]
 enable-direnv-for-nixshell:
   echo "use nix" >> .envrc
 
 # enable direnv for flake
+[group('direnv helpers')]
 [no-cd]
 enable-direnv-for-flake:
   echo "use flake" >> .envrc
 
 # allow direnv to read environment
+[group('direnv helpers')]
 [no-cd]
 allow:
   direnv allow
 
-# show all dev env templates
+
+# show all available dev environment templates
+[group('dev environments')]
 show-all-dev-env-templates:
   ls -a ~/_dev_envs/
 
 # copy dev env template to current directory
+[group('dev environments')]
 [no-cd]
-copy-dev-env-template template_name:
-  cp ~/nix-configs/home-manager/files/_dev_envs/{{template_name}}/* .
+copy-dev-env-template template_name destination=".":
+  src="~/_dev_envs/{{template_name}}" && cp -rT "$src" "{{destination}}"
 
-
-# show all justfile templates
-show-all-justfile-templates:
-  ls -a ~/_justfile_templates/
-
-# copy justfile template to current directory
-[no-cd]
-copy-justfile-template template_name:
-  cp ~/_justfile_templates/{{template_name}} justfile
-
-
-# show all flake templates
-show-all-flake-templates:
-  ls -a ~/_flake_templates/
-
-# copy flake template to current directory
-[no-cd]
-copy-flake-template template_name:
-  cp ~/_flake_templates/{{template_name}} flake.nix
-
-
-# show all nix-shell templates
-show-all-nixshell-templates:
-  ls -a ~/_nixshell_templates/
-
-# copy nix-shell template to current directory
-[no-cd]
-copy-nixshell-template template_name:
-  cp ~/_nixshell_templates/{{template_name}} shell.nix

@@ -9,7 +9,7 @@
       alias v="nvim ."
       alias g="lazygit"
       alias w="vim -c VimwikiIndex"
-      alias _just="just --justfile ~/justfile --working-directory ."
+      alias _just="just --justfile ~/_justfile --working-directory ."
     
       source "$(fzf-share)/key-bindings.zsh"
       source "$(fzf-share)/completion.zsh"
