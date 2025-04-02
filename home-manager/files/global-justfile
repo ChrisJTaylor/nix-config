@@ -1,10 +1,3 @@
-#!/usr/bin/env just --justfile
-
-# show all available tasks
-_default:
-  @just --list
-
-
 # enable direnv for nixshell
 [group('direnv helpers')]
 [no-cd]
@@ -33,5 +26,5 @@ show-all-dev-env-templates:
 [group('dev environments')]
 [no-cd]
 copy-dev-env-template template_name destination=".":
-  src="~/_dev_envs/{{template_name}}" && cp -rT "$src" "{{destination}}"
+  src="$HOME/_dev_envs/{{template_name}}" && cp -rT "$src" "{{destination}}"
 
