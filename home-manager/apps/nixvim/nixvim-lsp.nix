@@ -59,6 +59,14 @@
 	  enable = true;
 	  autostart = true;
 	};
+        gleam = {
+          enable = true;
+          autostart = true;
+        };
+        nushell = {
+          enable = true;
+          autostart = true;
+        };
         kotlin_language_server = {
           enable = true;
           autostart = true;

@@ -9,7 +9,9 @@
     ./nixvim/nixvim-cmp.nix
     ./nixvim/nixvim-lazygit.nix
     ./nixvim/nixvim-lsp.nix
+    ./nixvim/nixvim-lsp-format.nix
     ./nixvim/nixvim-lspsaga.nix
+    ./nixvim/nixvim-none-ls-format.nix
     ./nixvim/nixvim-testing.nix
     ./nixvim/nixvim-coverage.nix
     ./nixvim/nixvim-git.nix

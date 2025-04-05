@@ -5,10 +5,11 @@
     plugins.lsp-format = {
       enable = true;
       lspServersToEnable = [
-        "javascript"
-        "typescript"
+        "omnisharp"
+        "gleam"
+        "ts_ls"
         "gopls"
-        "python"
+        "pylsp"
         "html"
         "yamlls"
         "terraformls"
@@ -18,6 +19,7 @@
         "kotlin_language_server"
         "lua_ls"
         "powershell_es"
+        "nushell"
         "zls"
       ];
     };
