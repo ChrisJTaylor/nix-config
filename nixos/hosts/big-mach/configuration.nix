@@ -33,6 +33,9 @@
   nix.gc.automatic = true;
   nix.settings.auto-optimise-store = true;
 
+  # enable clipboard for cosmic
+  environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
