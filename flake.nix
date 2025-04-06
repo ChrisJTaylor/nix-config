@@ -64,7 +64,7 @@
           ./nixos/services/teamcity.nix
           ./nixos/services/podman.nix
           ./nixos/services/nginx.nix
-          ./nixos/services/monitoring.nix
+          ./nixos/system/monitoring.nix
           ./nixos/network/nameservers.nix
           ./nixos/network/internalhosts.nix
           ./nixos/apps/wine.nix
