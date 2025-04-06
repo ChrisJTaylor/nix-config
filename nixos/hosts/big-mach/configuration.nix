@@ -29,6 +29,10 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # keep system tidy
+  nix.gc.automatic = true;
+  nix.settings.auto-optimise-store = true;
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
