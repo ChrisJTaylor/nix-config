@@ -26,5 +26,5 @@ show-all-dev-env-templates:
 [group('dev environments')]
 [no-cd]
 copy-dev-env-template template_name destination=".":
-  src="$HOME/_dev_envs/{{template_name}}" && cp -rT "$src" "{{destination}}"
+  src="$HOME/_dev_envs/{{template_name}}" && cp -rT --dereference "$src" "{{destination}}"
 

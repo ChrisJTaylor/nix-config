@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   programs.ghostty = {
     enable = true;
     enableBashIntegration = true;
@@ -26,7 +24,7 @@
 
       resize-overlay = "always";
 
-      custom-shader = "~/workarea/ghostty-shaders/bloom.glsl";
+      custom-shader = "~/.ghostty-shaders/bloom.glsl";
 
       keybind = [
         "alt+t=toggle_quick_terminal"
@@ -36,7 +34,6 @@
     };
 
     themes = {
-
     };
   };
 }
