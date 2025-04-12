@@ -1,13 +1,14 @@
-{ pkgs, config, ... }:
-
 {
-  imports =
-    [ 
-      ./nixvim.nix
-      ./zsh.nix
-      ./git.nix
-      ./alacritty.nix
-    ];
+  pkgs,
+  config,
+  ...
+}: {
+  imports = [
+    ./nixvim.nix
+    ./zsh.nix
+    ./git.nix
+    ./alacritty.nix
+  ];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -24,12 +25,13 @@
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
-    (pkgs.nerdfonts.override { fonts = [ 
+    (pkgs.nerdfonts.override {
+      fonts = [
         "FiraCode"
         "DroidSansMono"
-	"JetBrainsMono"
-	"SourceCodePro"
-      ]; 
+        "JetBrainsMono"
+        "SourceCodePro"
+      ];
     })
 
     # # You can also create simple shell scripts directly inside your
@@ -44,10 +46,4 @@
     enable = true;
     enableZshIntegration = true;
   };
-
-  programs.navi = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
 }

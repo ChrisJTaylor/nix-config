@@ -1,17 +1,18 @@
-{ pkgs, config, ... }:
-
 {
-  imports =
-    [ 
-      ./nixvim.nix
-      ./tmux.nix
-      ./zsh.nix
-      ./git.nix
-      ./gh.nix
-      ./btop.nix
-      ./lazygit.nix
-      ./ghostty.nix
-    ];
+  pkgs,
+  config,
+  ...
+}: {
+  imports = [
+    ./nixvim.nix
+    ./tmux.nix
+    ./zsh.nix
+    ./git.nix
+    ./gh.nix
+    ./btop.nix
+    ./lazygit.nix
+    ./ghostty.nix
+  ];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -31,13 +32,14 @@
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
-    (nerdfonts.override { fonts = [ 
-      "FiraCode"
-      "DroidSansMono"
-      "JetBrainsMono"
-      "SourceCodePro"
-    ]; 
-  })
+    (nerdfonts.override {
+      fonts = [
+        "FiraCode"
+        "DroidSansMono"
+        "JetBrainsMono"
+        "SourceCodePro"
+      ];
+    })
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -70,10 +72,4 @@
     enable = true;
     enableZshIntegration = true;
   };
-
-  programs.navi = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
 }
