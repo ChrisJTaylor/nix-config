@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age.keyFile = "/home/christian/.config/sops/age/keys.txt"; # or wherever your key is
@@ -6,8 +6,8 @@
       "user_password" = {};
       "id_ed25519" = {
         path = "/home/christian/.ssh/id_ed25519";
-        owner = "christian";
-        group = "users";
+        owner = config.users.users.christian.name;
+        group = config.users.users.christian.group;
       };
       "nevergreen_teamcity_auth_token" = {};
     };
