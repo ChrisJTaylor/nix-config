@@ -5,7 +5,7 @@
   ...
 }: let
   version = {
-    teamcity = "2024.07.3";
+    teamcity = "2025.03";
     nevergreen = "7.0.0";
   };
 in {
