@@ -2,29 +2,17 @@
   description = "Home Manager and NixOS configurations";
 
   inputs = {
-    nixpkgs = {
-      follows = "nixos-cosmic/nixpkgs-stable";
-    };
-
+    nixpkgs.follows = "nixos-cosmic/nixpkgs-stable";
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    unstable = {
-      url = "github:nixos/nixpkgs/nixos-unstable";
-    };
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    nixvim.url = "github:nix-community/nixvim";
+    sops-nix.url = "github:Mic92/sops-nix";
 
     # Controls system level software and settings including fonts
     # https://daiderd.com/nix-darwin/manual/
-    darwin = {
-      url = "github:lnl7/nix-darwin";
-    };
-
-    home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
-    };
-
-    nixvim = {
-      url = "github:nix-community/nixvim";
-    };
+    darwin.url = "github:lnl7/nix-darwin";
   };
 
   outputs = inputs @ {
@@ -35,6 +23,7 @@
     nixvim,
     home-manager,
     nixos-cosmic,
+    sops-nix,
     ...
   }: {
     nixosConfigurations = let
@@ -49,6 +38,7 @@
         ./nixos/services/atuin.nix
         ./nixos/apps/direnv.nix
         ./nixos/apps/common.nix
+
         {
           environment.systemPackages = [
           ];
@@ -65,6 +55,7 @@
               pkgs,
               ...
             }: {})
+            sops-nix.nixosModules.sops
             ./nixos/hosts/big-mach/configuration.nix
             ./nixos/users/christian.nix
             ./nixos/system/cosmic.nix
