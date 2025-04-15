@@ -56,6 +56,7 @@
               ...
             }: {})
             sops-nix.nixosModules.sops
+            ./secrets/sops.nix
             ./nixos/hosts/big-mach/configuration.nix
             ./nixos/users/christian.nix
             ./nixos/system/cosmic.nix
@@ -93,6 +94,8 @@
               pkgs,
               ...
             }: {})
+            sops-nix.nixosModules.sops
+            ./secrets/sops.nix
             ./nixos/hosts/big-machbook/configuration.nix
             ./nixos/users/christian.nix
             ./nixos/system/xserver.nix
@@ -122,6 +125,8 @@
               pkgs,
               ...
             }: {})
+            sops-nix.nixosModules.sops
+            ./secrets/sops.nix
             ./nixos/hosts/home-wsl/configuration.nix
             ./nixos/users/christian.nix
             ./nixos/network/hosts.nix
@@ -148,6 +153,8 @@
               pkgs,
               ...
             }: {})
+            sops-nix.nixosModules.sops
+            ./secrets/sops.nix
             ./nixos/hosts/work-wsl/configuration.nix
             ./nixos/users/workprofile.nix
             home-manager.nixosModules.home-manager
@@ -188,6 +195,8 @@
               pkgs,
               ...
             }: {})
+            sops-nix.nixosModules.sops
+            ./secrets/sops.nix
             ./nixos/hosts/machbook/configuration.nix
             ./nixos/users/christiantaylor.nix
             home-manager.darwinModules.home-manager
