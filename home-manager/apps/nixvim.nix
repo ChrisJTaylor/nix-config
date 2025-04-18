@@ -1,5 +1,4 @@
-{ ... }: {
-
+{...}: {
   imports = [
     ./nixvim/nixvim-keymaps.nix
     ./nixvim/nixvim-autocmds.nix
@@ -11,6 +10,7 @@
     ./nixvim/nixvim-lsp.nix
     ./nixvim/nixvim-lsp-format.nix
     ./nixvim/nixvim-lspsaga.nix
+    ./nixvim/nixvim-magma.nix
     ./nixvim/nixvim-none-ls-format.nix
     ./nixvim/nixvim-testing.nix
     ./nixvim/nixvim-coverage.nix
@@ -97,4 +97,3 @@
     plugins.rainbow-delimiters.enable = true;
   };
 }
-
