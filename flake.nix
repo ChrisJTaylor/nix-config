@@ -170,12 +170,16 @@
       };
     };
 
-    darwinConfigurations = { 
+    darwinConfigurations = {
       machbook = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        specialArgs = { inherit inputs; };
+        specialArgs = {inherit inputs;};
         modules = [
-          ({ config, pkgs, ... }: { })
+          ({
+            config,
+            pkgs,
+            ...
+          }: {})
           ./nixos/system/common-darwin.nix
           ./nixos/system/spacebar.nix
           ./nixos/system/yabai.nix
@@ -190,7 +194,9 @@
           ./nixos/hosts/machbook/configuration.nix
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/homebrews.nix
-          home-manager.darwinModules.home-manager {
+          ./nixos/apps/fzf-git.nix
+          home-manager.darwinModules.home-manager
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.sharedModules = [
@@ -200,6 +206,6 @@
           }
         ];
       };
-    }; 
     };
-  }
+  };
+}
