@@ -7,7 +7,10 @@
     ./nixvim.nix
     ./zsh.nix
     ./git.nix
-    ./alacritty.nix
+    ./tmux.nix
+    ./gh.nix
+    ./btop.nix
+    ./lazygit.nix
   ];
 
   # The home.packages option allows you to install Nix packages into your
