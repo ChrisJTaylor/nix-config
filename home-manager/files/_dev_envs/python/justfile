@@ -1,18 +1,48 @@
 #!/usr/bin/env just --justfile
 
-alias t := test-with-coverage
+set shell := ["bash", "-cu"]
 
-# list all available tasks
+# show all available tasks
 _default:
-  @just --list
+    @just --list
 
-# run all tests
+# Create a virtual environment and install dependencies
+restore:
+    uv venv
+    source .venv/bin/activate
+    uv pip install -r requirements.txt
+
+# Optionally support pyproject.toml directly
+restore-pyproject:
+    uv venv
+    source .venv/bin/activate
+    uv pip install -r <(uv pip compile pyproject.toml)
+
+# Run the build process
+build:
+    source .venv/bin/activate
+    python -m build
+
+# Run tests
 test:
-  -poetry run pytest --cov=sum tests/ --cov-report=lcov
+    source .venv/bin/activate
+    pytest
 
-# generate code coverage
-coverage:
-  -poetry run coverage json --fail-under=0 -o coverage.json
+# Format code using ruff (or black)
+format:
+    source .venv/bin/activate
+    ruff format .
 
-# run all tests with coverage
-test-with-coverage: test coverage
+# Lint code using ruff
+lint:
+    source .venv/bin/activate
+    ruff check .
+
+# Clean up build artifacts
+clean:
+    rm -rf .venv build dist *.egg-info __pycache__
+
+# Activate shell in the venv
+shell:
+    source .venv/bin/activate
+    exec bash

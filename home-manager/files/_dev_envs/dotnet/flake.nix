@@ -1,5 +1,5 @@
 {
-  description = "Python project using uv";
+  description = ".NET project with just and dev shell";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
@@ -15,25 +15,17 @@
       pkgs = import nixpkgs {
         inherit system;
       };
-
-      python = pkgs.python313;
-
-      devTools = with pkgs; [
-        just
-        uv
-        python.pkgs.setuptools
-        python.pkgs.wheel
-        python.pkgs.build
-        python.pkgs.pytest
-        ruff # or black, flake8, etc.
-      ];
     in {
       devShells.default = pkgs.mkShell {
-        name = "python-dev-env";
-        packages = devTools;
+        name = "dotnet-dev-env";
+        packages = with pkgs; [
+          dotnet-sdk_8
+          just
+        ];
 
         shellHook = ''
-          export PYTHONBREAKPOINT=ipdb.set_trace
+          export DOTNET_CLI_TELEMETRY_OPTOUT=1
+          export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
           just --list
         '';
       };
