@@ -5,10 +5,12 @@
     ./nixvim/nixvim-autosave.nix
     ./nixvim/nixvim-telescope.nix
     ./nixvim/nixvim-treesitter.nix
+    ./nixvim/nixvim-frecency.nix
     ./nixvim/nixvim-cmp.nix
     ./nixvim/nixvim-lazygit.nix
     ./nixvim/nixvim-lsp.nix
     ./nixvim/nixvim-lsp-format.nix
+    ./nixvim/nixvim-neotree.nix
     ./nixvim/nixvim-lspsaga.nix
     ./nixvim/nixvim-magma.nix
     ./nixvim/nixvim-none-ls-format.nix
@@ -79,6 +81,7 @@
       hlsearch = true;
     };
 
+    plugins.dressing.enable = true;
     plugins.neo-tree = {
       enable = true;
       enableGitStatus = true;

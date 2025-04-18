@@ -57,6 +57,8 @@
     plugins.refactoring.enable = true;
     plugins.refactoring.enableTelescope = true;
 
+    plugins.web-devicons.enable = true;
+
   };
 
 }

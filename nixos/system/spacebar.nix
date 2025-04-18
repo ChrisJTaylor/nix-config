@@ -25,7 +25,7 @@
     clock_icon_color           = "0xffa8a8a8";
     power_icon_strip           = " ";
     space_icon                 = "•";
-    space_icon_strip           = "Shulk Melia Rex Pyra Noah Mio Taion Eunie Sena Lanz";
+    space_icon_strip           = "Shulk Melia Rex Pyra Mythra Noah Mio Taion Eunie Sena Lanz";
     spaces_for_all_displays    = "on";
     display_separator          = "on";
     display_separator_icon     = "";
@@ -36,7 +36,7 @@
     dnd_icon                   = "";
     clock_format               = ''"%d/%m/%y %R"'';
     right_shell                = "on";
-    right_shell_icon           = "";
+    right_shell_icon           = " ";
     right_shell_command        = "whoami";
   };
 }

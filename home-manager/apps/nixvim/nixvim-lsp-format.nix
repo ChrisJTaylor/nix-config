@@ -14,7 +14,6 @@
         "yamlls"
         "terraformls"
         "bashls"
-        "nil_ls"
         "rust_analyzer"
         "kotlin_language_server"
         "lua_ls"

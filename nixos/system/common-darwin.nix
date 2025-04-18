@@ -3,7 +3,6 @@
 {
   nixpkgs.config.allowUnfree = true;
   
-  security.pam.enableSudoTouchIdAuth = true;
   security.pki.installCACerts = true;
 
   fonts.packages = [

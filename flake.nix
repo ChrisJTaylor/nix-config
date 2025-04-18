@@ -12,7 +12,7 @@
 
     # Controls system level software and settings including fonts
     # https://daiderd.com/nix-darwin/manual/
-    darwin.url = "github:lnl7/nix-darwin";
+    darwin.url = "github:lnl7/nix-darwin/nix-darwin-24.11";
   };
 
   outputs = inputs @ {
@@ -38,7 +38,6 @@
         ./nixos/services/atuin.nix
         ./nixos/apps/direnv.nix
         ./nixos/apps/common.nix
-
         {
           environment.systemPackages = [
           ];
@@ -171,46 +170,36 @@
       };
     };
 
-    darwinConfigurations = let
-      commonModules = [
-        ./nixos/system/common-darwin.nix
-        ./nixos/system/spacebar.nix
-        ./nixos/system/yabai.nix
-        ./nixos/apps/zsh-darwin.nix
-        ./nixos/apps/direnv.nix
-        ./nixos/apps/common.nix
-        {
-          environment.systemPackages = [
-          ];
-        }
-      ];
-    in {
+    darwinConfigurations = { 
       machbook = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        specialArgs = {inherit inputs;};
-        modules =
-          [
-            ({
-              config,
-              pkgs,
-              ...
-            }: {})
-            sops-nix.nixosModules.sops
-            ./secrets/sops.nix
-            ./nixos/hosts/machbook/configuration.nix
-            ./nixos/users/christiantaylor.nix
-            home-manager.darwinModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.sharedModules = [
-                nixvim.homeManagerModules.nixvim
-              ];
-              home-manager.users.christiantaylor = import ./home-manager/home-darwin.nix;
-            }
-          ]
-          ++ commonModules;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ({ config, pkgs, ... }: { })
+          ./nixos/system/common-darwin.nix
+          ./nixos/system/spacebar.nix
+          ./nixos/system/yabai.nix
+          ./nixos/apps/zsh-darwin.nix
+          ./nixos/apps/direnv.nix
+          ./nixos/apps/common.nix
+          {
+            environment.systemPackages = [
+              #ghostty.packages.aarch64-darwin.default
+            ];
+          }
+          ./nixos/hosts/machbook/configuration.nix
+          ./nixos/users/christiantaylor.nix
+          ./nixos/apps/homebrews.nix
+          home-manager.darwinModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [
+              nixvim.homeManagerModules.nixvim
+            ];
+            home-manager.users.christiantaylor = import ./home-manager/home-darwin.nix;
+          }
+        ];
       };
+    }; 
     };
-  };
-}
+  }

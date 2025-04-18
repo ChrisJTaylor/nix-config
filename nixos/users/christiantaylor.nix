@@ -7,7 +7,6 @@
     home = "/Users/christiantaylor";
     shell = pkgs.zsh;
     packages = with pkgs; [
-    #  thunderbird
     ];
   };
 

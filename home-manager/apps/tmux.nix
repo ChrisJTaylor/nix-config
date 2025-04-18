@@ -37,6 +37,8 @@
       bind -n C-Right resize-pane -R 5
 
       bind w select-pane -t :.+ # next window
+
+      set-option -g default-shell ${pkgs.zsh}/bin/zsh
     '';
  
   };
