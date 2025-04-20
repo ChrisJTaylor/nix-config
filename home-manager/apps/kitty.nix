@@ -1,9 +1,8 @@
-{ ... }:
-
-{
+{...}: {
   programs.kitty = {
     enable = true;
     shellIntegration.enableZshIntegration = true;
+    shellIntegration.enableBashIntegration = true;
     shellIntegration.enableFishIntegration = true;
     font = {
       name = "SourceCodePro Nerd Font";

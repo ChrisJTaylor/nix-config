@@ -37,6 +37,7 @@
         ./nixos/system/gnupg.nix
         ./nixos/services/atuin.nix
         ./nixos/apps/direnv.nix
+        ./nixos/apps/bash.nix
         ./nixos/apps/common.nix
         {
           environment.systemPackages = [

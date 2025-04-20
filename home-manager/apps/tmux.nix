@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.tmux = {
     enable = true;
     clock24 = true;
@@ -16,7 +14,9 @@
       pkgs.tmuxPlugins.tmux-fzf
     ];
     extraConfig = ''
-      set -g @continuum-boot-options 'on' 
+      set -g default-shell ${pkgs.zsh}/bin/zsh
+
+      set -g @continuum-boot-options 'on'
       set -g status-right '#[fg=black,bg=color15] #{cpu_percentage}  %H:%M '
       run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux-plugins
 
@@ -37,9 +37,6 @@
       bind -n C-Right resize-pane -R 5
 
       bind w select-pane -t :.+ # next window
-
-      set-option -g default-shell ${pkgs.zsh}/bin/zsh
     '';
- 
   };
 }
