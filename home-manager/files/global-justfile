@@ -1,3 +1,5 @@
+set shell := ["bash", "-cu"]
+
 # enable direnv for nixshell
 [group('direnv helpers')]
 [no-cd]
