@@ -7,12 +7,13 @@
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager.url = "github:nix-community/home-manager/release-25.05";
-    nixvim.url = "github:nix-community/nixvim";
     sops-nix.url = "github:Mic92/sops-nix";
 
     # Controls system level software and settings including fonts
     # https://daiderd.com/nix-darwin/manual/
     darwin.url = "github:lnl7/nix-darwin/nix-darwin-25.05";
+
+    nixvim-config.url = "github:ChrisJTaylor/nixvim-config";
   };
 
   outputs = inputs @ {
@@ -20,10 +21,10 @@
     nixpkgs,
     unstable,
     darwin,
-    nixvim,
     home-manager,
     nixos-cosmic,
     sops-nix,
+    nixvim-config,
     ...
   }: {
     nixosConfigurations = let
@@ -39,6 +40,11 @@
         ./nixos/apps/direnv.nix
         ./nixos/apps/bash.nix
         ./nixos/apps/common.nix
+        {
+          environment.systemPackages = [
+            nixvim-config.packages.x86_64-linux.default
+          ];
+        }
       ];
     in {
       big-mach = nixpkgs.lib.nixosSystem {
@@ -72,7 +78,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [
-                nixvim.homeManagerModules.nixvim
               ];
               home-manager.users.christian = import ./home-manager/home-big-mach.nix;
             }
@@ -103,7 +108,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [
-                nixvim.homeManagerModules.nixvim
               ];
               home-manager.users.christian = import ./home-manager/home-big-machbook.nix;
             }
@@ -131,7 +135,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [
-                nixvim.homeManagerModules.nixvim
               ];
               home-manager.users.christian = import ./home-manager/home-wsl.nix;
             }
@@ -158,7 +161,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [
-                nixvim.homeManagerModules.nixvim
               ];
               home-manager.users.taylch = import ./home-manager/home-work.nix;
             }
@@ -186,12 +188,16 @@
           ./nixos/hosts/machbook/configuration.nix
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/fzf-git.nix
+          {
+            environment.systemPackages = [
+              nixvim-config.packages.aarch64-darwin.default
+            ];
+          }
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.sharedModules = [
-              nixvim.homeManagerModules.nixvim
             ];
             home-manager.users.christiantaylor = import ./home-manager/home-darwin.nix;
           }
