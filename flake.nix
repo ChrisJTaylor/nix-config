@@ -6,13 +6,13 @@
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
     nixvim.url = "github:nix-community/nixvim";
     sops-nix.url = "github:Mic92/sops-nix";
 
     # Controls system level software and settings including fonts
     # https://daiderd.com/nix-darwin/manual/
-    darwin.url = "github:lnl7/nix-darwin/nix-darwin-24.11";
+    darwin.url = "github:lnl7/nix-darwin/nix-darwin-25.05";
   };
 
   outputs = inputs @ {
@@ -39,10 +39,6 @@
         ./nixos/apps/direnv.nix
         ./nixos/apps/bash.nix
         ./nixos/apps/common.nix
-        {
-          environment.systemPackages = [
-          ];
-        }
       ];
     in {
       big-mach = nixpkgs.lib.nixosSystem {
@@ -187,14 +183,8 @@
           ./nixos/apps/zsh-darwin.nix
           ./nixos/apps/direnv.nix
           ./nixos/apps/common.nix
-          {
-            environment.systemPackages = [
-              #ghostty.packages.aarch64-darwin.default
-            ];
-          }
           ./nixos/hosts/machbook/configuration.nix
           ./nixos/users/christiantaylor.nix
-          ./nixos/apps/homebrews.nix
           ./nixos/apps/fzf-git.nix
           home-manager.darwinModules.home-manager
           {

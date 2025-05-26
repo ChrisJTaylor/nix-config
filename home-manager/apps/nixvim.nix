@@ -6,7 +6,9 @@
     ./nixvim/nixvim-telescope.nix
     ./nixvim/nixvim-treesitter.nix
     ./nixvim/nixvim-frecency.nix
-    ./nixvim/nixvim-cmp.nix
+    #    ./nixvim/nixvim-cmp.nix
+    ./nixvim/nixvim-blink-cmp.nix
+    ./nixvim/nixvim-copilot.nix
     ./nixvim/nixvim-lazygit.nix
     ./nixvim/nixvim-lsp.nix
     ./nixvim/nixvim-lsp-format.nix

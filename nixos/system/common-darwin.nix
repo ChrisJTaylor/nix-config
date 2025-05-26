@@ -1,11 +1,11 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
-  
+
   security.pki.installCACerts = true;
 
-  fonts.packages = [
-    pkgs.font-awesome_5
+  fonts.packages = with pkgs.nerd-fonts; [
+    jetbrains-mono
+    fira-code
+    droid-sans-mono
   ];
 }

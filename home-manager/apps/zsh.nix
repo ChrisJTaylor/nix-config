@@ -1,7 +1,8 @@
 {...}: {
   programs.zsh = {
     enable = true;
-    initExtraFirst = ''
+
+    initContent = ''
       alias ls="eza --color=always --long --git --no-filesize --icons=always --no-user --no-permissions"
       alias vim=nvim
       alias gst="git status"
@@ -44,8 +45,7 @@
           *)            fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
         esac
       }
-    '';
-    initExtra = ''
+
       source /etc/fzf-git/fzf-git.sh
       # source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
 
