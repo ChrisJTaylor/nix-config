@@ -2,7 +2,7 @@
   description = "Home Manager and NixOS configurations";
 
   inputs = {
-    nixpkgs.follows = "nixos-cosmic/nixpkgs-stable";
+    nixpkgs.follows = "nixos-cosmic/nixpkgs";
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -38,7 +38,6 @@
         ./nixos/system/gnupg.nix
         ./nixos/services/atuin.nix
         ./nixos/apps/direnv.nix
-        ./nixos/apps/bash.nix
         ./nixos/apps/common.nix
         {
           environment.systemPackages = [
@@ -69,7 +68,6 @@
             ./nixos/system/monitoring.nix
             ./nixos/network/nameservers.nix
             ./nixos/network/internalhosts.nix
-            ./nixos/apps/wine.nix
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
             home-manager.nixosModules.home-manager

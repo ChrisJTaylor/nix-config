@@ -9,7 +9,7 @@
     plugins = [
       pkgs.tmuxPlugins.continuum
       pkgs.tmuxPlugins.fzf-tmux-url
-      pkgs.tmuxPlugins.catppuccin
+      pkgs.tmuxPlugins.power-theme
       pkgs.tmuxPlugins.session-wizard
       pkgs.tmuxPlugins.tmux-fzf
     ];
