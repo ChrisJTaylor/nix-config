@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   sops = {
     age.keyFile = "/root/.config/sops/age/keys.txt";
 
@@ -11,6 +11,10 @@
       };
 
       password_christian = {
+        sopsFile = ./mysecret.yaml;
+      };
+
+      work_username = {
         sopsFile = ./mysecret.yaml;
       };
     };
