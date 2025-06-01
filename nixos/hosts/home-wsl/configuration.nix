@@ -24,7 +24,7 @@
       { src = "${su}/bin/usermod"; }
     ];
     wslConf.network.generateHosts = false;
-  }; 
+  };
 
   virtualisation.docker.enable = true;
 

@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   imports = [
     ./apps/tmux.nix
     ./apps/apps-darwin.nix

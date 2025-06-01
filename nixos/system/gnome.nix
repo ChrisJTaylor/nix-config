@@ -8,7 +8,7 @@
   security.pam.services.sudo.enableGnomeKeyring = true;
 
   services.dbus.enable = true;
-  
+
   services.xserver = {
     enable = true;
 

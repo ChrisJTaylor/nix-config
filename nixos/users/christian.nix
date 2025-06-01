@@ -1,7 +1,6 @@
-{
-  pkgs,
-  config,
-  ...
+{ pkgs
+, config
+, ...
 }: {
   sops.secrets.password_christian.neededForUsers = true;
 
@@ -13,7 +12,7 @@
     home = "/home/christian";
     hashedPasswordFile = config.sops.secrets.password_christian.path;
     shell = pkgs.zsh;
-    extraGroups = ["networkmanager" "wheel" "docker" "plugdev" "podman"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "plugdev" "podman" ];
     packages = with pkgs; [
       #  thunderbird
     ];

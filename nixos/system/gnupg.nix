@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   environment.systemPackages = [
     pkgs.gnupg
     pkgs.pinentry-curses

@@ -1,14 +1,15 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   version = {
     teamcity = "2025.03";
     nevergreen = "7.0.0";
   };
-in {
+in
+{
   virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers = {
     teamcity = {
@@ -37,35 +38,41 @@ in {
     autoStart = true;
 
     config =
-      import ./teamcity-agent-config.nix {
-        inherit config lib pkgs;
-      } {
-        agent_name = "nixagent01";
-        teamcity_server_url = "http://teamcity:8111";
-      };
+      import ./teamcity-agent-config.nix
+        {
+          inherit config lib pkgs;
+        }
+        {
+          agent_name = "nixagent01";
+          teamcity_server_url = "http://teamcity:8111";
+        };
   };
 
   containers.mach-agent-02 = {
     autoStart = true;
 
     config =
-      import ./teamcity-agent-config.nix {
-        inherit config lib pkgs;
-      } {
-        agent_name = "nixagent02";
-        teamcity_server_url = "http://teamcity:8111";
-      };
+      import ./teamcity-agent-config.nix
+        {
+          inherit config lib pkgs;
+        }
+        {
+          agent_name = "nixagent02";
+          teamcity_server_url = "http://teamcity:8111";
+        };
   };
 
   containers.mach-agent-03 = {
     autoStart = true;
 
     config =
-      import ./teamcity-agent-config.nix {
-        inherit config lib pkgs;
-      } {
-        agent_name = "nixagent03";
-        teamcity_server_url = "http://teamcity:8111";
-      };
+      import ./teamcity-agent-config.nix
+        {
+          inherit config lib pkgs;
+        }
+        {
+          agent_name = "nixagent03";
+          teamcity_server_url = "http://teamcity:8111";
+        };
   };
 }

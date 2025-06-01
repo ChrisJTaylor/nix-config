@@ -1,12 +1,12 @@
 { pkgs, ... }:
 
 {
-  users.defaultUserShell=pkgs.fish;
+  users.defaultUserShell = pkgs.fish;
 
   programs = {
-     fish = {
-        enable = true;
-     };
+    fish = {
+      enable = true;
+    };
   };
 
 }

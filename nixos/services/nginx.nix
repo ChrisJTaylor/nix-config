@@ -7,12 +7,12 @@
     recommendedOptimisation = true;
     virtualHosts = {
       "ci.machinology.local" = {
-	serverAliases = [ "ci-static.machinology.local" ];
-	forceSSL = false;
-	enableACME = false;
-	locations = {
-	  "/" = {
-	    proxyPass = "http://127.0.0.1:8111/";
+        serverAliases = [ "ci-static.machinology.local" ];
+        forceSSL = false;
+        enableACME = false;
+        locations = {
+          "/" = {
+            proxyPass = "http://127.0.0.1:8111/";
             extraConfig = ''
               proxy_http_version 1.1;
               proxy_set_header Upgrade $http_upgrade;
@@ -25,19 +25,19 @@
               proxy_read_timeout 3600s;
               proxy_send_timeout 3600s;
             '';
-	  };
-	};
+          };
+        };
       };
 
       "builds.machinology.local" = {
-	serverAliases = [ "builds-static.machinology.local" ];
-	forceSSL = false;
-	enableACME = false;
-	locations = {
-	  "/" = {
-	    proxyPass = "http://127.0.0.1:5000/";
-	  };
-	};
+        serverAliases = [ "builds-static.machinology.local" ];
+        forceSSL = false;
+        enableACME = false;
+        locations = {
+          "/" = {
+            proxyPass = "http://127.0.0.1:5000/";
+          };
+        };
       };
     };
   };

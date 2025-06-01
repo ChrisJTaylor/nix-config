@@ -8,20 +8,20 @@
       window = {
         decorations = "None";
         opacity = 0.95;
-	dimensions = {
-	  columns = 160;
-	  lines = 60;
-	};
-	padding = {
-	  x = 22;
-	  y = 22;
-	};
+        dimensions = {
+          columns = 160;
+          lines = 60;
+        };
+        padding = {
+          x = 22;
+          y = 22;
+        };
       };
       font = {
-        normal = { 
-	  family = "JetBrainsMono Nerd Font";
-	  style = "Regular";
-	};
+        normal = {
+          family = "JetBrainsMono Nerd Font";
+          style = "Regular";
+        };
         size = 13;
       };
       terminal = {

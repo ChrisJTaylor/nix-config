@@ -1,13 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
-  agent_name,
-  teamcity_server_url,
-  additionalPackages ? [],
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}: { agent_name
+   , teamcity_server_url
+   , additionalPackages ? [ ]
+   ,
+   }:
+let
   setupScript = pkgs.writeShellScript "" ''
     set -e
 
@@ -32,15 +32,16 @@
 
     echo "Completed setup for Teamcity Agent."
   '';
-in {
+in
+{
   config = {
     system.stateVersion = "24.11";
 
     systemd.services.teamcity-agent = {
       description = "TeamCity Build Agent Service";
-      after = ["network.target"];
+      after = [ "network.target" ];
 
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
         Type = "oneshot";
@@ -51,7 +52,7 @@ in {
         ExecStop = "/run/current-system/sw/bin/bash /opt/teamcity-agent/bin/agent.sh stop";
 
         RemainAfterExit = true;
-        SuccessExitStatus = [0 143];
+        SuccessExitStatus = [ 0 143 ];
         WorkingDirectory = "/opt/teamcity-agent";
         ReadWritePaths = [
           "/opt/teamcity-agent"
@@ -74,14 +75,14 @@ in {
       10.88.0.3 teamcity
     '';
 
-    users.groups.teamcity-agent = {};
+    users.groups.teamcity-agent = { };
 
     users.users.teamcity-agent = {
       isNormalUser = true;
       group = "teamcity-agent";
       description = "TeamCity Agent";
       home = "/home/teamcity-agent";
-      extraGroups = ["networkmanager" "wheel" "docker" "plugdev" "podman"];
+      extraGroups = [ "networkmanager" "wheel" "docker" "plugdev" "podman" ];
     };
 
     environment.systemPackages = with pkgs;
@@ -103,8 +104,8 @@ in {
 
     systemd.services.setup-teamcity-agent = {
       description = "Setup TeamCity Agent";
-      before = ["teamcity-agent.service"];
-      wantedBy = ["multi-user.target"];
+      before = [ "teamcity-agent.service" ];
+      wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = "${setupScript}";
         Type = "oneshot";

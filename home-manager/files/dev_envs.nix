@@ -16,10 +16,12 @@ let
       envDir = devEnvsRoot + "/${lang}";
       files = attrNames (readDir envDir);
     in
-      map (name: {
+    map
+      (name: {
         name = "_dev_envs/${lang}/${name}";
         value.source = envDir + "/${name}";
-      }) files;
+      })
+      files;
 
   allDevEnvFiles = builtins.listToAttrs (flatten (map mapFolder envFolders));
 

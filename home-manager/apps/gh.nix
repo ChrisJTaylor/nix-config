@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   programs.gh = {
     enable = true;
 
@@ -7,13 +7,11 @@
     extensions = [
     ];
 
-    settings = {
-    };
+    settings = { };
   };
 
   programs.gh-dash = {
     enable = true;
-    settings = {
-    };
+    settings = { };
   };
 }

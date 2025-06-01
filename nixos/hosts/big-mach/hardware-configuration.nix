@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "uhci_hcd" "ehci_pci" "ata_piix" "ahci" "xhci_pci" "firewire_ohci" "usbhid" "sd_mod" "sr_mod" ];
@@ -14,28 +15,33 @@
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/59fdfa0e-7641-4204-b005-95c0cb7b765a";
+    {
+      device = "/dev/disk/by-uuid/59fdfa0e-7641-4204-b005-95c0cb7b765a";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/0C91-6049";
+    {
+      device = "/dev/disk/by-uuid/0C91-6049";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
   fileSystems."/mnt/apps-slow" =
-    { device = "/dev/disk/by-uuid/db44d804-8eb3-434f-83c6-e60cea86bd06";
+    {
+      device = "/dev/disk/by-uuid/db44d804-8eb3-434f-83c6-e60cea86bd06";
       fsType = "ext4";
     };
 
   fileSystems."/mnt/artifacts" =
-    { device = "/dev/disk/by-uuid/eb468ef5-2279-42e7-a262-5643f0fd5fba";
+    {
+      device = "/dev/disk/by-uuid/eb468ef5-2279-42e7-a262-5643f0fd5fba";
       fsType = "ext4";
     };
 
   fileSystems."/mnt/apps" =
-    { device = "/dev/disk/by-uuid/89d42016-be56-4536-9a70-fead42a81d40";
+    {
+      device = "/dev/disk/by-uuid/89d42016-be56-4536-9a70-fead42a81d40";
       fsType = "ext4";
     };
 

@@ -8,7 +8,7 @@
     description = "User account for Jenkins";
     extraGroups = [ "networkmanager" "wheel" "podman" ];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 }

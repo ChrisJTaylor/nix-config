@@ -2,19 +2,20 @@
   description = "A Nix flake for a Zig project";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs"; 
-    flake-utils.url = "github:numtide/flake-utils"; 
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = { self, nixpkgs, flake-utils }: flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = import nixpkgs { inherit system; };
-    in {
+    in
+    {
       devShell = pkgs.mkShell {
         buildInputs = with pkgs; [
           zig
-          gnumake 
-          watchexec 
+          gnumake
+          watchexec
         ];
 
         shellHook = ''
@@ -28,7 +29,7 @@
       packages.default = pkgs.stdenv.mkDerivation {
         pname = "zig-project";
         version = "0.1.0";
-        
+
         src = self;
 
         buildPhase = ''

@@ -2,11 +2,11 @@
 
 {
   programs = {
-     fzf = {
-        enable = true;
-        enableFishIntegration = true;
-        tmux.enableShellIntegration = true;
-     };
+    fzf = {
+      enable = true;
+      enableFishIntegration = true;
+      tmux.enableShellIntegration = true;
+    };
   };
 
 }

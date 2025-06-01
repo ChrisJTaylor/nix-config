@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   programs.ghostty = {
     enable = true;
     enableBashIntegration = true;
@@ -33,7 +33,6 @@
       ];
     };
 
-    themes = {
-    };
+    themes = { };
   };
 }

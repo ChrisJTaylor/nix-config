@@ -20,7 +20,7 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts =  [ 80 81 443 5900 2049 111 9000  24800 ];
+      allowedTCPPorts = [ 80 81 443 5900 2049 111 9000 24800 ];
       trustedInterfaces = [ "vb-+" "ve-+" ];
     };
 

@@ -10,7 +10,7 @@
     shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" "podman" ];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 }

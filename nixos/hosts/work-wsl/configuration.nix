@@ -1,17 +1,19 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ pkgs, ... }:
-
-{
+{ pkgs
+, config
+, ...
+}: {
   imports = [
     <nixos-wsl/modules>
   ];
 
+  config.sops.secrets.work_username.neededForUsers = true;
+
   wsl = {
     enable = true;
-    defaultUser = "ukctay";
+    defaultUser = config.sops.secrets.work_username.value;
     extraBin = with pkgs; [
       # Binaries for Docker Desktop wsl-distro-proxy
       { src = "${coreutils}/bin/mkdir"; }
@@ -22,7 +24,7 @@
       { src = "${su}/bin/groupadd"; }
       { src = "${su}/bin/usermod"; }
     ];
-  }; 
+  };
 
   virtualisation.docker.enable = true;
 
@@ -35,6 +37,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
-

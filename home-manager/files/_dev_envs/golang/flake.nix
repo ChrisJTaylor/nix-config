@@ -32,7 +32,7 @@
 
           shellHook = ''
             just --list
-            '';
+          '';
         };
       });
     };
