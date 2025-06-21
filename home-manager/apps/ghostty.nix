@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   programs.ghostty = {
     enable = true;
     enableBashIntegration = true;
@@ -31,8 +31,10 @@
         "ctrl+b>f=toggle_fullscreen"
         "ctrl+b>d=toggle_window_decorations"
       ];
+
+      font-family = "SauceCodePro NFM";
     };
 
-    themes = { };
+    themes = {};
   };
 }
