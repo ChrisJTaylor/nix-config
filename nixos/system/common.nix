@@ -11,5 +11,7 @@
     jetbrains-mono
     fira-code
     droid-sans-mono
+    iosevka
+    sauce-code-pro
   ];
 }
