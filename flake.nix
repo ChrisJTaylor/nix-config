@@ -6,7 +6,7 @@
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager/master";
     sops-nix.url = "github:Mic92/sops-nix";
 
     # Controls system level software and settings including fonts
