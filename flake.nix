@@ -2,11 +2,11 @@
   description = "Home Manager and NixOS configurations";
 
   inputs = {
-    nixpkgs.follows = "nixos-cosmic/nixpkgs";
+    nixpkgs.follows = "nixos-cosmic/nixpkgs-stable";
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
     sops-nix.url = "github:Mic92/sops-nix";
 
     # Controls system level software and settings including fonts
@@ -146,10 +146,7 @@
             pkgs,
             ...
           }: {})
-          sops-nix.nixosModules.sops
-          ./secrets/sops.nix
           ./nixos/system/common-darwin.nix
-          ./nixos/system/spacebar.nix
           ./nixos/system/yabai.nix
           ./nixos/apps/zsh-darwin.nix
           ./nixos/apps/direnv.nix

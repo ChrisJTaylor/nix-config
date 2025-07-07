@@ -13,19 +13,26 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
-    pkgs.hello
-    pkgs.aichat
+    hello
+    aichat
 
-    pkgs.ranger
+    ranger
+
+    bcompare
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
     # # environment:
     (pkgs.writeShellScriptBin "my-hello" ''
       echo "Hello, ${config.home.username}!"
+    '')
+
+    # wrapper for beyond compare
+    (pkgs.writeShellScriptBin "bcompare" ''
+      open -a "Beyond Compare" "$@"
     '')
   ];
 
