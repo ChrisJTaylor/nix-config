@@ -1,17 +1,20 @@
-{ ... }: {
+{pkgs, ...}: {
   programs.gh = {
     enable = true;
 
     gitCredentialHelper.enable = true;
 
-    extensions = [
+    extensions = with pkgs; [
+      gh-copilot
+      gh-f
+      gh-cal
     ];
 
-    settings = { };
+    settings = {};
   };
 
   programs.gh-dash = {
     enable = true;
-    settings = { };
+    settings = {};
   };
 }
