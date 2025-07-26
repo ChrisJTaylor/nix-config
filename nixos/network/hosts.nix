@@ -1,8 +1,6 @@
-{ ... }:
-
-{
-  networking.extraHosts =
-    ''
-      192.168.1.160   ci.machinology.local
-    '';
+{...}: {
+  networking.extraHosts = ''
+    192.168.1.107   ci.machinology.local
+    192.168.1.107   builds.machinology.local
+  '';
 }

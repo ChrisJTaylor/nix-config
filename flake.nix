@@ -45,6 +45,7 @@
         {
           environment.systemPackages = [
             nixvim-config.packages.x86_64-linux.default
+            unstable.legacyPackages.x86_64-linux.opencode
           ];
         }
       ];
