@@ -68,6 +68,7 @@
             ./nixos/services/podman.nix
             ./nixos/services/nginx.nix
             ./nixos/system/monitoring.nix
+            ./nixos/network/firewall.nix
             ./nixos/network/nameservers.nix
             ./nixos/network/internalhosts.nix
             ./nixos/apps/games.nix
