@@ -1,10 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   imports = [
     <nixos-wsl/modules>
   ];
@@ -15,25 +12,25 @@
     useWindowsDriver = true;
     extraBin = with pkgs; [
       # Binaries for Docker Desktop wsl-distro-proxy
-      { src = "${coreutils}/bin/mkdir"; }
-      { src = "${coreutils}/bin/cat"; }
-      { src = "${coreutils}/bin/whoami"; }
-      { src = "${coreutils}/bin/ls"; }
-      { src = "${busybox}/bin/addgroup"; }
-      { src = "${su}/bin/groupadd"; }
-      { src = "${su}/bin/usermod"; }
+      {src = "${coreutils}/bin/mkdir";}
+      {src = "${coreutils}/bin/cat";}
+      {src = "${coreutils}/bin/whoami";}
+      {src = "${coreutils}/bin/ls";}
+      {src = "${busybox}/bin/addgroup";}
+      {src = "${su}/bin/groupadd";}
+      {src = "${su}/bin/usermod";}
     ];
     wslConf.network.generateHosts = false;
   };
 
   virtualisation.docker.enable = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   nix.extraOptions = ''
     trusted-users = root christian
-    extra-substituters = https://devenv.cachix.org;
-    extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=;
+    extra-substituters = https://devenv.cachix.org
+    extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
   '';
 
   # This value determines the NixOS release from which the default
@@ -43,6 +40,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
-
