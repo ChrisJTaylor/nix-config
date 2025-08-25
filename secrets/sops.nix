@@ -1,5 +1,6 @@
 {...}: {
   sops = {
+    # Keep original key file location for now
     age.keyFile = "/root/.config/sops/age/keys.txt";
 
     defaultSopsFile = ./mysecret.yaml;
@@ -8,14 +9,22 @@
       mysecret = {
         sopsFile = ./mysecret.yaml;
         path = "/etc/secrets/mysecret";
+        # Restrict access to root only
+        owner = "root";
+        group = "root";
+        mode = "0400";
       };
 
       password_christian = {
         sopsFile = ./mysecret.yaml;
+        # Keep default permissions for compatibility
       };
 
       work_username = {
         sopsFile = ./mysecret.yaml;
+        owner = "root";
+        group = "root";
+        mode = "0400";
       };
     };
   };

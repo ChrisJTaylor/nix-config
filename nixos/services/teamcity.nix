@@ -4,15 +4,12 @@
   pkgs,
   ...
 }: let
-  version = {
-    teamcity = "2025.03.3";
-    nevergreen = "7.0.0";
-  };
+  versions = import ./versions.nix;
 in {
   virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers = {
     teamcity = {
-      image = "jetbrains/teamcity-server:${version.teamcity}";
+      image = "jetbrains/teamcity-server:${versions.teamcity}";
       autoStart = true;
       ports = [
         "127.0.0.1:8111:8111"
@@ -25,7 +22,7 @@ in {
     };
 
     nevergreen = {
-      image = "buildcanariesteam/nevergreen:${version.nevergreen}";
+      image = "buildcanariesteam/nevergreen:${versions.nevergreen}";
       autoStart = true;
       ports = [
         "127.0.0.1:5000:5000"

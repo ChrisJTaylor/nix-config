@@ -31,6 +31,7 @@
       commonModules = [
         ./nixos/system/common.nix
         ./nixos/system/locale.nix
+        ./nixos/system/maintenance.nix
         ./nixos/rules/zsa.nix
         ./nixos/apps/git.nix
         ./nixos/apps/zsh.nix
@@ -55,11 +56,6 @@
         specialArgs = {inherit inputs;};
         modules =
           [
-            ({
-              config,
-              pkgs,
-              ...
-            }: {})
             ./nixos/hosts/big-mach/configuration.nix
             ./nixos/users/christian.nix
             ./nixos/system/cosmic.nix
@@ -83,20 +79,12 @@
         specialArgs = {inherit inputs;};
         modules =
           [
-            ({
-              config,
-              pkgs,
-              ...
-            }: {})
-            sops-nix.nixosModules.sops
-            ./secrets/sops.nix
             ./nixos/hosts/big-machbook/configuration.nix
             ./nixos/users/christian.nix
             ./nixos/system/xserver.nix
             ./nixos/network/hosts.nix
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
-            home-manager.nixosModules.home-manager
             ./home-manager/home-big-machbook.nix
           ]
           ++ commonModules;
@@ -107,11 +95,6 @@
         specialArgs = {inherit inputs;};
         modules =
           [
-            ({
-              config,
-              pkgs,
-              ...
-            }: {})
             ./nixos/hosts/home-wsl/configuration.nix
             ./nixos/users/christian.nix
             ./nixos/network/hosts.nix
@@ -125,11 +108,6 @@
         specialArgs = {inherit inputs;};
         modules =
           [
-            ({
-              config,
-              pkgs,
-              ...
-            }: {})
             ./nixos/hosts/work-wsl/configuration.nix
             ./nixos/users/workprofile.nix
             ./home-manager/home-work.nix
@@ -143,11 +121,6 @@
         system = "aarch64-darwin";
         specialArgs = {inherit inputs;};
         modules = [
-          ({
-            config,
-            pkgs,
-            ...
-          }: {})
           ./nixos/system/common-darwin.nix
           ./nixos/system/yabai.nix
           ./nixos/apps/zsh-darwin.nix

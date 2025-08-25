@@ -1,4 +1,5 @@
 { pkgs, ... }: {
+  # Global nixpkgs configuration
   nixpkgs.config.allowUnfree = true;
 
   # Enable CUPS to print documents.
