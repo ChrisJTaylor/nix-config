@@ -81,7 +81,7 @@
           [
             ./nixos/hosts/big-machbook/configuration.nix
             ./nixos/users/christian.nix
-            ./nixos/system/xserver.nix
+            ./nixos/system/cosmic.nix
             ./nixos/network/hosts.nix
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
