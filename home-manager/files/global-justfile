@@ -2,7 +2,7 @@ set shell := ["bash", "-cu"]
 
 # show all available tasks
 _default:
-  @just --list
+  just --justfile ~/_justfile --list
 
 # enable direnv for nixshell
 [group('direnv helpers')]

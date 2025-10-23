@@ -2,11 +2,11 @@
   description = "Home Manager and NixOS configurations";
 
   inputs = {
-    nixpkgs.follows = "nixos-cosmic/nixpkgs";
+    nixpkgs.follows = "nixos-cosmic/nixpkgs-stable";
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
     sops-nix.url = "github:Mic92/sops-nix";
 
     # Controls system level software and settings including fonts
@@ -46,7 +46,6 @@
         {
           environment.systemPackages = [
             nixvim-config.packages.x86_64-linux.default
-            unstable.legacyPackages.x86_64-linux.opencode
           ];
         }
       ];
@@ -129,6 +128,7 @@
           ./nixos/hosts/machbook/configuration.nix
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/fzf-git.nix
+          ./nixos/files/etc-hosts.nix
           {
             environment.systemPackages = [
               nixvim-config.packages.aarch64-darwin.default

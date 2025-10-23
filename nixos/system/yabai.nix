@@ -1,6 +1,6 @@
 {...}: {
   services.yabai = {
-    enable = false;
+    enable = true;
     config = {
       focus_follows_mouse = "autoraise";
       mouse_follows_focus = "off";
@@ -12,6 +12,7 @@
       right_padding = 10;
       window_gap = 10;
       layout = "bsp";
+      auto_balance = true;
     };
   };
 }
