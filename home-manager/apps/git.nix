@@ -1,9 +1,11 @@
 {...}: {
   programs.git = {
     enable = true;
-    userName = "Christian Taylor";
-    userEmail = "christianjtaylor@sky.com";
-    extraConfig = {
+    settings = {
+      user = {
+        Name = "Christian Taylor";
+        email = "christianjtaylor@sky.com";
+      };
       diff.tool = "bc3";
       difftool.bc3.cmd = ''bcompare "$LOCAL" "$REMOTE"'';
 
