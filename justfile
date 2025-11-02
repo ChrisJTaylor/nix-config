@@ -30,6 +30,12 @@ set-github-auth:
   mkdir -p ~/.config/nix
   echo "access-tokens = github.com=$(gh auth token)" > ~/.config/nix/github-token
 
+# generate public/private key pair for harmonia
+generate-cache-key service_name="harmonia" domain="machinology":
+  #!/usr/bin/env bash
+  sudo mkdir -p /var/lib/secrets/
+  sudo nix-store --generate-binary-cache-key cache.{{domain}}.tld-1 /var/lib/secrets/{{service_name}}.secret /var/lib/secrets/{{service_name}}.pub
+
 _backup-files:
   -just _backup-file "hosts"
   -just _backup-file "zshrc"

@@ -18,6 +18,8 @@
     approved-packages = {
       url = "github:machinology/mach-approved-packages";
     };
+
+    harmonia.url = "github:nix-community/harmonia";
   };
 
   outputs = inputs @ {
@@ -61,29 +63,29 @@
         }
       ];
     in {
-      big-mach = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs system;
-          approved-packages = approved-packages.packages.${system};
-        };
-        modules =
-          [
-            ./nixos/hosts/big-mach/configuration.nix
-            ./nixos/users/christian.nix
-            ./nixos/system/cosmic.nix
-            nixos-cosmic.nixosModules.default
-            ./nixos/services/teamcity.nix
-            ./nixos/services/podman.nix
-            ./nixos/services/nginx.nix
-            ./nixos/system/monitoring.nix
-            ./nixos/network/firewall.nix
-            ./nixos/network/nameservers.nix
-            ./nixos/network/internalhosts.nix
-            ./nixos/apps/games.nix
-            ./nixos/apps/personal.nix
-            ./home-manager/home-big-mach.nix
-          ]
-          ++ commonModules;
+       big-mach = nixpkgs.lib.nixosSystem {
+         specialArgs = {
+           inherit inputs system;
+           approved-packages = approved-packages.packages.${system};
+         };
+         modules =
+           [
+             ./nixos/hosts/big-mach/configuration.nix
+             ./nixos/users/christian.nix
+             ./nixos/system/cosmic.nix
+             nixos-cosmic.nixosModules.default
+             ./nixos/services/teamcity.nix
+             ./nixos/services/podman.nix
+             ./nixos/services/nginx.nix
+             ./nixos/system/monitoring.nix
+             ./nixos/network/firewall.nix
+             ./nixos/network/nameservers.nix
+             ./nixos/network/internalhosts.nix
+             ./nixos/apps/games.nix
+             ./nixos/apps/personal.nix
+             ./home-manager/home-big-mach.nix
+           ]
+           ++ commonModules;
       };
 
       mach-serve-01 = nixpkgs.lib.nixosSystem {
@@ -98,29 +100,30 @@
             ./nixos/system/gnome.nix
             ./nixos/system/pipewire.nix
             ./nixos/system/power-mgmt.nix
+            ./nixos/services/harmonia.nix
             ./nixos/services/podman.nix
             ./home-manager/mach-serve-01.nix
           ]
           ++ commonModules;
       };
 
-      big-machbook = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs system;
-          approved-packages = approved-packages.packages.${system};
-        };
-        modules =
-          [
-            ./nixos/hosts/big-machbook/configuration.nix
-            ./nixos/users/christian.nix
-            ./nixos/system/cosmic.nix
-            nixos-cosmic.nixosModules.default
-            ./nixos/network/hosts.nix
-            ./nixos/apps/games.nix
-            ./nixos/apps/personal.nix
-            ./home-manager/home-big-machbook.nix
-          ]
-          ++ commonModules;
+       big-machbook = nixpkgs.lib.nixosSystem {
+         specialArgs = {
+           inherit inputs system;
+           approved-packages = approved-packages.packages.${system};
+         };
+         modules =
+           [
+             ./nixos/hosts/big-machbook/configuration.nix
+             ./nixos/users/christian.nix
+             ./nixos/system/cosmic.nix
+             nixos-cosmic.nixosModules.default
+             ./nixos/network/hosts.nix
+             ./nixos/apps/games.nix
+             ./nixos/apps/personal.nix
+             ./home-manager/home-big-machbook.nix
+           ]
+           ++ commonModules;
       };
 
       home-wsl = nixpkgs.lib.nixosSystem {
@@ -128,15 +131,15 @@
           inherit inputs system;
           approved-packages = approved-packages.packages.${system};
         };
-        modules =
-          [
-            ./nixos/hosts/home-wsl/configuration.nix
-            ./nixos/hosts/home-wsl/hardware-configuration.nix
-            ./nixos/users/christian.nix
-            ./nixos/network/hosts.nix
-            ./home-manager/home-wsl.nix
-          ]
-          ++ commonModules;
+         modules =
+           [
+             ./nixos/hosts/home-wsl/configuration.nix
+             ./nixos/hosts/home-wsl/hardware-configuration.nix
+             ./nixos/users/christian.nix
+             ./nixos/network/hosts.nix
+             ./home-manager/home-wsl.nix
+           ]
+           ++ commonModules;
       };
 
       work-wsl = nixpkgs.lib.nixosSystem {
@@ -158,27 +161,27 @@
       system = "aarch64-darwin";
       pkgs = approved-packages.packages.${system};
     in {
-      machbook = darwin.lib.darwinSystem {
-        specialArgs = {inherit inputs system pkgs;};
-        modules = [
-          ./nixos/system/common-darwin.nix
-          ./nixos/system/yabai.nix
-          ./nixos/apps/zsh-darwin.nix
-          ./nixos/apps/direnv.nix
-          ./nixos/apps/common.nix
-          ./nixos/hosts/machbook/configuration.nix
-          ./nixos/users/christiantaylor.nix
-          ./nixos/apps/fzf-git.nix
-          ./nixos/files/etc-hosts.nix
-          {
-            environment.systemPackages = [
-              nixvim-config.packages.aarch64-darwin.default
-            ];
-          }
-          home-manager.darwinModules.home-manager
-          ./home-manager/home-darwin.nix
-        ];
-      };
+       machbook = darwin.lib.darwinSystem {
+         specialArgs = {inherit inputs system pkgs;};
+         modules = [
+           ./nixos/system/common-darwin.nix
+           ./nixos/system/yabai.nix
+           ./nixos/apps/zsh-darwin.nix
+           ./nixos/apps/direnv.nix
+           ./nixos/apps/common.nix
+           ./nixos/hosts/machbook/configuration.nix
+           ./nixos/users/christiantaylor.nix
+           ./nixos/apps/fzf-git.nix
+           ./nixos/files/etc-hosts.nix
+           {
+             environment.systemPackages = [
+               nixvim-config.packages.aarch64-darwin.default
+             ];
+           }
+           home-manager.darwinModules.home-manager
+           ./home-manager/home-darwin.nix
+         ];
+       };
     };
   };
 }

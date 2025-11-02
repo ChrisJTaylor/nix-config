@@ -26,6 +26,16 @@
         group = "root";
         mode = "0400";
       };
+
+      domain_name = {
+        sopsFile = ./mysecret.yaml;
+        # Keep default permissions for compatibility
+      };
+
+      harmonia_email = {
+        sopsFile = ./mysecret.yaml;
+        # Keep default permissions for compatibility
+      };
     };
   };
 }
