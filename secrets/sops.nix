@@ -29,16 +29,19 @@
 
       domain_name = {
         sopsFile = ./mysecret.yaml;
+        neededForUsers = true;
         # Keep default permissions for compatibility
       };
 
       harmonia_email = {
         sopsFile = ./mysecret.yaml;
+        neededForUsers = true;
         # Keep default permissions for compatibility
       };
 
       harmonia_public_key = {
         sopsFile = ./mysecret.yaml;
+        neededForUsers = true;
         # Keep default permissions for compatibility
       };
     };

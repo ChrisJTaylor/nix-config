@@ -1,10 +1,11 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
-{config, ...}: {
+{config, inputs, ...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    inputs.harmonia.nixosModules.harmonia
   ];
 
   # Bootloader.
@@ -29,6 +30,14 @@
   # services.xserver.libinput.enable = true;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  services.harmonia-dev.cache.enable = true;
+  # FIXME: generate a public/private key pair like this:
+  # $ nix-store --generate-binary-cache-key cache.yourdomain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
+  services.harmonia-dev.cache.signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
+
+  security.acme.defaults.email = "${config.sops.placeholder.harmonia_email}";
+  security.acme.acceptTerms = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

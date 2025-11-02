@@ -6,15 +6,12 @@
 }: {
   imports = [inputs.harmonia.nixosModules.harmonia];
 
-  sops.secrets.harmonia_email.neededForUsers = true;
-  sops.secrets.domain_name.neededForUsers = true;
-
   services.harmonia-dev.cache.enable = true;
   # FIXME: generate a public/private key pair like this:
   # $ nix-store --generate-binary-cache-key cache.yourdomain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
   services.harmonia-dev.cache.signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
 
-  security.acme.defaults.email = "${config.sops.secrets.harmonia_email.value}";
+  security.acme.defaults.email = "${config.sops.placeholder.harmonia_email}";
   security.acme.acceptTerms = true;
 
   # All other nginx configuration remains the same as above
@@ -23,7 +20,7 @@
   services.nginx = {
     enable = true;
     recommendedTlsSettings = true;
-    virtualHosts."cache.${config.sops.secrets.domain_name.value}.tld" = {
+    virtualHosts."cache.machinology.tld" = {
       enableACME = true;
       forceSSL = true;
       locations."/".extraConfig = ''

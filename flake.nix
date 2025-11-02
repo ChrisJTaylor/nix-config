@@ -88,24 +88,23 @@
            ++ commonModules;
       };
 
-      mach-serve-01 = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs system;
-          approved-packages = approved-packages.packages.${system};
-        };
-        modules =
-          [
-            ./nixos/hosts/mach-serve-01/configuration.nix
-            ./nixos/users/christian.nix
-            ./nixos/system/gnome.nix
-            ./nixos/system/pipewire.nix
-            ./nixos/system/power-mgmt.nix
-            ./nixos/services/harmonia.nix
-            ./nixos/services/podman.nix
-            ./home-manager/mach-serve-01.nix
-          ]
-          ++ commonModules;
-      };
+       mach-serve-01 = nixpkgs.lib.nixosSystem {
+         specialArgs = {
+           inherit inputs system;
+           approved-packages = approved-packages.packages.${system};
+         };
+         modules =
+           [
+             ./nixos/hosts/mach-serve-01/configuration.nix
+             ./nixos/users/christian.nix
+             ./nixos/system/gnome.nix
+             ./nixos/system/pipewire.nix
+             ./nixos/system/power-mgmt.nix
+             ./nixos/services/podman.nix
+             ./home-manager/mach-serve-01.nix
+           ]
+           ++ commonModules;
+       };
 
        big-machbook = nixpkgs.lib.nixosSystem {
          specialArgs = {
