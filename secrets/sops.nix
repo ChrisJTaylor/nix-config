@@ -36,6 +36,11 @@
         sopsFile = ./mysecret.yaml;
         # Keep default permissions for compatibility
       };
+
+      harmonia_public_key = {
+        sopsFile = ./mysecret.yaml;
+        # Keep default permissions for compatibility
+      };
     };
   };
 }
