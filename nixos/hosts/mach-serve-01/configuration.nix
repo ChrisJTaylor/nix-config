@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
-{config, inputs, ...}: {
+{config, inputs, lib, pkgs, ...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -31,24 +31,23 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  services.harmonia-dev.cache.enable = true;
+   services.harmonia-dev.cache.enable = true;
    # FIXME: generate a public/private key pair like this:
    # $ nix-store --generate-binary-cache-key cache.yourdomain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
    services.harmonia-dev.cache.signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
 
-  security.acme.defaults.email = "christian.taylor@machinology.com";
-  security.acme.acceptTerms = true;
-
   # Open firewall ports for nginx (harmonia cache)
   networking.firewall.allowedTCPPorts = [443 80];
 
-  # Configure nginx for harmonia cache
-  services.nginx = {
-    enable = true;
-    recommendedTlsSettings = true;
-    virtualHosts."cache.machinology.tld" = {
-      enableACME = true;
-      forceSSL = true;
+  # Configure nginx for harmonia cache with self-signed HTTPS for local network
+  # Self-signed certificates will be generated automatically on first boot
+   services.nginx = {
+     enable = true;
+     recommendedTlsSettings = true;
+     virtualHosts."cache.machinology.tld" = {
+       onlySSL = true;
+       sslCertificate = "/etc/ssl/certs/cache.machinology.tld.crt";
+       sslCertificateKey = "/etc/ssl/private/cache.machinology.tld.key";
       locations."/".extraConfig = ''
         proxy_pass http://127.0.0.1:5000;
         proxy_set_header Host $host;
@@ -60,6 +59,19 @@
       '';
     };
   };
+
+  # Generate self-signed certificate on first boot if it doesn't exist
+  system.activationScripts.generateSelfsignedCert = lib.stringAfter ["etc"] ''
+    mkdir -p /etc/ssl/certs /etc/ssl/private
+    if [ ! -f /etc/ssl/certs/cache.machinology.tld.crt ]; then
+      ${pkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 -keyout /etc/ssl/private/cache.machinology.tld.key \
+        -out /etc/ssl/certs/cache.machinology.tld.crt -days 3650 -nodes \
+        -subj "/CN=cache.machinology.tld"
+      chmod 600 /etc/ssl/private/cache.machinology.tld.key
+      chmod 644 /etc/ssl/certs/cache.machinology.tld.crt
+      chown root:root /etc/ssl/certs/cache.machinology.tld.crt /etc/ssl/private/cache.machinology.tld.key
+    fi
+  '';
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
