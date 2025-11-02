@@ -32,47 +32,30 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   services.harmonia-dev.cache.enable = true;
-  # FIXME: generate a public/private key pair like this:
-  # $ nix-store --generate-binary-cache-key cache.yourdomain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
-  services.harmonia-dev.cache.signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
+   # FIXME: generate a public/private key pair like this:
+   # $ nix-store --generate-binary-cache-key cache.yourdomain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
+   services.harmonia-dev.cache.signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
 
-  security.acme.defaults.email = "${config.sops.placeholder.harmonia_email}";
+  security.acme.defaults.email = "christian.taylor@machinology.com";
   security.acme.acceptTerms = true;
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Configure nginx virtualHost for harmonia cache
-  # Note: domain is hardcoded to 'machinology' - if you need to change it,
-  # update this value and the domain_name secret
-  services.nginx.virtualHosts."cache.machinology.tld" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/".extraConfig = ''
-      proxy_pass http://127.0.0.1:5000;
-      proxy_set_header Host $host;
-      proxy_redirect http:// https://;
-      proxy_http_version 1.1;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection $connection_upgrade;
-    '';
+  # Configure nginx for harmonia cache
+  services.nginx = {
+    enable = true;
+    recommendedTlsSettings = true;
+    virtualHosts."cache.machinology.tld" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/".extraConfig = ''
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_redirect http:// https://;
+        proxy_http_version 1.1;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+      '';
+    };
   };
 
   # This value determines the NixOS release from which the default
