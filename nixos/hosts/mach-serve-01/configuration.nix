@@ -39,6 +39,9 @@
   security.acme.defaults.email = "christian.taylor@machinology.com";
   security.acme.acceptTerms = true;
 
+  # Open firewall ports for nginx (harmonia cache)
+  networking.firewall.allowedTCPPorts = [443 80];
+
   # Configure nginx for harmonia cache
   services.nginx = {
     enable = true;
