@@ -44,10 +44,10 @@
    services.nginx = {
      enable = true;
      recommendedTlsSettings = true;
-     virtualHosts."cache.machinology.tld" = {
-       onlySSL = true;
-       sslCertificate = "/etc/ssl/certs/cache.machinology.tld.crt";
-       sslCertificateKey = "/etc/ssl/private/cache.machinology.tld.key";
+      virtualHosts."cache.machinology.local" = {
+        onlySSL = true;
+        sslCertificate = "/etc/ssl/certs/cache.machinology.local.crt";
+        sslCertificateKey = "/etc/ssl/private/cache.machinology.local.key";
        locations."/".extraConfig = ''
          proxy_pass http://127.0.0.1:5000;
          proxy_set_header Host $host;
@@ -61,18 +61,18 @@
    };
 
    # Generate self-signed certificate on first boot if it doesn't exist
-   system.activationScripts.generateSelfsignedCert = lib.stringAfter ["etc"] ''
-     mkdir -p /etc/ssl/certs /etc/ssl/private
-     if [ ! -f /etc/ssl/certs/cache.machinology.tld.crt ]; then
-       ${pkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 -keyout /etc/ssl/private/cache.machinology.tld.key \
-         -out /etc/ssl/certs/cache.machinology.tld.crt -days 3650 -nodes \
-         -subj "/CN=cache.machinology.tld"
-       chmod 644 /etc/ssl/private/cache.machinology.tld.key
-       chmod 644 /etc/ssl/certs/cache.machinology.tld.crt
-       chown root:nginx /etc/ssl/private/cache.machinology.tld.key
-       chown root:root /etc/ssl/certs/cache.machinology.tld.crt
-     fi
-   '';
+    system.activationScripts.generateSelfsignedCert = lib.stringAfter ["etc"] ''
+      mkdir -p /etc/ssl/certs /etc/ssl/private
+      if [ ! -f /etc/ssl/certs/cache.machinology.local.crt ]; then
+        ${pkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 -keyout /etc/ssl/private/cache.machinology.local.key \
+          -out /etc/ssl/certs/cache.machinology.local.crt -days 3650 -nodes \
+          -subj "/CN=cache.machinology.local"
+        chmod 644 /etc/ssl/private/cache.machinology.local.key
+        chmod 644 /etc/ssl/certs/cache.machinology.local.crt
+        chown root:nginx /etc/ssl/private/cache.machinology.local.key
+        chown root:root /etc/ssl/certs/cache.machinology.local.crt
+      fi
+    '';
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
