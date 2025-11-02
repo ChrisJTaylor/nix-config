@@ -1,6 +1,10 @@
-{ inputs, pkgs, ... }: {
+{
+  inputs,
+  approved-packages,
+  ...
+}: {
   programs.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    package = inputs.hyprland.packages.${approved-packages.system}.hyprland;
   };
 }

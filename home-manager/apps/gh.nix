@@ -1,10 +1,10 @@
-{pkgs, ...}: {
+{approved-packages, ...}: {
   programs.gh = {
     enable = true;
 
     gitCredentialHelper.enable = true;
 
-    extensions = with pkgs; [
+    extensions = with approved-packages; [
       gh-copilot
       gh-f
       gh-cal

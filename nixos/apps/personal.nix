@@ -1,8 +1,5 @@
-{ pkgs, ... }:
-
-{
-  environment.systemPackages = with pkgs; [
+{approved-packages, ...}: {
+  environment.systemPackages = with approved-packages; [
     discord
   ];
 }
-

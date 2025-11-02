@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{approved-packages, ...}: {
   # Global nixpkgs configuration
   nixpkgs.config.allowUnfree = true;
 
@@ -8,11 +8,11 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
-  fonts.packages = with pkgs.nerd-fonts; [
-    jetbrains-mono
-    fira-code
-    droid-sans-mono
-    iosevka
-    sauce-code-pro
+  fonts.packages = with approved-packages; [
+    nerd-fonts-jetbrains-mono
+    nerd-fonts-fira-code
+    nerd-fonts-droid-sans-mono
+    nerd-fonts-iosevka
+    nerd-fonts-sauce-code-pro
   ];
 }

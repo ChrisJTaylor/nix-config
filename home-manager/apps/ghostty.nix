@@ -8,6 +8,8 @@
     settings = {
       shell-integration = "zsh";
 
+      confirm-close-surface = false;
+
       clipboard-read = "allow";
       clipboard-write = "allow";
       clipboard-trim-trailing-spaces = true;
@@ -23,8 +25,6 @@
       window-save-state = "always";
 
       resize-overlay = "always";
-
-      custom-shader = "~/.ghostty-shaders/bloom.glsl";
 
       keybind = [
         "alt+t=toggle_quick_terminal"

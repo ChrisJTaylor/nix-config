@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{approved-packages, ...}: {
   programs.tmux = {
     enable = true;
     clock24 = true;
@@ -6,19 +6,19 @@
     terminal = "screen-256color";
     shortcut = "b";
     keyMode = "vi";
-    plugins = [
-      pkgs.tmuxPlugins.continuum
-      pkgs.tmuxPlugins.fzf-tmux-url
-      pkgs.tmuxPlugins.power-theme
-      pkgs.tmuxPlugins.session-wizard
-      pkgs.tmuxPlugins.tmux-fzf
+    plugins = with approved-packages; [
+      tmux-continuum
+      tmux-fzf-tmux-url
+      tmux-power-theme
+      tmux-session-wizard
+      tmux-fzf
     ];
     extraConfig = ''
-      set -g default-shell ${pkgs.zsh}/bin/zsh
+      set -g default-shell ${approved-packages.zsh}/bin/zsh
 
       set -g @continuum-boot-options 'on'
       set -g status-right '#[fg=black,bg=color15] #{cpu_percentage}  %H:%M '
-      run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux-plugins
+      run-shell ${approved-packages.tmux-cpu}/share/tmux-plugins/cpu/cpu.tmux-plugins
 
       set -g xterm-keys on
 

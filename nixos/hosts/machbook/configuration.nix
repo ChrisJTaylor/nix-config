@@ -1,13 +1,11 @@
-{ pkgs, ... }:
-
-{
+{approved-packages, ...}: {
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
   # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
 
   # Auto upgrade nix package and the daemon service.
   nix.enable = true;
-  nix.package = pkgs.nix;
+  nix.package = approved-packages.nix;
 
   # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh.enable = true; # default shell on catalina
@@ -17,6 +15,5 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 }
-

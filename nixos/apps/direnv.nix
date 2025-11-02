@@ -1,15 +1,12 @@
-{ pkgs, ... }:
-
-{
+{approved-packages, ...}: {
   programs.direnv = {
     enable = true;
-    package = pkgs.direnv;
+    package = approved-packages.direnv;
     silent = true;
     loadInNixShell = true;
     nix-direnv = {
       enable = true;
-      package = pkgs.nix-direnv;
+      package = approved-packages.nix-direnv;
     };
   };
-
 }

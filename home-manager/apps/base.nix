@@ -1,8 +1,6 @@
-{ pkgs, config, ... }: {
+{approved-packages, ...}: {
   # Common packages across all environments
-  home.packages = with pkgs; [
-    hello
-    aichat
+  home.packages = with approved-packages; [
     ranger
     bcompare
   ];

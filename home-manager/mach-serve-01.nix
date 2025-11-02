@@ -1,17 +1,18 @@
 {...}: {
+  home-manager.backupFileExtension = "bakk";
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.sharedModules = [
   ];
-  home-manager.users.taylch = {
+  home-manager.users.christian = {
     imports = [
-      ./apps/apps.nix
       ./files/files.nix
+      ./apps/apps.nix
     ];
 
     # Home Manager needs a bit of information about you and the paths it should
     # manage.
-    home.username = "taylch";
+    home.username = "christian";
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
@@ -20,6 +21,6 @@
     # You should not change this value, even if you update Home Manager. If you do
     # want to update the value, then make sure to first check the Home Manager
     # release notes.
-    home.stateVersion = "23.11"; # Please read the comment before changing.
+    home.stateVersion = "25.05"; # Please read the comment before changing.
   };
 }

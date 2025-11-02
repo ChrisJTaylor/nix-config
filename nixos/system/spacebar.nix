@@ -1,8 +1,6 @@
-{ pkgs, ... }:
-
-{
+{approved-packages, ...}: {
   services.spacebar.enable = true;
-  services.spacebar.package = pkgs.spacebar;
+  services.spacebar.package = approved-packages.spacebar;
   services.spacebar.config = {
     position = "top";
     display = "main";

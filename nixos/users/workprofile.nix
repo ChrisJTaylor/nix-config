@@ -1,6 +1,7 @@
-{ pkgs
-, config
-, ...
+{
+  approved-packages,
+  config,
+  ...
 }: {
   sops.secrets.work_username.neededForUsers = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -9,8 +10,8 @@
     isNormalUser = true;
     description = "Christian Taylor";
     home = "/home/${config.sops.secrets.work_username.value}";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [
+    extraGroups = ["networkmanager" "wheel" "docker"];
+    packages = with approved-packages; [
       #  thunderbird
     ];
   };

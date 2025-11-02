@@ -1,9 +1,10 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{ pkgs
-, config
-, ...
+{
+  approved-packages,
+  config,
+  ...
 }: {
   imports = [
     <nixos-wsl/modules>
@@ -14,21 +15,21 @@
   wsl = {
     enable = true;
     defaultUser = config.sops.secrets.work_username.value;
-    extraBin = with pkgs; [
+    extraBin = with approved-packages; [
       # Binaries for Docker Desktop wsl-distro-proxy
-      { src = "${coreutils}/bin/mkdir"; }
-      { src = "${coreutils}/bin/cat"; }
-      { src = "${coreutils}/bin/whoami"; }
-      { src = "${coreutils}/bin/ls"; }
-      { src = "${busybox}/bin/addgroup"; }
-      { src = "${su}/bin/groupadd"; }
-      { src = "${su}/bin/usermod"; }
+      {src = "${coreutils}/bin/mkdir";}
+      {src = "${coreutils}/bin/cat";}
+      {src = "${coreutils}/bin/whoami";}
+      {src = "${coreutils}/bin/ls";}
+      {src = "${busybox}/bin/addgroup";}
+      {src = "${su}/bin/groupadd";}
+      {src = "${su}/bin/usermod";}
     ];
   };
 
   virtualisation.docker.enable = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

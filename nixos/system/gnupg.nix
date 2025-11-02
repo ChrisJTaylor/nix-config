@@ -1,12 +1,12 @@
-{ pkgs, ... }: {
+{approved-packages, ...}: {
   environment.systemPackages = [
-    pkgs.gnupg
-    pkgs.pinentry-curses
+    approved-packages.gnupg
+    approved-packages.pinentry-curses
   ];
 
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-    pinentryPackage = pkgs.pinentry-curses;
+    pinentryPackage = approved-packages.pinentry-curses;
   };
 }

@@ -1,7 +1,7 @@
-{pkgs, ...}: {
+{approved-packages, ...}: {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with approved-packages; [
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
     fzf
@@ -11,15 +11,12 @@
     eza
     ripgrep
     zoxide
-    yazi
-    lolcat
-    cowsay
     just
     watchman
     grc
     atuin
     podman
-    xorg.xhost
+    xhost
     uv
     lazydocker
     sops

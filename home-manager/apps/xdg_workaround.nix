@@ -1,11 +1,9 @@
-{ pkgs, ... }:
-
-{
+{approved-packages, ...}: {
   xdg.portal = {
     config.common.default = "*";
     enable = true;
     xdgOpenUsePortal = true;
-    extraPortals = with pkgs; [
+    extraPortals = with approved-packages; [
       xdg-desktop-portal-gtk
     ];
   };

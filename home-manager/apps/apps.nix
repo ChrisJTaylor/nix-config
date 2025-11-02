@@ -1,11 +1,15 @@
-{ pkgs, config, ... }: {
+{
+  approved-packages,
+  config,
+  ...
+}: {
   imports = [
     ./base.nix
     ./ghostty.nix
   ];
 
   # Linux-specific packages
-  home.packages = with pkgs; [
+  home.packages = with approved-packages; [
     cider
     wakatime
     ungoogled-chromium

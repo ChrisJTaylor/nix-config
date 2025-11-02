@@ -1,6 +1,7 @@
-{ pkgs
-, config
-, ...
+{
+  approved-packages,
+  config,
+  ...
 }: {
   sops.secrets.password_christian.neededForUsers = true;
 
@@ -11,9 +12,9 @@
     description = "Christian Taylor";
     home = "/home/christian";
     hashedPasswordFile = config.sops.secrets.password_christian.path;
-    shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "docker" "plugdev" "podman" ];
-    packages = with pkgs; [
+    shell = approved-packages.zsh;
+    extraGroups = ["networkmanager" "wheel" "docker" "plugdev" "podman"];
+    packages = with approved-packages; [
       #  thunderbird
     ];
   };

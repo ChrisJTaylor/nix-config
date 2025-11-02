@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{pkgs, ...}: {
+{approved-packages, ...}: {
   imports = [
     <nixos-wsl/modules>
   ];
@@ -10,7 +10,7 @@
     enable = true;
     defaultUser = "christian";
     useWindowsDriver = true;
-    extraBin = with pkgs; [
+    extraBin = with approved-packages; [
       # Binaries for Docker Desktop wsl-distro-proxy
       {src = "${coreutils}/bin/mkdir";}
       {src = "${coreutils}/bin/cat";}

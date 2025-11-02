@@ -1,14 +1,14 @@
-{ config
-, lib
-, pkgs
-, ...
-}: { agent_name
-   , teamcity_server_url
-   , additionalPackages ? [ ]
-   ,
-   }:
-let
-  setupScript = pkgs.writeShellScript "" ''
+{
+  config,
+  lib,
+  approved-packages,
+  ...
+}: {
+  agent_name,
+  teamcity_server_url,
+  additionalPackages ? [],
+}: let
+  setupScript = approved-packages.writeShellScript "" ''
     set -e
 
     FLAG_FILE="/opt/teamcity-agent/.setup-complete"
@@ -19,8 +19,8 @@ let
 
     echo "Begin setup for Teamcity Agent..."
     mkdir -p /opt/teamcity-agent
-    ${pkgs.curl}/bin/curl -o /tmp/buildAgent.zip ${teamcity_server_url}/update/buildAgent.zip
-    ${pkgs.unzip}/bin/unzip -o /tmp/buildAgent.zip -d /opt/teamcity-agent
+    ${approved-packages.curl}/bin/curl -o /tmp/buildAgent.zip ${teamcity_server_url}/update/buildAgent.zip
+    ${approved-packages.unzip}/bin/unzip -o /tmp/buildAgent.zip -d /opt/teamcity-agent
     chown -R teamcity-agent:teamcity-agent /opt/teamcity-agent
     chmod -R 750 /opt/teamcity-agent
 
@@ -32,16 +32,15 @@ let
 
     echo "Completed setup for Teamcity Agent."
   '';
-in
-{
+in {
   config = {
     system.stateVersion = "24.11";
 
     systemd.services.teamcity-agent = {
       description = "TeamCity Build Agent Service";
-      after = [ "network.target" ];
+      after = ["network.target"];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "oneshot";
@@ -52,7 +51,7 @@ in
         ExecStop = "/run/current-system/sw/bin/bash /opt/teamcity-agent/bin/agent.sh stop";
 
         RemainAfterExit = true;
-        SuccessExitStatus = [ 0 143 ];
+        SuccessExitStatus = [0 143];
         WorkingDirectory = "/opt/teamcity-agent";
         ReadWritePaths = [
           "/opt/teamcity-agent"
@@ -75,17 +74,17 @@ in
       10.88.0.3 teamcity
     '';
 
-    users.groups.teamcity-agent = { };
+    users.groups.teamcity-agent = {};
 
     users.users.teamcity-agent = {
       isNormalUser = true;
       group = "teamcity-agent";
       description = "TeamCity Agent";
       home = "/home/teamcity-agent";
-      extraGroups = [ "networkmanager" "wheel" "docker" "plugdev" "podman" ];
+      extraGroups = ["networkmanager" "wheel" "docker" "plugdev" "podman"];
     };
 
-    environment.systemPackages = with pkgs;
+    environment.systemPackages = with approved-packages;
       [
         git
         curl
@@ -99,13 +98,13 @@ in
 
     programs.java = {
       enable = true;
-      package = pkgs.jdk21;
+      package = approved-packages.jdk21;
     };
 
     systemd.services.setup-teamcity-agent = {
       description = "Setup TeamCity Agent";
-      before = [ "teamcity-agent.service" ];
-      wantedBy = [ "multi-user.target" ];
+      before = ["teamcity-agent.service"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${setupScript}";
         Type = "oneshot";

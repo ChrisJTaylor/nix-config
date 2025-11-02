@@ -14,6 +14,10 @@
     darwin.url = "github:lnl7/nix-darwin/nix-darwin-25.05";
 
     nixvim-config.url = "github:ChrisJTaylor/nixvim-config";
+
+    approved-packages = {
+      url = "github:machinology/mach-approved-packages";
+    };
   };
 
   outputs = inputs @ {
@@ -25,9 +29,11 @@
     nixos-cosmic,
     sops-nix,
     nixvim-config,
+    approved-packages,
     ...
   }: {
     nixosConfigurations = let
+      system = "x86_64-linux";
       commonModules = [
         ./nixos/system/common.nix
         ./nixos/system/locale.nix
@@ -44,6 +50,11 @@
         ./secrets/sops.nix
         home-manager.nixosModules.home-manager
         {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {
+            approved-packages = approved-packages.packages.${system};
+          };
           environment.systemPackages = [
             nixvim-config.packages.x86_64-linux.default
           ];
@@ -51,8 +62,10 @@
       ];
     in {
       big-mach = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
+        specialArgs = {
+          inherit inputs system;
+          approved-packages = approved-packages.packages.${system};
+        };
         modules =
           [
             ./nixos/hosts/big-mach/configuration.nix
@@ -73,14 +86,35 @@
           ++ commonModules;
       };
 
+      mach-serve-01 = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs system;
+          approved-packages = approved-packages.packages.${system};
+        };
+        modules =
+          [
+            ./nixos/hosts/mach-serve-01/configuration.nix
+            ./nixos/users/christian.nix
+            ./nixos/system/gnome.nix
+            ./nixos/system/pipewire.nix
+            ./nixos/system/power-mgmt.nix
+            ./nixos/services/podman.nix
+            ./home-manager/mach-serve-01.nix
+          ]
+          ++ commonModules;
+      };
+
       big-machbook = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
+        specialArgs = {
+          inherit inputs system;
+          approved-packages = approved-packages.packages.${system};
+        };
         modules =
           [
             ./nixos/hosts/big-machbook/configuration.nix
             ./nixos/users/christian.nix
             ./nixos/system/cosmic.nix
+            nixos-cosmic.nixosModules.default
             ./nixos/network/hosts.nix
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
@@ -90,11 +124,14 @@
       };
 
       home-wsl = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
+        specialArgs = {
+          inherit inputs system;
+          approved-packages = approved-packages.packages.${system};
+        };
         modules =
           [
             ./nixos/hosts/home-wsl/configuration.nix
+            ./nixos/hosts/home-wsl/hardware-configuration.nix
             ./nixos/users/christian.nix
             ./nixos/network/hosts.nix
             ./home-manager/home-wsl.nix
@@ -103,8 +140,10 @@
       };
 
       work-wsl = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
+        specialArgs = {
+          inherit inputs system;
+          approved-packages = approved-packages.packages.${system};
+        };
         modules =
           [
             ./nixos/hosts/work-wsl/configuration.nix
@@ -115,10 +154,12 @@
       };
     };
 
-    darwinConfigurations = {
+    darwinConfigurations = let
+      system = "aarch64-darwin";
+      pkgs = approved-packages.packages.${system};
+    in {
       machbook = darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        specialArgs = {inherit inputs;};
+        specialArgs = {inherit inputs system pkgs;};
         modules = [
           ./nixos/system/common-darwin.nix
           ./nixos/system/yabai.nix
