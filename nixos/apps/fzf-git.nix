@@ -1,5 +1,5 @@
-{approved-packages, ...}: let
-  fullRepo = approved-packages.fetchFromGitHub {
+{pkgs, ...}: let
+  fullRepo = pkgs.fetchFromGitHub {
     owner = "junegunn";
     repo = "fzf-git.sh";
     rev = "6651e719da630cd8e6e00191af7f225f6d13a801";

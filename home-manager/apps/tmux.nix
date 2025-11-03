@@ -8,7 +8,7 @@
     keyMode = "vi";
     plugins = with approved-packages; [
       tmux-continuum
-      tmux-fzf-tmux-url
+      fzf-tmux-url
       tmux-power-theme
       tmux-session-wizard
       tmux-fzf

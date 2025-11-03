@@ -1,6 +1,7 @@
 {
   approved-packages,
   config,
+  pkgs,
   ...
 }: {
   imports = [
@@ -15,7 +16,7 @@
     ungoogled-chromium
 
     # Custom script
-    (writeShellScriptBin "my-hello" ''
+    (pkgs.writeShellScriptBin "my-hello" ''
       echo "Hello, ${config.home.username}!"
     '')
   ];

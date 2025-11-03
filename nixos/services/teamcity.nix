@@ -2,6 +2,7 @@
   config,
   lib,
   approved-packages,
+  pkgs,
   ...
 }: let
   versions = import ./versions.nix;
@@ -36,7 +37,7 @@ in {
     config =
       import ./teamcity-agent-config.nix
       {
-        inherit config lib approved-packages;
+        inherit config lib approved-packages pkgs;
       }
       {
         agent_name = "nixagent01";
@@ -50,7 +51,7 @@ in {
     config =
       import ./teamcity-agent-config.nix
       {
-        inherit config lib approved-packages;
+        inherit config lib approved-packages pkgs;
       }
       {
         agent_name = "nixagent02";
@@ -64,7 +65,7 @@ in {
     config =
       import ./teamcity-agent-config.nix
       {
-        inherit config lib approved-packages;
+        inherit config lib approved-packages pkgs;
       }
       {
         agent_name = "nixagent03";

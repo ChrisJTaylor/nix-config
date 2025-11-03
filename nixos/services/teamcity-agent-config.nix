@@ -2,13 +2,14 @@
   config,
   lib,
   approved-packages,
+  pkgs,
   ...
 }: {
   agent_name,
   teamcity_server_url,
   additionalPackages ? [],
 }: let
-  setupScript = approved-packages.writeShellScript "" ''
+  setupScript = pkgs.writeShellScript "" ''
     set -e
 
     FLAG_FILE="/opt/teamcity-agent/.setup-complete"
