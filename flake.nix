@@ -78,7 +78,7 @@
             ./nixos/services/teamcity.nix
             ./nixos/services/podman.nix
             ./nixos/services/nginx.nix
-            ./nixos/system/common.nix
+            ./nixos/network/hosts.nix
             ./nixos/system/monitoring.nix
             ./nixos/network/firewall.nix
             ./nixos/network/nameservers.nix
@@ -119,6 +119,7 @@
             ./nixos/system/cosmic.nix
             nixos-cosmic.nixosModules.default
             ./nixos/network/hosts.nix
+            ./nixos/system/harmonia-cache-consumer.nix
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
             ./home-manager/home-big-machbook.nix
@@ -137,6 +138,7 @@
             ./nixos/hosts/home-wsl/hardware-configuration.nix
             ./nixos/users/christian.nix
             ./nixos/network/hosts.nix
+            ./nixos/system/harmonia-cache-consumer.nix
             ./home-manager/home-wsl.nix
           ]
           ++ commonModules;
@@ -174,9 +176,11 @@
           ./nixos/apps/direnv.nix
           ./nixos/apps/common.nix
           ./nixos/hosts/machbook/configuration.nix
+          ./nixos/system/nix-registries.nix
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/fzf-git.nix
           ./nixos/files/etc-hosts.nix
+          ./nixos/system/harmonia-cache-consumer.nix
           {
             environment.systemPackages = [
               nixvim-config.packages.aarch64-darwin.default
