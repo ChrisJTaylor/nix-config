@@ -1,7 +1,7 @@
 {...}: {
   sops = {
     # Keep original key file location for now
-    age.keyFile = "/root/.config/sops/age/keys.txt";
+    age.keyFile = "/etc/sops/age/keys.txt";
 
     defaultSopsFile = ./mysecret.yaml;
 

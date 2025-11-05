@@ -180,7 +180,6 @@
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/fzf-git.nix
           ./nixos/files/etc-hosts.nix
-          ./nixos/system/harmonia-cache-consumer.nix
           {
             environment.systemPackages = [
               nixvim-config.packages.aarch64-darwin.default
