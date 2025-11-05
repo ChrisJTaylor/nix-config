@@ -12,13 +12,14 @@
       tmux-power-theme
       tmux-session-wizard
       tmux-fzf
+      tmux-cpu
     ];
     extraConfig = ''
       set -g default-shell ${approved-packages.zsh}/bin/zsh
 
       set -g @continuum-boot-options 'on'
       set -g status-right '#[fg=black,bg=color15] #{cpu_percentage}  %H:%M '
-      run-shell ${approved-packages.tmux-cpu}/share/tmux-plugins/cpu/cpu.tmux-plugins
+      run-shell ${approved-packages.tmux-cpu}/share/tmux-plugins/cpu/cpu.tmux
 
       set -g xterm-keys on
 
