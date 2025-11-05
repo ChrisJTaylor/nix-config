@@ -1,9 +1,17 @@
-{approved-packages, ...}: {
+{
+  approved-packages,
+  pkgs,
+  lib,
+  ...
+}: let
+  isLinux = pkgs.stdenv.isLinux;
+in {
   # Common packages across all environments
-  home.packages = with approved-packages; [
-    ranger
-    bcompare
-  ];
+  home.packages = with approved-packages;
+    [
+      ranger
+    ]
+    ++ lib.optional isLinux approved-packages.bcompare;
 
   # Common imports for all home-manager configurations
   imports = [

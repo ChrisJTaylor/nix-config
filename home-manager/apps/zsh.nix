@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   programs.zsh = {
     enable = true;
 
@@ -12,6 +12,7 @@
       alias d="lazydocker"
       alias w="vim -c VimwikiIndex"
       alias _just="just --justfile ~/_justfile --working-directory ."
+      alias nsh="nix shell approved-packages#"
 
       source "$(fzf-share)/key-bindings.zsh"
       source "$(fzf-share)/completion.zsh"
@@ -21,7 +22,7 @@
       export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
 
       _fzf_compgen_path() {
-        fs --hidden --exclude .git . "$1"
+        fd --hidden --exclude .git . "$1"
       }
 
       _fzf_compgen_dir() {

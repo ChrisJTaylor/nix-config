@@ -24,6 +24,10 @@ rebuild name="big-mach" options="": set-github-auth
 update-flakes flake="":
   nix flake update {{flake}}
 
+# check flake for errors
+check:
+  nix flake check
+
 # set github auth for use in accessing approved-packages feed
 set-github-auth:
   #!/usr/bin/env bash
@@ -42,5 +46,4 @@ _backup-files:
   -just _backup-file "zprofile"
 
 _backup-file filename:
-  sudo mv /etc/{{filename}} /etc/{{filename}}.before-nix
-
+  sudo mv /etc/{{filename}} /etc/{{filename}}.before-nix-darwin

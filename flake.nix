@@ -11,7 +11,7 @@
 
     # Controls system level software and settings including fonts
     # https://daiderd.com/nix-darwin/manual/
-    darwin.url = "github:lnl7/nix-darwin/nix-darwin-25.05";
+    darwin.url = "github:lnl7/nix-darwin/";
 
     nixvim-config.url = "github:ChrisJTaylor/nixvim-config";
 
@@ -77,10 +77,10 @@
             ./nixos/services/teamcity.nix
             ./nixos/services/podman.nix
             ./nixos/services/nginx.nix
+            ./nixos/system/common.nix
             ./nixos/system/monitoring.nix
             ./nixos/network/firewall.nix
             ./nixos/network/nameservers.nix
-            ./nixos/network/internalhosts.nix
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
             ./home-manager/home-big-mach.nix
@@ -120,7 +120,6 @@
             ./nixos/network/hosts.nix
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
-            ./nixos/network/internalhosts.nix
             ./home-manager/home-big-machbook.nix
           ]
           ++ commonModules;
@@ -137,7 +136,6 @@
             ./nixos/hosts/home-wsl/hardware-configuration.nix
             ./nixos/users/christian.nix
             ./nixos/network/hosts.nix
-            ./nixos/network/internalhosts.nix
             ./home-manager/home-wsl.nix
           ]
           ++ commonModules;
@@ -160,12 +158,16 @@
 
     darwinConfigurations = let
       system = "aarch64-darwin";
-      pkgs = approved-packages.packages.${system};
     in {
       machbook = darwin.lib.darwinSystem {
-        specialArgs = {inherit inputs system pkgs;};
+        specialArgs = {
+          inherit inputs system;
+          approved-packages = approved-packages.packages.${system};
+        };
         modules = [
-          ./nixos/system/common-darwin.nix
+          {
+            nixpkgs.hostPlatform = system;
+          }
           ./nixos/system/yabai.nix
           ./nixos/apps/zsh-darwin.nix
           ./nixos/apps/direnv.nix
@@ -173,7 +175,6 @@
           ./nixos/hosts/machbook/configuration.nix
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/fzf-git.nix
-          ./nixos/network/internalhosts.nix
           ./nixos/files/etc-hosts.nix
           {
             environment.systemPackages = [
@@ -181,6 +182,13 @@
             ];
           }
           home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              approved-packages = approved-packages.packages.${system};
+            };
+          }
           ./home-manager/home-darwin.nix
         ];
       };
