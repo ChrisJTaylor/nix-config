@@ -45,6 +45,7 @@
         ./nixos/apps/zsh.nix
         ./nixos/apps/fzf-git.nix
         ./nixos/system/gnupg.nix
+        ./nixos/system/nix-registries.nix
         ./nixos/services/atuin.nix
         ./nixos/apps/direnv.nix
         ./nixos/apps/common.nix
