@@ -1,0 +1,4 @@
+# nix files
+.direnv/
+.envrc
+result/
