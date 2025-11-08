@@ -3,6 +3,7 @@
 ## Build/Test/Lint Commands
 - **Rebuild system**: `just rebuild <hostname>` (Linux) or `just sudo-rebuild <hostname>` (macOS)
 - **Validate flake**: `nix flake check` (catches syntax/eval errors; ignore "dirty git" warnings)
+- **Quick syntax check**: `nix eval .#nixosConfigurations.<hostname>.config.system.build.toplevel --dry-run`
 - **Update flakes**: `just update-flakes [flake-name]` (updates flake.lock)
 - **List tasks**: `just` (shows all available commands)
 - **GitHub auth**: `just set-github-auth` (required for approved-packages access)

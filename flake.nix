@@ -9,6 +9,9 @@
     home-manager.url = "github:nix-community/home-manager/";
     sops-nix.url = "github:Mic92/sops-nix";
 
+    # WSL support for NixOS
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+
     # Controls system level software and settings including fonts
     # https://daiderd.com/nix-darwin/manual/
     darwin.url = "github:lnl7/nix-darwin/";
@@ -30,6 +33,7 @@
     home-manager,
     nixos-cosmic,
     sops-nix,
+    nixos-wsl,
     nixvim-config,
     approved-packages,
     ...

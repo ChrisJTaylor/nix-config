@@ -4,10 +4,11 @@
 {
   approved-packages,
   config,
+  inputs,
   ...
 }: {
   imports = [
-    <nixos-wsl/modules>
+    inputs.nixos-wsl.nixosModules.default
   ];
 
   config.sops.secrets.work_username.neededForUsers = true;

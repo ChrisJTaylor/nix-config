@@ -4,6 +4,7 @@
 
    nix.settings = {
      substituters = ["https://cache.machinology.local"];
-     trusted-public-keys = ["cache.machinology.local-1:${config.sops.placeholder.harmonia_public_key}"];
+     # Public key is hardcoded since it's not actually secret
+     trusted-public-keys = ["cache.machinology.local-1:cache.machinology.tld-1:xGHfhN8W8feCMFoUebMVYbLap5GxwqYz/18TllP6DmY="];
    };
 }

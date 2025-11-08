@@ -34,6 +34,29 @@ set-github-auth:
   mkdir -p ~/.config/nix
   echo "access-tokens = github.com=$(gh auth token)" > ~/.config/nix/github-token
 
+# fix SOPS age key permissions and validate decryption
+fix-sops-permissions:
+  #!/usr/bin/env bash
+  echo "Fixing SOPS age key permissions..."
+  
+  # Fix permissions
+  if [ -f "/etc/sops/age/keys.txt" ]; then
+    sudo chmod 644 /etc/sops/age/keys.txt
+    sudo chown root:root /etc/sops/age/keys.txt
+    echo "✓ Fixed permissions on /etc/sops/age/keys.txt"
+    
+    # Test SOPS decryption
+    if SOPS_AGE_KEY_FILE=/etc/sops/age/keys.txt sops -d secrets/mysecret.yaml > /dev/null 2>&1; then
+      echo "✓ SOPS decryption test successful"
+    else
+      echo "❌ SOPS decryption test failed"
+      exit 1
+    fi
+  else
+    echo "❌ Age key file not found at /etc/sops/age/keys.txt"
+    exit 1
+  fi
+
 # generate public/private key pair for harmonia
 generate-cache-key service_name="harmonia" domain="machinology":
   #!/usr/bin/env bash
