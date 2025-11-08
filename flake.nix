@@ -156,6 +156,7 @@
         modules =
           [
             ./nixos/hosts/work-wsl/configuration.nix
+            ./nixos/hosts/work-wsl/hardware-configuration.nix
             ./nixos/users/workprofile.nix
             ./home-manager/home-work.nix
           ]

@@ -11,32 +11,34 @@
     inputs.nixos-wsl.nixosModules.default
   ];
 
-  config.sops.secrets.work_username.neededForUsers = true;
+  config = {
+    sops.secrets.work_username.neededForUsers = true;
 
-  wsl = {
-    enable = true;
-    defaultUser = config.sops.secrets.work_username.value;
-    extraBin = with approved-packages; [
-      # Binaries for Docker Desktop wsl-distro-proxy
-      {src = "${coreutils}/bin/mkdir";}
-      {src = "${coreutils}/bin/cat";}
-      {src = "${coreutils}/bin/whoami";}
-      {src = "${coreutils}/bin/ls";}
-      {src = "${busybox}/bin/addgroup";}
-      {src = "${su}/bin/groupadd";}
-      {src = "${su}/bin/usermod";}
-    ];
+    wsl = {
+      enable = true;
+      defaultUser = "taylch";
+      extraBin = with approved-packages; [
+        # Binaries for Docker Desktop wsl-distro-proxy
+        {src = "${coreutils}/bin/mkdir";}
+        {src = "${coreutils}/bin/cat";}
+        {src = "${coreutils}/bin/whoami";}
+        {src = "${coreutils}/bin/ls";}
+        {src = "${busybox}/bin/addgroup";}
+        {src = "${su}/bin/groupadd";}
+        {src = "${su}/bin/usermod";}
+      ];
+    };
+
+    virtualisation.docker.enable = true;
+
+    nix.settings.experimental-features = ["nix-command" "flakes"];
+
+    # This value determines the NixOS release from which the default
+    # settings for stateful data, like file locations and database versions
+    # on your system were taken. It's perfectly fine and recommended to leave
+    # this value at the release version of the first install of this system.
+    # Before changing this value read the documentation for this option
+    # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+    system.stateVersion = "23.11"; # Did you read the comment?
   };
-
-  virtualisation.docker.enable = true;
-
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It's perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
 }
