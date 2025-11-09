@@ -35,27 +35,14 @@ set-github-auth:
   echo "access-tokens = github.com=$(gh auth token)" > ~/.config/nix/github-token
 
 # fix SOPS age key permissions and validate decryption
+[linux]
 fix-sops-permissions:
-  #!/usr/bin/env bash
-  echo "Fixing SOPS age key permissions..."
-  
-  # Fix permissions
-  if [ -f "/etc/sops/age/keys.txt" ]; then
-    sudo chmod 644 /etc/sops/age/keys.txt
-    sudo chown root:root /etc/sops/age/keys.txt
-    echo "✓ Fixed permissions on /etc/sops/age/keys.txt"
-    
-    # Test SOPS decryption
-    if SOPS_AGE_KEY_FILE=/etc/sops/age/keys.txt sops -d secrets/mysecret.yaml > /dev/null 2>&1; then
-      echo "✓ SOPS decryption test successful"
-    else
-      echo "❌ SOPS decryption test failed"
-      exit 1
-    fi
-  else
-    echo "❌ Age key file not found at /etc/sops/age/keys.txt"
-    exit 1
-  fi
+  just _fix-sops-permissions "root"
+
+# fix SOPS age key permissions and validate decryption
+[macos]
+fix-sops-permissions:
+  just _fix-sops-permissions "wheel"
 
 # generate public/private key pair for harmonia
 generate-cache-key service_name="harmonia" domain="machinology":
@@ -70,3 +57,26 @@ _backup-files:
 
 _backup-file filename:
   sudo mv /etc/{{filename}} /etc/{{filename}}.before-nix-darwin
+
+_fix-sops-permissions group:
+  #!/usr/bin/env bash
+  echo "Fixing SOPS age key permissions..."
+  
+  # Fix permissions
+  if [ -f "/etc/sops/age/keys.txt" ]; then
+    echo "Setting permissions for root:{{group}}..."
+    sudo chmod 644 /etc/sops/age/keys.txt
+    sudo chown root:{{group}} /etc/sops/age/keys.txt
+    echo "✓ Fixed permissions on /etc/sops/age/keys.txt"
+    
+    # Test SOPS decryption
+    if SOPS_AGE_KEY_FILE=/etc/sops/age/keys.txt sops -d secrets/mysecret.yaml > /dev/null 2>&1; then
+      echo "✓ SOPS decryption test successful"
+    else
+      echo "❌ SOPS decryption test failed"
+      exit 1
+    fi
+  else
+    echo "❌ Age key file not found at /etc/sops/age/keys.txt"
+    exit 1
+  fi

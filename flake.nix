@@ -88,6 +88,7 @@
             ./nixos/network/nameservers.nix
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
+            ./nixos/system/harmonia-cache-consumer.nix
             ./home-manager/home-big-mach.nix
           ]
           ++ commonModules;
@@ -185,6 +186,9 @@
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/fzf-git.nix
           ./nixos/files/etc-hosts.nix
+          ./nixos/system/harmonia-cache-consumer.nix
+          sops-nix.darwinModules.sops
+          ./secrets/sops.nix
           {
             environment.systemPackages = [
               nixvim-config.packages.aarch64-darwin.default

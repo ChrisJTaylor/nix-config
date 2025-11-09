@@ -1,6 +1,8 @@
-{...}: {
+{ pkgs, lib, ... }:
+let
+  isLinux = pkgs.stdenv.isLinux;
+in {
   sops = {
-    # Keep original key file location for now
     age.keyFile = "/etc/sops/age/keys.txt";
 
     defaultSopsFile = ./mysecret.yaml;
@@ -11,38 +13,38 @@
         path = "/etc/secrets/mysecret";
         # Restrict access to root only
         owner = "root";
-        group = "root";
+        group = if isLinux then "root" else "wheel";
         mode = "0400";
       };
 
-      password_christian = {
+      # Linux-only secrets
+      password_christian = lib.mkIf isLinux {
         sopsFile = ./mysecret.yaml;
         # Keep default permissions for compatibility
       };
 
-      work_username = {
+      work_username = lib.mkIf isLinux {
         sopsFile = ./mysecret.yaml;
         owner = "root";
         group = "root";
         mode = "0400";
       };
 
+      # Cross-platform secrets
       domain_name = {
         sopsFile = ./mysecret.yaml;
-        neededForUsers = true;
+        neededForUsers = isLinux;  # Only needed for users on Linux
         # Keep default permissions for compatibility
       };
 
       harmonia_email = {
         sopsFile = ./mysecret.yaml;
-        neededForUsers = true;
-        # Keep default permissions for compatibility
+        # Available on all platforms for potential harmonia server use
       };
 
       harmonia_public_key = {
         sopsFile = ./mysecret.yaml;
-        neededForUsers = true;
-        # Keep default permissions for compatibility
+        # Available on all platforms for harmonia cache consumers
       };
     };
   };
