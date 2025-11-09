@@ -21,12 +21,6 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Nix configuration
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-  nix.settings.access-tokens = [
-    "github.com=$(builtins.readFile /home/christiantaylor/.config/nix/github-token)"
-  ];
-
   # enable clipboard for cosmic
   environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
 
