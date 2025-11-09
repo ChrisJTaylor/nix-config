@@ -18,7 +18,7 @@ sudo-rebuild-impure name="home-wsl": fix-sops-permissions
 # rebuild the current system configuration
 [linux]
 sudo-rebuild name="big-mach" options="": fix-sops-permissions
-  nixos-rebuild switch --flake '.#{{name}}' {{options}}
+  sudo nixos-rebuild switch --flake '.#{{name}}' {{options}}
 
 # update all flakes in flake.lock to the latest compatible versions
 update-flakes flake="":
