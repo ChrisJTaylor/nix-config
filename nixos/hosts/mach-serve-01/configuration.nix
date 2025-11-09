@@ -36,6 +36,17 @@
    # $ nix-store --generate-binary-cache-key cache.yourdomain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
    services.harmonia-dev.cache.signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
 
+   # Auto-generate Harmonia signing key pair if missing (idempotent)
+   system.activationScripts.generateHarmoniaKey = lib.stringAfter ["etc"] ''
+     if [ ! -f /var/lib/secrets/harmonia.secret ]; then
+       echo "[harmonia] Generating binary cache signing key (cache.machinology.lan-1)";
+       mkdir -p /var/lib/secrets
+       ${pkgs.nix}/bin/nix-store --generate-binary-cache-key cache.machinology.lan-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
+       chmod 600 /var/lib/secrets/harmonia.secret
+       chmod 644 /var/lib/secrets/harmonia.pub
+     fi
+   '';
+
   # Open firewall ports for nginx (harmonia cache)
   networking.firewall.allowedTCPPorts = [443 80];
 
