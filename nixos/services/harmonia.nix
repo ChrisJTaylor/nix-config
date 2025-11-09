@@ -20,7 +20,7 @@
   services.nginx = {
     enable = true;
     recommendedTlsSettings = true;
-     virtualHosts."cache.machinology.local" = {
+     virtualHosts."cache.machinology.lan" = {
       enableACME = true;
       forceSSL = true;
       locations."/".extraConfig = ''

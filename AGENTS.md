@@ -14,8 +14,10 @@
 ## Code Style Guidelines
 - **Structure**: `nixos/` (system), `home-manager/` (user), `secrets/` (SOPS encrypted)
 - **Naming**: kebab-case files, camelCase attributes, underscore-prefix internal functions
-- **Modules**: `{ config, lib, approved-packages, ... }: { ... }`
-- **Formatting**: 2 spaces, opening braces same line
+- **Modules**: `{ approved-packages, pkgs, lib, ... }: { ... }` (approved-packages first)
+- **Formatting**: 2 spaces, opening braces same line, trailing commas in lists
 - **Packages**: Always use `approved-packages` parameter: `with approved-packages; [...]`
+- **Imports**: Use relative paths `./module.nix`, list imports at top of file
+- **Conditionals**: Use `lib.optional` for conditional package inclusion
 - **Patterns**: Use `let ... in` for helpers, validate inputs, comment complex configs
 - **Auth**: Run `just set-github-auth` for approved-packages access
