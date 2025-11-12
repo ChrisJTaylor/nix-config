@@ -42,6 +42,7 @@
       system = "x86_64-linux";
       commonModules = [
         ./nixos/system/common.nix
+        ./nixos/network/nameservers.nix
         ./nixos/system/locale.nix
         ./nixos/system/maintenance.nix
         ./nixos/rules/zsa.nix
@@ -82,10 +83,8 @@
             ./nixos/services/teamcity.nix
             ./nixos/services/podman.nix
             ./nixos/services/nginx.nix
-            ./nixos/network/hosts.nix
             ./nixos/system/monitoring.nix
             ./nixos/network/firewall.nix
-            ./nixos/network/nameservers.nix
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
             ./nixos/system/harmonia-cache-consumer.nix
@@ -123,7 +122,6 @@
             ./nixos/users/christian.nix
             ./nixos/system/cosmic.nix
             nixos-cosmic.nixosModules.default
-            ./nixos/network/hosts.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
@@ -142,7 +140,6 @@
             ./nixos/hosts/home-wsl/configuration.nix
             ./nixos/hosts/home-wsl/hardware-configuration.nix
             ./nixos/users/christian.nix
-            ./nixos/network/hosts.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./home-manager/home-wsl.nix
           ]
@@ -177,6 +174,7 @@
           {
             nixpkgs.hostPlatform = system;
           }
+          ./nixos/network/nameservers.nix
           ./nixos/system/yabai.nix
           ./nixos/apps/zsh-darwin.nix
           ./nixos/apps/direnv.nix
@@ -185,7 +183,6 @@
           ./nixos/system/nix-registries.nix
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/fzf-git.nix
-          ./nixos/files/etc-hosts.nix
           ./nixos/system/harmonia-cache-consumer.nix
           sops-nix.darwinModules.sops
           ./secrets/sops.nix

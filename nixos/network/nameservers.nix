@@ -1,9 +1,5 @@
-{ ... }:
-
-{
+{...}: {
   networking = {
-    nameservers = [
-      "10.88.0.1"
-    ];
+    nameservers = ["192.168.1.246"]; # UGreen NAS
   };
 }
