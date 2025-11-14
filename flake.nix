@@ -174,7 +174,7 @@
           {
             nixpkgs.hostPlatform = system;
           }
-          ./nixos/network/nameservers.nix
+          ./nixos/network/nameservers-darwin.nix
           ./nixos/system/yabai.nix
           ./nixos/apps/zsh-darwin.nix
           ./nixos/apps/direnv.nix

@@ -1,16 +1,16 @@
 # Agent Guidelines for Nix Configuration Repository
 
 ## Build, Lint, and Test Commands
-- **Rebuild system**: `just rebuild <hostname>` (Linux) or `just sudo-rebuild <hostname>` (macOS)
-- **Validate flake**: `nix flake check` (ignore dirty git warnings)
+- **Rebuild system**: `just sudo-rebuild <hostname>` (Linux) or `just sudo-rebuild-impure <hostname>` (macOS)
+- **Validate flake**: `nix flake check` (ignore dirty git warnings) or `just check`
 - **Update flakes**: `just update-flakes [flake-name]`
 - **List available tasks**: `just`
 
 ### Dev Environment (_dev_envs/)
-- **Rust**: `cargo test test_name` (single test)
-- **Python**: `pytest file.py::test_name` (single test)
-- **Go**: `go test -run TestName` (single test)
-- **Build/Test/Lint/Format**: `just build`, `just test`, `just lint`, `just fmt`
+- **Rust**: `cargo test test_name` (single test), `cargo test -- --nocapture` (verbose)
+- **Python**: `pytest file.py::test_name` (single test), use `uv` for dependency management
+- **Go**: `go test -run TestName` (single test), `go test -race ./...` (with race detection)
+- **Build/Test/Lint/Format**: `just build`, `just test`, `just lint`, `just fmt`/`just format`
 - **CI check**: `just ci` (runs format, lint, test)
 
 ## Code Style Guidelines
