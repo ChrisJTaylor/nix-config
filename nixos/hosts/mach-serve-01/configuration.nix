@@ -1,7 +1,13 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
-{config, inputs, lib, pkgs, ...}: {
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -31,61 +37,58 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-   services.harmonia-dev.cache.enable = true;
-   # FIXME: generate a public/private key pair like this:
-   # $ nix-store --generate-binary-cache-key cache.yourdomain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
-   services.harmonia-dev.cache.signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
+  services.harmonia-dev.cache.enable = true;
+  # FIXME: generate a public/private key pair like this:
+  # $ nix-store --generate-binary-cache-key cache.yourdomain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
+  services.harmonia-dev.cache.signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
 
-   # Auto-generate Harmonia signing key pair if missing (idempotent)
-   system.activationScripts.generateHarmoniaKey = lib.stringAfter ["etc"] ''
-     if [ ! -f /var/lib/secrets/harmonia.secret ]; then
-       echo "[harmonia] Generating binary cache signing key (cache.machinology.lan-1)";
-       mkdir -p /var/lib/secrets
-       ${pkgs.nix}/bin/nix-store --generate-binary-cache-key cache.machinology.lan-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
-       chmod 600 /var/lib/secrets/harmonia.secret
-       chmod 644 /var/lib/secrets/harmonia.pub
-     fi
-   '';
+  # Auto-generate Harmonia signing key pair if missing (idempotent)
+  system.activationScripts.generateHarmoniaKey = lib.stringAfter ["etc"] ''
+    if [ ! -f /var/lib/secrets/harmonia.secret ]; then
+      echo "[harmonia] Generating binary cache signing key (cache.machinology.lan-1)";
+      mkdir -p /var/lib/secrets
+      ${pkgs.nix}/bin/nix-store --generate-binary-cache-key cache.machinology.lan-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
+      chmod 600 /var/lib/secrets/harmonia.secret
+      chmod 644 /var/lib/secrets/harmonia.pub
+    fi
+  '';
 
-  # Open firewall ports for nginx (harmonia cache)
-  networking.firewall.allowedTCPPorts = [443 80];
+  # Configure nginx for harmonia cache with self-signed HTTPS for local network
+  # Self-signed certificates will be generated automatically on first boot
+  services.nginx = {
+    enable = true;
+    recommendedTlsSettings = true;
+    virtualHosts."cache.machinology.lan" = {
+      # Serve both HTTP (port 80) and HTTPS (port 443) for easier local testing.
+      # HTTPS uses self-signed cert; remove HTTP + set onlySSL = true once all clients trust the cert.
+      sslCertificate = "/etc/ssl/certs/cache.machinology.lan.crt";
+      sslCertificateKey = "/etc/ssl/private/cache.machinology.lan.key";
+      forceSSL = false;
+      locations."/".extraConfig = ''
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_redirect http:// https://;
+        proxy_http_version 1.1;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+      '';
+    };
+  };
 
-   # Configure nginx for harmonia cache with self-signed HTTPS for local network
-   # Self-signed certificates will be generated automatically on first boot
-   services.nginx = {
-     enable = true;
-     recommendedTlsSettings = true;
-      virtualHosts."cache.machinology.lan" = {
-        # Serve both HTTP (port 80) and HTTPS (port 443) for easier local testing.
-        # HTTPS uses self-signed cert; remove HTTP + set onlySSL = true once all clients trust the cert.
-        sslCertificate = "/etc/ssl/certs/cache.machinology.lan.crt";
-        sslCertificateKey = "/etc/ssl/private/cache.machinology.lan.key";
-        forceSSL = false;
-        locations."/".extraConfig = ''
-         proxy_pass http://127.0.0.1:5000;
-         proxy_set_header Host $host;
-         proxy_redirect http:// https://;
-         proxy_http_version 1.1;
-         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection $connection_upgrade;
-       '';
-     };
-   };
-
-   # Generate self-signed certificate on first boot if it doesn't exist
-    system.activationScripts.generateSelfsignedCert = lib.stringAfter ["etc"] ''
-      mkdir -p /etc/ssl/certs /etc/ssl/private
-      if [ ! -f /etc/ssl/certs/cache.machinology.lan.crt ]; then
-        ${pkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 -keyout /etc/ssl/private/cache.machinology.lan.key \
-          -out /etc/ssl/certs/cache.machinology.lan.crt -days 3650 -nodes \
-          -subj "/CN=cache.machinology.lan"
-        chmod 644 /etc/ssl/private/cache.machinology.lan.key
-        chmod 644 /etc/ssl/certs/cache.machinology.lan.crt
-        chown root:nginx /etc/ssl/private/cache.machinology.lan.key
-        chown root:root /etc/ssl/certs/cache.machinology.lan.crt
-      fi
-    '';
+  # Generate self-signed certificate on first boot if it doesn't exist
+  system.activationScripts.generateSelfsignedCert = lib.stringAfter ["etc"] ''
+    mkdir -p /etc/ssl/certs /etc/ssl/private
+    if [ ! -f /etc/ssl/certs/cache.machinology.lan.crt ]; then
+      ${pkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 -keyout /etc/ssl/private/cache.machinology.lan.key \
+        -out /etc/ssl/certs/cache.machinology.lan.crt -days 3650 -nodes \
+        -subj "/CN=cache.machinology.lan"
+      chmod 644 /etc/ssl/private/cache.machinology.lan.key
+      chmod 644 /etc/ssl/certs/cache.machinology.lan.crt
+      chown root:nginx /etc/ssl/private/cache.machinology.lan.key
+      chown root:root /etc/ssl/certs/cache.machinology.lan.crt
+    fi
+  '';
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

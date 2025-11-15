@@ -52,6 +52,7 @@
         ./nixos/system/gnupg.nix
         ./nixos/system/nix-registries.nix
         ./nixos/services/atuin.nix
+        ./nixos/services/ssh.nix
         ./nixos/apps/direnv.nix
         ./nixos/apps/common.nix
         sops-nix.nixosModules.sops

@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{config, ...}: let
   # Check if both sops.secrets and the specific secret exist
   hasSopsSecrets = config.sops ? secrets;
-  hasHarmoniaSecret = hasSopsSecrets && (config.sops.secrets ? harmonia_public_key);
   hasHarmoniaPlaceholder = hasSopsSecrets && (config.sops ? placeholder) && (config.sops.placeholder ? harmonia_public_key);
 
   # Use SOPS placeholder only if all conditions are met

@@ -8,10 +8,11 @@
 
 ### Dev Environment (_dev_envs/)
 - **Rust**: `cargo test test_name` (single test), `cargo test -- --nocapture` (verbose)
-- **Python**: `pytest file.py::test_name` (single test), use `uv` for dependency management
+- **Python**: `pytest file.py::test_name` (single test), use `uv` for dependency management  
 - **Go**: `go test -run TestName` (single test), `go test -race ./...` (with race detection)
 - **Build/Test/Lint/Format**: `just build`, `just test`, `just lint`, `just fmt`/`just format`
 - **CI check**: `just ci` (runs format, lint, test)
+- **Coverage**: Go: `go test -cover -v ./...`, Python: activate venv first
 
 ## Code Style Guidelines
 - **Structure**: `nixos/` (system), `home-manager/` (user), `secrets/` (SOPS encrypted)
