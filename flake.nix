@@ -42,7 +42,6 @@
       system = "x86_64-linux";
       commonModules = [
         ./nixos/system/common.nix
-        ./nixos/network/nameservers.nix
         ./nixos/system/locale.nix
         ./nixos/system/maintenance.nix
         ./nixos/rules/zsa.nix
@@ -78,6 +77,7 @@
         modules =
           [
             ./nixos/hosts/big-mach/configuration.nix
+            ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
             ./nixos/system/cosmic.nix
             nixos-cosmic.nixosModules.default
@@ -102,6 +102,7 @@
         modules =
           [
             ./nixos/hosts/mach-serve-01/configuration.nix
+            ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
             ./nixos/system/gnome.nix
             ./nixos/system/pipewire.nix
@@ -120,6 +121,7 @@
         modules =
           [
             ./nixos/hosts/big-machbook/configuration.nix
+            ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
             ./nixos/system/cosmic.nix
             nixos-cosmic.nixosModules.default

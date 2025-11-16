@@ -7,17 +7,17 @@ _default:
 
 # rebuild the current system configuration
 [macos]
-sudo-rebuild-impure name="machbook": _backup-files fix-sops-permissions
+sudo-rebuild-impure name="machbook": _backup-files fix-sops-permissions _clear_nix_evaluation_cache
   sudo darwin-rebuild switch --flake '.#{{name}}' --impure
 
 # rebuild the current system configuration
 [linux]
-sudo-rebuild-impure name="home-wsl": fix-sops-permissions
+sudo-rebuild-impure name="home-wsl": fix-sops-permissions _clear_nix_evaluation_cache
  sudo nixos-rebuild switch --flake '.#{{name}}' --impure
 
 # rebuild the current system configuration
 [linux]
-sudo-rebuild name="big-mach" options="": fix-sops-permissions
+sudo-rebuild name="big-mach" options="": fix-sops-permissions _clear_nix_evaluation_cache
   sudo nixos-rebuild switch --flake '.#{{name}}' {{options}}
 
 # update all flakes in flake.lock to the latest compatible versions
@@ -25,7 +25,7 @@ update-flakes flake="":
   nix flake update {{flake}}
 
 # check flake for errors
-check:
+check: _clear_nix_evaluation_cache
   nix flake check
 
 # set github auth for use in accessing approved-packages feed
@@ -80,3 +80,8 @@ _fix-sops-permissions group:
     echo "❌ Age key file not found at /etc/sops/age/keys.txt"
     exit 1
   fi
+
+_clear_nix_evaluation_cache:
+  #!/usr/bin/env bash
+  sudo rm -rf /nix/var/nix/gcroots/auto/*
+  nix-collect-garbage
