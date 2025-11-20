@@ -7,7 +7,8 @@
   home-manager.users.christian = {
     imports = [
       ./files/files.nix
-      ./apps/apps-headless.nix
+      ./apps/apps-headless-no-tmux.nix
+      ./apps/tmux-server.nix
     ];
 
     # Home Manager needs a bit of information about you and the paths it should
@@ -22,5 +23,11 @@
     # want to update the value, then make sure to first check the Home Manager
     # release notes.
     home.stateVersion = "25.05"; # Please read the comment before changing.
+    
+    # Enhanced terminal environment variables for better color support
+    home.sessionVariables = {
+      TERM = "tmux-256color";
+      COLORTERM = "truecolor";
+    };
   };
 }

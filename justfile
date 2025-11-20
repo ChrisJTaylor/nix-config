@@ -7,18 +7,28 @@ _default:
 
 # rebuild the current system configuration
 [macos]
-sudo-rebuild-impure name="machbook": _backup-files fix-sops-permissions _clear_nix_evaluation_cache
+sudo-clean-rebuild-impure name="machbook": _backup-files fix-sops-permissions set-github-auth _clear_nix_evaluation_cache
   sudo darwin-rebuild switch --flake '.#{{name}}' --impure
 
 # rebuild the current system configuration
 [linux]
-sudo-rebuild-impure name="home-wsl": fix-sops-permissions _clear_nix_evaluation_cache
+sudo-clean-rebuild-impure name="home-wsl": fix-sops-permissions set-github-auth _clear_nix_evaluation_cache
  sudo nixos-rebuild switch --flake '.#{{name}}' --impure
 
 # rebuild the current system configuration
 [linux]
-sudo-rebuild name="big-mach" options="": fix-sops-permissions _clear_nix_evaluation_cache
+sudo-rebuild-impure name="mach-serve-01": fix-sops-permissions set-github-auth
+ sudo nixos-rebuild switch --flake '.#{{name}}' --impure
+
+# rebuild the current system configuration
+[linux]
+sudo-rebuild name="big-mach" options="": fix-sops-permissions set-github-auth _clear_nix_evaluation_cache
   sudo nixos-rebuild switch --flake '.#{{name}}' {{options}}
+
+# rebuild the current system configuration
+[linux]
+rebuild-impure name="mach-serve-01": fix-sops-permissions set-github-auth
+ nixos-rebuild switch --flake '.#{{name}}' --impure
 
 # update all flakes in flake.lock to the latest compatible versions
 update-flakes flake="":
