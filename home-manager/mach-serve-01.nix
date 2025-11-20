@@ -7,7 +7,7 @@
   home-manager.users.christian = {
     imports = [
       ./files/files.nix
-      ./apps/apps.nix
+      ./apps/apps-headless.nix
     ];
 
     # Home Manager needs a bit of information about you and the paths it should

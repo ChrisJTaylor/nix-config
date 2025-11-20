@@ -104,8 +104,6 @@
             ./nixos/hosts/mach-serve-01/configuration.nix
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
-            ./nixos/system/gnome.nix
-            ./nixos/system/pipewire.nix
             ./nixos/system/power-mgmt.nix
             ./nixos/services/podman.nix
             ./home-manager/mach-serve-01.nix
