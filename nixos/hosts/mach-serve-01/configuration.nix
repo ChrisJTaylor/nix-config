@@ -45,9 +45,9 @@
   # Auto-generate Harmonia signing key pair if missing (idempotent)
   system.activationScripts.generateHarmoniaKey = lib.stringAfter ["etc"] ''
     if [ ! -f /var/lib/secrets/harmonia.secret ]; then
-      echo "[harmonia] Generating binary cache signing key (cache.machinology.lan-1)";
+      echo "[harmonia] Generating binary cache signing key (cache.machinology.local-1)";
       mkdir -p /var/lib/secrets
-      ${pkgs.nix}/bin/nix-store --generate-binary-cache-key cache.machinology.lan-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
+      ${pkgs.nix}/bin/nix-store --generate-binary-cache-key cache.machinology.local-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
       chmod 600 /var/lib/secrets/harmonia.secret
       chmod 644 /var/lib/secrets/harmonia.pub
     fi
@@ -58,11 +58,11 @@
   services.nginx = {
     enable = true;
     recommendedTlsSettings = true;
-    virtualHosts."cache.machinology.lan" = {
+    virtualHosts."cache.machinology.local" = {
       # Serve both HTTP (port 80) and HTTPS (port 443) for easier local testing.
       # HTTPS uses self-signed cert; remove HTTP + set onlySSL = true once all clients trust the cert.
-      sslCertificate = "/etc/ssl/certs/cache.machinology.lan.crt";
-      sslCertificateKey = "/etc/ssl/private/cache.machinology.lan.key";
+      sslCertificate = "/etc/ssl/certs/cache.machinology.local.crt";
+      sslCertificateKey = "/etc/ssl/private/cache.machinology.local.key";
       forceSSL = false;
       locations."/".extraConfig = ''
         proxy_pass http://127.0.0.1:5000;
@@ -79,14 +79,14 @@
   # Generate self-signed certificate on first boot if it doesn't exist
   system.activationScripts.generateSelfsignedCert = lib.stringAfter ["etc"] ''
     mkdir -p /etc/ssl/certs /etc/ssl/private
-    if [ ! -f /etc/ssl/certs/cache.machinology.lan.crt ]; then
-      ${pkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 -keyout /etc/ssl/private/cache.machinology.lan.key \
-        -out /etc/ssl/certs/cache.machinology.lan.crt -days 3650 -nodes \
-        -subj "/CN=cache.machinology.lan"
-      chmod 644 /etc/ssl/private/cache.machinology.lan.key
-      chmod 644 /etc/ssl/certs/cache.machinology.lan.crt
-      chown root:nginx /etc/ssl/private/cache.machinology.lan.key
-      chown root:root /etc/ssl/certs/cache.machinology.lan.crt
+    if [ ! -f /etc/ssl/certs/cache.machinology.local.crt ]; then
+      ${pkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 -keyout /etc/ssl/private/cache.machinology.local.key \
+        -out /etc/ssl/certs/cache.machinology.local.crt -days 3650 -nodes \
+        -subj "/CN=cache.machinology.local"
+      chmod 644 /etc/ssl/private/cache.machinology.local.key
+      chmod 644 /etc/ssl/certs/cache.machinology.local.crt
+      chown root:nginx /etc/ssl/private/cache.machinology.local.key
+      chown root:root /etc/ssl/certs/cache.machinology.local.crt
     fi
   '';
 

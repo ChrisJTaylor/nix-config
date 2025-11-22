@@ -1,7 +1,7 @@
 # Agent Guidelines for Nix Configuration Repository
 
 ## Build, Lint, and Test Commands
-- **Rebuild system**: `just sudo-rebuild <hostname>` (Linux) or `just sudo-rebuild-impure <hostname>` (macOS)
+- **Rebuild system**: `just sudo-rebuild <hostname>` (Linux) or `just sudo-clean-rebuild-impure <hostname>` (macOS)
 - **Validate flake**: `nix flake check` (ignore dirty git warnings) or `just check`
 - **Update flakes**: `just update-flakes [flake-name]`
 - **List available tasks**: `just`

@@ -13,8 +13,8 @@ in {
   # Note: domain is hardcoded to 'machinology' - must match the harmonia server config
 
   nix.settings = {
-    substituters = ["http://cache.machinology.lan"];
+    substituters = ["http://cache.machinology.local"];
     # Public key from SOPS secret when available, fallback to hardcoded key
-    trusted-public-keys = ["cache.machinology.lan-1:${harmoniaPublicKey}"];
+    trusted-public-keys = ["cache.machinology.local-1:${harmoniaPublicKey}"];
   };
 }
