@@ -107,7 +107,26 @@
             ./nixos/system/power-mgmt.nix
             ./nixos/services/podman.nix
             ./nixos/services/scheduled-shutdown.nix
-            ./home-manager/mach-serve-01.nix
+            ./home-manager/mach-serve.nix
+          ]
+          ++ commonModules;
+      };
+
+      mach-serve-02 = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs system;
+          approved-packages = approved-packages.packages.${system};
+        };
+        modules =
+          [
+            ./nixos/hosts/mach-serve-01/configuration.nix
+            ./nixos/network/nameservers.nix
+            ./nixos/users/christian.nix
+            ./nixos/system/power-mgmt.nix
+            ./nixos/services/podman.nix
+            ./nixos/services/scheduled-shutdown.nix
+            ./home-manager/mach-serve.nix
+            ./nixos/system/harmonia-cache-consumer.nix
           ]
           ++ commonModules;
       };
