@@ -106,8 +106,6 @@
             ./nixos/hosts/mach-serve-01/configuration.nix
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
-            ./nixos/system/power-mgmt.nix
-            ./nixos/services/podman.nix
             ./nixos/services/scheduled-shutdown.nix
             ./home-manager/mach-serve.nix
             {
@@ -126,17 +124,18 @@
         };
         modules =
           [
-            ./nixos/hosts/mach-serve-01/configuration.nix
+            ./nixos/hosts/mach-serve-02/configuration.nix
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
             ./nixos/system/power-mgmt.nix
             ./nixos/services/podman.nix
             ./nixos/services/scheduled-shutdown.nix
+            ./nixos/system/gnome.nix
             ./home-manager/mach-serve.nix
             ./nixos/system/harmonia-cache-consumer.nix
             {
               environment.systemPackages = [
-                nixvim-config.packages.x86_64-linux.default
+                nixvim-config.packages.x86_64-linux.terminal
               ];
             }
           ]
