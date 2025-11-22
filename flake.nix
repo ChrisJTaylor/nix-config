@@ -106,6 +106,7 @@
             ./nixos/users/christian.nix
             ./nixos/system/power-mgmt.nix
             ./nixos/services/podman.nix
+            ./nixos/services/scheduled-shutdown.nix
             ./home-manager/mach-serve-01.nix
           ]
           ++ commonModules;

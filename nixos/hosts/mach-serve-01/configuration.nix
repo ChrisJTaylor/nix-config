@@ -37,6 +37,13 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+  # Enable scheduled shutdown at 10 PM daily
+  services.scheduledShutdown = {
+    enable = true;
+    time = "22:00";
+    warningMinutes = 5;
+  };
+
   services.harmonia-dev.cache.enable = true;
   # FIXME: generate a public/private key pair like this:
   # $ nix-store --generate-binary-cache-key cache.yourdomain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub

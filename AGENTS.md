@@ -13,6 +13,7 @@
 - **Build/Test/Lint/Format**: `just build`, `just test`, `just lint`, `just fmt`/`just format`
 - **CI check**: `just ci` (runs format, lint, test)
 - **Coverage**: Go: `go test -cover -v ./...`, Python: activate venv first
+- **Watch mode**: Rust: `just watch-tests`, Go: `just watch-tests` (requires watchexec)
 
 ## Code Style Guidelines
 - **Structure**: `nixos/` (system), `home-manager/` (user), `secrets/` (SOPS encrypted)
