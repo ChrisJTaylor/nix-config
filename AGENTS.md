@@ -11,6 +11,7 @@
 - **Python**: `pytest file.py::test_name` (single test), use `uv` for dependency management  
 - **Go**: `go test -run TestName` (single test), `go test -race ./...` (with race detection)
 - **Build/Test/Lint/Format**: `just build`, `just test`, `just lint`, `just fmt`/`just format`
+- **Clean**: `just clean` (removes build artifacts)
 - **CI check**: `just ci` (runs format, lint, test)
 - **Coverage**: Go: `go test -cover -v ./...`, Python: activate venv first
 - **Watch mode**: Rust: `just watch-tests`, Go: `just watch-tests` (requires watchexec)

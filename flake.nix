@@ -63,9 +63,6 @@
           home-manager.extraSpecialArgs = {
             approved-packages = approved-packages.packages.${system};
           };
-          environment.systemPackages = [
-            nixvim-config.packages.x86_64-linux.default
-          ];
         }
       ];
     in {
@@ -90,6 +87,11 @@
             ./nixos/apps/personal.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./home-manager/home-big-mach.nix
+            {
+              environment.systemPackages = [
+                nixvim-config.packages.x86_64-linux.default
+              ];
+            }
           ]
           ++ commonModules;
       };
@@ -108,6 +110,11 @@
             ./nixos/services/podman.nix
             ./nixos/services/scheduled-shutdown.nix
             ./home-manager/mach-serve.nix
+            {
+              environment.systemPackages = [
+                nixvim-config.packages.x86_64-linux.terminal
+              ];
+            }
           ]
           ++ commonModules;
       };
@@ -127,6 +134,11 @@
             ./nixos/services/scheduled-shutdown.nix
             ./home-manager/mach-serve.nix
             ./nixos/system/harmonia-cache-consumer.nix
+            {
+              environment.systemPackages = [
+                nixvim-config.packages.x86_64-linux.default
+              ];
+            }
           ]
           ++ commonModules;
       };
@@ -147,6 +159,11 @@
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
             ./home-manager/home-big-machbook.nix
+            {
+              environment.systemPackages = [
+                nixvim-config.packages.x86_64-linux.default
+              ];
+            }
           ]
           ++ commonModules;
       };
@@ -163,6 +180,11 @@
             ./nixos/users/christian.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./home-manager/home-wsl.nix
+            {
+              environment.systemPackages = [
+                nixvim-config.packages.x86_64-linux.default
+              ];
+            }
           ]
           ++ commonModules;
       };
@@ -178,6 +200,11 @@
             ./nixos/hosts/work-wsl/hardware-configuration.nix
             ./nixos/users/workprofile.nix
             ./home-manager/home-work.nix
+            {
+              environment.systemPackages = [
+                nixvim-config.packages.x86_64-linux.default
+              ];
+            }
           ]
           ++ commonModules;
       };
