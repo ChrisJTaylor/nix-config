@@ -5,7 +5,6 @@
 - **Validate flake**: `nix flake check` (ignore dirty git warnings) or `just check`
 - **Update flakes**: `just update-flakes [flake-name]`
 - **List available tasks**: `just`
-- **Maintenance**: `just bump` (version), `just fix-sops-permissions` (SOPS keys)
 
 ### Dev Environment (_dev_envs/)
 - **Rust**: `cargo test test_name` (single test), `cargo test -- --nocapture` (verbose output)

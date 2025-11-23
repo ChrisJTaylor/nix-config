@@ -41,17 +41,16 @@
     warningMinutes = 5;
   };
 
-  # Harmonia binary cache configuration
-  services.harmonia = {
-    enable = true;
-    signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
-    settings = {
-      bind = "127.0.0.1:5000";
-    };
-  };
+  # Enable Harmonia daemon for proper upload support
+  services.harmonia-dev.daemon.enable = true;
+  
+  services.harmonia-dev.cache.enable = true;
+  # FIXME: generate a public/private key pair like this:
+  # $ nix-store --generate-binary-cache-key cache.yourdomain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
+  services.harmonia-dev.cache.signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
   
   # Ensure harmonia user can access Nix store
-  nix.settings.allowed-users = ["christian" "harmonia"];
+  nix.settings.allowed-users = ["harmonia"];
 
   # Auto-generate Harmonia signing key pair if missing (idempotent)
   system.activationScripts.generateHarmoniaKey = lib.stringAfter ["etc"] ''
