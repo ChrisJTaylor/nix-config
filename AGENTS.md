@@ -8,7 +8,7 @@
 
 ### Dev Environment (_dev_envs/)
 - **Rust**: `cargo test test_name` (single test), `cargo test -- --nocapture` (verbose output)
-- **Python**: `pytest file.py::test_name` (single test), use `uv` for dependency management  
+- **Python**: `pytest file.py::test_name` (single test), use `uv` for dependency management, activate venv first  
 - **Go**: `go test -run TestName` (single test), `go test -race ./...` (with race detection)
 - **Build/Test/Lint/Format**: `just build`, `just test`, `just lint`, `just fmt`/`just format`
 - **Clean**: `just clean` (removes build artifacts)
