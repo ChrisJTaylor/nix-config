@@ -76,6 +76,11 @@ generate-cache-key service_name="harmonia" domain="machinology":
 bump options="":
   cog bump --auto {{options}}
 
+# bump to next version and push to github
+[group("maintenance")]
+bump-and-push: bump
+  git push
+
 _backup-files:
   -just _backup-file "hosts"
   -just _backup-file "zshrc"
