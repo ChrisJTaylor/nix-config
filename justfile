@@ -6,59 +6,75 @@ _default:
   @just --list
 
 # rebuild the current system configuration
+[group("rebuilds")]
 [macos]
 sudo-clean-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth _clear_nix_evaluation_cache
   sudo darwin-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
+[group("rebuilds")]
 [linux]
 sudo-clean-rebuild-impure name="home-wsl" options="": fix-sops-permissions set-github-auth _clear_nix_evaluation_cache
  sudo nixos-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
+[group("rebuilds")]
 [linux]
 sudo-rebuild-impure name="mach-serve-01" options="": fix-sops-permissions set-github-auth
  sudo nixos-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
+[group("rebuilds")]
 [linux]
 sudo-rebuild name="big-mach" options="": fix-sops-permissions set-github-auth _clear_nix_evaluation_cache
   sudo nixos-rebuild switch --flake '.#{{name}}' {{options}}
 
 # rebuild the current system configuration
+[group("rebuilds")]
 [linux]
 rebuild-impure name="mach-serve-01" options="": fix-sops-permissions set-github-auth
  nixos-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # update all flakes in flake.lock to the latest compatible versions
+[group("maintenance")]
 update-flakes flake="":
   nix flake update {{flake}}
 
 # check flake for errors
+[group("validation")]
 check: _clear_nix_evaluation_cache
   nix flake check
 
 # set github auth for use in accessing approved-packages feed
+[group("utilities")]
 set-github-auth:
   #!/usr/bin/env bash
   mkdir -p ~/.config/nix
   echo "access-tokens = github.com=$(gh auth token)" > ~/.config/nix/github-token
 
 # fix SOPS age key permissions and validate decryption
+[group("utilities")]
 [linux]
 fix-sops-permissions:
   just _fix-sops-permissions "root"
 
 # fix SOPS age key permissions and validate decryption
+[group("utilities")]
 [macos]
 fix-sops-permissions:
   just _fix-sops-permissions "wheel"
 
 # generate public/private key pair for harmonia
+[group("utilities")]
 generate-cache-key service_name="harmonia" domain="machinology":
   #!/usr/bin/env bash
   sudo mkdir -p /var/lib/secrets/
   sudo nix-store --generate-binary-cache-key cache.{{domain}}.tld-1 /var/lib/secrets/{{service_name}}.secret /var/lib/secrets/{{service_name}}.pub
+
+# bump the version number
+[group("maintenance")]
+bump options="":
+  cog bump --auto {{options}}
 
 _backup-files:
   -just _backup-file "hosts"
