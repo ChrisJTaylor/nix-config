@@ -107,6 +107,7 @@
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
             ./nixos/services/scheduled-shutdown.nix
+            ./nixos/services/harmonia.nix
             ./home-manager/mach-serve.nix
             {
               environment.systemPackages = [
