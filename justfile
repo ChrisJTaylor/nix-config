@@ -110,19 +110,19 @@ cache-flake-build name: fix-sops-permissions set-github-auth
   echo "Building flake configuration for {{name}}..."
   nix build '.#nixosConfigurations.{{name}}.config.system.build.toplevel' || nix build '.#darwinConfigurations.{{name}}.system'
   echo "Copying build to cache server..."
-  nix copy --to https://cache.machinology.local ./result
+  nix copy --to http://cache.machinology.local ./result
 
 # copy current system to harmonia cache
 [group("cache")]
 [linux]
 cache-current-system: fix-sops-permissions set-github-auth
-  nix copy --to https://cache.machinology.local $(nix-store -qR /run/current-system)
+  nix copy --to http://cache.machinology.local $(nix-store -qR /run/current-system)
 
 # copy current system to harmonia cache
 [group("cache")]
 [macos]
 cache-current-system: fix-sops-permissions set-github-auth
-  nix copy --to https://cache.machinology.local $(nix-store -qR /run/current-system)
+  nix copy --to http://cache.machinology.local $(nix-store -qR /run/current-system)
 
 _backup-files:
   -just _backup-file "hosts"

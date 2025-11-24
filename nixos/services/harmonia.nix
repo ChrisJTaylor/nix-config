@@ -18,8 +18,8 @@
     workers = 4;
   };
 
-  security.acme.defaults.email = "${config.sops.placeholder.harmonia_email}";
-  security.acme.acceptTerms = true;
+  # Ensure harmonia and christian users can access Nix store
+  nix.settings.allowed-users = ["christian" "harmonia"];
 
   # All other nginx configuration remains the same as above
   networking.firewall.allowedTCPPorts = [443 80];
@@ -53,8 +53,10 @@
     enable = true;
     recommendedTlsSettings = true;
     virtualHosts."cache.machinology.local" = {
-      enableACME = true;
-      forceSSL = true;
+      # Use self-signed certificates instead of ACME
+      sslCertificate = "/etc/ssl/certs/cache.machinology.local.crt";
+      sslCertificateKey = "/etc/ssl/private/cache.machinology.local.key";
+      forceSSL = false; # Allow both HTTP and HTTPS for easier testing
       locations."/".extraConfig = ''
         proxy_pass http://127.0.0.1:5000;
         proxy_set_header Host $host;
