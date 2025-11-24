@@ -101,6 +101,7 @@ bump options="":
 [group("maintenance")]
 bump-and-push: bump
   git push
+  git push origin --tags
 
 # copy flake build to harmonia cache server
 [group("cache")]
