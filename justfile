@@ -77,6 +77,16 @@ generate-cache-key service_name="harmonia" domain="machinology":
   sudo mkdir -p /var/lib/secrets/
   sudo nix-store --generate-binary-cache-key cache.{{domain}}.tld-1 /var/lib/secrets/{{service_name}}.secret /var/lib/secrets/{{service_name}}.pub
 
+# get the current version number
+[group("maintenance")]
+get-current-version:
+  cog get-version
+
+# get the next version number
+[group("maintenance")]
+get-next-version:
+  @just bump --dry-run
+
 # bump the version number
 [group("maintenance")]
 bump-to version="" options="":
