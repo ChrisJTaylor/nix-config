@@ -79,6 +79,11 @@ generate-cache-key service_name="harmonia" domain="machinology":
 
 # bump the version number
 [group("maintenance")]
+bump-to version="" options="":
+  cog bump --version {{version}} {{options}}
+
+# bump the version number
+[group("maintenance")]
 bump options="":
   cog bump --auto {{options}}
 
