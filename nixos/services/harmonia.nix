@@ -12,6 +12,11 @@
   # FIXME: generate a public/private key pair like this:
   # $ nix-store --generate-binary-cache-key cache.yourdomain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
   services.harmonia-dev.cache.signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
+  services.harmonia-dev.cache.settings = {
+    priority = 25;
+    max_connection_rate = 256;
+    workers = 4;
+  };
 
   security.acme.defaults.email = "${config.sops.placeholder.harmonia_email}";
   security.acme.acceptTerms = true;
