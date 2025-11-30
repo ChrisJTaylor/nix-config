@@ -128,10 +128,8 @@
             ./nixos/hosts/mach-serve-02/configuration.nix
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
-            ./nixos/system/power-mgmt.nix
             ./nixos/services/podman.nix
             ./nixos/services/scheduled-shutdown.nix
-            ./nixos/system/gnome.nix
             ./home-manager/mach-serve.nix
             ./nixos/system/harmonia-cache-consumer.nix
             {
