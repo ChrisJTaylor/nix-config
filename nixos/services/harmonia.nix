@@ -13,7 +13,7 @@
   # $ nix-store --generate-binary-cache-key cache.yourdomain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
   services.harmonia-dev.cache.signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
   services.harmonia-dev.cache.settings = {
-    priority = 25;
+    priority = 30; # Lower than cache.nixos.org (40) for higher priority
     max_connection_rate = 256;
     workers = 4;
   };
@@ -56,6 +56,7 @@
       # Use self-signed certificates instead of ACME
       sslCertificate = "/etc/ssl/certs/cache.machinology.local.crt";
       sslCertificateKey = "/etc/ssl/private/cache.machinology.local.key";
+      enableSSL = true; # Enable HTTPS listener
       forceSSL = false; # Allow both HTTP and HTTPS for easier testing
       locations."/".extraConfig = ''
         proxy_pass http://127.0.0.1:5000;

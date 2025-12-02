@@ -77,6 +77,41 @@ generate-cache-key service_name="harmonia" domain="machinology":
   sudo mkdir -p /var/lib/secrets/
   sudo nix-store --generate-binary-cache-key cache.{{domain}}.tld-1 /var/lib/secrets/{{service_name}}.secret /var/lib/secrets/{{service_name}}.pub
 
+# add harmonia cache certificate to system trust store
+[group("utilities")]
+[macos]
+trust-cache-cert server="cache.machinology.local":
+  #!/usr/bin/env bash
+  echo "Fetching certificate from {{server}}..."
+  echo | openssl s_client -servername {{server}} -connect {{server}}:443 2>/dev/null | openssl x509 -outform PEM > /tmp/{{server}}.crt
+  if [ -s /tmp/{{server}}.crt ]; then
+    echo "Adding certificate to macOS keychain..."
+    sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /tmp/{{server}}.crt
+    echo "✓ Certificate added to macOS system keychain"
+    rm /tmp/{{server}}.crt
+  else
+    echo "❌ Failed to retrieve certificate from {{server}}"
+    exit 1
+  fi
+
+# add harmonia cache certificate to system trust store
+[group("utilities")]
+[linux]
+trust-cache-cert server="cache.machinology.local":
+  #!/usr/bin/env bash
+  echo "Fetching certificate from {{server}}..."
+  echo | openssl s_client -servername {{server}} -connect {{server}}:443 2>/dev/null | openssl x509 -outform PEM > /tmp/{{server}}.crt
+  if [ -s /tmp/{{server}}.crt ]; then
+    echo "Adding certificate to Linux trust store..."
+    sudo cp /tmp/{{server}}.crt /usr/local/share/ca-certificates/{{server}}.crt
+    sudo update-ca-certificates
+    echo "✓ Certificate added to Linux system trust store"
+    rm /tmp/{{server}}.crt
+  else
+    echo "❌ Failed to retrieve certificate from {{server}}"
+    exit 1
+  fi
+
 # get the current version number
 [group("maintenance")]
 get-current-version:
@@ -110,19 +145,19 @@ cache-flake-build name: fix-sops-permissions set-github-auth
   echo "Building flake configuration for {{name}}..."
   nix build '.#nixosConfigurations.{{name}}.config.system.build.toplevel' || nix build '.#darwinConfigurations.{{name}}.system'
   echo "Copying build to cache server..."
-  nix copy --to http://cache.machinology.local ./result
+  nix copy --to https://cache.machinology.local ./result
 
 # copy current system to harmonia cache
 [group("cache")]
 [linux]
 cache-current-system: fix-sops-permissions set-github-auth
-  nix copy --to http://cache.machinology.local $(nix-store -qR /run/current-system)
+  nix copy --to https://cache.machinology.local $(nix-store -qR /run/current-system)
 
 # copy current system to harmonia cache
 [group("cache")]
 [macos]
 cache-current-system: fix-sops-permissions set-github-auth
-  nix copy --to http://cache.machinology.local $(nix-store -qR /run/current-system)
+  nix copy --to https://cache.machinology.local $(nix-store -qR /run/current-system)
 
 _backup-files:
   -just _backup-file "hosts"

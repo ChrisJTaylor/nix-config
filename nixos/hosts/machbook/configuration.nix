@@ -29,4 +29,7 @@
   system.stateVersion = 4;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  
+  # Use system certificate bundle for SSL verification (macOS path)
+  nix.settings.ssl-cert-file = "/etc/ssl/cert.pem";
 }

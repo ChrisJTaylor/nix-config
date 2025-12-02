@@ -11,6 +11,8 @@
     # Keep build results for faster rebuilds
     keep-outputs = true;
     keep-derivations = true;
+    # Use system certificate bundle for SSL verification
+    ssl-cert-file = "/etc/ssl/certs/ca-certificates.crt";
   };
   
   # Optional: Automatic system maintenance
