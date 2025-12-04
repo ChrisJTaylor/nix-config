@@ -15,9 +15,6 @@
   networking.hostName = "mach-serve-02"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Enable networking
-  networking.networkmanager.enable = true;
-
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Enable scheduled shutdown at 10 PM daily
