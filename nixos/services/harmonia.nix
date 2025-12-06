@@ -8,14 +8,14 @@
 }: {
   imports = [inputs.harmonia.nixosModules.harmonia];
 
-  services.harmonia-dev.cache.enable = true;
-  # FIXME: generate a public/private key pair like this:
-  # $ nix-store --generate-binary-cache-key cache.yourdomain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
-  services.harmonia-dev.cache.signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
-  services.harmonia-dev.cache.settings = {
-    priority = 30; # Lower than cache.nixos.org (40) for higher priority
-    max_connection_rate = 256;
-    workers = 4;
+  services.harmonia = {
+    enable = true;
+    signKeyPaths = ["/var/lib/secrets/harmonia.secret"];
+    settings = {
+      bind = "127.0.0.1:5000";
+      workers = 4;
+      max_connection_rate = 256;
+    };
   };
 
   # Ensure harmonia and christian users can access Nix store
@@ -52,6 +52,8 @@
   services.nginx = {
     enable = true;
     recommendedTlsSettings = true;
+    recommendedOptimisation = true;
+    recommendedGzipSettings = true;
     virtualHosts."cache.machinology.local" = {
       # Use self-signed certificates instead of ACME
       sslCertificate = "/etc/ssl/certs/cache.machinology.local.crt";
@@ -66,7 +68,19 @@
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection $connection_upgrade;
+
+        # Handle large uploads for Nix store items
+        client_max_body_size 1G;
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 300s;
+        proxy_read_timeout 300s;
+        proxy_buffering off;
+        proxy_request_buffering off;
       '';
     };
+
+    # Global nginx settings for handling large uploads
+    clientMaxBodySize = "1G";
+    proxyTimeout = "300s";
   };
 }

@@ -77,21 +77,65 @@ generate-cache-key service_name="harmonia" domain="machinology":
   sudo mkdir -p /var/lib/secrets/
   sudo nix-store --generate-binary-cache-key cache.{{domain}}.tld-1 /var/lib/secrets/{{service_name}}.secret /var/lib/secrets/{{service_name}}.pub
 
-# add harmonia cache certificate to system trust store
+# test harmonia cache connection
 [group("utilities")]
-[macos]
-trust-cache-cert server="cache.machinology.local":
+test-cache-connection server="cache.machinology.local":
   #!/usr/bin/env bash
-  echo "Fetching certificate from {{server}}..."
-  echo | openssl s_client -servername {{server}} -connect {{server}}:443 2>/dev/null | openssl x509 -outform PEM > /tmp/{{server}}.crt
-  if [ -s /tmp/{{server}}.crt ]; then
-    echo "Adding certificate to macOS keychain..."
-    sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /tmp/{{server}}.crt
-    echo "✓ Certificate added to macOS system keychain"
-    rm /tmp/{{server}}.crt
+  echo "Testing connection to {{server}}..."
+  echo
+  
+  echo "1. Basic connectivity test:"
+  if curl -s -k --connect-timeout 5 https://{{server}}/nix-cache-info > /dev/null; then
+    echo "✓ Server is reachable"
+    curl -s -k https://{{server}}/nix-cache-info
   else
-    echo "❌ Failed to retrieve certificate from {{server}}"
-    exit 1
+    echo "❌ Server is not reachable"
+  fi
+  
+  echo
+  echo "2. Certificate verification:"
+  if curl -s --connect-timeout 5 https://{{server}}/nix-cache-info > /dev/null; then
+    echo "✓ Certificate is trusted"
+  else
+    echo "❌ Certificate verification failed"
+  fi
+  
+  echo
+  echo "3. Nix test (using current ssl-cert-file):"
+  if nix eval --expr 'builtins.fetchurl "https://{{server}}/nix-cache-info"' > /dev/null 2>&1; then
+    echo "✓ Nix can connect to cache"
+  else
+    echo "❌ Nix cannot connect to cache"
+    echo "Current Nix SSL cert file: $(nix show-config | grep ssl-cert-file)"
+  fi
+
+# test cache with a small upload
+[group("utilities")]
+test-cache-upload:
+  #!/usr/bin/env bash
+  echo "Testing cache upload with a small package..."
+  
+  # Build a small test derivation
+  TEST_PATH=$(nix-build --expr 'derivation { name = "test-upload"; builder = "/bin/sh"; args = ["-c" "echo hello > $out"]; system = builtins.currentSystem; }' --no-out-link)
+  
+  echo "Built test path: $TEST_PATH"
+  
+  echo "Attempting to upload to cache..."
+  if nix copy --to https://cache.machinology.local "$TEST_PATH" 2>&1; then
+    echo "✓ Upload successful!"
+  else
+    echo "❌ Upload failed"
+  fi
+  
+  echo
+  echo "Testing download from cache..."
+  # Remove from local store and try to fetch from cache
+  nix store delete "$TEST_PATH" 2>/dev/null || true
+  
+  if nix copy --from https://cache.machinology.local "$TEST_PATH" 2>&1; then
+    echo "✓ Download successful!"
+  else
+    echo "❌ Download failed"
   fi
 
 # add harmonia cache certificate to system trust store
@@ -188,6 +232,57 @@ _fix-sops-permissions group:
   else
     echo "❌ Age key file not found at /etc/sops/age/keys.txt"
     exit 1
+  fi
+
+# verify cache certificate is properly configured
+[group("utilities")]
+verify-cache-cert server="cache.machinology.local":
+  #!/usr/bin/env bash
+  echo "Verifying cache certificate configuration for {{server}}..."
+  echo
+  
+  # Check current Nix SSL certificate file
+  NIX_CERT_FILE=$(nix show-config 2>/dev/null | grep ssl-cert-file | cut -d= -f2 | xargs)
+  echo "Current Nix SSL cert file: $NIX_CERT_FILE"
+  
+  # Check if certificate exists in the bundle
+  if [ -f "$NIX_CERT_FILE" ] && grep -q "{{server}}" "$NIX_CERT_FILE" 2>/dev/null; then
+    echo "✓ Certificate found in Nix certificate bundle"
+  else
+    echo "❌ Certificate NOT found in Nix certificate bundle"
+  fi
+  
+  echo
+  echo "Testing SSL connection with current Nix configuration..."
+  if NIX_SSL_CERT_FILE="$NIX_CERT_FILE" nix eval --expr 'builtins.fetchurl "https://{{server}}/nix-cache-info"' >/dev/null 2>&1; then
+    echo "✓ Nix accepts the certificate with current configuration"
+  else
+    echo "❌ Nix rejects the certificate with current configuration"
+  fi
+  
+  echo
+  echo "Testing with curl (for comparison)..."
+  if curl -s --cacert "$NIX_CERT_FILE" https://{{server}}/nix-cache-info >/dev/null 2>&1; then
+    echo "✓ Curl accepts the certificate"
+  else
+    echo "❌ Curl rejects the certificate"
+  fi
+
+# show certificate details from the nix-managed bundle
+[group("utilities")]
+show-cache-cert-info server="cache.machinology.local":
+  #!/usr/bin/env bash
+  NIX_CERT_FILE=$(nix show-config 2>/dev/null | grep ssl-cert-file | cut -d= -f2 | xargs)
+  echo "Certificate information for {{server}}:"
+  echo "Using certificate bundle: $NIX_CERT_FILE"
+  echo
+  if [ -f "$NIX_CERT_FILE" ] && grep -A 50 "{{server}}" "$NIX_CERT_FILE" 2>/dev/null | openssl x509 -text -noout; then
+    echo
+    echo "Certificate location in bundle:"
+    grep -n "{{server}}" "$NIX_CERT_FILE"
+  else
+    echo "Certificate not found in Nix certificate bundle."
+    echo "Run 'just sudo-clean-rebuild-impure machbook' to rebuild with certificate."
   fi
 
 _clear_nix_evaluation_cache:
