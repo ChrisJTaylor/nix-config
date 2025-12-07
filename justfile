@@ -101,11 +101,11 @@ test-cache-connection server="cache.machinology.local":
   fi
   
   echo
-  echo "3. Nix test (using current ssl-cert-file):"
-  if nix eval --expr 'builtins.fetchurl "https://{{server}}/nix-cache-info"' > /dev/null 2>&1; then
-    echo "✓ Nix can connect to cache"
+  echo "3. Nix store connectivity test:"
+  if nix store info --store https://{{server}} >/dev/null 2>&1; then
+    echo "✓ Nix can connect to cache store"
   else
-    echo "❌ Nix cannot connect to cache"
+    echo "❌ Nix cannot connect to cache store"
     echo "Current Nix SSL cert file: $(nix show-config | grep ssl-cert-file)"
   fi
 
@@ -253,11 +253,11 @@ verify-cache-cert server="cache.machinology.local":
   fi
   
   echo
-  echo "Testing SSL connection with current Nix configuration..."
-  if NIX_SSL_CERT_FILE="$NIX_CERT_FILE" nix eval --expr 'builtins.fetchurl "https://{{server}}/nix-cache-info"' >/dev/null 2>&1; then
-    echo "✓ Nix accepts the certificate with current configuration"
+  echo "Testing SSL connection with Nix store operations..."
+  if nix store info --store https://{{server}} >/dev/null 2>&1; then
+    echo "✓ Nix can connect to cache store (SSL certificate working)"
   else
-    echo "❌ Nix rejects the certificate with current configuration"
+    echo "❌ Nix cannot connect to cache store"
   fi
   
   echo
