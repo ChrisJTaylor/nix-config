@@ -79,10 +79,4 @@ in {
   
   # Use custom certificate bundle that includes Harmonia certificate
   nix.settings.ssl-cert-file = "${customCertBundle}/etc/ssl/cert.pem";
-  
-  # Configure cache substituters - add our local cache
-  nix.settings.substituters = [
-    "https://cache.nixos.org"
-    "https://cache.machinology.local"
-  ];
 }

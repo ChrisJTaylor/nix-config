@@ -109,35 +109,6 @@ test-cache-connection server="cache.machinology.local":
     echo "Current Nix SSL cert file: $(nix show-config | grep ssl-cert-file)"
   fi
 
-# test cache with a small upload
-[group("utilities")]
-test-cache-upload:
-  #!/usr/bin/env bash
-  echo "Testing cache upload with a small package..."
-  
-  # Build a small test derivation
-  TEST_PATH=$(nix-build --expr 'derivation { name = "test-upload"; builder = "/bin/sh"; args = ["-c" "echo hello > $out"]; system = builtins.currentSystem; }' --no-out-link)
-  
-  echo "Built test path: $TEST_PATH"
-  
-  echo "Attempting to upload to cache..."
-  if nix copy --to https://cache.machinology.local "$TEST_PATH" 2>&1; then
-    echo "✓ Upload successful!"
-  else
-    echo "❌ Upload failed"
-  fi
-  
-  echo
-  echo "Testing download from cache..."
-  # Remove from local store and try to fetch from cache
-  nix store delete "$TEST_PATH" 2>/dev/null || true
-  
-  if nix copy --from https://cache.machinology.local "$TEST_PATH" 2>&1; then
-    echo "✓ Download successful!"
-  else
-    echo "❌ Download failed"
-  fi
-
 # add harmonia cache certificate to system trust store
 [group("utilities")]
 [linux]
@@ -181,27 +152,6 @@ bump options="":
 bump-and-push: bump
   git push
   git push origin --tags
-
-# copy flake build to harmonia cache server
-[group("cache")]
-cache-flake-build name: fix-sops-permissions set-github-auth
-  #!/usr/bin/env bash
-  echo "Building flake configuration for {{name}}..."
-  nix build '.#nixosConfigurations.{{name}}.config.system.build.toplevel' || nix build '.#darwinConfigurations.{{name}}.system'
-  echo "Copying build to cache server..."
-  nix copy --to https://cache.machinology.local ./result
-
-# copy current system to harmonia cache
-[group("cache")]
-[linux]
-cache-current-system: fix-sops-permissions set-github-auth
-  nix copy --to https://cache.machinology.local $(nix-store -qR /run/current-system)
-
-# copy current system to harmonia cache
-[group("cache")]
-[macos]
-cache-current-system: fix-sops-permissions set-github-auth
-  nix copy --to https://cache.machinology.local $(nix-store -qR /run/current-system)
 
 _backup-files:
   -just _backup-file "hosts"
@@ -284,6 +234,152 @@ show-cache-cert-info server="cache.machinology.local":
     echo "Certificate not found in Nix certificate bundle."
     echo "Run 'just sudo-clean-rebuild-impure machbook' to rebuild with certificate."
   fi
+
+# test download performance from cache vs nixos.org
+[group("cache")]
+test-cache-performance:
+  #!/usr/bin/env bash
+  echo "Testing cache download performance..."
+  echo
+  
+  # Test a common package like hello
+  TEST_PACKAGE="hello"
+  
+  echo "Testing download from cache.machinology.local..."
+  time_cache=$(timeout 30 bash -c "time nix copy --from https://cache.machinology.local nixpkgs#${TEST_PACKAGE} 2>&1" | grep real | awk '{print $2}' || echo "timeout")
+  
+  echo "Testing download from cache.nixos.org..."
+  time_nixos=$(timeout 30 bash -c "time nix copy --from https://cache.nixos.org nixpkgs#${TEST_PACKAGE} 2>&1" | grep real | awk '{print $2}' || echo "timeout")
+  
+  echo
+  echo "Results:"
+  echo "  Local cache: ${time_cache}"
+  echo "  NixOS cache: ${time_nixos}"
+
+# measure system rebuild time for performance analysis
+[group("cache")]
+measure-rebuild-time name="machbook":
+  #!/usr/bin/env bash
+  echo "Measuring rebuild time for {{name}}..."
+  echo "Starting rebuild at $(date)"
+  echo
+  
+  start_time=$(date +%s)
+  just sudo-clean-rebuild-impure {{name}}
+  end_time=$(date +%s)
+  
+  duration=$((end_time - start_time))
+  minutes=$((duration / 60))
+  seconds=$((duration % 60))
+  
+  echo
+  echo "Rebuild completed at $(date)"
+  echo "Total time: ${minutes}m ${seconds}s"
+
+# verify that rebuilds actually use the cache
+[group("cache")]
+verify-cache-integration:
+  #!/usr/bin/env bash
+  echo "Verifying cache integration..."
+  echo
+  
+  # Check if substituters are properly configured
+  echo "Current substituters:"
+  nix show-config | grep substituters
+  echo
+  
+  echo "Current trusted public keys:"
+  nix show-config | grep trusted-public-keys
+  echo
+  
+  echo "Testing cache connectivity:"
+  if nix store info --store https://cache.machinology.local >/dev/null 2>&1; then
+    echo "✓ Cache server is accessible"
+  else
+    echo "❌ Cache server is NOT accessible"
+  fi
+
+# validate cache setup on all home network systems
+[group("cache")]
+validate-all-home-systems:
+  #!/usr/bin/env bash
+  echo "Validating cache setup on all home systems..."
+  echo
+  
+  systems=("big-mach" "big-machbook" "home-wsl" "mach-serve-02" "machbook")
+  
+  for system in "${systems[@]}"; do
+    echo "Testing ${system}:"
+    # For now, just test the current system since we can't easily test remote ones
+    if [ "$(hostname)" = "${system}" ] || [ "$(scutil --get ComputerName 2>/dev/null)" = "${system}" ]; then
+      if nix store info --store https://cache.machinology.local >/dev/null 2>&1; then
+        echo "  ✓ ${system}: Cache accessible"
+      else
+        echo "  ❌ ${system}: Cache NOT accessible"
+      fi
+    else
+      echo "  ⏭ ${system}: Skipped (not current system)"
+    fi
+  done
+
+# comprehensive cache system health check
+[group("cache")]
+cache-health-check:
+  #!/usr/bin/env bash
+  echo "=== Cache System Health Check ==="
+  echo
+  
+  echo "1. SSL Certificate Status:"
+  just verify-cache-cert
+  echo
+  
+  echo "2. Cache Server Response:"
+  just test-cache-connection
+  echo
+  
+  echo "3. Cache Integration:"
+  just verify-cache-integration
+  echo
+  
+  echo "4. System Configuration:"
+  echo "Current system: $(uname -s)"
+  if command -v scutil >/dev/null 2>&1; then
+    echo "Computer name: $(scutil --get ComputerName)"
+  fi
+  echo "Hostname: $(hostname)"
+
+# debug cache connectivity issues
+[group("cache")]
+cache-troubleshoot:
+  #!/usr/bin/env bash
+  echo "=== Cache Troubleshooting ==="
+  echo
+  
+  SERVER="cache.machinology.local"
+  
+  echo "1. Basic connectivity:"
+  if ping -c 3 "$SERVER" >/dev/null 2>&1; then
+    echo "✓ Can ping $SERVER"
+  else
+    echo "❌ Cannot ping $SERVER"
+  fi
+  
+  echo "2. HTTP connectivity:"
+  if curl -k --connect-timeout 5 "https://$SERVER" >/dev/null 2>&1; then
+    echo "✓ HTTPS connection works"
+  else
+    echo "❌ HTTPS connection failed"
+  fi
+  
+  echo "3. Nix store operations:"
+  if timeout 10 nix store info --store "https://$SERVER" >/dev/null 2>&1; then
+    echo "✓ Nix store operations work"
+  else
+    echo "❌ Nix store operations failed"
+  fi
+  
+  echo "4. Cache info endpoint:"
+  curl -k "https://$SERVER/nix-cache-info" 2>/dev/null | head -10
 
 _clear_nix_evaluation_cache:
   #!/usr/bin/env bash
