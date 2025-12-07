@@ -8,13 +8,13 @@ _default:
 # rebuild the current system configuration
 [group("rebuilds")]
 [macos]
-sudo-clean-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth _clear_nix_evaluation_cache
-  sudo darwin-rebuild switch --flake '.#{{name}}' --impure {{options}}
+sudo-clean-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth 
+  judo darwin-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
 [group("rebuilds")]
 [linux]
-sudo-clean-rebuild-impure name="home-wsl" options="": fix-sops-permissions set-github-auth _clear_nix_evaluation_cache
+sudo-clean-rebuild-impure name="home-wsl" options="": fix-sops-permissions set-github-auth 
  sudo nixos-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
@@ -32,7 +32,7 @@ sudo-rebuild-impure name="mach-serve-01" options="": fix-sops-permissions set-gi
 # rebuild the current system configuration
 [group("rebuilds")]
 [linux]
-sudo-rebuild name="big-mach" options="": fix-sops-permissions set-github-auth _clear_nix_evaluation_cache
+sudo-rebuild name="big-mach" options="": fix-sops-permissions set-github-auth 
   sudo nixos-rebuild switch --flake '.#{{name}}' {{options}}
 
 # rebuild the current system configuration

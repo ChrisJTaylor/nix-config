@@ -6,7 +6,7 @@
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     sops-nix.url = "github:Mic92/sops-nix";
 
     # WSL support for NixOS
