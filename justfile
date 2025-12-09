@@ -51,12 +51,19 @@ update-flakes flake="":
 check: _clear_nix_evaluation_cache
   nix flake check
 
-# set github auth for use in accessing approved-packages feed
+# set github auth for use in accessing approved-packages feed and git operations
 [group("utilities")]
 set-github-auth:
   #!/usr/bin/env bash
+  # Set up Nix access token for approved-packages
   mkdir -p ~/.config/nix
   echo "access-tokens = github.com=$(gh auth token)" > ~/.config/nix/github-token
+  
+  # Clean up and configure git credential helpers to prevent stale Nix store paths
+  git config --global --unset-all credential.https://github.com.helper || true
+  git config --global --unset-all credential.https://gist.github.com.helper || true
+  git config --global credential.https://github.com.helper "!gh auth git-credential" 
+  git config --global credential.https://gist.github.com.helper "!gh auth git-credential"
 
 # fix SOPS age key permissions and validate decryption
 [group("utilities")]
