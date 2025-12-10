@@ -48,8 +48,12 @@ update-flakes flake="":
 
 # check flake for errors
 [group("validation")]
-check: _clear_nix_evaluation_cache
+check: 
   nix flake check
+
+# clear cache and check flake for errors
+[group("validation")]
+clean-check: _clear_nix_evaluation_cache check
 
 # set github auth for use in accessing approved-packages feed and git operations
 [group("utilities")]
