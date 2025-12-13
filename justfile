@@ -9,7 +9,7 @@ _default:
 [group("rebuilds")]
 [macos]
 sudo-clean-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth 
-  judo darwin-rebuild switch --flake '.#{{name}}' --impure {{options}}
+  sudo darwin-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
 [group("rebuilds")]

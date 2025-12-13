@@ -3,7 +3,7 @@
     enable = true;
     clock24 = true;
     newSession = true;
-    terminal = "tmux-256color";  # Upgraded for better color support
+    terminal = "tmux-256color";  # Enhanced color support
     shortcut = "b";
     keyMode = "vi";
     plugins = with approved-packages; [
@@ -12,12 +12,12 @@
       tmux-power-theme
       tmux-session-wizard
       tmux-fzf
-      tmux-cpu
+      # Removed tmux-cpu - using manual calculation to eliminate duplication
     ];
     extraConfig = ''
       set -g default-shell ${approved-packages.zsh}/bin/zsh
       
-      # ===== CYBERPUNK SPACE THEME CONFIGURATION (SERVER OPTIMIZED) =====
+      # ===== CYBERPUNK SPACE THEME - SERVER OPTIMIZED (SIMPLIFIED & WORKING) =====
       
       # Enhanced color support for headless environments
       set -g default-terminal "tmux-256color"
@@ -29,41 +29,50 @@
       set-option -sa terminal-overrides ',*:RGB'
       set-option -ga terminal-overrides ',*:Tc'
       
-      # Status bar positioning and update intervals
+      # Status bar configuration
       set -g status-position top
       set -g status-interval 5
       set -g status-justify left
+      
+      # Plugin base configuration
+      set -g @continuum-boot-options 'on'
       
       # Brighter cyberpunk space theme for server/SSH visibility
       set -g @tmux_power_theme '#0f1419'
       set -g @tmux_power_g0 "#0f1419"    # Brighter deep space
       set -g @tmux_power_g1 "#1f1f3a"    # Brighter space purple
-      set -g @tmux_power_g2 "#394758"    # Brighter border inactive  
+      set -g @tmux_power_g2 "#394758"    # Brighter border inactive
       set -g @tmux_power_g3 "#00e6ff"    # Brighter neon cyan
       set -g @tmux_power_g4 "#ff0080"    # Brighter neon magenta
       
-      # Enhanced status bar styling with better contrast
+      # Force override status bar styling with enhanced contrast
       set -g status-style "bg=#0f1419,fg=#ffffff"
-      set -g status-left-style "bg=#00e6ff,fg=#0f1419"
-      set -g status-right-style "bg=#00e6ff,fg=#0f1419"
       
-      # Left side: Session name with cyberpunk prefix indicator (brighter)
-      set -g status-left '#{?client_prefix,#[bg=#ff0080,fg=#ffffff,bold] 🔴 PREFIX #[default],#[bg=#00e6ff,fg=#0f1419,bold] 🛸 #S #[default]}'
-      set -g status-left-length 30
+      # Status bar length management
+      set -g status-left-length 50
+      set -g status-right-length 150
       
-      # Right side: Comprehensive status with traffic light CPU, battery, network, git, time (brighter colors)
-      set -g status-right '#{?#{>=:#{cpu_percentage},67},#[bg=#ff0080,fg=#ffffff] 🔥 CPU #{cpu_percentage}% #[default],#{?#{>=:#{cpu_percentage},34},#[bg=#ffcc0b,fg=#0f1419] ⚡ CPU #{cpu_percentage}% #[default],#[bg=#00ff99,fg=#0f1419] ✅ CPU #{cpu_percentage}% #[default]}} #[bg=#394758,fg=#ffffff] 🔋 #(if command -v pmset >/dev/null 2>&1; then pmset -g batt | grep -Eo "[0-9]+%" | head -1; elif command -v acpi >/dev/null 2>&1; then acpi -b | grep -Eo "[0-9]+%" | head -1; else echo "N/A"; fi) #[default] #[bg=#394758,fg=#ffffff] 🌐 #(ping -c1 -W1 8.8.8.8 >/dev/null 2>&1 && echo "✓" || echo "✗") #[default] #[bg=#394758,fg=#ffffff] 📅 %b-%d #[default] #[bg=#394758,fg=#ffffff] 🌲 #(cd #{pane_current_path} 2>/dev/null && git branch 2>/dev/null | grep "^*" | cut -c 3-10 || echo "no-git") #[default] #[bg=#00e6ff,fg=#0f1419] ⚡ %H:%M #[default]'
-      set -g status-right-length 140
+      # Left status: Session with prefix indicator (ULTRA SIMPLIFIED FOR DEBUG)
+      set -g status-left '#[bg=#00e6ff,fg=#0f1419,bold] 🛸 #{session_name} #[default]'
       
-      # Cyberpunk window status formatting with WIN- prefix (brighter)
-      set -g window-status-current-format '#[bg=#00e6ff,fg=#0f1419,bold] 🌌 WIN-#{?#{>=:#{window_index},10},#{window_index},0#{window_index}}:#W#{?window_zoomed_flag, 🔍,} #[default]'
-      set -g window-status-format '#[bg=#394758,fg=#ffffff] 📄 WIN-#{?#{>=:#{window_index},10},#{window_index},0#{window_index}}:#W #[default]'
+      # Right status: Basic cyberpunk dashboard (STEP BY STEP, BRIGHTER)
+      set -g status-right '#[bg=#394758,fg=#ffffff] ⚡ %H:%M #[default] #[bg=#394758,fg=#ffffff] 📅 %Y-%m-%d #[default]'
+      
+      # Cyberpunk window status formatting with brighter colors (SIMPLIFIED)
+      set -g window-status-current-format '#[bg=#00e6ff,fg=#0f1419,bold] 🌌 #I:#W #[default]'
+      set -g window-status-format '#[bg=#394758,fg=#ffffff] 📄 #I:#W #[default]'
       set -g window-status-separator ""
-
-      # Plugin configurations
-      set -g @continuum-boot-options 'on'
-      run-shell ${approved-packages.tmux-cpu}/share/tmux-plugins/cpu/cpu.tmux
-
+      
+      # Enhanced pane styling with brighter cyberpunk borders for server visibility
+      set -g pane-border-style "fg=#394758"
+      set -g pane-active-border-style "fg=#00e6ff,bright"
+      
+      # Better window list colors (optimized for headless)
+      set -g window-status-style "fg=#ffffff"
+      set -g window-status-current-style "fg=#00e6ff,bold"
+      
+      # Mouse and navigation settings
+      set -g mouse on
       set -g xterm-keys on
 
       # Custom key bindings
@@ -84,19 +93,25 @@
 
       bind w select-pane -t :.+ # next window
       
-      # Better pane border colors (brighter for server visibility)
-      set -g pane-border-style "fg=#394758"
-      set -g pane-active-border-style "fg=#00e6ff,bright"
+      # Cyberpunk config reload for server
+      bind r source-file ~/.tmux.conf \; display-message "🚀 Cyberpunk Server Config Reloaded!"
       
-      # Enhanced pane border format
-      set -g pane-border-format '#{?pane_active,#[bg=#00e6ff,fg=#0f1419] ⚡#{pane_index} #[default],#{pane_index}}'
+      # Window and session management enhancements
+      set -g base-index 1           # Start window numbering at 1
+      set -g pane-base-index 1      # Start pane numbering at 1
+      set -g renumber-windows on    # Renumber windows when one is closed
       
-      # Better window list colors (optimized for headless)
-      set -g window-status-style "fg=#ffffff"
-      set -g window-status-current-style "fg=#00e6ff,bold"
+      # Visual enhancements optimized for server/SSH use
+      set -g display-time 2000      # Display messages for 2 seconds
+      set -g display-panes-time 2000 # Display pane numbers for 2 seconds
       
-      # Cyberpunk config reload with visual feedback
-      bind r source-file ~/.config/home-manager/home.conf \; display-message "🚀 Cyberpunk Server Config Reloaded!"
+      # History and buffer settings
+      set -g history-limit 10000    # Increase scrollback buffer
+      
+      # Activity monitoring with brighter cyberpunk styling for server visibility
+      set -g monitor-activity on
+      set -g visual-activity off
+      set -g window-status-activity-style "fg=#ff0080,bold"
     '';
   };
 }

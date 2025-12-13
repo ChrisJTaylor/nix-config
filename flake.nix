@@ -14,7 +14,7 @@
 
     # Controls system level software and settings including fonts
     # https://daiderd.com/nix-darwin/manual/
-    darwin.url = "github:lnl7/nix-darwin/";
+    darwin.url = "github:lnl7/nix-darwin/nix-darwin-25.11";
 
     nixvim-config.url = "github:ChrisJTaylor/nixvim-config";
 
