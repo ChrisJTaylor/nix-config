@@ -40,7 +40,7 @@
   }: {
     nixosConfigurations = let
       system = "x86_64-linux";
-      commonModules = [
+      baseModules = [
         ./nixos/system/common.nix
         ./nixos/system/locale.nix
         ./nixos/system/maintenance.nix
@@ -56,6 +56,8 @@
         ./nixos/apps/common.nix
         sops-nix.nixosModules.sops
         ./secrets/sops.nix
+      ];
+      commonModules = baseModules ++ [
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
@@ -87,11 +89,12 @@
             ./nixos/apps/personal.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./home-manager/home-big-mach.nix
-            {
-              environment.systemPackages = [
-                nixvim-config.packages.x86_64-linux.default
-              ];
-            }
+            # Temporarily disable nixvim package due to lib.genAttrs' error
+            # {
+            #   environment.systemPackages = [
+            #     nixvim-config.packages.x86_64-linux.default
+            #   ];
+            # }
           ]
           ++ commonModules;
       };
@@ -108,16 +111,16 @@
             ./nixos/users/christian.nix
             ./nixos/services/scheduled-shutdown.nix
             ./nixos/services/harmonia.nix
-            # Temporarily disable home-manager to isolate nixvim issue
-            ./home-manager/mach-serve.nix
+            # Temporarily disable home-manager due to nixvim lib.genAttrs' issue
+            # ./home-manager/mach-serve.nix
             # Temporarily disable nixvim package due to lib.genAttrs' error
-            {
-               environment.systemPackages = [
-                 nixvim-config.packages.x86_64-linux.terminal
-               ];
-            }
+            # {
+            #   environment.systemPackages = [
+            #     nixvim-config.packages.x86_64-linux.terminal
+            #   ];
+            # }
           ]
-          ++ commonModules;
+          ++ baseModules;
       };
 
       mach-serve-02 = nixpkgs.lib.nixosSystem {
@@ -135,9 +138,9 @@
             ./home-manager/mach-serve.nix
             ./nixos/system/harmonia-cache-consumer.nix
             {
-              environment.systemPackages = [
-                nixvim-config.packages.x86_64-linux.terminal
-              ];
+               environment.systemPackages = [
+                 nixvim-config.packages.x86_64-linux.terminal
+               ];
             }
           ]
           ++ commonModules;
@@ -159,11 +162,12 @@
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
             ./home-manager/home-big-machbook.nix
-            {
-              environment.systemPackages = [
-                nixvim-config.packages.x86_64-linux.default
-              ];
-            }
+            # Temporarily disable nixvim package due to lib.genAttrs' error
+            # {
+            #   environment.systemPackages = [
+            #     nixvim-config.packages.x86_64-linux.default
+            #   ];
+            # }
           ]
           ++ commonModules;
       };
@@ -180,11 +184,12 @@
             ./nixos/users/christian.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./home-manager/home-wsl.nix
-            {
-              environment.systemPackages = [
-                nixvim-config.packages.x86_64-linux.default
-              ];
-            }
+            # Temporarily disable nixvim package due to lib.genAttrs' error
+            # {
+            #   environment.systemPackages = [
+            #     nixvim-config.packages.x86_64-linux.default
+            #   ];
+            # }
           ]
           ++ commonModules;
       };
@@ -200,11 +205,12 @@
             ./nixos/hosts/work-wsl/hardware-configuration.nix
             ./nixos/users/workprofile.nix
             ./home-manager/home-work.nix
-            {
-              environment.systemPackages = [
-                nixvim-config.packages.x86_64-linux.default
-              ];
-            }
+            # Temporarily disable nixvim package due to lib.genAttrs' error
+            # {
+            #   environment.systemPackages = [
+            #     nixvim-config.packages.x86_64-linux.default
+            #   ];
+            # }
           ]
           ++ commonModules;
       };
@@ -234,11 +240,12 @@
           ./nixos/system/harmonia-cache-consumer.nix
           sops-nix.darwinModules.sops
           ./secrets/sops.nix
-          {
-            environment.systemPackages = [
-              nixvim-config.packages.aarch64-darwin.default
-            ];
-          }
+          # Temporarily disable nixvim package due to lib.genAttrs' error
+          # {
+          #   environment.systemPackages = [
+          #     nixvim-config.packages.aarch64-darwin.default
+          #   ];
+          # }
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
