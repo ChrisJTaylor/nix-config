@@ -16,7 +16,7 @@
     # https://daiderd.com/nix-darwin/manual/
     darwin.url = "github:lnl7/nix-darwin/nix-darwin-25.11";
 
-    nixvim-config.url = "github:ChrisJTaylor/nixvim-config";
+    nixvim-config.url = "github:ChrisJTaylor/nixvim-config/263eea43b7be0f4f3c6ab2afec8b5ebbed9bdd7c";
 
     approved-packages = {
       url = "github:machinology/mach-approved-packages";
@@ -108,11 +108,13 @@
             ./nixos/users/christian.nix
             ./nixos/services/scheduled-shutdown.nix
             ./nixos/services/harmonia.nix
+            # Temporarily disable home-manager to isolate nixvim issue
             ./home-manager/mach-serve.nix
+            # Temporarily disable nixvim package due to lib.genAttrs' error
             {
-              environment.systemPackages = [
-                nixvim-config.packages.x86_64-linux.terminal
-              ];
+               environment.systemPackages = [
+                 nixvim-config.packages.x86_64-linux.terminal
+               ];
             }
           ]
           ++ commonModules;
