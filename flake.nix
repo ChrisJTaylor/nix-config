@@ -6,7 +6,7 @@
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/20561be440a11ec57a89715480717baf19fe6343";
     sops-nix.url = "github:Mic92/sops-nix";
 
     # WSL support for NixOS
@@ -111,16 +111,14 @@
             ./nixos/users/christian.nix
             ./nixos/services/scheduled-shutdown.nix
             ./nixos/services/harmonia.nix
-            # Temporarily disable home-manager due to nixvim lib.genAttrs' issue
-            # ./home-manager/mach-serve.nix
-            # Temporarily disable nixvim package due to lib.genAttrs' error
-            # {
-            #   environment.systemPackages = [
-            #     nixvim-config.packages.x86_64-linux.terminal
-            #   ];
-            # }
+            ./home-manager/mach-serve.nix
+            {
+              environment.systemPackages = [
+                nixvim-config.packages.x86_64-linux.terminal
+              ];
+            }
           ]
-          ++ baseModules;
+          ++ commonModules;
       };
 
       mach-serve-02 = nixpkgs.lib.nixosSystem {
