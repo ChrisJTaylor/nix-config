@@ -23,5 +23,14 @@
   nix.settings.allowed-users = ["christian" "harmonia"];
 
   # All other nginx configuration remains the same as above
-  networking.firewall.allowedTCPPorts = [443 80 5000];
+  networking.firewall.allowedTCPPorts = [80];
+
+  services.nginx = {
+    enable = true;
+    virtualHosts."cache.machinology.local" = {
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:5000";
+      };
+    };
+  };
 }
