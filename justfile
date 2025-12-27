@@ -20,7 +20,7 @@ sudo-clean-rebuild-impure name="home-wsl" options="": fix-sops-permissions set-g
 # rebuild the current system configuration
 [group("rebuilds")]
 [macos]
-sudo-rebuild-impure name="mach-serve-01" options="": _backup-files fix-sops-permissions set-github-auth
+sudo-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth
  sudo darwin-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
@@ -391,6 +391,10 @@ cache-troubleshoot:
   
   echo "4. Cache info endpoint:"
   curl -k "https://$SERVER/nix-cache-info" 2>/dev/null | head -10
+
+# generate binary cache keys
+genearate-binary-cache-keys:
+  nix-store --generate-binary-cache-key cache.machinology.com cache-private-key.pem cache-public-key.pem
 
 _clear_nix_evaluation_cache:
   #!/usr/bin/env bash

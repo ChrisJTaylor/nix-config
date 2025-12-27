@@ -3,3 +3,6 @@
 .envrc
 result/
 .opencode/
+
+# generated files
+cache-*-key.pem

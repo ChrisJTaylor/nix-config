@@ -1,20 +1,22 @@
-{config, ...}: let
-  # Check if both sops.secrets and the specific secret exist
-  hasSopsSecrets = config.sops ? secrets;
-  hasHarmoniaPlaceholder = hasSopsSecrets && (config.sops ? placeholder) && (config.sops.placeholder ? harmonia_public_key);
-
-  # Use SOPS placeholder only if all conditions are met
-  harmoniaPublicKey =
-    if hasHarmoniaPlaceholder
-    then config.sops.placeholder.harmonia_public_key
-    else "xGHfhN8W8feCMFoUebMVYbLap5GxwqYz/18TllP6DmY=";
+{
+  config,
+  pkgs,
+  ...
+}: let
+  # Public keys are meant to be public, so we'll extract it at build time
+  # The private key stays encrypted in SOPS
+  publicKeyFile = config.sops.secrets.binary-cache-public-key.path;
 in {
-  # Configure nix to use the harmonia cache as a substituter
-  # Note: domain is hardcoded to 'machinology' - must match the harmonia server config
-
   nix.settings = {
-    substituters = ["https://cache.machinology.local" "https://cache.nixos.org"];
-    # Public key from SOPS secret when available, fallback to hardcoded key
-    trusted-public-keys = ["cache.machinology.local-1:${harmoniaPublicKey}"];
+    substituters = ["http://cache.machinology.local" "https://cache.nixos.org"];
+    # We need to hardcode the public key here since it can't be read from SOPS at eval time
+    # TODO: Replace this with your actual public key value
+    # You can get it by decrypting: SOPS_AGE_KEY_FILE=/etc/sops/age/keys.txt sops -d secrets/cache-keys.yaml
+    trusted-public-keys = [
+      # "cache.machinology.local:YOUR_PUBLIC_KEY_HERE"
+    ];
   };
+  
+  # Make the public key available for reference if needed
+  environment.etc."nix/cache-public-key.pem".source = publicKeyFile;
 }
