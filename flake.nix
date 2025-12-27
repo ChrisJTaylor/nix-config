@@ -9,14 +9,13 @@
     home-manager.url = "github:nix-community/home-manager/20561be440a11ec57a89715480717baf19fe6343";
     sops-nix.url = "github:Mic92/sops-nix";
 
-    # WSL support for NixOS
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     # Controls system level software and settings including fonts
     # https://daiderd.com/nix-darwin/manual/
     darwin.url = "github:lnl7/nix-darwin/nix-darwin-25.11";
 
-    nixvim-config.url = "github:ChrisJTaylor/nixvim-config/263eea43b7be0f4f3c6ab2afec8b5ebbed9bdd7c";
+    nixvim-config.url = "github:ChrisJTaylor/nixvim-config/f4fae3965b67bb202ec72c52de6e7385df086e46";
 
     approved-packages = {
       url = "github:machinology/mach-approved-packages";
@@ -57,16 +56,18 @@
         sops-nix.nixosModules.sops
         ./secrets/sops.nix
       ];
-      commonModules = baseModules ++ [
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {
-            approved-packages = approved-packages.packages.${system};
-          };
-        }
-      ];
+      commonModules =
+        baseModules
+        ++ [
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              approved-packages = approved-packages.packages.${system};
+            };
+          }
+        ];
     in {
       big-mach = nixpkgs.lib.nixosSystem {
         specialArgs = {
@@ -135,9 +136,9 @@
             ./home-manager/mach-serve.nix
             ./nixos/system/harmonia-cache-consumer.nix
             {
-               environment.systemPackages = [
-                 nixvim-config.packages.x86_64-linux.terminal
-               ];
+              environment.systemPackages = [
+                nixvim-config.packages.x86_64-linux.terminal
+              ];
             }
           ]
           ++ commonModules;
