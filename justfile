@@ -96,16 +96,16 @@ test-cache-connection server="cache.machinology.local":
   echo
   
   echo "1. Basic connectivity test:"
-  if curl -s -k --connect-timeout 5 https://{{server}}/nix-cache-info > /dev/null; then
+  if curl -s -k --connect-timeout 5 http://{{server}}/nix-cache-info > /dev/null; then
     echo "✓ Server is reachable"
-    curl -s -k https://{{server}}/nix-cache-info
+    curl -s -k http://{{server}}/nix-cache-info
   else
     echo "❌ Server is not reachable"
   fi
   
   echo
   echo "2. Certificate verification:"
-  if curl -s --connect-timeout 5 https://{{server}}/nix-cache-info > /dev/null; then
+  if curl -s --connect-timeout 5 http://{{server}}/nix-cache-info > /dev/null; then
     echo "✓ Certificate is trusted"
   else
     echo "❌ Certificate verification failed"
@@ -113,7 +113,7 @@ test-cache-connection server="cache.machinology.local":
   
   echo
   echo "3. Nix store connectivity test:"
-  if nix store info --store https://{{server}} >/dev/null 2>&1; then
+  if nix store info --store http://{{server}} >/dev/null 2>&1; then
     echo "✓ Nix can connect to cache store"
   else
     echo "❌ Nix cannot connect to cache store"
@@ -195,57 +195,6 @@ _fix-sops-permissions group:
     exit 1
   fi
 
-# verify cache certificate is properly configured
-[group("utilities")]
-verify-cache-cert server="cache.machinology.local":
-  #!/usr/bin/env bash
-  echo "Verifying cache certificate configuration for {{server}}..."
-  echo
-  
-  # Check current Nix SSL certificate file
-  NIX_CERT_FILE=$(nix show-config 2>/dev/null | grep ssl-cert-file | cut -d= -f2 | xargs)
-  echo "Current Nix SSL cert file: $NIX_CERT_FILE"
-  
-  # Check if certificate exists in the bundle
-  if [ -f "$NIX_CERT_FILE" ] && grep -q "{{server}}" "$NIX_CERT_FILE" 2>/dev/null; then
-    echo "✓ Certificate found in Nix certificate bundle"
-  else
-    echo "❌ Certificate NOT found in Nix certificate bundle"
-  fi
-  
-  echo
-  echo "Testing SSL connection with Nix store operations..."
-  if nix store info --store https://{{server}} >/dev/null 2>&1; then
-    echo "✓ Nix can connect to cache store (SSL certificate working)"
-  else
-    echo "❌ Nix cannot connect to cache store"
-  fi
-  
-  echo
-  echo "Testing with curl (for comparison)..."
-  if curl -s --cacert "$NIX_CERT_FILE" https://{{server}}/nix-cache-info >/dev/null 2>&1; then
-    echo "✓ Curl accepts the certificate"
-  else
-    echo "❌ Curl rejects the certificate"
-  fi
-
-# show certificate details from the nix-managed bundle
-[group("utilities")]
-show-cache-cert-info server="cache.machinology.local":
-  #!/usr/bin/env bash
-  NIX_CERT_FILE=$(nix show-config 2>/dev/null | grep ssl-cert-file | cut -d= -f2 | xargs)
-  echo "Certificate information for {{server}}:"
-  echo "Using certificate bundle: $NIX_CERT_FILE"
-  echo
-  if [ -f "$NIX_CERT_FILE" ] && grep -A 50 "{{server}}" "$NIX_CERT_FILE" 2>/dev/null | openssl x509 -text -noout; then
-    echo
-    echo "Certificate location in bundle:"
-    grep -n "{{server}}" "$NIX_CERT_FILE"
-  else
-    echo "Certificate not found in Nix certificate bundle."
-    echo "Run 'just sudo-clean-rebuild-impure machbook' to rebuild with certificate."
-  fi
-
 # test download performance from cache vs nixos.org
 [group("cache")]
 test-cache-performance:
@@ -257,7 +206,7 @@ test-cache-performance:
   TEST_PACKAGE="hello"
   
   echo "Testing download from cache.machinology.local..."
-  time_cache=$(timeout 30 bash -c "time nix copy --from https://cache.machinology.local nixpkgs#${TEST_PACKAGE} 2>&1" | grep real | awk '{print $2}' || echo "timeout")
+  time_cache=$(timeout 30 bash -c "time nix copy --from http://cache.machinology.local nixpkgs#${TEST_PACKAGE} 2>&1" | grep real | awk '{print $2}' || echo "timeout")
   
   echo "Testing download from cache.nixos.org..."
   time_nixos=$(timeout 30 bash -c "time nix copy --from https://cache.nixos.org nixpkgs#${TEST_PACKAGE} 2>&1" | grep real | awk '{print $2}' || echo "timeout")
