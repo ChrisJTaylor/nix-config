@@ -347,7 +347,8 @@ generate-binary-cache-keys name="cache.machinology.local": _clear-existing-certs
 [group("maintenance")]
 generate-ssh-key-pair-for host:
   #!/usr/bin/env bash
-  mkdir -p _tmp
+  rm -rf ./_tmp || true
+  mkdir -p ./_tmp
   rm ./none-secrets/{{host}}-nix-builder.pub || true
   ssh-keygen -t ed25519 -f _tmp/nix-builder -N ""
   cp ./_tmp/nix-builder.pub ./none-secrets/{{host}}-nix-builder.pub

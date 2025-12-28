@@ -13,7 +13,7 @@ in {
     secrets = {
       mysecret = {
         sopsFile = ./mysecret.yaml;
-        path = "/etc/secrets/mysecret";
+        path = "/etc/mysecret";
         # Restrict access to root only
         owner = "root";
         group =
@@ -57,6 +57,34 @@ in {
         sopsFile = ./cache-keys.yaml;
         # Only set owner on systems with harmonia service enabled
         # owner will default to root on other systems
+      };
+
+      big-mach-nix-builder-ssh-key = lib.mkIf isLinux {
+        sopsFile = ./cache-keys.yaml;
+        mode = "0600";
+        owner = "root";
+        path = "/root/.ssh/nix-builder";
+      };
+
+      big-machbook-nix-builder-ssh-key = lib.mkIf isLinux {
+        sopsFile = ./cache-keys.yaml;
+        mode = "0600";
+        owner = "root";
+        path = "/root/.ssh/nix-builder";
+      };
+
+      home-wsl-nix-builder-ssh-key = lib.mkIf isLinux {
+        sopsFile = ./cache-keys.yaml;
+        mode = "0600";
+        owner = "root";
+        path = "/root/.ssh/nix-builder";
+      };
+
+      mach-serve-02-nix-builder-ssh-key = lib.mkIf isLinux {
+        sopsFile = ./cache-keys.yaml;
+        mode = "0600";
+        owner = "root";
+        path = "/root/.ssh/nix-builder";
       };
     };
   };

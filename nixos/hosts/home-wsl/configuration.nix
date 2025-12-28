@@ -4,6 +4,7 @@
 {
   approved-packages,
   inputs,
+  config,
   ...
 }: {
   imports = [
@@ -38,4 +39,11 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
+
+  nix.buildMachines = [
+    {
+      hostName = "cache.machinology.local";
+      sshKey = config.sops.secrets.home-wsl-nix-builder-ssh-key.path;
+    }
+  ];
 }
