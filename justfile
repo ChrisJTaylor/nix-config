@@ -393,12 +393,20 @@ cache-troubleshoot:
   curl -k "https://$SERVER/nix-cache-info" 2>/dev/null | head -10
 
 # generate binary cache keys
-genearate-binary-cache-keys name="cache.machinology.local":
-  nix-store --generate-binary-cache-key {{name}} cache-private-key.pem cache-public-key.pem
+[group("maintenance")]
+generate-binary-cache-keys name="cache.machinology.local": _clear-existing-certs
+  nix-store --generate-binary-cache-key {{name}} binary-cache-private-key.pem binary-cache-public-key.pem
+  mv binary-cache-public-key.pem ./none-secrets/
 
 # generate ssh key pair
+[group("utilities")]
 generate-ssh-key-pair name:
   ssh-keygen -t ed25519 -f {{name}} -N ""
+
+_clear-existing-certs:
+  -rm binary-cache-private-key.pem
+  -rm binary-cache-public-key.pem
+  -rm ./none-secrets/binary-cache-public-key.pem
 
 _clear_nix_evaluation_cache:
   #!/usr/bin/env bash
