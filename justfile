@@ -396,6 +396,10 @@ cache-troubleshoot:
 genearate-binary-cache-keys:
   nix-store --generate-binary-cache-key cache.machinology.com cache-private-key.pem cache-public-key.pem
 
+# generate ssh key pair
+generate-ssh-key-pair name:
+  ssh-keygen -t ed25519 -f {{name}} -N ""
+
 _clear_nix_evaluation_cache:
   #!/usr/bin/env bash
   sudo rm -rf /nix/var/nix/gcroots/auto/*

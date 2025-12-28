@@ -2,8 +2,6 @@
 {
   inputs,
   config,
-  lib,
-  pkgs,
   ...
 }: {
   imports = [inputs.harmonia.nixosModules.harmonia];
@@ -11,6 +9,9 @@
   services.harmonia = {
     enable = true;
     signKeyPaths = [config.sops.secrets.binary-cache-private-key.path];
+    settings = {
+      bind = "127.0.0.1:5000";
+    };
   };
 
   # Configure the private key secret for harmonia
@@ -23,7 +24,7 @@
   nix.settings.allowed-users = ["christian" "harmonia"];
 
   # All other nginx configuration remains the same as above
-  networking.firewall.allowedTCPPorts = [80];
+  networking.firewall.allowedTCPPorts = [22 80];
 
   services.nginx = {
     enable = true;
