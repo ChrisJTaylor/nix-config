@@ -21,7 +21,7 @@
       url = "github:machinology/mach-approved-packages";
     };
 
-    harmonia.url = "github:nix-community/harmonia";
+    harmonia.url = "github:nix-community/harmonia/main";
   };
 
   outputs = inputs @ {
