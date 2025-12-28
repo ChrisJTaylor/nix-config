@@ -17,6 +17,7 @@ Each dev environment has a flake.nix and justfile for consistent tooling.
 - **.NET**: `dotnet test --filter "FullyQualifiedName~TestName"` (single test), `just build-and-test`
 - **Common**: `just build`, `just test`, `just lint`, `just format`, `just clean`, `just ci` (format, lint, test)
 - **Coverage**: Go: `just test-with-coverage`, .NET: `just coverage`, Python: activate venv first
+- **Watch mode**: Most languages: `just watch-tests` or `just watch` (auto-run on file changes)
 
 ## Code Style Guidelines
 - **Structure**: `nixos/` (system config), `home-manager/` (user config), `secrets/` (SOPS encrypted), `home-manager/files/_dev_envs/` (dev templates)

@@ -35,10 +35,8 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
 
-  nix.buildMachines = [
-    {
-      hostName = "cache.machinology.local";
-      sshKey = config.sops.secrets.mach-serve-02-nix-builder-ssh-key.path;
-    }
-  ];
+  nix.remoteBuilder = {
+    enable = true;
+    sshKeyPath = config.sops.secrets.mach-serve-02-nix-builder-ssh-key.path;
+  };
 }
