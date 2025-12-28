@@ -237,8 +237,6 @@
           ./nixos/system/nix-registries.nix
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/fzf-git.nix
-          ./nixos/system/harmonia-cache-consumer.nix
-          ./nixos/system/remote-build-client.nix
           sops-nix.darwinModules.sops
           ./secrets/sops.nix
           {
