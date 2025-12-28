@@ -393,8 +393,8 @@ cache-troubleshoot:
   curl -k "https://$SERVER/nix-cache-info" 2>/dev/null | head -10
 
 # generate binary cache keys
-genearate-binary-cache-keys:
-  nix-store --generate-binary-cache-key cache.machinology.com cache-private-key.pem cache-public-key.pem
+genearate-binary-cache-keys name="cache.machinology.local":
+  nix-store --generate-binary-cache-key {{name}} cache-private-key.pem cache-public-key.pem
 
 # generate ssh key pair
 generate-ssh-key-pair name:

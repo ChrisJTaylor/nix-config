@@ -58,10 +58,6 @@ in {
         # Only set owner on systems with harmonia service enabled
         # owner will default to root on other systems
       };
-
-      binary-cache-public-key = {
-        sopsFile = ./cache-keys.yaml;
-      };
     };
   };
 }
