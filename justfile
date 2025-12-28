@@ -209,7 +209,7 @@ test-cache-performance:
   time_cache=$(timeout 30 bash -c "time nix copy --from http://cache.machinology.local nixpkgs#${TEST_PACKAGE} 2>&1" | grep real | awk '{print $2}' || echo "timeout")
   
   echo "Testing download from cache.nixos.org..."
-  time_nixos=$(timeout 30 bash -c "time nix copy --from https://cache.nixos.org nixpkgs#${TEST_PACKAGE} 2>&1" | grep real | awk '{print $2}' || echo "timeout")
+  time_nixos=$(timeout 30 bash -c "time nix copy --from http://cache.nixos.org nixpkgs#${TEST_PACKAGE} 2>&1" | grep real | awk '{print $2}' || echo "timeout")
   
   echo
   echo "Results:"
@@ -245,15 +245,15 @@ verify-cache-integration:
   
   # Check if substituters are properly configured
   echo "Current substituters:"
-  nix show-config | grep substituters
+  nix config show | grep substituters
   echo
   
   echo "Current trusted public keys:"
-  nix show-config | grep trusted-public-keys
+  nix config show | grep trusted-public-keys
   echo
   
   echo "Testing cache connectivity:"
-  if nix store info --store https://cache.machinology.local >/dev/null 2>&1; then
+  if nix store info --store http://cache.machinology.local >/dev/null 2>&1; then
     echo "✓ Cache server is accessible"
   else
     echo "❌ Cache server is NOT accessible"
@@ -272,7 +272,7 @@ validate-all-home-systems:
     echo "Testing ${system}:"
     # For now, just test the current system since we can't easily test remote ones
     if [ "$(hostname)" = "${system}" ] || [ "$(scutil --get ComputerName 2>/dev/null)" = "${system}" ]; then
-      if nix store info --store https://cache.machinology.local >/dev/null 2>&1; then
+      if nix store info --store http://cache.machinology.local >/dev/null 2>&1; then
         echo "  ✓ ${system}: Cache accessible"
       else
         echo "  ❌ ${system}: Cache NOT accessible"
@@ -289,19 +289,15 @@ cache-health-check:
   echo "=== Cache System Health Check ==="
   echo
   
-  echo "1. SSL Certificate Status:"
-  just verify-cache-cert
-  echo
-  
-  echo "2. Cache Server Response:"
+  echo "1. Cache Server Response:"
   just test-cache-connection
   echo
   
-  echo "3. Cache Integration:"
+  echo "2. Cache Integration:"
   just verify-cache-integration
   echo
   
-  echo "4. System Configuration:"
+  echo "3. System Configuration:"
   echo "Current system: $(uname -s)"
   if command -v scutil >/dev/null 2>&1; then
     echo "Computer name: $(scutil --get ComputerName)"
@@ -325,21 +321,21 @@ cache-troubleshoot:
   fi
   
   echo "2. HTTP connectivity:"
-  if curl -k --connect-timeout 5 "https://$SERVER" >/dev/null 2>&1; then
+  if curl -k --connect-timeout 5 "http://$SERVER" >/dev/null 2>&1; then
     echo "✓ HTTPS connection works"
   else
     echo "❌ HTTPS connection failed"
   fi
   
   echo "3. Nix store operations:"
-  if timeout 10 nix store info --store "https://$SERVER" >/dev/null 2>&1; then
+  if timeout 10 nix store info --store "http://$SERVER" >/dev/null 2>&1; then
     echo "✓ Nix store operations work"
   else
     echo "❌ Nix store operations failed"
   fi
   
   echo "4. Cache info endpoint:"
-  curl -k "https://$SERVER/nix-cache-info" 2>/dev/null | head -10
+  curl -k "http://$SERVER/nix-cache-info" 2>/dev/null | head -10
 
 # generate binary cache keys
 [group("maintenance")]
