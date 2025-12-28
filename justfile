@@ -48,7 +48,7 @@ update-flakes flake="":
 
 # check flake for errors
 [group("validation")]
-check: 
+check: format
   nix flake check
 
 # clear cache and check flake for errors
@@ -352,6 +352,10 @@ generate-ssh-key-pair-for host:
   rm ./none-secrets/{{host}}-nix-builder.pub || true
   ssh-keygen -t ed25519 -f _tmp/nix-builder -N ""
   cp ./_tmp/nix-builder.pub ./none-secrets/{{host}}-nix-builder.pub
+
+# format nix files
+format:
+  nix fmt .
 
 _clear-existing-certs:
   -rm binary-cache-private-key.pem
