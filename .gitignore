@@ -6,3 +6,4 @@ result/
 
 # generated files
 cache-*-key.pem
+_tmp/
