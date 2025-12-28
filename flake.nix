@@ -89,6 +89,7 @@
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
             ./nixos/system/harmonia-cache-consumer.nix
+            ./nixos/system/remote-build-client.nix
             ./home-manager/home-big-mach.nix
             {
               environment.systemPackages = [
@@ -111,6 +112,7 @@
             ./nixos/users/christian.nix
             ./nixos/services/scheduled-shutdown.nix
             ./nixos/services/harmonia.nix
+            ./nixos/services/remote-builder.nix
             ./home-manager/mach-serve.nix
             {
               environment.systemPackages = [
@@ -135,6 +137,7 @@
             ./nixos/services/scheduled-shutdown.nix
             ./home-manager/mach-serve.nix
             ./nixos/system/harmonia-cache-consumer.nix
+            ./nixos/system/remote-build-client.nix
             {
               environment.systemPackages = [
                 nixvim-config.packages.x86_64-linux.terminal
@@ -157,6 +160,7 @@
             ./nixos/system/cosmic.nix
             nixos-cosmic.nixosModules.default
             ./nixos/system/harmonia-cache-consumer.nix
+            ./nixos/system/remote-build-client.nix
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
             ./home-manager/home-big-machbook.nix
@@ -180,6 +184,7 @@
             ./nixos/hosts/home-wsl/hardware-configuration.nix
             ./nixos/users/christian.nix
             ./nixos/system/harmonia-cache-consumer.nix
+            ./nixos/system/remote-build-client.nix
             ./home-manager/home-wsl.nix
             {
               environment.systemPackages = [
@@ -233,6 +238,7 @@
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/fzf-git.nix
           ./nixos/system/harmonia-cache-consumer.nix
+          ./nixos/system/remote-build-client.nix
           sops-nix.darwinModules.sops
           ./secrets/sops.nix
           {

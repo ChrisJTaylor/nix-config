@@ -344,9 +344,10 @@ generate-binary-cache-keys name="cache.machinology.local": _clear-existing-certs
   mv binary-cache-public-key.pem ./none-secrets/
 
 # generate ssh key pair
-[group("utilities")]
-generate-ssh-key-pair name:
-  ssh-keygen -t ed25519 -f {{name}} -N ""
+[group("maintenance")]
+generate-ssh-key-pair:
+  sudo ssh-keygen -t ed25519 -f /root/.ssh/nix-builder -N ""
+  sudo /root/.ssh/nix-builder.pub ./none-secrets/$HOST-nix-builder.pub
 
 _clear-existing-certs:
   -rm binary-cache-private-key.pem
