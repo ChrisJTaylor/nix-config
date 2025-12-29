@@ -78,7 +78,6 @@
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
             ./nixos/system/gnome-nvidia.nix
-            ./nixos/services/teamcity.nix
             ./nixos/services/podman.nix
             ./nixos/services/nginx.nix
             ./nixos/system/monitoring.nix
