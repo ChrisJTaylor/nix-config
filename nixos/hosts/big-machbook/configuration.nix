@@ -57,4 +57,8 @@
     enable = true;
     sshKeyPath = config.sops.secrets.nix-builder-ssh-key.path;
   };
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "broadcom-sta-6.30.223.271-59-6.12.63"
+  ];
 }
