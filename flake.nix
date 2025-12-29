@@ -131,6 +131,7 @@
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
             ./nixos/services/podman.nix
+            ./nixos/services/github-runners.nix
             ./nixos/services/scheduled-shutdown.nix
             ./home-manager/mach-serve.nix
             ./nixos/system/harmonia-cache-consumer.nix

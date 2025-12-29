@@ -36,27 +36,8 @@ in {
         mode = "0400";
       };
 
-      # Cross-platform secrets
-      domain_name = {
-        sopsFile = ./mysecret.yaml;
-        neededForUsers = isLinux; # Only needed for users on Linux
-        # Keep default permissions for compatibility
-      };
-
-      harmonia_email = {
-        sopsFile = ./mysecret.yaml;
-        # Available on all platforms for potential harmonia server use
-      };
-
-      harmonia_public_key = {
-        sopsFile = ./mysecret.yaml;
-        # Available on all platforms for harmonia cache consumers
-      };
-
       binary-cache-private-key = {
         sopsFile = ./cache-keys.yaml;
-        # Only set owner on systems with harmonia service enabled
-        # owner will default to root on other systems
       };
     };
   };
