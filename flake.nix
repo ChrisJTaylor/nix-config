@@ -2,11 +2,10 @@
   description = "Home Manager and NixOS configurations";
 
   inputs = {
-    nixpkgs.follows = "nixos-cosmic/nixpkgs";
-    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+    nixpkgs.url = "github:nixos/nixpkgs/release-25.11";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/20561be440a11ec57a89715480717baf19fe6343";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     sops-nix.url = "github:Mic92/sops-nix";
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
@@ -30,7 +29,6 @@
     unstable,
     darwin,
     home-manager,
-    nixos-cosmic,
     sops-nix,
     nixos-wsl,
     nixvim-config,
@@ -79,8 +77,7 @@
             ./nixos/hosts/big-mach/configuration.nix
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
-            ./nixos/system/cosmic.nix
-            nixos-cosmic.nixosModules.default
+            ./nixos/system/gnome-nvidia.nix
             ./nixos/services/teamcity.nix
             ./nixos/services/podman.nix
             ./nixos/services/nginx.nix
@@ -157,8 +154,7 @@
             ./nixos/hosts/big-machbook/configuration.nix
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
-            ./nixos/system/cosmic.nix
-            nixos-cosmic.nixosModules.default
+            ./nixos/system/gnome-nvidia.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./nixos/system/remote-build-client.nix
             ./nixos/apps/games.nix
