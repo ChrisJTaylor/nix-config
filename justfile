@@ -8,37 +8,37 @@ _default:
 # rebuild the current system configuration
 [group("rebuilds")]
 [macos]
-sudo-clean-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth 
+sudo-clean-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth _update-approved-packages
   sudo darwin-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
 [group("rebuilds")]
 [linux]
-sudo-clean-rebuild-impure name="home-wsl" options="": fix-sops-permissions set-github-auth 
+sudo-clean-rebuild-impure name="home-wsl" options="": fix-sops-permissions set-github-auth _update-approved-packages
  sudo nixos-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
 [group("rebuilds")]
 [macos]
-sudo-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth
+sudo-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth _update-approved-packages
  sudo darwin-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
 [group("rebuilds")]
 [linux]
-sudo-rebuild-impure name="mach-serve-01" options="": fix-sops-permissions set-github-auth
+sudo-rebuild-impure name="mach-serve-01" options="": fix-sops-permissions set-github-auth _update-approved-packages
  sudo nixos-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
 [group("rebuilds")]
 [linux]
-sudo-rebuild name="big-mach" options="": fix-sops-permissions set-github-auth 
+sudo-rebuild name="big-mach" options="": fix-sops-permissions set-github-auth _update-approved-packages
   sudo nixos-rebuild switch --flake '.#{{name}}' {{options}}
 
 # rebuild the current system configuration
 [group("rebuilds")]
 [linux]
-rebuild-impure name="mach-serve-01" options="": fix-sops-permissions set-github-auth
+rebuild-impure name="mach-serve-01" options="": fix-sops-permissions set-github-auth _update-approved-packages
  nixos-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # update all flakes in flake.lock to the latest compatible versions
@@ -66,8 +66,8 @@ set-github-auth:
   # Clean up and configure git credential helpers to prevent stale Nix store paths
   git config --global --unset-all credential.https://github.com.helper || true
   git config --global --unset-all credential.https://gist.github.com.helper || true
-  git config --global credential.https://github.com.helper "!gh auth git-credential" 
-  git config --global credential.https://gist.github.com.helper "!gh auth git-credential"
+  git config --global credential.https://github.com.helper "!gh auth git-credential" || echo "Warning: Could not set git credential helper (config may be read-only)"
+  git config --global credential.https://gist.github.com.helper "!gh auth git-credential" || echo "Warning: Could not set git credential helper (config may be read-only)"
 
 # fix SOPS age key permissions and validate decryption
 [group("utilities")]
@@ -356,6 +356,9 @@ generate-ssh-key-pair-for host:
 # format nix files
 format:
   nix fmt .
+
+_update-approved-packages:
+  just update-flakes approved-packages
 
 _clear-existing-certs:
   -rm binary-cache-private-key.pem
