@@ -24,8 +24,8 @@
   # Nix configuration
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  # enable clipboard for cosmic
-  environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
+  # NVIDIA license acceptance for legacy drivers
+  nixpkgs.config.nvidia.acceptLicense = true;
 
   # List services that you want to enable:
 
