@@ -18,8 +18,7 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+  # NetworkManager is configured in nixos/network/nameservers.nix
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
