@@ -1,4 +1,8 @@
 {config, ...}: {
+  nixpkgs.config.permittedInsecurePackages = [
+    "broadcom-sta-6.30.223.271-59-6.12.63"
+  ];
+
   services.gnome.gnome-keyring.enable = true;
 
   security.pam.services.gdm.enableGnomeKeyring = true;
