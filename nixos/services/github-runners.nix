@@ -1,6 +1,17 @@
 {config, ...}: {
+  users.users.github-runner = {
+    isSystemUser = true;
+    group = "github-runner";
+    home = "/var/lib/github-runner";
+    createHome = true;
+  };
+
+  users.groups.github-runner = {};
+
+  nix.settings.trusted-users = ["github-runner"];
+
   sops.secrets.github-runner-token = {
-    sopsFile = ./secrets/github-runners.yaml;
+    sopsFile = ../../secrets/github-runners.yaml;
   };
 
   services.github-runners = {
@@ -52,6 +63,4 @@
       user = "github-runner";
     };
   };
-
-  nix.settings.trusted-users = ["github-runner"];
 }
