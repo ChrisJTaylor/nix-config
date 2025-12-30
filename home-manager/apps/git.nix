@@ -1,6 +1,11 @@
-{...}: {
+{config, ...}: {
   programs.git = {
     enable = true;
+
+    ignores = [
+      "AGENTS.md"
+    ];
+
     settings = {
       user = {
         Name = "Christian Taylor";
