@@ -169,6 +169,32 @@
           ++ commonModules;
       };
 
+      think-mach = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs system;
+          approved-packages = approved-packages.packages.${system};
+        };
+        modules =
+          [
+            ./nixos/hosts/think-mach/configuration.nix
+            ./nixos/network/nameservers.nix
+            ./nixos/users/christian.nix
+            ./nixos/system/plasma.nix
+            ./nixos/system/pipewire.nix
+            ./nixos/system/harmonia-cache-consumer.nix
+            ./nixos/system/remote-build-client.nix
+            ./nixos/apps/games.nix
+            ./nixos/apps/personal.nix
+            ./home-manager/home-think-mach.nix
+            {
+              environment.systemPackages = [
+                nixvim-config.packages.x86_64-linux.default
+              ];
+            }
+          ]
+          ++ commonModules;
+      };
+
       home-wsl = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs system;
