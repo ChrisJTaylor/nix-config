@@ -3,7 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   config,
-  approved-packages,
+  pkgs,
   ...
 }: {
   imports = [
@@ -16,7 +16,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
-  boot.kernelPackages = approved-packages.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "think-mach"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.

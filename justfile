@@ -63,6 +63,13 @@ set-github-auth:
   mkdir -p ~/.config/nix
   echo "access-tokens = github.com=$(gh auth token)" > ~/.config/nix/github-token
   
+  # Ensure nix.conf exists and includes the token file
+  if [ ! -f ~/.config/nix/nix.conf ]; then
+    echo "include github-token" > ~/.config/nix/nix.conf
+  elif ! grep -q "include github-token" ~/.config/nix/nix.conf; then
+    echo "include github-token" >> ~/.config/nix/nix.conf
+  fi
+  
   # Clean up and configure git credential helpers to prevent stale Nix store paths
   git config --global --unset-all credential.https://github.com.helper || true
   git config --global --unset-all credential.https://gist.github.com.helper || true
