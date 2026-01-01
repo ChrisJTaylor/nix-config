@@ -1,5 +1,4 @@
-{...}:
-{
+{...}: {
   home-manager.backupFileExtension = "bakk";
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
@@ -26,4 +25,3 @@
     home.stateVersion = "23.11"; # Please read the comment before changing.
   };
 }
-ChrisJTaylor
