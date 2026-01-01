@@ -428,9 +428,9 @@ verify-remote-build-setup remote="nix-builder@cache.machinology.local" key="/roo
 # run a test distributed build
 [group("verification")]
 [linux]
-test-remote-build remote="ssh-ng://nix-builder@cache.machinology.local":
+test-remote-build remote="ssh-ng://nix-builder@cache.machinology.local" key="/root/.ssh/nix-builder":
     #!/usr/bin/env bash
-    echo "Running test build on {{remote}}..."
+    echo "Running test build on {{remote}} using key {{key}}..."
     
     # Create a small dummy derivation
     cat > test.nix <<EOF
@@ -441,7 +441,11 @@ test-remote-build remote="ssh-ng://nix-builder@cache.machinology.local":
     EOF
     
     echo "Building..."
-    nix-build test.nix --builders "{{remote}} x86_64-linux - 1 1 features=nixos-test,benchmark,big-parallel,kvm" --max-jobs 0
+    # We use sudo to access the root-owned key, and pass NIX_SSHOPTS to bypass 
+    # strict host key checking (matching the manual verification step)
+    sudo NIX_SSHOPTS="-o StrictHostKeyChecking=no" nix-build test.nix \
+      --builders "{{remote}} x86_64-linux {{key}} 1 1 features=nixos-test,benchmark,big-parallel,kvm" \
+      --max-jobs 0
     
     echo
     echo "Build result:"

@@ -15,4 +15,7 @@
     nerd-fonts-iosevka
     nerd-fonts-sauce-code-pro
   ];
+
+  # Allow the wheel group to specify builders
+  nix.settings.trusted-users = ["root" "@wheel"];
 }
