@@ -14,7 +14,7 @@
     # https://daiderd.com/nix-darwin/manual/
     darwin.url = "github:lnl7/nix-darwin/nix-darwin-25.11";
 
-    nixvim-config.url = "github:ChrisJTaylor/nixvim-config";
+    nixvim-config.url = "github:machinology/nixvim-config";
 
     approved-packages = {
       url = "github:machinology/mach-approved-packages";
