@@ -17,5 +17,5 @@
   };
 
   nix.settings.trusted-users = ["nix-builder"];
-  nix.settings.allowed-users = ["nix-builder"];
+
 }
