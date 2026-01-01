@@ -377,3 +377,73 @@ _clear_nix_evaluation_cache:
   #!/usr/bin/env bash
   sudo rm -rf /nix/var/nix/gcroots/auto/*
   nix-collect-garbage
+
+# verify distributed build setup
+[group("verification")]
+[linux]
+verify-remote-build-setup remote="nix-builder@cache.machinology.local" key="/root/.ssh/nix-builder":
+    #!/usr/bin/env bash
+    echo "Verifying remote build setup for {{remote}}..."
+    echo
+    
+    echo "1. Checking private key presence..."
+    if sudo test -f "{{key}}"; then
+      echo "✓ Key exists at {{key}}"
+      echo "Fingerprint:"
+      sudo ssh-keygen -lf "{{key}}"
+    else
+      echo "❌ Key not found at {{key}}"
+      exit 1
+    fi
+    echo
+    
+    echo "2. Checking network connectivity..."
+    host=$(echo "{{remote}}" | cut -d@ -f2)
+    if ping -c 1 "$host" >/dev/null 2>&1; then
+        echo "✓ Ping to $host successful"
+    else
+        echo "❌ Cannot ping $host"
+        exit 1
+    fi
+    echo
+
+    echo "3. Testing SSH connection (verbose)..."
+    if sudo ssh -i "{{key}}" -o StrictHostKeyChecking=no -o ConnectTimeout=5 "{{remote}}" id; then
+        echo "✓ SSH connection successful"
+    else
+        echo "❌ SSH connection failed. Trying verbose mode for details:"
+        sudo ssh -i "{{key}}" -v -o StrictHostKeyChecking=no -o ConnectTimeout=5 "{{remote}}" id || true
+        exit 1
+    fi
+    echo
+    
+    echo "4. Checking Nix store access..."
+    if sudo nix store info --store "ssh-ng://{{remote}}?ssh-key={{key}}"; then
+        echo "✓ Nix store ping successful"
+    else
+        echo "❌ Nix store ping failed"
+        exit 1
+    fi
+
+# run a test distributed build
+[group("verification")]
+[linux]
+test-remote-build remote="ssh-ng://nix-builder@cache.machinology.local":
+    #!/usr/bin/env bash
+    echo "Running test build on {{remote}}..."
+    
+    # Create a small dummy derivation
+    cat > test.nix <<EOF
+    with import <nixpkgs> {};
+    runCommand "distributed-build-test" {} ''
+      echo "Build ran on \$(hostname)" > \$out
+    ''
+    EOF
+    
+    echo "Building..."
+    nix-build test.nix --builders "{{remote}} x86_64-linux - 1 1 features=nixos-test,benchmark,big-parallel,kvm" --max-jobs 0
+    
+    echo
+    echo "Build result:"
+    cat result
+    rm test.nix result

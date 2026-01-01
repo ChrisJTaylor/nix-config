@@ -46,6 +46,10 @@ This repository contains NixOS/nix-darwin configurations with centralized packag
 - **Generate keys**: `just generate-binary-cache-keys [name]` (creates keys in /var/lib/secrets/)
 - **Trust cert (Linux)**: `just trust-cache-cert [server]` (adds cert to system trust store)
 
+### Distributed Builds
+- **Verify setup**: `just verify-remote-build-setup` (checks keys, network connectivity, and SSH/Nix access to remote builder)
+- **Test remote build**: `just test-remote-build` (runs a test derivation specifically on the remote builder)
+
 ## Development Environments (_dev_envs/)
 
 Each dev environment (in `home-manager/files/_dev_envs/`) has a `flake.nix` and `justfile` for consistent tooling.
