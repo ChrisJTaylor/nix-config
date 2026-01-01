@@ -444,7 +444,7 @@ test-remote-build remote="ssh-ng://nix-builder@cache.machinology.local" key="/ro
     # We use sudo to access the root-owned key, and pass NIX_SSHOPTS to bypass 
     # strict host key checking (matching the manual verification step)
     sudo NIX_SSHOPTS="-o StrictHostKeyChecking=no" nix-build test.nix \
-      --builders "{{remote}} x86_64-linux {{key}} 1 1 features=nixos-test,benchmark,big-parallel,kvm" \
+      --builders "{{remote}} x86_64-linux {{key}} 1 1" \
       --max-jobs 0
     
     echo

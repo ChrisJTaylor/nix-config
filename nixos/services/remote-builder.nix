@@ -1,4 +1,4 @@
-{...}: {
+{approved-packages, ...}: {
   services.openssh = {
     enable = true;
   };
@@ -6,6 +6,7 @@
   users.users.nix-builder = {
     isNormalUser = true;
     extraGroups = ["nixbld"];
+    shell = approved-packages.bash;
     openssh.authorizedKeys.keys = [
       # Public key for the remote build machine
       (builtins.readFile ../../none-secrets/big-machbook-nix-builder.pub)

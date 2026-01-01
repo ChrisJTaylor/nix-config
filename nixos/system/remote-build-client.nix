@@ -47,7 +47,7 @@ in {
         sshKey = cfg.sshKeyPath;
         maxJobs = cfg.maxJobs;
         speedFactor = cfg.speedFactor;
-        supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+        supportedFeatures = ["benchmark" "big-parallel"];
       }
     ];
 
