@@ -414,11 +414,11 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1767268583,
-        "narHash": "sha256-1bwMvDq3jcv6Egl600L10ZsjAp/SYF2VyG8GxQx9Yek=",
+        "lastModified": 1767283432,
+        "narHash": "sha256-R/c8tVJ3SO3JXtiLq+6CVouv/mWNRIrSj8SEGXWK5OM=",
         "owner": "machinology",
         "repo": "nixvim-config",
-        "rev": "ae7e4f41a60681bb0975de127ded185e44f94246",
+        "rev": "fa778c8980a62e99aa4d82c759aa8f742687d5e0",
         "type": "github"
       },
       "original": {
