@@ -8,37 +8,37 @@ _default:
 # rebuild the current system configuration
 [group("rebuilds")]
 [macos]
-sudo-clean-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth _update-approved-packages
+sudo-clean-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth _update-mach-inputs
   sudo darwin-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
 [group("rebuilds")]
 [linux]
-sudo-clean-rebuild-impure name="home-wsl" options="": fix-sops-permissions set-github-auth _update-approved-packages
+sudo-clean-rebuild-impure name="home-wsl" options="": fix-sops-permissions set-github-auth _update-mach-inputs
  sudo nixos-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
 [group("rebuilds")]
 [macos]
-sudo-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth _update-approved-packages
+sudo-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth _update-mach-inputs
  sudo darwin-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
 [group("rebuilds")]
 [linux]
-sudo-rebuild-impure name="mach-serve-01" options="": fix-sops-permissions set-github-auth _update-approved-packages
+sudo-rebuild-impure name="mach-serve-01" options="": fix-sops-permissions set-github-auth _update-mach-inputs
  sudo nixos-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # rebuild the current system configuration
 [group("rebuilds")]
 [linux]
-sudo-rebuild name="big-mach" options="": fix-sops-permissions set-github-auth _update-approved-packages
+sudo-rebuild name="big-mach" options="": fix-sops-permissions set-github-auth _update-mach-inputs
   sudo nixos-rebuild switch --flake '.#{{name}}' {{options}}
 
 # rebuild the current system configuration
 [group("rebuilds")]
 [linux]
-rebuild-impure name="mach-serve-01" options="": fix-sops-permissions set-github-auth _update-approved-packages
+rebuild-impure name="mach-serve-01" options="": fix-sops-permissions set-github-auth _update-mach-inputs
  nixos-rebuild switch --flake '.#{{name}}' --impure {{options}}
 
 # update all flakes in flake.lock to the latest compatible versions
@@ -364,8 +364,9 @@ generate-ssh-key-pair-for host:
 format:
   nix fmt .
 
-_update-approved-packages:
+_update-mach-inputs:
   just update-flakes approved-packages
+  just update-flakes nixvim-config
 
 _clear-existing-certs:
   -rm binary-cache-private-key.pem
