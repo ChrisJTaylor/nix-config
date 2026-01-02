@@ -1,35 +1,38 @@
-{ config, lib, ... }: 
-let
+{
+  config,
+  lib,
+  ...
+}: let
   cfg = config.nix.remoteBuilder;
 in {
   options = {
     nix.remoteBuilder = {
       enable = lib.mkEnableOption "remote build client";
-      
+
       sshKeyPath = lib.mkOption {
         type = lib.types.str;
         description = "Path to SSH key for remote builder";
         default = "/root/.ssh/nix-builder";
       };
-      
+
       hostName = lib.mkOption {
         type = lib.types.str;
         description = "Hostname of the remote builder";
-        default = "cache.machinology.local";
+        default = "192.168.1.136";
       };
-      
+
       system = lib.mkOption {
         type = lib.types.str;
         description = "System architecture of remote builder";
         default = "x86_64-linux";
       };
-      
+
       maxJobs = lib.mkOption {
         type = lib.types.int;
         description = "Maximum number of concurrent jobs";
         default = 4;
       };
-      
+
       speedFactor = lib.mkOption {
         type = lib.types.int;
         description = "Speed factor relative to local machine";
