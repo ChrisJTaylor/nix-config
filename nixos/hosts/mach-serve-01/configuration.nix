@@ -27,21 +27,14 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  # Enable scheduled shutdown at 10 PM daily
-  services.scheduledShutdown = {
-    enable = true;
-    time = "22:00";
-    warningMinutes = 5;
-  };
-
-  # Fix nix-daemon RLIMIT_NOFILE permission issue  
+  # Fix nix-daemon RLIMIT_NOFILE permission issue
   # Use current system limit instead of problematic high limit
   systemd.services.nix-daemon.serviceConfig.LimitNOFILE = lib.mkForce 524288;
 
   # Enable verbose nix-daemon logging for debugging remote build issues
   systemd.services.nix-daemon.serviceConfig.Environment = [
     "NIX_DEBUG=1"
-    "NIX_VERBOSE=1" 
+    "NIX_VERBOSE=1"
   ];
 
   # This value determines the NixOS release from which the default
