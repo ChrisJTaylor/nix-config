@@ -4,10 +4,10 @@
   };
 
   users.users.nix-builder = {
-    isNormalUser = true;
-    extraGroups = ["nixbld"];
-    shell = approved-packages.bash;
-    openssh.authorizedKeys.keys = [
+    isSystemUser = true;
+    extraGroups = ["remotebuild"];
+    useDefaultShell = true;
+    openssh.authorizedKeys.keyFiles = [
       # Public key for the remote build machine
       (builtins.readFile ../../none-secrets/big-machbook-nix-builder.pub)
       (builtins.readFile ../../none-secrets/big-mach-nix-builder.pub)
@@ -18,5 +18,4 @@
   };
 
   nix.settings.trusted-users = ["nix-builder"];
-
 }
