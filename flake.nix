@@ -106,7 +106,7 @@
             ./nixos/hosts/mach-serve-01/configuration.nix
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
-            ./nixos/services/scheduled-shutdown.nix
+            ./nixos/network/dnsmasq.nix
             ./nixos/services/harmonia.nix
             ./nixos/services/remote-builder.nix
             ./home-manager/mach-serve.nix
