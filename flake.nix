@@ -107,6 +107,7 @@
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
             ./nixos/services/scheduled-shutdown.nix
+            ./nixos/network/firewall.nix
             ./nixos/network/dnsmasq.nix
             ./nixos/services/harmonia.nix
             ./nixos/services/remote-builder.nix
