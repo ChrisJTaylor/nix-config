@@ -11,5 +11,6 @@
   # NixOS-only nameserver configuration (Linux systems only)
   networking.nameservers = [
     "192.168.1.136" # mach-serve-01
+    "192.168.1.254" # EE router
   ];
 }
