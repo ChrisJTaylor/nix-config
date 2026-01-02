@@ -31,7 +31,7 @@ in {
       hostName = lib.mkOption {
         type = lib.types.str;
         description = "Hostname of the remote builder";
-        default = "cache.machinology.local";
+        default = "mach-serve-01.lan";
       };
 
       system = lib.mkOption {
