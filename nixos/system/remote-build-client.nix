@@ -61,10 +61,10 @@ in {
           hostName =
             if lib.hasPrefix "ssh://" cfg.hostName || lib.hasPrefix "ssh-ng://" cfg.hostName
             then cfg.hostName
-            else "ssh-ng://${cfg.hostName}";
+            else "nix-builder@${cfg.hostName}";
           system = cfg.system;
-          sshUser = "nix-builder";
           sshKey = cfg.sshKeyPath;
+          protocol = "ssh-ng";
           maxJobs = cfg.maxJobs;
           speedFactor = cfg.speedFactor;
           supportedFeatures = ["benchmark" "big-parallel"];

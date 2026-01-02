@@ -26,7 +26,7 @@
 
   services.nginx = {
     enable = true;
-    virtualHosts."cache.machinology.local" = {
+    virtualHosts."cache.machinology.internal" = {
       locations."/".extraConfig = ''
         proxy_pass http://127.0.0.1:5000/;
         proxy_set_header Host $host;

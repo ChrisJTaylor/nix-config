@@ -38,7 +38,7 @@ This repository contains NixOS/nix-darwin configurations with centralized packag
 - **Test decryption**: Run fix-sops-permissions to validate
 
 ### Binary Cache (Harmonia)
-- **Test connection**: `just test-cache-connection [server]` (default: cache.machinology.local)
+- **Test connection**: `just test-cache-connection [server]` (default: cache.machinology.internal)
 - **Health check**: `just cache-health-check` (comprehensive diagnostics)
 - **Troubleshoot**: `just cache-troubleshoot` (connectivity debugging)
 - **Performance test**: `just test-cache-performance` (compare local vs nixos.org)

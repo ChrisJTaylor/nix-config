@@ -1,7 +1,7 @@
 {...}: {
   nix.settings = {
     substituters = [
-      "http://cache.machinology.local"
+      "http://cache.machinology.internal"
       "https://cache.nixos.org"
     ];
     trusted-public-keys = [

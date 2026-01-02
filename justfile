@@ -97,7 +97,7 @@ generate-cache-key service_name="harmonia" domain="machinology":
 
 # test harmonia cache connection
 [group("utilities")]
-test-cache-connection server="cache.machinology.local":
+test-cache-connection server="cache.machinology.internal":
   #!/usr/bin/env bash
   echo "Testing connection to {{server}}..."
   echo
@@ -130,7 +130,7 @@ test-cache-connection server="cache.machinology.local":
 # add harmonia cache certificate to system trust store
 [group("utilities")]
 [linux]
-trust-cache-cert server="cache.machinology.local":
+trust-cache-cert server="cache.machinology.internal":
   #!/usr/bin/env bash
   echo "Fetching certificate from {{server}}..."
   echo | openssl s_client -servername {{server}} -connect {{server}}:443 2>/dev/null | openssl x509 -outform PEM > /tmp/{{server}}.crt
@@ -212,55 +212,9 @@ test-cache-performance:
   # Test a common package like hello
   TEST_PACKAGE="hello"
   
-  echo "Testing download from cache.machinology.local..."
-  time_cache=$(timeout 30 bash -c "time nix copy --from http://cache.machinology.local nixpkgs#${TEST_PACKAGE} 2>&1" | grep real | awk '{print $2}' || echo "timeout")
-  
-  echo "Testing download from cache.nixos.org..."
-  time_nixos=$(timeout 30 bash -c "time nix copy --from http://cache.nixos.org nixpkgs#${TEST_PACKAGE} 2>&1" | grep real | awk '{print $2}' || echo "timeout")
-  
-  echo
-  echo "Results:"
-  echo "  Local cache: ${time_cache}"
-  echo "  NixOS cache: ${time_nixos}"
-
-# measure system rebuild time for performance analysis
-[group("cache")]
-measure-rebuild-time name="machbook":
-  #!/usr/bin/env bash
-  echo "Measuring rebuild time for {{name}}..."
-  echo "Starting rebuild at $(date)"
-  echo
-  
-  start_time=$(date +%s)
-  just sudo-clean-rebuild-impure {{name}}
-  end_time=$(date +%s)
-  
-  duration=$((end_time - start_time))
-  minutes=$((duration / 60))
-  seconds=$((duration % 60))
-  
-  echo
-  echo "Rebuild completed at $(date)"
-  echo "Total time: ${minutes}m ${seconds}s"
-
-# verify that rebuilds actually use the cache
-[group("cache")]
-verify-cache-integration:
-  #!/usr/bin/env bash
-  echo "Verifying cache integration..."
-  echo
-  
-  # Check if substituters are properly configured
-  echo "Current substituters:"
-  nix config show | grep substituters
-  echo
-  
-  echo "Current trusted public keys:"
-  nix config show | grep trusted-public-keys
-  echo
-  
-  echo "Testing cache connectivity:"
-  if nix store info --store http://cache.machinology.local >/dev/null 2>&1; then
+  echo "Testing download from cache.machinology.internal..."
+  time_cache=$(timeout 30 bash -c "time nix copy --from http://cache.machinology.internal nixpkgs#${TEST_PACKAGE} 2>&1" | grep real | awk '{print $2}' || echo "timeout")
+  if nix store info --store http://cache.machinology.internal >/dev/null 2>&1; then
     echo "✓ Cache server is accessible"
   else
     echo "❌ Cache server is NOT accessible"
@@ -279,7 +233,7 @@ validate-all-home-systems:
     echo "Testing ${system}:"
     # For now, just test the current system since we can't easily test remote ones
     if [ "$(hostname)" = "${system}" ] || [ "$(scutil --get ComputerName 2>/dev/null)" = "${system}" ]; then
-      if nix store info --store http://cache.machinology.local >/dev/null 2>&1; then
+      if nix store info --store http://cache.machinology.internal >/dev/null 2>&1; then
         echo "  ✓ ${system}: Cache accessible"
       else
         echo "  ❌ ${system}: Cache NOT accessible"
@@ -318,7 +272,7 @@ cache-troubleshoot:
   echo "=== Cache Troubleshooting ==="
   echo
   
-  SERVER="cache.machinology.local"
+  SERVER="cache.machinology.internal"
   
   echo "1. Basic connectivity:"
   if ping -c 3 "$SERVER" >/dev/null 2>&1; then
@@ -346,7 +300,7 @@ cache-troubleshoot:
 
 # generate binary cache keys
 [group("maintenance")]
-generate-binary-cache-keys name="cache.machinology.local": _clear-existing-certs
+generate-binary-cache-keys name="cache.machinology.internal": _clear-existing-certs
   nix-store --generate-binary-cache-key {{name}} binary-cache-private-key.pem binary-cache-public-key.pem
   mv binary-cache-public-key.pem ./none-secrets/
 
@@ -381,9 +335,13 @@ _clear_nix_evaluation_cache:
 # verify distributed build setup
 [group("verification")]
 [linux]
-verify-remote-build-setup remote="nix-builder@mach-serve-01.lan" key="/root/.ssh/nix-builder":
+verify-remote-build-setup remote="ssh-ng://nix-builder@mach-serve-01.lan" key="/root/.ssh/nix-builder":
     #!/usr/bin/env bash
     echo "Verifying remote build setup for {{remote}}..."
+
+    # Handle protocol prefixes
+    clean_remote=$(echo "{{remote}}" | sed 's|.*://||')
+
     echo
     
     echo "1. Checking private key presence..."
@@ -398,7 +356,7 @@ verify-remote-build-setup remote="nix-builder@mach-serve-01.lan" key="/root/.ssh
     echo
     
     echo "2. Checking network connectivity..."
-    host=$(echo "{{remote}}" | cut -d@ -f2)
+    host=$(echo "$clean_remote" | cut -d@ -f2)
     if ping -c 1 "$host" >/dev/null 2>&1; then
         echo "✓ Ping to $host successful"
     else
@@ -408,17 +366,17 @@ verify-remote-build-setup remote="nix-builder@mach-serve-01.lan" key="/root/.ssh
     echo
 
     echo "3. Testing SSH connection (verbose)..."
-    if sudo ssh -i "{{key}}" -o StrictHostKeyChecking=no -o ConnectTimeout=5 "{{remote}}" id; then
+    if sudo ssh -i "{{key}}" -o StrictHostKeyChecking=no -o ConnectTimeout=5 "$clean_remote" id; then
         echo "✓ SSH connection successful"
     else
         echo "❌ SSH connection failed. Trying verbose mode for details:"
-        sudo ssh -i "{{key}}" -v -o StrictHostKeyChecking=no -o ConnectTimeout=5 "{{remote}}" id || true
+        sudo ssh -i "{{key}}" -v -o StrictHostKeyChecking=no -o ConnectTimeout=5 "$clean_remote" id || true
         exit 1
     fi
     echo
     
     echo "4. Checking Nix store access..."
-    if sudo nix store info --store "ssh-ng://{{remote}}?ssh-key={{key}}"; then
+    if sudo nix store info --store "ssh-ng://${clean_remote}?ssh-key={{key}}"; then
         echo "✓ Nix store ping successful"
     else
         echo "❌ Nix store ping failed"

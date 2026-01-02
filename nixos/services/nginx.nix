@@ -6,8 +6,8 @@
     recommendedGzipSettings = true;
     recommendedOptimisation = true;
     virtualHosts = {
-      "ci.machinology.local" = {
-        serverAliases = [ "ci-static.machinology.local" ];
+      "ci.machinology.internal" = {
+        serverAliases = [ "ci-static.machinology.internal" ];
         forceSSL = false;
         enableACME = false;
         locations = {
@@ -29,8 +29,8 @@
         };
       };
 
-      "builds.machinology.local" = {
-        serverAliases = [ "builds-static.machinology.local" ];
+      "builds.machinology.internal" = {
+        serverAliases = [ "builds-static.machinology.internal" ];
         forceSSL = false;
         enableACME = false;
         locations = {
