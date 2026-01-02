@@ -19,8 +19,12 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+  # Enable scheduled shutdown at 10 PM daily
+  services.scheduledShutdown = {
+    enable = true;
+    time = "22:00";
+    warningMinutes = 5;
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
