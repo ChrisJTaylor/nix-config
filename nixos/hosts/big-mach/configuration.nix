@@ -45,15 +45,6 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 
-  sops.secrets.nix-builder-ssh-key = {
-    sopsFile = ../../../secrets/big-mach.yaml;
-    mode = "0600";
-    owner = "root";
-    path = "/root/.ssh/nix-builder";
-  };
-
-  nix.remoteBuilder = {
-    enable = true;
-    sshKeyPath = config.sops.secrets.nix-builder-ssh-key.path;
-  };
+  # Enable remote builds to mach-serve-01
+  nix.remoteBuilder.enable = true;
 }

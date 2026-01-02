@@ -38,6 +38,12 @@
   # Use current system limit instead of problematic high limit
   systemd.services.nix-daemon.serviceConfig.LimitNOFILE = lib.mkForce 524288;
 
+  # Enable verbose nix-daemon logging for debugging remote build issues
+  systemd.services.nix-daemon.serviceConfig.Environment = [
+    "NIX_DEBUG=1"
+    "NIX_VERBOSE=1" 
+  ];
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave

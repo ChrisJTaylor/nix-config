@@ -4,6 +4,19 @@
   ...
 }: let
   cfg = config.nix.remoteBuilder;
+  hostName = config.networking.hostName;
+  
+  # Map hostnames to their corresponding secrets files
+  secretsFileMap = {
+    "big-mach" = ../../secrets/big-mach.yaml;
+    "big-machbook" = ../../secrets/big-machbook.yaml;
+    "think-mach" = ../../secrets/think-mach.yaml;
+    "home-wsl" = ../../secrets/home-wsl.yaml;
+    "mach-serve-02" = ../../secrets/mach-serve-02.yaml;
+  };
+  
+  hasSecretsFile = builtins.hasAttr hostName secretsFileMap;
+  secretsFile = secretsFileMap.${hostName} or null;
 in {
   options = {
     nix.remoteBuilder = {
@@ -41,20 +54,33 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    nix.buildMachines = [
-      {
-        hostName = cfg.hostName;
-        system = cfg.system;
-        sshUser = "nix-builder";
-        sshKey = cfg.sshKeyPath;
-        maxJobs = cfg.maxJobs;
-        speedFactor = cfg.speedFactor;
-        supportedFeatures = ["benchmark" "big-parallel"];
-      }
-    ];
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
+      nix.buildMachines = [
+        {
+          hostName = cfg.hostName;
+          system = cfg.system;
+          sshUser = "nix-builder";
+          sshKey = cfg.sshKeyPath;
+          maxJobs = cfg.maxJobs;
+          speedFactor = cfg.speedFactor;
+          supportedFeatures = ["benchmark" "big-parallel"];
+        }
+      ];
 
-    nix.distributedBuilds = true;
-    nix.settings.builders-use-substitutes = true;
-  };
+      nix.distributedBuilds = true;
+      nix.settings.builders-use-substitutes = true;
+    })
+
+    # Configure SSH key secret if this host has a corresponding secrets file
+    (lib.mkIf (cfg.enable && hasSecretsFile) {
+      sops.secrets.nix-builder-ssh-key = {
+        sopsFile = secretsFile;
+        path = cfg.sshKeyPath;
+        owner = "root";
+        group = "root";
+        mode = "0600";
+      };
+    })
+  ];
 }
