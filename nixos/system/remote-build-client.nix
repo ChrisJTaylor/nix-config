@@ -5,7 +5,7 @@
 }: let
   cfg = config.nix.remoteBuilder;
   hostName = config.networking.hostName;
-  
+
   # Map hostnames to their corresponding secrets files
   secretsFileMap = {
     "big-mach" = ../../secrets/big-mach.yaml;
@@ -14,7 +14,7 @@
     "home-wsl" = ../../secrets/home-wsl.yaml;
     "mach-serve-02" = ../../secrets/mach-serve-02.yaml;
   };
-  
+
   hasSecretsFile = builtins.hasAttr hostName secretsFileMap;
   secretsFile = secretsFileMap.${hostName} or null;
 in {
@@ -31,7 +31,7 @@ in {
       hostName = lib.mkOption {
         type = lib.types.str;
         description = "Hostname of the remote builder";
-        default = "mach-serve-01.lan";
+        default = "remote-builder.machinology.local";
       };
 
       system = lib.mkOption {
