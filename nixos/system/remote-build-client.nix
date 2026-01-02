@@ -58,7 +58,10 @@ in {
     (lib.mkIf cfg.enable {
       nix.buildMachines = [
         {
-          hostName = cfg.hostName;
+          hostName =
+            if lib.hasPrefix "ssh://" cfg.hostName || lib.hasPrefix "ssh-ng://" cfg.hostName
+            then cfg.hostName
+            else "ssh-ng://${cfg.hostName}";
           system = cfg.system;
           sshUser = "nix-builder";
           sshKey = cfg.sshKeyPath;
