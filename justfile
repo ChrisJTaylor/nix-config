@@ -381,7 +381,7 @@ _clear_nix_evaluation_cache:
 # verify distributed build setup
 [group("verification")]
 [linux]
-verify-remote-build-setup remote="nix-builder@cache.machinology.local" key="/root/.ssh/nix-builder":
+verify-remote-build-setup remote="nix-builder@mach-serve-01" key="/root/.ssh/nix-builder":
     #!/usr/bin/env bash
     echo "Verifying remote build setup for {{remote}}..."
     echo
@@ -428,7 +428,7 @@ verify-remote-build-setup remote="nix-builder@cache.machinology.local" key="/roo
 # run a test distributed build
 [group("verification")]
 [linux]
-test-remote-build remote="ssh-ng://nix-builder@cache.machinology.local" key="/root/.ssh/nix-builder":
+test-remote-build remote="ssh-ng://nix-builder@mach-serve-01" key="/root/.ssh/nix-builder":
     #!/usr/bin/env bash
     echo "Running test build on {{remote}} using key {{key}}..."
     

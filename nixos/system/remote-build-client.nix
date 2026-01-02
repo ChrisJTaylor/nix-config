@@ -18,7 +18,7 @@ in {
       hostName = lib.mkOption {
         type = lib.types.str;
         description = "Hostname of the remote builder";
-        default = "192.168.1.136";
+        default = "mach-serve-01";
       };
 
       system = lib.mkOption {
