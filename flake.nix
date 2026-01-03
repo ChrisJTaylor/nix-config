@@ -111,6 +111,7 @@
             ./nixos/network/dnsmasq.nix
             ./nixos/services/harmonia.nix
             ./nixos/services/remote-builder.nix
+            ./nixos/system/build-performance.nix
             ./home-manager/mach-serve.nix
             {
               environment.systemPackages = [

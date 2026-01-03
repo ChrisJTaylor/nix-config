@@ -43,7 +43,7 @@ in {
       maxJobs = lib.mkOption {
         type = lib.types.int;
         description = "Maximum number of concurrent jobs";
-        default = 4;
+        default = 3;
       };
 
       speedFactor = lib.mkOption {
