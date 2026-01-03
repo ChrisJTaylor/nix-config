@@ -10,6 +10,8 @@
 
       confirm-close-surface = false;
 
+      custom-shader = "~/.ghostty-shaders/bloom.glsl";
+
       clipboard-read = "allow";
       clipboard-write = "allow";
       clipboard-trim-trailing-spaces = true;
