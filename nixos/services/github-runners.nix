@@ -1,12 +1,22 @@
 {
   config,
   lib,
+  approved-packages,
   ...
 }: {
   imports = [
-    (import ./github-runner.nix {name = "mach-runner-1";})
-    (import ./github-runner.nix {name = "mach-runner-2";})
-    (import ./github-runner.nix {name = "mach-runner-3";})
+    (import ./github-runner.nix {
+      inherit approved-packages;
+      name = "mach-runner-1";
+    })
+    (import ./github-runner.nix {
+      inherit approved-packages;
+      name = "mach-runner-2";
+    })
+    (import ./github-runner.nix {
+      inherit approved-packages;
+      name = "mach-runner-3";
+    })
   ];
 
   users.users.github-runner = {
