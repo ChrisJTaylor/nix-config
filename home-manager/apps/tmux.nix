@@ -52,19 +52,25 @@
       set -g status-right-length 150
 
       # Left status: Session with prefix indicator (ULTRA SIMPLIFIED FOR DEBUG)
-      set -g status-left '#[bg=#00d4ff,fg=#0a0e27,bold] 💻 #h 🛸 #{session_name} #[default]'
+      # Randomize accent color (Cyan, Magenta, Green, Yellow, Orange)
+      run-shell '
+        color=$(${approved-packages.coreutils}/bin/shuf -n 1 -e "#00d4ff" "#ff006e" "#00ff9f" "#f9f871" "#ff9e00");
+        tmux set-option -g status-left "#[bg=$color,fg=#0a0e27,bold] 💻 #h 🛸 #{session_name} #[default]";
+        tmux set-option -g window-status-current-format "#[bg=$color,fg=#0a0e27,bold] 🌌 #I:#W #[default]";
+        tmux set-option -g pane-active-border-style "fg=$color,bright";
+      '
 
       # Right status: Basic cyberpunk dashboard (STEP BY STEP)
       set -g status-right '#[bg=#2d3748,fg=#a8b2d1] ⚡ %H:%M #[default] #[bg=#2d3748,fg=#a8b2d1] 📅 %Y-%m-%d #[default]'
 
       # Cyberpunk window status formatting (SIMPLIFIED)
-      set -g window-status-current-format '#[bg=#00d4ff,fg=#0a0e27,bold] 🌌 #I:#W #[default]'
+      # Note: window-status-current-format is now set by the randomization script above
       set -g window-status-format '#[bg=#2d3748,fg=#a8b2d1] 📄 #I:#W #[default]'
       set -g window-status-separator ""
 
       # Enhanced pane styling with cyberpunk borders
       set -g pane-border-style "fg=#2d3748"
-      set -g pane-active-border-style "fg=#00d4ff,bright"
+      # Note: pane-active-border-style is now set by the randomization script above
 
       # Mouse and navigation settings
       set -g mouse on
