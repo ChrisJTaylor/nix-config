@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   virtualisation.containers.enable = true;
   virtualisation = {
     podman = {
@@ -13,5 +11,4 @@
       };
     };
   };
-
 }

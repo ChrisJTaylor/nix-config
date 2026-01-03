@@ -1,4 +1,4 @@
-{ name }: { config, ... }: {
+{name}: {config, ...}: {
   services.github-runners.${name} = {
     enable = true;
     url = "https://github.com/machinology";

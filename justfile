@@ -43,7 +43,7 @@ rebuild-impure name="mach-serve-01" options="": fix-sops-permissions set-github-
 
 # update all flakes in flake.lock to the latest compatible versions
 [group("maintenance")]
-update-flakes flake="":
+update-flakes flake="": 
   nix flake update {{flake}}
 
 # check flake for errors

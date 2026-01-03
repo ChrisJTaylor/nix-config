@@ -34,7 +34,19 @@
     nixvim-config,
     approved-packages,
     ...
-  }: {
+  }: let
+    supportedSystems = ["x86_64-linux" "aarch64-darwin"];
+    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+    nixpkgsFor = forAllSystems (system: import nixpkgs {inherit system;});
+  in {
+    formatter = forAllSystems (system: nixpkgsFor.${system}.alejandra);
+
+    devShells = forAllSystems (system: {
+      default = nixpkgsFor.${system}.mkShell {
+        packages = [nixpkgsFor.${system}.alejandra];
+      };
+    });
+
     nixosConfigurations = let
       system = "x86_64-linux";
       baseModules = [

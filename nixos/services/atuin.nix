@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   services.atuin = {
     enable = true;
   };

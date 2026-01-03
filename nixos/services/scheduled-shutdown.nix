@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.scheduledShutdown;
 in {
   options.services.scheduledShutdown = {
@@ -51,7 +48,10 @@ in {
     systemd.timers.scheduled-shutdown = {
       wantedBy = ["timers.target"];
       timerConfig = {
-        OnCalendar = if cfg.timezone == "local" then cfg.time else "${cfg.timezone} ${cfg.time}";
+        OnCalendar =
+          if cfg.timezone == "local"
+          then cfg.time
+          else "${cfg.timezone} ${cfg.time}";
         Persistent = cfg.persistent;
         RandomizedDelaySec = "30s";
       };
@@ -66,36 +66,40 @@ in {
         ExecStart = let
           shutdownScript = pkgs.writeShellScript "scheduled-shutdown" ''
             set -euo pipefail
-            
+
             SHUTDOWN_TIME="${cfg.time}"
-            DRY_RUN="${if cfg.dryRun then "true" else "false"}"
+            DRY_RUN="${
+              if cfg.dryRun
+              then "true"
+              else "false"
+            }"
             WARNING_MINUTES="${toString cfg.warningMinutes}"
-            
+
             log() {
               echo "$(date '+%Y-%m-%d %H:%M:%S') [scheduled-shutdown] $1"
               logger -t scheduled-shutdown "$1"
             }
-            
+
             if [ "$DRY_RUN" = "true" ]; then
               log "DRY RUN: Would shutdown system at $SHUTDOWN_TIME (warning: ''${WARNING_MINUTES}min before)"
               exit 0
             fi
-            
+
             log "Initiating scheduled shutdown at $SHUTDOWN_TIME"
-            
+
             # Send warning to all logged-in users
             if [ "$WARNING_MINUTES" -gt 0 ]; then
               log "Sending shutdown warning ($WARNING_MINUTES minutes)"
               ${pkgs.util-linux}/bin/wall "SCHEDULED SHUTDOWN: System will shutdown in $WARNING_MINUTES minutes at $SHUTDOWN_TIME. Save your work now!"
-              
+
               # Wait for warning period
               sleep $((WARNING_MINUTES * 60))
             fi
-            
+
             # Final warning
             ${pkgs.util-linux}/bin/wall "SCHEDULED SHUTDOWN: System is shutting down NOW!"
             log "Executing system shutdown"
-            
+
             # Shutdown the system
             ${pkgs.systemd}/bin/systemctl poweroff
           '';

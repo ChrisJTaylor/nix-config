@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   fullRepo = pkgs.fetchFromGitHub {
     owner = "hackr-sh";
     repo = "ghostty-shaders";
@@ -9,8 +8,7 @@ let
     # nix run nixpkgs#nix-prefetch-github -- \
     #    hackr-sh ghostty-shaders --rev a17573fb254e618f92a75afe80faa31fd5e09d6f
   };
-in
-{
+in {
   config = {
     home.file.".ghostty-shaders".source = fullRepo;
   };

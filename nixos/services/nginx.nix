@@ -1,13 +1,11 @@
-{ ... }:
-
-{
+{...}: {
   services.nginx = {
     enable = true;
     recommendedGzipSettings = true;
     recommendedOptimisation = true;
     virtualHosts = {
       "ci.machinology.internal" = {
-        serverAliases = [ "ci-static.machinology.internal" ];
+        serverAliases = ["ci-static.machinology.internal"];
         forceSSL = false;
         enableACME = false;
         locations = {
@@ -30,7 +28,7 @@
       };
 
       "builds.machinology.internal" = {
-        serverAliases = [ "builds-static.machinology.internal" ];
+        serverAliases = ["builds-static.machinology.internal"];
         forceSSL = false;
         enableACME = false;
         locations = {
@@ -41,5 +39,4 @@
       };
     };
   };
-
 }

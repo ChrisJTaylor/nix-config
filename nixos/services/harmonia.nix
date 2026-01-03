@@ -20,7 +20,6 @@
     group = "harmonia";
   };
 
-
   # All other nginx configuration remains the same as above
   networking.firewall.allowedTCPPorts = [22 80];
 

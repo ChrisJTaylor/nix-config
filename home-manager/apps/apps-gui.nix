@@ -5,12 +5,12 @@
   ...
 }: {
   imports = [
-    ./ghostty.nix  # Terminal emulator (GUI)
+    ./ghostty.nix # Terminal emulator (GUI)
   ];
 
-  # GUI-specific packages  
+  # GUI-specific packages
   home.packages = with approved-packages; [
-    cider                    # Music player (GUI)
-    ungoogled-chromium      # Web browser (GUI)
+    cider # Music player (GUI)
+    ungoogled-chromium # Web browser (GUI)
   ];
 }
