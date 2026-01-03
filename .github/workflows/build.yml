@@ -1,0 +1,14 @@
+name: Build with Nix
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: [self-hosted, nix]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Formatting
+        run: nix develop --command just format
+
+      - name: Run Flake Check
+        run: nix develop --command just check
