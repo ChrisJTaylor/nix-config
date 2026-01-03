@@ -1,4 +1,7 @@
-{name}: {config, ...}: {
+{
+  name,
+  approved-packages,
+}: {config, ...}: {
   services.github-runners.${name} = {
     enable = true;
     url = "https://github.com/machinology";
@@ -12,6 +15,13 @@
     nodeRuntimes = [
       "node20"
       "node24"
+    ];
+    extraPackages = with approved-packages; [
+      nodejs_20
+      git
+      just
+      jq
+      yq-go
     ];
     ephemeral = true;
   };

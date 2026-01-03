@@ -7,11 +7,11 @@
         "nixpkgs-latest": "nixpkgs-latest"
       },
       "locked": {
-        "lastModified": 1767441182,
-        "narHash": "sha256-Crci7Y4P7DN/PwW4ZbWIcZtC8XYTXk3/fMQ20MokQFA=",
+        "lastModified": 1767444225,
+        "narHash": "sha256-g7J2WwjISu7wIKh6TlBHZuAbtCpDlBRkxGwganb1Qms=",
         "owner": "machinology",
         "repo": "mach-approved-packages",
-        "rev": "9c8c31d36ad723c56c42d7b827a0f75c2d3a5107",
+        "rev": "2b41e4fd5a47784aa833a84cb9daa900157c4b94",
         "type": "github"
       },
       "original": {
@@ -414,11 +414,11 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1767434379,
-        "narHash": "sha256-+BQls65YYslLfze/BHVo9kAZ8djJvDcVfqnBl1QG6xk=",
+        "lastModified": 1767444342,
+        "narHash": "sha256-IuzgadpvC4UhdeSdrguxp4ET59UdUewd+MWLYLlOjXU=",
         "owner": "machinology",
         "repo": "nixvim-config",
-        "rev": "d409e82abf56daef4f6b30bf52b3fa403bb6b580",
+        "rev": "85d1f679883ff8cf2df84c91c7701bc06c422ebe",
         "type": "github"
       },
       "original": {
