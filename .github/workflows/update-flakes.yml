@@ -8,7 +8,7 @@ on:
         required: false
         type: string
   schedule:
-    - cron: "0 10 * * 6" # weekly on Saturday at 10am
+    - cron: "0 13 * * 6" # weekly on Saturday at 1pm
 
 jobs:
   lockfile:
