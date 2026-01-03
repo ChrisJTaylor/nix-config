@@ -54,7 +54,7 @@
       set -g status-right-length 150
 
       # Left status: Session with prefix indicator (ULTRA SIMPLIFIED FOR DEBUG)
-      set -g status-left '#[bg=#00e6ff,fg=#0f1419,bold] 🛸 #{session_name} #[default]'
+      set -g status-left '#[bg=#00e6ff,fg=#0f1419,bold] 💻 #h 🛸 #{session_name} #[default]'
 
       # Right status: Basic cyberpunk dashboard (STEP BY STEP, BRIGHTER)
       set -g status-right '#[bg=#394758,fg=#ffffff] ⚡ %H:%M #[default] #[bg=#394758,fg=#ffffff] 📅 %Y-%m-%d #[default]'
