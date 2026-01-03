@@ -2,6 +2,11 @@ name: update-flake-lock
 
 on:
   workflow_dispatch:
+    inputs:
+      flakes-to-update:
+        description: "Specific flake inputs to be updated (space-separated. Leave empty to update all flakes."
+        required: false
+        type: string
   schedule:
     - cron: "0 10 * * 6" # weekly on Saturday at 10am
 
@@ -20,3 +25,4 @@ jobs:
           pr-labels: |
             dependencies
             automated
+          inputs: ${{ github.event.inputs.flakes-to-update }}
