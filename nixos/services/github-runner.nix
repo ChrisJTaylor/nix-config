@@ -13,5 +13,6 @@
       "node20"
       "node24"
     ];
+    ephemeral = true;
   };
 }
