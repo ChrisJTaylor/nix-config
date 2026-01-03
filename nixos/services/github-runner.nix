@@ -9,5 +9,9 @@
     replace = true;
     # Run as a dedicated user
     user = "github-runner";
+    nodeRuntimes = [
+      "node20"
+      "node24"
+    ];
   };
 }
