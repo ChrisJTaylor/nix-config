@@ -43,7 +43,10 @@
 
     devShells = forAllSystems (system: {
       default = nixpkgsFor.${system}.mkShell {
-        packages = [nixpkgsFor.${system}.alejandra];
+        packages = [
+          nixpkgsFor.${system}.alejandra
+          nixpkgsFor.${system}.just
+        ];
       };
     });
 
