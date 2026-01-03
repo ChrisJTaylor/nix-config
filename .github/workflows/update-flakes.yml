@@ -20,8 +20,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/update-flake-lock@main
         with:
+          token: ${{ secrets.PR_UPDATE_TOKEN }}
           pr-title: "Update flake inputs"
           pr-labels: |
             dependencies
             automated
+            automerge
           inputs: ${{ github.event.inputs.flakes-to-update }}
