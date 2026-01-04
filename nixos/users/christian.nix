@@ -17,5 +17,8 @@
     packages = with approved-packages; [
       #  thunderbird
     ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDQTnaIVB3/uNe00kL1Xe6sxRoC7BRM2sZHQ+fXMEDzy christian.taylor@machinology.com"
+    ];
   };
 }

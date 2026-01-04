@@ -125,6 +125,7 @@
             ./nixos/network/firewall.nix
             ./nixos/network/dnsmasq.nix
             ./nixos/services/harmonia.nix
+            ./nixos/system/password-less-auth.nix
             ./nixos/services/remote-builder.nix
             ./nixos/system/build-performance.nix
             ./home-manager/mach-serve.nix
@@ -151,6 +152,7 @@
             ./nixos/services/github-runners.nix
             ./nixos/services/scheduled-shutdown.nix
             ./home-manager/mach-serve.nix
+            ./nixos/system/password-less-auth.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./nixos/system/remote-build-client.nix
             {
