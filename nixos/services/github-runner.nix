@@ -18,7 +18,7 @@
     ];
     extraPackages = with approved-packages; [
       nodejs_20
-      nodejs_23
+      nodejs_24
       git
       just
       jq
