@@ -43,7 +43,7 @@ in {
       ssh-private-key = {
         sopsFile = ./ssh-private-key.yaml;
         owner = "christian";
-        group = "/home/christian/.ssh/id_ed25519";
+        path = "/home/christian/.ssh/id_ed25519";
         mode = "0600";
       };
     };
