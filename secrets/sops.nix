@@ -39,6 +39,13 @@ in {
       binary-cache-private-key = {
         sopsFile = ./cache-keys.yaml;
       };
+
+      ssh-private-key = {
+        sopsFile = ./ssh-private-key.yaml;
+        owner = "christian";
+        group = "/home/christian/.ssh/id_ed25519";
+        mode = "0600";
+      };
     };
   };
 }
