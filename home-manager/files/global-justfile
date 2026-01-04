@@ -34,3 +34,13 @@ show-all-dev-env-templates:
 copy-dev-env-template template_name destination=".":
   @src="$HOME/_dev_envs/{{template_name}}" && cp -rT --dereference "$src" "{{destination}}"
 
+# shutdown remote machine
+[group("maintenance")]
+shutdown-remote host username="christian":
+ ssh {{username}}@{{host}}.lan 'sudo shutdown -h now'
+
+# shutdown remote machines
+[group("maintenance")]
+shutdown-remotes:
+  @just shutdown-remote "mach-serve-01"
+  @just shutdown-remote "mach-serve-02"
