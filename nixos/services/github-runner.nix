@@ -18,10 +18,14 @@
     ];
     extraPackages = with approved-packages; [
       nodejs_20
+      nodejs_24
       git
       just
       jq
       yq-go
+      curl
+      gpg
+      gh
     ];
     ephemeral = true;
   };
