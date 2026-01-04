@@ -18,13 +18,13 @@
     ];
     extraPackages = with approved-packages; [
       nodejs_20
-      nodejs_24
+      nodejs_23
       git
       just
       jq
       yq-go
       curl
-      gpg
+      gnupg
       gh
     ];
     ephemeral = true;
