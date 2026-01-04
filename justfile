@@ -337,76 +337,88 @@ _clear_nix_evaluation_cache:
 [group("verification")]
 [linux]
 verify-remote-build-setup remote="ssh-ng://nix-builder@mach-serve-01.lan" key="/root/.ssh/nix-builder":
-    #!/usr/bin/env bash
-    echo "Verifying remote build setup for {{remote}}..."
+  #!/usr/binmenv bash
+  echo "Verifying remote build setup for {{remote}}..."
 
-    # Handle protocol prefixes
-    clean_remote=$(echo "{{remote}}" | sed 's|.*://||')
+  # Handle protocol prefixes
+  clean_remote=$(echo "{{remote}}" | sed 's|.*://||')
 
-    echo
-    
-    echo "1. Checking private key presence..."
-    if sudo test -f "{{key}}"; then
-      echo "✓ Key exists at {{key}}"
-      echo "Fingerprint:"
-      sudo ssh-keygen -lf "{{key}}"
-    else
-      echo "❌ Key not found at {{key}}"
+  echo
+  
+  echo "1. Checking private key presence..."
+  if sudo test -f "{{key}}"; then
+    echo "✓ Key exists at {{key}}"
+    echo "Fingerprint:"
+    sudo ssh-keygen -lf "{{key}}"
+  else
+    echo "❌ Key not found at {{key}}"
+    exit 1
+  fi
+  echo
+  
+  echo "2. Checking network connectivity..."
+  host=$(echo "$clean_remote" | cut -d@ -f2)
+  if ping -c 1 "$host" >/dev/null 2>&1; then
+      echo "✓ Ping to $host successful"
+  else
+      echo "❌ Cannot ping $host"
       exit 1
-    fi
-    echo
-    
-    echo "2. Checking network connectivity..."
-    host=$(echo "$clean_remote" | cut -d@ -f2)
-    if ping -c 1 "$host" >/dev/null 2>&1; then
-        echo "✓ Ping to $host successful"
-    else
-        echo "❌ Cannot ping $host"
-        exit 1
-    fi
-    echo
+  fi
+  echo
 
-    echo "3. Testing SSH connection (verbose)..."
-    if sudo ssh -i "{{key}}" -o StrictHostKeyChecking=no -o ConnectTimeout=5 "$clean_remote" id; then
-        echo "✓ SSH connection successful"
-    else
-        echo "❌ SSH connection failed. Trying verbose mode for details:"
-        sudo ssh -i "{{key}}" -v -o StrictHostKeyChecking=no -o ConnectTimeout=5 "$clean_remote" id || true
-        exit 1
-    fi
-    echo
-    
-    echo "4. Checking Nix store access..."
-    if sudo nix store info --store "ssh-ng://${clean_remote}?ssh-key={{key}}"; then
-        echo "✓ Nix store ping successful"
-    else
-        echo "❌ Nix store ping failed"
-        exit 1
-    fi
+  echo "3. Testing SSH connection (verbose)..."
+  if sudo ssh -i "{{key}}" -o StrictHostKeyChecking=no -o ConnectTimeout=5 "$clean_remote" id; then
+      echo "✓ SSH connection successful"
+  else
+      echo "❌ SSH connection failed. Trying verbose mode for details:"
+      sudo ssh -i "{{key}}" -v -o StrictHostKeyChecking=no -o ConnectTimeout=5 "$clean_remote" id || true
+      exit 1
+  fi
+  echo
+  
+  echo "4. Checking Nix store access..."
+  if sudo nix store info --store "ssh-ng://${clean_remote}?ssh-key={{key}}"; then
+      echo "✓ Nix store ping successful"
+  else
+      echo "❌ Nix store ping failed"
+      exit 1
+  fi
 
 # run a test distributed build
 [group("verification")]
 [linux]
 test-remote-build remote="ssh-ng://nix-builder@mach-serve-01.lan" key="/root/.ssh/nix-builder":
-    #!/usr/bin/env bash
-    echo "Running test build on {{remote}} using key {{key}}..."
-    
-    # Create a small dummy derivation
-    cat > test.nix <<EOF
-    with import <nixpkgs> {};
-    runCommand "distributed-build-test" {} ''
-      echo "Build ran on \$(hostname)" > \$out
-    ''
-    EOF
-    
-    echo "Building..."
-    # We use sudo to access the root-owned key, and pass NIX_SSHOPTS to bypass 
-    # strict host key checking (matching the manual verification step)
-    sudo NIX_SSHOPTS="-o StrictHostKeyChecking=no" nix-build test.nix \
-      --builders "{{remote}} x86_64-linux {{key}} 1 1" \
-      --max-jobs 0
-    
-    echo
-    echo "Build result:"
-    cat result
-    rm test.nix result
+  #!/usr/bin/env bash
+  echo "Running test build on {{remote}} using key {{key}}..."
+  
+  # Create a small dummy derivation
+  cat > test.nix <<EOF
+  with import <nixpkgs> {};
+  runCommand "distributed-build-test" {} ''
+    echo "Build ran on \$(hostname)" > \$out
+  ''
+  EOF
+  
+  echo "Building..."
+  # We use sudo to access the root-owned key, and pass NIX_SSHOPTS to bypass 
+  # strict host key checking (matching the manual verification step)
+  sudo NIX_SSHOPTS="-o StrictHostKeyChecking=no" nix-build test.nix \
+    --builders "{{remote}} x86_64-linux {{key}} 1 1" \
+    --max-jobs 0
+  
+  echo
+  echo "Build result:"
+  cat result
+  rm test.nix result
+
+# Rebuild remote NixOS machines
+[group("maintenance")]
+rebuild-remote host:
+  nixos-rebuild switch --flake .#{{host}} --target-host christian@{{host}}.local --use-remote-sudo
+
+# Rebuild all remote machines
+[group("maintenance")]
+rebuild-all-remote-machines:
+  git pull
+  just rebuild-remote mach-serve-01
+  just rebuild-remote mach-serve-02
