@@ -7,11 +7,11 @@
         "nixpkgs-latest": "nixpkgs-latest"
       },
       "locked": {
-        "lastModified": 1767528735,
+        "lastModified": 1767561379,
         "narHash": "sha256-5VLGVDVZbiRvCMkpifhpLBSTPPWYuJgEu6ugG+W5SnQ=",
         "owner": "machinology",
         "repo": "mach-approved-packages",
-        "rev": "e00af273d48c67af304ed676e7df07a0c3e754d8",
+        "rev": "a713a312ad403a3d62b8cd81753d56d74d6efbff",
         "type": "github"
       },
       "original": {
