@@ -414,7 +414,7 @@ test-remote-build remote="ssh-ng://nix-builder@mach-serve-01.lan" key="/root/.ss
 # Rebuild remote NixOS machines
 [group("maintenance")]
 rebuild-remote host:
-  nixos-rebuild switch --flake .#{{host}} --target-host christian@{{host}}.local --use-remote-sudo
+  nixos-rebuild switch --flake .#{{host}} --target-host christian@{{host}}.lan --use-remote-sudo
 
 # Rebuild all remote machines
 [group("maintenance")]
