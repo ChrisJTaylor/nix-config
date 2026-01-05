@@ -26,7 +26,7 @@
       curl
       gnupg
       gh
-      cog
+      cocogitto
     ];
     ephemeral = true;
   };
