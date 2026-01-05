@@ -40,7 +40,7 @@ in {
         sopsFile = ./cache-keys.yaml;
       };
 
-      ssh-private-key = {
+      ssh-private-key = lib.mkIf isLinux {
         sopsFile = ./ssh-private-key.yaml;
         owner = "christian";
         path = "/home/christian/.ssh/id_ed25519";
