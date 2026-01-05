@@ -13,10 +13,9 @@
     # Ollama data directory (models, etc)
     home = "/var/lib/ollama";
 
-    # Set environment variables if needed
-    environment = {
-      OLLAMA_ORIGINS = "*"; # Allow CORS if needed
-    };
+    loadModels = [
+      "codellama:7b-instruct"
+    ];
   };
 
   # Open firewall for Ollama
