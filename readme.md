@@ -1,72 +1,104 @@
-# NixOS configs
+# NixOS Configuration
 
-This repository contains NixOS configurations for multiple hosts, using a centralized package management approach through the [approved-packages](https://github.com/ChrisJTaylor/approved-packages) repository.
+This repository contains NixOS and nix-darwin configurations for my personal and work infrastructure. It features a centralized package management approach using [approved-packages](https://github.com/machinology/mach-approved-packages) to ensure consistency, security, and unified handling of unfree licenses across all environments.
 
-## Package Management
+## 🌟 Key Features
 
-**✅ Migration Complete**: This configuration now uses the centralized [approved-packages](https://github.com/ChrisJTaylor/approved-packages) repository for all package dependencies. This approach:
+- **Centralized Package Management**: All packages are sourced from a single "approved" flake input.
+- **Multi-Platform Support**: Unified configs for Linux (NixOS), macOS (nix-darwin), and WSL.
+- **Secret Management**: SOPS-nix integration for encrypted secrets.
+- **Development Environments**: Pre-configured, reproducible dev shells for various languages.
+- **Binary Caching**: Custom Harmonia binary cache for faster builds.
+- **Automation**: Extensive `justfile` for common maintenance tasks.
 
-- **Centralizes package management** across multiple NixOS configurations
-- **Enables unfree package support** with consistent licensing handling
-- **Simplifies maintenance** by managing packages in one location
-- **Ensures consistency** across development environments
-
-All package references now go through the `approved-packages` flake input, providing a curated and controlled package ecosystem.
-
-## How to setup
-- Install basic NixOS installation
-  - [Downloads and installs](https://nixos.org/download/)
-  - [NixOS-WSL](https://github.com/nix-community/NixOS-WSL)
-- Clone the repo with `nix-shell -p git --run git clone https://github.com/ChrisJTaylor/nix-configs.git`
-- `cd` into the repo folder
-- For MacOS based nix, run `darwin-rebuild switch --flake '.#<host-name>'`
-- For all others, run `sudo nixos-rebuild switch --flake '.#<host-name>'`
-  - You may have to add `--impure` for wsl
-
-## Available Configurations
-
-- **big-mach**: Desktop Linux configuration
-- **big-machbook**: MacBook configuration  
-- **home-wsl**: Personal WSL configuration (✅ Tested and working)
-- **work-wsl**: Work WSL configuration
-
-## Development
-
-### Build Commands
-Use the included `justfile` for common operations:
-- `just rebuild <hostname>` - Rebuild system configuration
-- `just update-flakes [flake-name]` - Update flake dependencies
-- `just` - List all available commands
-
-### Migration History
-
-**October 2024**: Successfully migrated from direct package references to centralized package management:
-- **Before**: Packages referenced directly from nixpkgs in each module
-- **After**: All packages managed through approved-packages repository
-- **Benefits**: Centralized control, unfree package support, consistency across environments
-- **Status**: ✅ Complete - WSL configuration tested and working
-
-### Repository Structure
+## 🏗️ Repository Structure
 
 ```
-├── home-manager/          # User-level configurations
-│   ├── apps/             # Application configurations  
-│   └── files/            # User files and configurations
-├── nixos/                # System-level configurations
-│   ├── apps/             # System applications
-│   ├── hosts/            # Host-specific configurations
-│   ├── network/          # Network configurations
-│   ├── services/         # System services
-│   ├── system/           # System settings
-│   └── users/            # User definitions
-├── secrets/              # SOPS encrypted secrets
-├── flake.nix            # Main flake configuration
-└── justfile             # Build automation commands
+├── home-manager/           # User-level configurations
+│   ├── apps/               # Application-specific configs (git, zsh, tmux)
+│   ├── files/_dev_envs/    # Reproducible dev environment templates
+│   └── home-*.nix          # Host-specific user entry points
+├── nixos/                  # System-level configurations
+│   ├── apps/               # System-wide application bundles
+│   ├── hosts/              # Machine-specific hardware/boot configs
+│   ├── network/            # Networking (DNS, firewall, bridges)
+│   ├── services/           # System services (SSH, builds, etc.)
+│   └── users/              # User definitions
+├── secrets/                # SOPS-encrypted secrets
+└── justfile                # Command runner definitions
 ```
 
-## Useful links
-- [Nix Learn](https://nixos.org/learn/)
-- [Nix Search Packages](https://search.nixos.org/packages)
-- [Nix Options](https://search.nixos.org/options)
-- [The Nix Way: dev-templates](https://github.com/the-nix-way/dev-templates)
-- [NixVim - documentation](https://nix-community.github.io/nixvim/)
+## 🖥️ Supported Hosts
+
+### Linux / NixOS
+- **big-mach**: Primary desktop workstation
+- **big-machbook**: Linux laptop configuration
+- **think-mach**: ThinkPad configuration
+- **mach-serve-01 / 02**: Server infrastructure
+- **home-wsl**: Personal Windows Subsystem for Linux
+- **work-wsl**: Work Windows Subsystem for Linux
+
+### macOS
+- **machbook**: MacBook Pro (nix-darwin)
+
+## 🚀 Getting Started
+
+1. **Install Nix**:
+   Follow the [official installer](https://nixos.org/download/) or use [NixOS-WSL](https://github.com/nix-community/NixOS-WSL).
+
+2. **Clone Repository**:
+   ```bash
+   nix-shell -p git --run "git clone https://github.com/ChrisJTaylor/nix-configs.git"
+   cd nix-configs
+   ```
+
+3. **Setup Secrets & Auth**:
+   You will need access to the private keys for SOPS decryption and GitHub authentication for the approved-packages flake.
+   ```bash
+   just fix-sops-permissions
+   just set-github-auth
+   ```
+
+4. **Build System**:
+   ```bash
+   # For Linux/NixOS
+   just sudo-rebuild <hostname>
+
+   # For macOS
+   just sudo-clean-rebuild-impure <hostname>
+   ```
+
+## 🛠️ Common Tasks
+
+We use `just` as a command runner. Run `just` with no arguments to see all available commands.
+
+### System Maintenance
+- `just check` - Validate configuration and run checks
+- `just format` - Format all Nix files
+- `just update-flakes [name]` - Update flake.lock dependencies
+- `just bump` - Bump version based on conventional commits
+
+### Binary Cache
+- `just cache-health-check` - Diagnose cache connectivity
+- `just test-cache-performance` - Compare local vs cache speeds
+
+### Development Environments
+Templates located in `home-manager/files/_dev_envs/` provide standardized tooling for:
+- Rust (`just run`, `just test`, `just watch-tests`)
+- Python (`just restore`, `just shell`)
+- Go, .NET, Lua, Zig, and more.
+
+## 📦 Package Philosophy
+
+**Note:** This repository does not reference `nixpkgs` directly in modules.
+Instead, it uses the `approved-packages` input. This ensures:
+1. **Security**: All packages are explicitly approved.
+2. **Stability**: Shared lockfile across all hosts.
+3. **Compliance**: Centralized handling of unfree licenses.
+
+## 🔒 Secrets
+
+Secrets are managed via [sops-nix](https://github.com/Mic92/sops-nix).
+- Encrypted files reside in `secrets/`.
+- Keys are located in `/etc/sops/age/keys.txt`.
+- Run `just fix-sops-permissions` if you encounter decryption errors during builds.
