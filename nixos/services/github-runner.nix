@@ -26,6 +26,7 @@
       curl
       gnupg
       gh
+      cog
     ];
     ephemeral = true;
   };
