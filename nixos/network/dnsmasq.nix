@@ -12,6 +12,7 @@
         "/ollama.machinology.internal/192.168.1.136"
         "/cache.machinology.internal/192.168.1.136"
         "/remote-builder.machinology.internal/192.168.1.136"
+        "/chat.machinology.internal/192.168.1.246"
         "/prometheus.machinology.internal/192.168.1.246"
         "/dashboards.machinology.internal/192.168.1.246"
       ];
