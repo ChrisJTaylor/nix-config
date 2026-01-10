@@ -337,7 +337,7 @@ _clear_nix_evaluation_cache:
 [group("verification")]
 [linux]
 verify-remote-build-setup remote="ssh-ng://nix-builder@mach-serve-01.lan" key="/root/.ssh/nix-builder":
-  #!/usr/binmenv bash
+  #!/usr/bin/env bash
   echo "Verifying remote build setup for {{remote}}..."
 
   # Handle protocol prefixes
