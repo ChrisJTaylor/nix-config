@@ -6,7 +6,7 @@
   services.open-webui = {
     enable = true;
 
-    port = 8080;
+    port = 3000;
 
     environment = {
       OLLAMA_BASE_URL = "http://192.168.1.200:11434";
@@ -23,7 +23,7 @@
 
     virtualHosts."chat.machinology.local" = {
       locations."/" = {
-        proxyPass = "http://127.0.0.1:8080";
+        proxyPass = "http://127.0.0.1:3000";
         proxyWebsockets = true;
         extraConfig = ''
           proxy_set_header Host $host;
