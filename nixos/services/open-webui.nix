@@ -23,7 +23,7 @@
 
     virtualHosts."chat.machinology.internal" = {
       locations."/" = {
-        proxyPass = "http://127.0.0.1:8080";
+        proxyPass = "http://127.0.0.1:3000";
         proxyWebsockets = true;
         extraConfig = ''
           proxy_set_header Host $host;
