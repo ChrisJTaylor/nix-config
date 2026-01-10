@@ -125,6 +125,7 @@
             ./nixos/network/firewall.nix
             ./nixos/network/dnsmasq.nix
             ./nixos/services/harmonia.nix
+            ./nixos/services/open-webui.nix
             ./nixos/system/password-less-auth.nix
             ./nixos/services/remote-builder.nix
             ./nixos/system/build-performance.nix
