@@ -128,7 +128,6 @@
             ./nixos/system/password-less-auth.nix
             ./nixos/services/remote-builder.nix
             ./nixos/system/build-performance.nix
-            ./nixos/services/ollama.nix
             ./home-manager/mach-serve.nix
             {
               environment.systemPackages = [
