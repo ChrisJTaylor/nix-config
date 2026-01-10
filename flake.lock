@@ -7,11 +7,11 @@
         "nixpkgs-latest": "nixpkgs-latest"
       },
       "locked": {
-        "lastModified": 1767904323,
-        "narHash": "sha256-fOBy8veLateowMGnr0/2XNArRzsCuBgOTNpFJLQvczk=",
+        "lastModified": 1767980445,
+        "narHash": "sha256-uuRGUhCrm6/LaTG8on6+zlzv8/PJY3RNaQPMY+hZzeo=",
         "owner": "machinology",
         "repo": "mach-approved-packages",
-        "rev": "04c2c1983aa2b8962fff97d2bf3ca69de5574d45",
+        "rev": "d6f0e6d82d2f6da099c1de05a1f3c33890c0b1c3",
         "type": "github"
       },
       "original": {
@@ -245,11 +245,11 @@
     },
     "nixpkgs-latest": {
       "locked": {
-        "lastModified": 1767767207,
-        "narHash": "sha256-Mj3d3PfwltLmukFal5i3fFt27L6NiKXdBezC1EBuZs4=",
+        "lastModified": 1767892417,
+        "narHash": "sha256-dhhvQY67aboBk8b0/u0XB6vwHdgbROZT3fJAjyNh5Ww=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5912c1772a44e31bf1c63c0390b90501e5026886",
+        "rev": "3497aa5c9457a9d88d71fa93a4a8368816fbeeba",
         "type": "github"
       },
       "original": {
