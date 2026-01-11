@@ -27,6 +27,7 @@
       gnupg
       gh
       cocogitto
+      go_1_24
     ];
     ephemeral = true;
   };
