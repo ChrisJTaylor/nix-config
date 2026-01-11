@@ -29,9 +29,6 @@
       cocogitto
       go_1_24
     ];
-    extraEnvironment = {
-      OLLAMA_URL = "http://ollama.machinology.internal:11434";
-    };
     ephemeral = true;
   };
 }
