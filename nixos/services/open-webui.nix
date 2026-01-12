@@ -1,10 +1,11 @@
 {
   config,
-  pkgs,
+  approved-packages,
   ...
 }: {
   services.open-webui = {
     enable = true;
+    package = approved-packages.open-webui_latest;
 
     port = 3000;
 
