@@ -4,14 +4,15 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-latest": "nixpkgs-latest"
+        "nixpkgs-latest": "nixpkgs-latest",
+        "opencode": "opencode"
       },
       "locked": {
-        "lastModified": 1768196482,
-        "narHash": "sha256-21rbR6Onulqn8rEjpYmz5fuZklH3G06NbGSdPwuggss=",
+        "lastModified": 1768294150,
+        "narHash": "sha256-zRSRZ6mn+fZTIBtR/MIxZf9pef2r1fd2C98BXkgJ0JY=",
         "owner": "machinology",
         "repo": "mach-approved-packages",
-        "rev": "12022080d00885c6963e40dcfe85263d033fc4cb",
+        "rev": "b4585e82bdd550b1b675f8bef4bd50ecfa240d73",
         "type": "github"
       },
       "original": {
@@ -245,11 +246,11 @@
     },
     "nixpkgs-latest": {
       "locked": {
-        "lastModified": 1767892417,
-        "narHash": "sha256-dhhvQY67aboBk8b0/u0XB6vwHdgbROZT3fJAjyNh5Ww=",
+        "lastModified": 1768127708,
+        "narHash": "sha256-1Sm77VfZh3mU0F5OqKABNLWxOuDeHIlcFjsXeeiPazs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "3497aa5c9457a9d88d71fa93a4a8368816fbeeba",
+        "rev": "ffbc9f8cbaacfb331b6017d5a5abb21a492c9a38",
         "type": "github"
       },
       "original": {
@@ -341,11 +342,11 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1767892417,
-        "narHash": "sha256-dhhvQY67aboBk8b0/u0XB6vwHdgbROZT3fJAjyNh5Ww=",
+        "lastModified": 1768127708,
+        "narHash": "sha256-1Sm77VfZh3mU0F5OqKABNLWxOuDeHIlcFjsXeeiPazs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3497aa5c9457a9d88d71fa93a4a8368816fbeeba",
+        "rev": "ffbc9f8cbaacfb331b6017d5a5abb21a492c9a38",
         "type": "github"
       },
       "original": {
@@ -414,16 +415,37 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1768163059,
-        "narHash": "sha256-E6LV41yYCNwYNJAHh95QKM0SerU2Ru75mUPQ1h5Xvoc=",
+        "lastModified": 1768245000,
+        "narHash": "sha256-p2s0MPG1tJkinW7VkRHItGZMHYaaXTLibtqxMKgjXFE=",
         "owner": "machinology",
         "repo": "nixvim-config",
-        "rev": "86c7967410835c70b0613941943bf2bd9c086a28",
+        "rev": "9dbcb94c0f0bc53090cbe48a35f3f2c99b1e1bd1",
         "type": "github"
       },
       "original": {
         "owner": "machinology",
         "repo": "nixvim-config",
+        "type": "github"
+      }
+    },
+    "opencode": {
+      "inputs": {
+        "nixpkgs": [
+          "approved-packages",
+          "nixpkgs-latest"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768289574,
+        "narHash": "sha256-JiJiIMWDcYUV59aH7DzOYxKkY5riHWJZN54Rn+THisc=",
+        "owner": "anomalyco",
+        "repo": "opencode",
+        "rev": "ddd9c71cca1f30a8214174fc10975e2ff3bb4635",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anomalyco",
+        "repo": "opencode",
         "type": "github"
       }
     },
