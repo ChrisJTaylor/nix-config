@@ -7,21 +7,21 @@
   imports = [
     (import ./github-runner.nix {
       inherit approved-packages;
-      name = "mach-runner-1";
-      labels = ["nix" "nixos"];
-      max-memory = "10G";
+      name = "mach-darwin-runner-1";
+      labels = ["macOS" "ios"];
+      max-memory = "20G";
     })
     (import ./github-runner.nix {
       inherit approved-packages;
-      name = "mach-runner-2";
-      labels = ["nix" "nixos"];
-      max-memory = "10G";
+      name = "mach-darwin-runner-2";
+      labels = ["macOS" "ios"];
+      max-memory = "20G";
     })
     (import ./github-runner.nix {
       inherit approved-packages;
-      name = "mach-runner-3";
-      labels = ["nix" "nixos"];
-      max-memory = "10G";
+      name = "mach-darwin-runner-3";
+      labels = ["macOS" "ios"];
+      max-memory = "20G";
     })
   ];
 

@@ -1,5 +1,7 @@
 {
   name,
+  labels,
+  max-memory,
   approved-packages,
 }: {config, ...}: {
   services.github-runners.${name} = {
@@ -8,6 +10,9 @@
     tokenFile = config.sops.secrets.github-runner-token.path;
     inherit name;
     extraLabels = ["nix" "nixos"];
+    serviceOverrides = {
+      MemoryMax = max-memory;
+    };
     # Replace the runner if the token changes
     replace = true;
     # Run as a dedicated user

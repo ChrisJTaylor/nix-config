@@ -126,9 +126,9 @@
             ./nixos/network/dnsmasq.nix
             ./nixos/services/harmonia.nix
             ./nixos/services/open-webui.nix
-            ./nixos/system/password-less-auth.nix
             ./nixos/services/remote-builder.nix
             ./nixos/system/build-performance.nix
+            ./nixos/system/password-less-auth.nix
             ./home-manager/mach-serve.nix
             {
               environment.systemPackages = [
@@ -281,6 +281,48 @@
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/fzf-git.nix
           ./nixos/system/harmonia-cache-consumer.nix
+          sops-nix.darwinModules.sops
+          ./secrets/sops.nix
+          {
+            environment.systemPackages = [
+              nixvim-config.packages.aarch64-darwin.default
+            ];
+          }
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              approved-packages = approved-packages.packages.${system};
+            };
+          }
+          ./home-manager/home-darwin.nix
+        ];
+      };
+
+      mach-studio = darwin.lib.darwinSystem {
+        specialArgs = {
+          inherit inputs system;
+          approved-packages = approved-packages.packages.${system};
+        };
+        modules = [
+          {
+            nixpkgs.hostPlatform = system;
+          }
+          ./nixos/network/nameservers-darwin.nix
+          ./nixos/system/yabai.nix
+          ./nixos/apps/zsh-darwin.nix
+          ./nixos/apps/direnv.nix
+          ./nixos/apps/common.nix
+          ./nixos/hosts/machbook/configuration.nix
+          ./nixos/system/nix-registries.nix
+          ./nixos/users/christiantaylor.nix
+          ./nixos/apps/fzf-git.nix
+          ./nixos/services/harmonia.nix
+          ./nixos/services/open-webui.nix
+          ./nixos/services/remote-builder.nix
+          ./nixos/system/build-performance.nix
+          ./nixos/services/github-runners-mac.nix
           sops-nix.darwinModules.sops
           ./secrets/sops.nix
           {
