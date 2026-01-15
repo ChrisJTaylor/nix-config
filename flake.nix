@@ -296,7 +296,7 @@
               approved-packages = approved-packages.packages.${system};
             };
           }
-          ./home-manager/home-darwin.nix
+          ./home-manager/home-machbookpro.nix
         ];
       };
 
@@ -319,9 +319,8 @@
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/fzf-git.nix
           ./nixos/services/harmonia.nix
-          ./nixos/services/open-webui.nix
-          ./nixos/services/remote-builder.nix
-          ./nixos/system/build-performance.nix
+          ./nixos/services/ollama.nix
+          ./nixos/system/build-performance-mac.nix
           ./nixos/services/github-runners-mac.nix
           sops-nix.darwinModules.sops
           ./secrets/sops.nix
@@ -338,7 +337,7 @@
               approved-packages = approved-packages.packages.${system};
             };
           }
-          ./home-manager/home-darwin.nix
+          ./home-manager/home-mach-studio.nix
         ];
       };
     };

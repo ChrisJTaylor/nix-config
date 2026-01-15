@@ -9,19 +9,19 @@
       inherit approved-packages;
       name = "mach-darwin-runner-1";
       labels = ["macOS" "ios"];
-      max-memory = "20G";
+      max-memory = "10G";
     })
     (import ./github-runner.nix {
       inherit approved-packages;
       name = "mach-darwin-runner-2";
       labels = ["macOS" "ios"];
-      max-memory = "20G";
+      max-memory = "10G";
     })
     (import ./github-runner.nix {
       inherit approved-packages;
       name = "mach-darwin-runner-3";
       labels = ["macOS" "ios"];
-      max-memory = "20G";
+      max-memory = "10G";
     })
   ];
 

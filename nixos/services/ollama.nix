@@ -14,7 +14,6 @@
     home = "/var/lib/ollama";
 
     loadModels = [
-      "codellama:7b-instruct"
     ];
   };
 
