@@ -9,7 +9,6 @@ in {
   # Common packages across all environments
   home.packages = with approved-packages;
     [
-      ranger
     ]
     ++ lib.optional isLinux approved-packages.bcompare;
 
