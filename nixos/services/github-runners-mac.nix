@@ -43,13 +43,10 @@
 
   sops.secrets.github-runner-token = {
     sopsFile = ../../secrets/github-runners.yaml;
+    owner = "github-runner";
+    group = "github-runner";
+    mode = "0400";
   };
 
-  system.activationScripts.github-runner-permissions = {
-    text = ''
-      echo "Setting permissions for github-runner token..."
-      chown github-runner:github-runner ${config.sops.secrets.github-runner-token.path}
-    '';
-    deps = ["users"];
-  };
+
 }
