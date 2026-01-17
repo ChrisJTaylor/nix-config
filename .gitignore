@@ -1,7 +1,7 @@
 # nix files
 .direnv/
 .envrc
-result/
+result
 .opencode/
 
 # generated files

@@ -3,14 +3,19 @@
   labels,
   max-memory,
   approved-packages,
-}: {config, ...}: {
+}: {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   services.github-runners.${name} = {
     enable = true;
     url = "https://github.com/machinology";
     tokenFile = config.sops.secrets.github-runner-token.path;
     inherit name;
-    extraLabels = ["nix" "nixos"];
-    serviceOverrides = {
+    extraLabels = labels;
+    serviceOverrides = lib.optionalAttrs pkgs.stdenv.isLinux {
       MemoryMax = max-memory;
     };
     # Replace the runner if the token changes

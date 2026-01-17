@@ -317,6 +317,8 @@
           ./nixos/system/nix-registries.nix
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/fzf-git.nix
+          ./nixos/services/ollama-daemon.nix
+          ./nixos/services/github-runners-mac.nix
           sops-nix.darwinModules.sops
           ./secrets/sops.nix
           {
