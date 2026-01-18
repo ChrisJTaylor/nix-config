@@ -22,6 +22,7 @@
     sops
     age
     cocogitto
+    opencode
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
