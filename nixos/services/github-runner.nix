@@ -38,6 +38,7 @@
       gh
       cocogitto
       go_1_24
+      opencode-latest
     ];
     ephemeral = true;
   };
