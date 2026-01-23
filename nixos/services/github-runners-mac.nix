@@ -47,6 +47,4 @@
     group = "github-runner";
     mode = "0400";
   };
-
-
 }

@@ -10,6 +10,7 @@ _default:
 [macos]
 sudo-clean-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth _update-mach-inputs
   sudo darwin-rebuild switch --flake '.#{{name}}' --impure {{options}}
+  -just _restart-runners-if-mach-studio {{name}}
 
 # rebuild the current system configuration
 [group("rebuilds")]
@@ -22,6 +23,7 @@ sudo-clean-rebuild-impure name="home-wsl" options="": fix-sops-permissions set-g
 [macos]
 sudo-rebuild-impure name="machbook" options="": _backup-files fix-sops-permissions set-github-auth _update-mach-inputs
  sudo darwin-rebuild switch --flake '.#{{name}}' --impure {{options}}
+ -just _restart-runners-if-mach-studio {{name}}
 
 # rebuild the current system configuration
 [group("rebuilds")]
@@ -333,6 +335,14 @@ _clear_nix_evaluation_cache:
   sudo rm -rf /nix/var/nix/gcroots/auto/*
   nix-collect-garbage
 
+_restart-runners-if-mach-studio name:
+  #!/usr/bin/env bash
+  if [ "{{name}}" = "mach-studio" ]; then
+    echo
+    echo "Restarting GitHub runners for mach-studio..."
+    just restart-github-runners
+  fi
+
 # verify distributed build setup
 [group("verification")]
 [linux]
@@ -422,3 +432,90 @@ rebuild-all-remote-machines:
   git pull
   just rebuild-remote mach-serve-01
   just rebuild-remote mach-serve-02
+
+# restart GitHub runners (macOS)
+[group("github-runners")]
+[macos]
+restart-github-runners:
+  #!/usr/bin/env bash
+  echo "Setting up SOPS secrets..."
+  sudo launchctl bootout system/org.nixos.sops-install-secrets 2>/dev/null || true
+  sudo launchctl bootstrap system /Library/LaunchDaemons/org.nixos.sops-install-secrets.plist
+  sudo launchctl kickstart -k system/org.nixos.sops-install-secrets
+  sleep 2
+  echo "✓ SOPS secrets installed"
+  echo
+  echo "Restarting GitHub runners..."
+  for runner in mach-darwin-runner-1 mach-darwin-runner-2 mach-darwin-runner-3; do
+    echo "Stopping $runner..."
+    sudo launchctl bootout system/org.nixos.github-runner-$runner 2>/dev/null || true
+    echo "Starting $runner..."
+    sudo launchctl bootstrap system /Library/LaunchDaemons/org.nixos.github-runner-$runner.plist
+    echo "✓ $runner restarted"
+  done
+  echo
+  echo "Checking runner status..."
+  just status-github-runners
+
+# check status of GitHub runners (macOS)
+[group("github-runners")]
+[macos]
+status-github-runners:
+  #!/usr/bin/env bash
+  echo "GitHub Runner Status:"
+  echo "===================="
+  for runner in mach-darwin-runner-1 mach-darwin-runner-2 mach-darwin-runner-3; do
+    echo
+    echo "Runner: $runner"
+    if sudo launchctl print system/org.nixos.github-runner-$runner >/dev/null 2>&1; then
+      echo "  Status: ✓ Running"
+      sudo launchctl print system/org.nixos.github-runner-$runner | grep -E "state|last exit code" || true
+    else
+      echo "  Status: ❌ Not loaded"
+    fi
+  done
+
+# view logs for GitHub runner (macOS)
+[group("github-runners")]
+[macos]
+logs-github-runner runner="mach-darwin-runner-1" lines="50":
+  #!/usr/bin/env bash
+  echo "=== STDOUT ==="
+  sudo tail -n {{lines}} /var/log/github-runners/{{runner}}/launchd-stdout.log
+  echo
+  echo "=== STDERR ==="
+  sudo tail -n {{lines}} /var/log/github-runners/{{runner}}/launchd-stderr.log
+
+# restart GitHub runners (Linux)
+[group("github-runners")]
+[linux]
+restart-github-runners:
+  #!/usr/bin/env bash
+  echo "Restarting GitHub runners..."
+  for runner in debian-runner-1 debian-runner-2 debian-runner-3; do
+    echo "Restarting $runner..."
+    sudo systemctl restart github-runner-$runner
+    echo "✓ $runner restarted"
+  done
+  echo
+  echo "Checking runner status..."
+  just status-github-runners
+
+# check status of GitHub runners (Linux)
+[group("github-runners")]
+[linux]
+status-github-runners:
+  #!/usr/bin/env bash
+  echo "GitHub Runner Status:"
+  echo "===================="
+  for runner in debian-runner-1 debian-runner-2 debian-runner-3; do
+    echo
+    echo "Runner: $runner"
+    sudo systemctl status github-runner-$runner --no-pager | head -n 10
+  done
+
+# view logs for GitHub runner (Linux)
+[group("github-runners")]
+[linux]
+logs-github-runner runner="debian-runner-1" lines="50":
+  sudo journalctl -u github-runner-{{runner}} -n {{lines}}

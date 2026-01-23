@@ -7,6 +7,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   services.github-runners.${name} = {
@@ -15,6 +16,8 @@
     tokenFile = config.sops.secrets.github-runner-token.path;
     inherit name;
     extraLabels = labels;
+    # Use unstable github-runner to avoid deprecated version
+    package = inputs.unstable.legacyPackages.${pkgs.system}.github-runner;
     serviceOverrides = lib.optionalAttrs pkgs.stdenv.isLinux {
       MemoryMax = max-memory;
     };

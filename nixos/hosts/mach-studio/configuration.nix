@@ -18,5 +18,4 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   networking.hostName = "mach-studio"; # Define your hostname.
-
 }
