@@ -486,6 +486,12 @@ logs-github-runner runner="mach-darwin-runner-1" lines="50":
   echo "=== STDERR ==="
   sudo tail -n {{lines}} /var/log/github-runners/{{runner}}/launchd-stderr.log
 
+# check GitHub runner version (macOS)
+[group("github-runners")]
+[macos]
+show-github-runner-version:
+  nix eval .#darwinConfigurations.${HOSTNAME}.config.services.github-runners.mach-darwin-runner-1.package.version --raw 2>&1 | grep -v warning
+
 # restart GitHub runners (Linux)
 [group("github-runners")]
 [linux]
@@ -519,3 +525,21 @@ status-github-runners:
 [linux]
 logs-github-runner runner="debian-runner-1" lines="50":
   sudo journalctl -u github-runner-{{runner}} -n {{lines}}
+
+# check GitHub runner version (Linux)
+[group("github-runners")]
+[linux]
+show-current-github-runner-version:
+  #!/usr/bin/env bash
+  nix eval .#nixosConfigurations.$(HOSTNAME).config.services.github-runners.debian-runner-1.package.version --raw 2>&1 | grep -v warning
+
+# check latest GitHub runner version available
+[group("github-runners")]
+check-github-runner-latest-version:
+  #!/usr/bin/env bash
+  echo "Fetching latest GitHub runner version..."
+  latest=$(curl -s https://api.github.com/repos/actions/runner/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+  echo "Latest GitHub Runner version: $latest"
+  echo
+  current=$(just show-github-runner-version)
+  echo "Your configured version: $current"

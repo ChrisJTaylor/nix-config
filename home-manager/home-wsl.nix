@@ -1,4 +1,4 @@
-{...}: {
+{osConfig, ...}: {
   home-manager.backupFileExtension = "bakk";
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
@@ -22,5 +22,11 @@
     # want to update the value, then make sure to first check the Home Manager
     # release notes.
     home.stateVersion = "23.11"; # Please read the comment before changing.
+
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      NIXPKGS_ALLOW_UNFREE = 1;
+      HOSTNAME = osConfig.networking.hostName;
+    };
   };
 }

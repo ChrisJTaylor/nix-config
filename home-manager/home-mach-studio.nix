@@ -1,4 +1,4 @@
-{...}: {
+{config, osConfig, ...}: {
   home-manager.backupFileExtension = "bakk";
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
@@ -27,6 +27,7 @@
     home.sessionVariables = {
       EDITOR = "nvim";
       NIXPKGS_ALLOW_UNFREE = 1;
+      HOSTNAME = osConfig.networking.hostName;
     };
 
     # Let Home Manager install and manage itself.
