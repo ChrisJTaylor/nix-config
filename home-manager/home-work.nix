@@ -1,4 +1,4 @@
-{osConfig, ...}: {
+{config, ...}: {
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.sharedModules = [
@@ -25,7 +25,7 @@
     home.sessionVariables = {
       EDITOR = "nvim";
       NIXPKGS_ALLOW_UNFREE = 1;
-      HOSTNAME = osConfig.networking.hostName;
+      HOSTNAME = config.networking.hostName;
     };
   };
 }
