@@ -1,4 +1,8 @@
-{approved-packages, config, ...}: {
+{
+  approved-packages,
+  config,
+  ...
+}: {
   home-manager.backupFileExtension = "bakk";
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;

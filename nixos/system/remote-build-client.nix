@@ -77,6 +77,15 @@ in {
 
     # Configure SSH key secret if this host has a corresponding secrets file
     (lib.mkIf (cfg.enable && hasSecretsFile) {
+      # Ensure /root/.ssh directory exists before SOPS tries to create the key
+      system.activationScripts.createRootSshDir = {
+        text = ''
+          mkdir -p /root/.ssh
+          chmod 700 /root/.ssh
+        '';
+        deps = [];
+      };
+
       sops.secrets.nix-builder-ssh-key = {
         sopsFile = secretsFile;
         path = cfg.sshKeyPath;
