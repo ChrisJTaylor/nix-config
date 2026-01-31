@@ -34,7 +34,8 @@
         "ctrl+b>d=toggle_window_decorations"
       ];
 
-      font-family = "SauceCodePro NFM";
+      font-family = "SauceCodePro NF";
+      font-size = 14;
     };
 
     themes = {};
