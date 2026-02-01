@@ -416,15 +416,16 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1769928086,
-        "narHash": "sha256-SWWryFKs5q0MrLsTcMXlrJyHM5lFuE72LEXg4Yz8Jqo=",
+        "lastModified": 1769931417,
+        "narHash": "sha256-MkV6MAMvabD0Qu9zGRCS8jwthHRrEX4DbPRy6rcT1jA=",
         "owner": "machinology",
         "repo": "nixvim-config",
-        "rev": "9ec78936a7df32ec1c729cdf6161b72225a92b5b",
+        "rev": "dcf368279c8d21d13bede98ff7c6037d37e2d4e6",
         "type": "github"
       },
       "original": {
         "owner": "machinology",
+        "ref": "more-dotnet-improvements",
         "repo": "nixvim-config",
         "type": "github"
       }
