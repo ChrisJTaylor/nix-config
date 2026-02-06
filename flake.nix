@@ -206,6 +206,7 @@
             ./nixos/system/remote-build-client.nix
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
+            ./nixos/apps/work.nix
             ./home-manager/home-think-mach.nix
             {
               environment.systemPackages = [
