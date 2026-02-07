@@ -165,6 +165,29 @@
           ++ commonModules;
       };
 
+      mach-serve-0w = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs system;
+          approved-packages = approved-packages.packages.${system};
+        };
+        modules =
+          [
+            ./nixos/hosts/mach-serve-02/configuration.nix
+            ./nixos/network/nameservers.nix
+            ./nixos/users/christian.nix
+            ./nixos/services/scheduled-shutdown.nix
+            ./home-manager/mach-serve.nix
+            ./nixos/system/harmonia-cache-consumer.nix
+            ./nixos/system/remote-build-client.nix
+            {
+              environment.systemPackages = [
+                nixvim-config.packages.x86_64-linux.terminal
+              ];
+            }
+          ]
+          ++ commonModules;
+      };
+
       big-machbook = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs system;
