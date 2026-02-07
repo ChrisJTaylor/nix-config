@@ -165,14 +165,14 @@
           ++ commonModules;
       };
 
-      mach-serve-0w = nixpkgs.lib.nixosSystem {
+      mach-serve-03 = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs system;
           approved-packages = approved-packages.packages.${system};
         };
         modules =
           [
-            ./nixos/hosts/mach-serve-02/configuration.nix
+            ./nixos/hosts/mach-serve-03/configuration.nix
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
             ./nixos/services/scheduled-shutdown.nix
