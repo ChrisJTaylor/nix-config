@@ -13,7 +13,7 @@
       6443 # k8s api
       10250 # kubelet metrics
     ];
-    jllowedUDPPorts = [
+    allowedUDPPorts = [
       8472 # flannel vxlan
     ];
   };
