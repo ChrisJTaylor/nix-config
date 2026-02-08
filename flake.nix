@@ -156,6 +156,7 @@
             ./nixos/system/password-less-auth.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./nixos/system/remote-build-client.nix
+            ./nixos/services/k3s-control-plane.nix
             {
               environment.systemPackages = [
                 nixvim-config.packages.x86_64-linux.terminal
