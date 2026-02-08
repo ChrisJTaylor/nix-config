@@ -8,7 +8,8 @@
     role = "server";
     tokenFile = config.sops.secrets.k3s-token.path;
     extraFlags = toString [
-      "--tls-san=192.168.1.119"
+      "--tls-san=k3s.machinology.internal"
+      "--tls-san=k3s-control-1.machinology.internal"
       # "--disable=servicelb" # builtin lb should be disabled if changing load balancers later
     ];
   };

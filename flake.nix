@@ -178,6 +178,7 @@
             ./nixos/users/christian.nix
             ./nixos/services/scheduled-shutdown.nix
             ./home-manager/mach-serve.nix
+            ./nixos/system/password-less-auth.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./nixos/system/remote-build-client.nix
             {
