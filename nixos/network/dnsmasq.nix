@@ -15,6 +15,9 @@
         "/chat.machinology.internal/192.168.1.136"
         "/prometheus.machinology.internal/192.168.1.246"
         "/dashboards.machinology.internal/192.168.1.246"
+        "/k3s.machinology.internal/192.168.1.119"
+        "/k3s-control-1.machinology.internal/192.168.1.119"
+        "/k3s-worker-1.machinology.internal/192.168.1.130"
       ];
     };
   };
