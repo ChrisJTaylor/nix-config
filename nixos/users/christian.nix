@@ -7,6 +7,10 @@
   description = "Christian Taylor";
   auth_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDQTnaIVB3/uNe00kL1Xe6sxRoC7BRM2sZHQ+fXMEDzy christian.taylor@machinology.com";
 in {
+  imports = [
+    ../k8s/kubectl-client.nix
+  ];
+
   sops.secrets."password_${username}".neededForUsers = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -24,10 +28,8 @@ in {
     openssh.authorizedKeys.keys = [auth_key];
   };
 
-  imports = [
-    (import ../k8s/kubectl-client.nix {
-      inherit approved-packages config;
-      username = username;
-    })
-  ];
+  services.k3s-kubeconfig = {
+    enable = true;
+    username = username;
+  };
 }
