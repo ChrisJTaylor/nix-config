@@ -55,6 +55,7 @@ with lib; {
 
     environment.systemPackages = with approved-packages; [
       kubectl
+      kubernetes-helm
     ];
   };
 }
