@@ -13,6 +13,7 @@
     "think-mach" = ../../secrets/think-mach.yaml;
     "home-wsl" = ../../secrets/home-wsl.yaml;
     "mach-serve-02" = ../../secrets/mach-serve-02.yaml;
+    "mach-serve-03" = ../../secrets/mach-serve-03.yaml;
   };
 
   hasSecretsFile = builtins.hasAttr hostName secretsFileMap;
