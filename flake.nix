@@ -177,6 +177,7 @@
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
             ./nixos/services/scheduled-shutdown.nix
+            ./nixos/services/k3s-agent.nix
             ./home-manager/mach-serve.nix
             ./nixos/system/password-less-auth.nix
             ./nixos/system/harmonia-cache-consumer.nix
