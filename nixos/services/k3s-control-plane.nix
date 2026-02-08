@@ -24,7 +24,7 @@
   };
 
   sops.secrets.k3s-token = {
-    sopsFile = ./secrets/mach-serve-02.yaml;
+    sopsFile = ../../secrets/mach-serve-02.yaml;
   };
 
   environment.systemPackages = with approved-packages; [
