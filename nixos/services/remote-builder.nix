@@ -14,6 +14,7 @@
       (builtins.readFile ../../none-secrets/big-mach-nix-builder.pub)
       (builtins.readFile ../../none-secrets/home-wsl-nix-builder.pub)
       (builtins.readFile ../../none-secrets/mach-serve-02-nix-builder.pub)
+      (builtins.readFile ../../none-secrets/mach-serve-03-nix-builder.pub)
       (builtins.readFile ../../none-secrets/think-mach-nix-builder.pub)
     ];
   };
