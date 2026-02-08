@@ -1,4 +1,4 @@
-{...}: {
+{approved-packages, ...}: {
   services.k3s = {
     enable = true;
     role = "server";
@@ -8,5 +8,18 @@
     ];
   };
 
-  networking.firewall.allowedTCPPorts = [6443];
+  networking.firewall = {
+    allowedTCPPorts = [
+      6443 # k8s api
+      10250 # kubelet metrics
+    ];
+    jllowedUDPPorts = [
+      8472 # flannel vxlan
+    ];
+  };
+
+  environment.systemPackages = with approved-packages; [
+    kubectl
+    k3s
+  ];
 }
