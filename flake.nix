@@ -156,7 +156,7 @@
             ./nixos/system/password-less-auth.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./nixos/system/remote-build-client.nix
-            ./nixos/services/k3s-control-plane.nix
+            ./nixos/k8s/k3s-control-plane.nix
             {
               environment.systemPackages = [
                 nixvim-config.packages.x86_64-linux.terminal
@@ -177,7 +177,7 @@
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
             ./nixos/services/scheduled-shutdown.nix
-            ./nixos/services/k3s-agent.nix
+            ./nixos/k8s/k3s-agent.nix
             ./home-manager/mach-serve.nix
             ./nixos/system/password-less-auth.nix
             ./nixos/system/harmonia-cache-consumer.nix
