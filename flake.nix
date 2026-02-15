@@ -179,6 +179,7 @@
             ./nixos/services/scheduled-shutdown.nix
             ./nixos/k8s/k3s-agent.nix
             ./home-manager/mach-serve.nix
+            ./nixos/services/podman.nix
             ./nixos/system/password-less-auth.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./nixos/system/remote-build-client.nix
@@ -230,6 +231,7 @@
             ./nixos/system/pipewire.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./nixos/system/remote-build-client.nix
+            ./nixos/services/podman.nix
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
             ./nixos/apps/work.nix

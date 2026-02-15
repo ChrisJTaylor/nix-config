@@ -1,5 +1,15 @@
 {...}: {
-  virtualisation.containers.enable = true;
+  virtualisation.containers = {
+    enable = true;
+    policy = {
+      default = [
+        {
+          type = "insecureAcceptAnything";
+        }
+      ];
+    };
+  };
+
   virtualisation = {
     podman = {
       enable = true;
