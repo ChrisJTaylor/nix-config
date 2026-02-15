@@ -46,4 +46,7 @@
     ];
     ephemeral = true;
   };
+  virtualisation.docker.enable = true;
+
+  users.users.github-runner.extraGroups = ["docker"];
 }
