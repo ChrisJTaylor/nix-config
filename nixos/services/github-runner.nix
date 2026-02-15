@@ -42,6 +42,7 @@
       cocogitto
       go_1_24
       opencode-latest
+      podman
     ];
     ephemeral = true;
   };
