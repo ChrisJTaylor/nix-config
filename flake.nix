@@ -149,7 +149,6 @@
             ./nixos/hosts/mach-serve-02/configuration.nix
             ./nixos/network/nameservers.nix
             ./nixos/users/christian.nix
-            ./nixos/services/podman.nix
             ./nixos/services/github-runners.nix
             ./nixos/services/scheduled-shutdown.nix
             ./home-manager/mach-serve.nix
@@ -179,7 +178,6 @@
             ./nixos/services/scheduled-shutdown.nix
             ./nixos/k8s/k3s-agent.nix
             ./home-manager/mach-serve.nix
-            ./nixos/services/podman.nix
             ./nixos/system/password-less-auth.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./nixos/system/remote-build-client.nix
