@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   approved-packages,
   ...
 }: {
@@ -8,19 +7,22 @@
     (import ./github-runner.nix {
       inherit approved-packages;
       name = "mach-runner-1";
+      isLinux = true;
       labels = ["nix" "nixos"];
       max-memory = "10G";
     })
     (import ./github-runner.nix {
       inherit approved-packages;
       name = "mach-runner-2";
-      labels = ["nix" "nixos"];
+      isLinux = true;
+      labels = ["nix" "nixos" "codeql"];
       max-memory = "10G";
     })
     (import ./github-runner.nix {
       inherit approved-packages;
       name = "mach-runner-3";
-      labels = ["nix" "nixos"];
+      isLinux = true;
+      labels = ["nix" "nixos" "codeql"];
       max-memory = "10G";
     })
   ];

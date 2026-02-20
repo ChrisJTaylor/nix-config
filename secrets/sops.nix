@@ -10,42 +10,46 @@ in {
 
     defaultSopsFile = ./mysecret.yaml;
 
-    secrets = {
-      mysecret = {
-        sopsFile = ./mysecret.yaml;
-        path = "/etc/mysecret";
-        # Restrict access to root only
-        owner = "root";
-        group =
-          if isLinux
-          then "root"
-          else "wheel";
-        mode = "0400";
-      };
+    secrets = lib.mkMerge [
+      {
+        mysecret = {
+          sopsFile = ./mysecret.yaml;
+          path = "/etc/mysecret";
+          # Restrict access to root only
+          owner = "root";
+          group =
+            if isLinux
+            then "root"
+            else "wheel";
+          mode = "0400";
+        };
 
-      # Linux-only secrets
-      password_christian = lib.mkIf isLinux {
-        sopsFile = ./mysecret.yaml;
-        # Keep default permissions for compatibility
-      };
+        binary-cache-private-key = {
+          sopsFile = ./cache-keys.yaml;
+        };
+      }
 
-      work_username = lib.mkIf isLinux {
-        sopsFile = ./mysecret.yaml;
-        owner = "root";
-        group = "root";
-        mode = "0400";
-      };
+      (lib.mkIf isLinux {
+        # Linux-only secrets
+        password_christian = {
+          sopsFile = ./mysecret.yaml;
+          # Keep default permissions for compatibility
+        };
 
-      binary-cache-private-key = {
-        sopsFile = ./cache-keys.yaml;
-      };
+        work_username = {
+          sopsFile = ./mysecret.yaml;
+          owner = "root";
+          group = "root";
+          mode = "0400";
+        };
 
-      ssh-private-key = lib.mkIf isLinux {
-        sopsFile = ./ssh-private-key.yaml;
-        owner = "christian";
-        path = "/home/christian/.ssh/id_ed25519";
-        mode = "0600";
-      };
-    };
+        ssh-private-key = {
+          sopsFile = ./ssh-private-key.yaml;
+          owner = "christian";
+          path = "/home/christian/.ssh/id_ed25519";
+          mode = "0600";
+        };
+      })
+    ];
   };
 }

@@ -1,7 +1,6 @@
 {
-  config,
-  lib,
   approved-packages,
+  config,
   ...
 }: {
   imports = [
@@ -14,13 +13,13 @@
     (import ./github-runner.nix {
       inherit approved-packages;
       name = "mach-darwin-runner-2";
-      labels = ["macOS" "ios" "nix-darwin"];
+      labels = ["macOS" "ios" "nix-darwin" "codeql"];
       max-memory = "10G";
     })
     (import ./github-runner.nix {
       inherit approved-packages;
       name = "mach-darwin-runner-3";
-      labels = ["macOS" "ios" "nix-darwin"];
+      labels = ["macOS" "ios" "nix-darwin" "codeql"];
       max-memory = "10G";
     })
   ];

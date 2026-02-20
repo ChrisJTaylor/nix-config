@@ -3,6 +3,7 @@
   labels,
   max-memory,
   approved-packages,
+  isLinux ? false,
 }: {
   config,
   pkgs,
@@ -18,7 +19,7 @@
     extraLabels = labels;
     # Use unstable github-runner to avoid deprecated version
     package = inputs.unstable.legacyPackages.${pkgs.system}.github-runner;
-    serviceOverrides = lib.optionalAttrs pkgs.stdenv.isLinux {
+    serviceOverrides = lib.optionalAttrs isLinux {
       MemoryMax = max-memory;
     };
     # Replace the runner if the token changes
@@ -42,11 +43,12 @@
       cocogitto
       go_1_24
       opencode-latest
-      podman
+      codeql
     ];
     ephemeral = true;
   };
-  virtualisation.docker.enable = true;
-
-  users.users.github-runner.extraGroups = ["docker"];
 }
+// (lib.optionalAttrs isLinux {
+  users.users.github-runner.extraGroups = ["docker"];
+  virtualisation.docker.enable = true;
+})

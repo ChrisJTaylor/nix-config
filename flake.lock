@@ -8,11 +8,11 @@
         "opencode": "opencode"
       },
       "locked": {
-        "lastModified": 1771154641,
-        "narHash": "sha256-enXNZXUZtdxcDsiHA2MYXCieK6KE3G7YxVbPNu3uW4c=",
+        "lastModified": 1771483825,
+        "narHash": "sha256-UmbJ8z5mnDyLM3yBqphtXjlacGbKpp5yVF63RvyVPF8=",
         "owner": "machinology",
         "repo": "mach-approved-packages",
-        "rev": "c4c691f54e7b911b190576e82df687628c526940",
+        "rev": "6090bfd3b49d3fcf9a838cfce2c79d48854b3be1",
         "type": "github"
       },
       "original": {
