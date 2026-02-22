@@ -10,7 +10,8 @@
   lib,
   inputs,
   ...
-}: {
+}:
+{
   services.github-runners.${name} = {
     enable = true;
     url = "https://github.com/machinology";
@@ -50,5 +51,12 @@
 }
 // (lib.optionalAttrs isLinux {
   users.users.github-runner.extraGroups = ["docker"];
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    daemon.settings = {
+      insecure-registries = [
+        "registry.k3s.machinology.internal:30500"
+      ];
+    };
+  };
 })
