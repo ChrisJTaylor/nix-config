@@ -10,6 +10,7 @@
       alias md=mkdir
       alias g="lazygit"
       alias d="lazydocker"
+      alias k="kubectl"
       alias w="vim -c VimwikiIndex"
       alias _just="just --justfile ~/_justfile --working-directory ."
       alias nsh="nix shell approved-packages#"
@@ -20,6 +21,8 @@
       export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
       export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
       export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+      export KUBECONFIG=~/.kube/config
 
       _fzf_compgen_path() {
         fd --hidden --exclude .git . "$1"
