@@ -17,8 +17,10 @@
         "/dashboards.machinology.internal/192.168.1.246"
         "/k8s.machinology.internal/192.168.1.119"
         "/k3s.machinology.internal/192.168.1.119"
+        "/registry.k3s.machinology.internal/192.168.1.119"
         "/k3s-control-1.machinology.internal/192.168.1.119"
         "/k3s-worker-1.machinology.internal/192.168.1.130"
+        "/dev.machinology.internal/192.168.1.130"
       ];
     };
   };
