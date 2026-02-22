@@ -11,6 +11,7 @@
       "--tls-san=k3s.machinology.internal"
       "--tls-san=k3s-control-1.machinology.internal"
       # "--disable=servicelb" # builtin lb should be disabled if changing load balancers later
+      "--kubelet-arg=image-pull-progress-deadline=2m"
     ];
   };
 
@@ -28,8 +29,20 @@
     sopsFile = ../../secrets/mach-serve-02.yaml;
   };
 
-  environment.systemPackages = with approved-packages; [
-    kubectl
-    k3s
-  ];
+  environment = {
+    etc."rancher/k3s/registries.yaml".text = ''
+      mirrors:
+        registry.k3s.machinology.internal:30500:
+          endpoint:
+            - "http://registry.k3s.machinology.internal:30500"
+      configs:
+        "registry.k3s.machinology.internal:30500":
+          tls:
+            insecure_skip_verify: true
+    '';
+    systemPackages = with approved-packages; [
+      kubectl
+      k3s
+    ];
+  };
 }
