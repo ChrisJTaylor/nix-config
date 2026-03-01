@@ -43,7 +43,6 @@
       gh
       cocogitto
       go_1_24
-      opencode-latest
       codeql
     ];
     ephemeral = true;
