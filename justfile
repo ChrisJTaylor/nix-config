@@ -45,7 +45,7 @@ rebuild-impure name="mach-serve-01" options="": fix-sops-permissions set-github-
 
 # update all flakes in flake.lock to the latest compatible versions
 [group("maintenance")]
-update-flakes flake="": 
+update-flakes flake="": set-github-auth
   nix flake update {{flake}}
 
 # check flake for errors
@@ -61,6 +61,8 @@ clean-check: _clear_nix_evaluation_cache check
 [group("utilities")]
 set-github-auth:
   #!/usr/bin/env bash
+  gh auth status
+
   # Set up Nix access token for approved-packages
   mkdir -p ~/.config/nix
   echo "access-tokens = github.com=$(gh auth token)" > ~/.config/nix/github-token
