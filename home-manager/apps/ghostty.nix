@@ -35,7 +35,7 @@
       ];
 
       font-family = "SauceCodePro NF";
-      font-size = 12;
+      font-size = 14;
     };
 
     themes = {};
