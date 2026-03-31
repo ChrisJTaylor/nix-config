@@ -229,7 +229,6 @@
             ./nixos/system/pipewire.nix
             ./nixos/system/harmonia-cache-consumer.nix
             ./nixos/system/remote-build-client.nix
-            ./nixos/services/podman.nix
             ./nixos/apps/games.nix
             ./nixos/apps/personal.nix
             ./nixos/apps/work.nix
