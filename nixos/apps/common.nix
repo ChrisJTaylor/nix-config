@@ -15,7 +15,6 @@
     watchman
     grc
     atuin
-    podman
     xhost
     uv
     lazydocker
