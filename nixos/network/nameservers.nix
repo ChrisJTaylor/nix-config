@@ -12,5 +12,7 @@
   networking.nameservers = [
     "192.168.1.136" # mach-serve-01
     "192.168.1.254" # EE router
+    "1.1.1.1" # Cloudflare public DNS
+    "8.8.8.8" # Google public DNS
   ];
 }
