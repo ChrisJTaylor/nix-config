@@ -7,18 +7,20 @@ This repository contains NixOS/nix-darwin configurations with centralized packag
 ### Build, Test & Validation
 - **List tasks**: `just` or `just --list`
 - **Validate config**: `nix flake check` or `just check`
-- **Format code**: `nix fmt .` or `just format`
+- **Format code**: `nix fmt .` or `just format` (uses alejandra formatter)
 - **Clear cache + validate**: `just clean-check`
 
-### Single Test Execution
-| Language | Command |
+### Single Test Execution (Dev Environments)
+Each language environment in `home-manager/files/_dev_envs/` has its own `justfile`. Navigate to the language directory first:
+
+| Language | Commands |
 |----------|---------|
-| **Rust** | `cargo test <test_name>` or `cargo test --test <file>` |
-| **Python** | `pytest <file.py>::<test_name>` or `pytest <file.py>` |
-| **Go** | `go test -run <TestName>` or `go test ./path/to/package` |
-| **.NET** | `dotnet test --filter "Name~<TestName>"` or `dotnet test <project>` |
-| **Lua** | `busted <path/to/file.lua>` |
-| **Zig** | `just test-file path=<file.zig>` |
+| **Rust** | `cd home-manager/files/_dev_envs/rust && just test` or `cargo test <test_name>` |
+| **Python** | `cd home-manager/files/_dev_envs/python && just test` or `pytest <file.py>::<test_name>` |
+| **Go** | `cd home-manager/files/_dev_envs/golang && just test` or `go test -run <TestName>` |
+| **.NET** | `cd home-manager/files/_dev_envs/dotnet && dotnet test --filter "Name~<TestName>"` |
+| **Lua** | `cd home-manager/files/_dev_envs/lua && just test` or `busted <file.lua>` |
+| **Zig** | `cd home-manager/files/_dev_envs/zig && just test-file path=<file.zig>` |
 
 ### Pre-Rebuild Checklist (run every time before rebuilding)
 ```bash
@@ -131,21 +133,35 @@ secretsFile = secretsFileMap.${hostName} or null;
 isRemote = lib.hasPrefix "ssh://" cfg.hostName;
 ```
 
-### Imports
+### Imports & Error Handling
 ```nix
+# Imports (always relative or from flake inputs)
 imports = [
   ./relative/path/to/module.nix          # ✅ relative
   inputs.some-flake.nixosModules.module  # ✅ flake input
   # ❌ /home/user/nixos/module.nix       # never absolute
 ];
-```
 
-### Assertions & Warnings
-```nix
+# Assertions (hard errors)
 assertions = [
-  { assertion = condition; message = "error message"; }
+  {
+    assertion = cfg.enable -> cfg.path != null;
+    message = "path must be set when module is enabled";
+  }
 ];
-warnings = lib.optional (cfg.deprecated != null) "deprecated option";
+
+# Warnings (non-fatal)
+warnings = lib.optional (cfg.deprecated != null) "Option deprecated, use cfg.newOption instead";
+
+# Conditional configuration
+config = lib.mkMerge [
+  (lib.mkIf cfg.enable {
+    # Enabled configuration
+  })
+  (lib.mkIf (!cfg.enable) {
+    # Disabled fallback
+  })
+];
 ```
 
 ### SOPS Secrets
