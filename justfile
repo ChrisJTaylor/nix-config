@@ -500,7 +500,7 @@ show-github-runner-version:
 restart-github-runners:
   #!/usr/bin/env bash
   echo "Restarting GitHub runners..."
-  for runner in debian-runner-1 debian-runner-2 debian-runner-3; do
+  for runner in mach-runner-1 mach-runner-2 mach-runner-3; do
     echo "Restarting $runner..."
     sudo systemctl restart github-runner-$runner
     echo "✓ $runner restarted"
@@ -516,7 +516,7 @@ status-github-runners:
   #!/usr/bin/env bash
   echo "GitHub Runner Status:"
   echo "===================="
-  for runner in debian-runner-1 debian-runner-2 debian-runner-3; do
+  for runner in mach-runner-1 mach-runner-2 mach-runner-3; do
     echo
     echo "Runner: $runner"
     sudo systemctl status github-runner-$runner --no-pager | head -n 10
@@ -525,7 +525,7 @@ status-github-runners:
 # view logs for GitHub runner (Linux)
 [group("github-runners")]
 [linux]
-logs-github-runner runner="debian-runner-1" lines="50":
+logs-github-runner runner="mach-runner-1" lines="50":
   sudo journalctl -u github-runner-{{runner}} -n {{lines}}
 
 # check GitHub runner version (Linux)
