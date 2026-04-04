@@ -20,9 +20,13 @@
     extraLabels = labels;
     # Use unstable github-runner to avoid deprecated version
     package = inputs.unstable.legacyPackages.${pkgs.system}.github-runner;
-    serviceOverrides = lib.optionalAttrs isLinux {
-      MemoryMax = max-memory;
-    };
+    serviceOverrides =
+      lib.optionalAttrs isLinux {
+        MemoryMax = max-memory;
+      }
+      // lib.optionalAttrs (!isLinux) {
+        SessionCreate = true;
+      };
     # Replace the runner if the token changes
     replace = true;
     # Run as a dedicated user
