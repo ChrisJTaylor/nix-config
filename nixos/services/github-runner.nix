@@ -19,7 +19,7 @@
     inherit name;
     extraLabels = labels;
     # Use unstable github-runner to avoid deprecated version
-    package = inputs.unstable.legacyPackages.${pkgs.system}.github-runner;
+    package = approved-packages.github-runner;
     serviceOverrides =
       lib.optionalAttrs isLinux {
         MemoryMax = max-memory;
