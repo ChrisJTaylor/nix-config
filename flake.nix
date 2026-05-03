@@ -341,6 +341,7 @@
           ./nixos/apps/common.nix
           ./nixos/hosts/mach-studio/configuration.nix
           ./nixos/system/nix-registries.nix
+          ./nixos/services/github-runners-mac.nix
           ./nixos/users/christiantaylor.nix
           ./nixos/apps/fzf-git.nix
           ./nixos/services/ollama-daemon.nix
