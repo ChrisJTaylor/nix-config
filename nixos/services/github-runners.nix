@@ -1,8 +1,4 @@
-{
-  config,
-  approved-packages,
-  ...
-}: {
+{approved-packages, ...}: {
   imports = [
     (import ./github-runner.nix {
       inherit approved-packages;
@@ -15,14 +11,14 @@
       inherit approved-packages;
       name = "mach-runner-2";
       isLinux = true;
-      labels = ["nix" "nixos" "codeql"];
+      labels = ["nix" "nixos"];
       max-memory = "10G";
     })
     (import ./github-runner.nix {
       inherit approved-packages;
       name = "mach-runner-3";
       isLinux = true;
-      labels = ["nix" "nixos" "codeql"];
+      labels = ["nix" "nixos"];
       max-memory = "10G";
     })
   ];
