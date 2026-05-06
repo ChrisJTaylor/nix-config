@@ -22,6 +22,7 @@
     age
     cocogitto
     opencode
+    pi-coding-agent
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
