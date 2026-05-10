@@ -1,0 +1,12 @@
+name: Release
+on:
+  workflow_dispatch: # manual only
+
+jobs:
+  release:
+    uses: machinology/mach-shared-workflows/.github/workflows/release.yml@v1
+    with:
+      create_convenience_tags: false
+    secrets: inherit
+    permissions:
+      contents: write
