@@ -190,22 +190,6 @@ get-current-version:
 get-next-version:
   @just bump --dry-run
 
-# bump the version number
-[group("maintenance")]
-bump-to version="" options="":
-  cog bump --version {{version}} {{options}}
-
-# bump the version number
-[group("maintenance")]
-bump options="":
-  cog bump --auto {{options}}
-
-# bump to next version and push to github
-[group("maintenance")]
-bump-and-push: bump
-  git push
-  git push origin --tags
-
 _backup-files:
   -just _backup-file "hosts"
   -just _backup-file "zshrc"
@@ -576,3 +560,28 @@ check-github-runner-latest-version:
   echo
   current=$(just show-github-runner-version)
   echo "Your configured version: $current"
+
+# check commits are conventional
+[group("quality")]
+check-commits:
+  @cog check
+
+# get current version
+[group("maintenance")]
+get-version:
+  @cog get-version
+
+# Get the next version number
+[group("maintenance")]
+get-next-version-number:
+  @cog bump --auto --dry-run
+
+# bump version
+[group("maintenance")]
+bump options="--auto":
+  @cog bump {{options}}
+
+# create and publish release
+[group("maintenance")]
+create-release: format-check
+  gh workflow run release.yml
