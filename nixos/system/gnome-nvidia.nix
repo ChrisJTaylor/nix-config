@@ -1,7 +1,12 @@
-{config, ...}: {
-  nixpkgs.config.permittedInsecurePackages = [
-    "broadcom-sta-6.30.223.271-59-6.12.63"
-  ];
+{
+  config,
+  lib,
+  ...
+}: {
+  nixpkgs.config.allowInsecurePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "broadcom-sta"
+    ];
 
   services.gnome.gnome-keyring.enable = true;
 

@@ -46,6 +46,7 @@
         packages = [
           nixpkgsFor.${system}.alejandra
           nixpkgsFor.${system}.just
+          nixpkgsFor.${system}.gh
         ];
       };
     });

@@ -176,6 +176,25 @@ sops.secrets.my-secret = {
 # Reference: services.myService.keyFile = config.sops.secrets.my-secret.path;
 ```
 
+If a secret is owned by a non-root user, **gate it by user existence** when the module is shared across hosts. CI evaluates multiple host configs, and `sops-nix` will try to resolve the user's default group from `config.users.users.<name>`.
+
+```nix
+let
+  hasChristianUser = builtins.hasAttr "christian" config.users.users;
+in {
+  sops.secrets = lib.mkMerge [
+    (lib.mkIf hasChristianUser {
+      ssh-private-key = {
+        sopsFile = ./ssh-private-key.yaml;
+        owner = "christian";
+        path = "/home/christian/.ssh/id_ed25519";
+        mode = "0600";
+      };
+    })
+  ];
+}
+```
+
 ---
 
 ## 4. Git Workflow

@@ -47,8 +47,4 @@
 
   # Enable remote builds to mach-serve-01
   nix.remoteBuilder.enable = true;
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "broadcom-sta-6.30.223.271-59-6.12.63"
-  ];
 }

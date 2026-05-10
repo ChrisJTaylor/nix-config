@@ -1,0 +1,19 @@
+name: Update flakes
+
+on:
+  workflow_dispatch:
+    inputs:
+      flakes-to-update:
+        description: "Specific flake inputs to be updated (space-separated. Leave empty to update all flakes."
+        required: false
+        type: string
+  schedule:
+    - cron: "0 8 * * 0" # every Sunday at 8am
+
+jobs:
+  update-flakes:
+    uses: machinology/mach-shared-workflows/.github/workflows/update-flakes.yml@v1
+    secrets: inherit
+    permissions:
+      pull-requests: write
+      contents: write

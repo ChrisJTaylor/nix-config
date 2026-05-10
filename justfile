@@ -50,8 +50,39 @@ update-flakes flake="": set-github-auth
 
 # check flake for errors
 [group("validation")]
-check: 
+check:
   nix flake check
+
+# run CI test task
+[group("validation")]
+test: check
+
+# verify nix formatting without changing files
+[group("validation")]
+format-check:
+  nix fmt -- --check .
+
+# build all Linux system closures for CI and cache population
+[group("validation")]
+[linux]
+build:
+  nix build --keep-going --print-build-logs --no-link \
+    .#nixosConfigurations.big-mach.config.system.build.toplevel \
+    .#nixosConfigurations.big-machbook.config.system.build.toplevel \
+    .#nixosConfigurations.think-mach.config.system.build.toplevel \
+    .#nixosConfigurations.mach-serve-01.config.system.build.toplevel \
+    .#nixosConfigurations.mach-serve-02.config.system.build.toplevel \
+    .#nixosConfigurations.mach-serve-03.config.system.build.toplevel \
+    .#nixosConfigurations.home-wsl.config.system.build.toplevel \
+    .#nixosConfigurations.work-wsl.config.system.build.toplevel
+
+# build all macOS system closures for CI and cache population
+[group("validation")]
+[macos]
+build:
+  nix build --keep-going --print-build-logs --no-link \
+    .#darwinConfigurations.machbook.system \
+    .#darwinConfigurations.mach-studio.system
 
 # clear cache and check flake for errors
 [group("validation")]

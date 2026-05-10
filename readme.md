@@ -1,479 +1,490 @@
 # Nix Configuration Repository
 
-Personal NixOS/nix-darwin infrastructure using centralized `approved-packages` for consistent, secure package management.
+Personal flake-based infrastructure for managing NixOS, nix-darwin, and WSL machines from one repository.
+
+At a glance:
+
+- **Platforms**: NixOS, macOS via `nix-darwin`, and WSL via `nixos-wsl`
+- **Package policy**: use **`approved-packages`**, not raw `pkgs`, for normal package selection
+- **Secrets**: SOPS + age
+- **User environment**: Home Manager
+- **Automation**: `just` tasks for checks, formatting, rebuilds, maintenance, cache diagnostics, and remote builds
+- **Shared infrastructure**: Harmonia binary cache, remote build support, GitHub runners, and k3s hosts
 
 ---
 
-## 📋 Repository Overview
+## Start here
 
-- **Multi-platform**: Linux (NixOS), macOS (nix-darwin), Windows (WSL)
-- **Package philosophy**: Never use `pkgs` directly; always use `approved-packages`
-- **Secrets**: SOPS age-based encryption
-- **Binary cache**: Custom Harmonia server for faster builds
-- **Version control**: Cocogitto with conventional commits
-- **Testing**: Strict TDD approach per language
+If you are new to this repo, start with these files:
 
----
+- `AGENTS.md` - repo-specific rules and workflow guidance
+- `flake.nix` - top-level host wiring and shared module composition
+- `justfile` - the commands you actually run day to day
+- `nixos/hosts/<hostname>/configuration.nix` - machine-specific settings
+- `home-manager/home-*.nix` - user-level configuration per machine
 
-## 🚀 Essential Commands
+### The most important repo rule
 
-| Purpose                 | Command                    |
-| ----------------------- | -------------------------- |
-| **List all tasks**      | `just`                     |
-| **Validate config**     | `just check`               |
-| **Format code**         | `just format`              |
-| **Clear Nix cache**     | `just clean-check`         |
-| **Get current version** | `just get-current-version` |
-| **Bump version**        | `just bump`                |
+**Do not use `pkgs` directly for package selection. Use `approved-packages`.**
 
----
-
-## 🏗️ Quick Rebuilds
-
-### macOS (nix-darwin)
-
-```bash
-# Cleans old derivations before rebuild
-just sudo-clean-rebuild-impure machbook
-```
-
-### Linux (NixOS)
-
-```bash
-# Standard rebuild (includes secrets update)
-just sudo-rebuild big-mach
-
-# Impure rebuild for unfree packages
-just sudo-rebuild-impure mach-serve-01
-```
-
-### SSH Remote Rebuild
-
-```bash
-just rebuild-remote mach-serve-01
-```
-
----
-
-## 🛠️ Common Maintenance Tasks
-
-### Before every rebuild
-
-```bash
-just set-github-auth           # For approved-packages access
-just fix-sops-permissions      # For SOPS secrets
-```
-
-### Troubleshooting rebuilds
-
-```bash
-nix flake check                # Validate the flake
-just clean-check               # Clear cache + validate
-```
-
-### Secrets & Permissions
-
-```bash
-just fix-sops-permissions      # Fixes /etc/sops/age/keys.txt permissions
-                              # macOS: root:wheel | Linux: root:root
-```
-
----
-
-## 🧪 Single Test Execution
-
-| Language   | Test Command                                                        |
-| ---------- | ------------------------------------------------------------------- |
-| **Rust**   | `cargo test <test_name>` or `cargo test --test <file>`              |
-| **Python** | `pytest <file.py>::<test_name>` or `pytest <file.py>`               |
-| **Go**     | `go test -run <TestName>` or `go test ./path/to/package`            |
-| **.NET**   | `dotnet test --filter "Name~<TestName>"` or `dotnet test <project>` |
-| **Lua**    | `busted <path/to/file.lua>`                                         |
-| **Zig**    | `just test-file path=<file.zig>`                                    |
-
-**Pre-requisite**: Restore dependencies first, then run tests.
-
----
-
-## 📦 Supported Development Languages
-
-### Rust
-
-```bash
-cd home-manager/files/_dev_envs/rust
-just restore || source .envrc
-just build
-just test                      # All tests
-just watch-tests               # TDD watch mode
-```
-
-### Python
-
-```bash
-cd home-manager/files/_dev_envs/python
-just restore || source .envrc
-just build
-just test                      # All tests
-pytest <file.py>::<test_name>  # Single test
-```
-
-### Go
-
-```bash
-cd home-manager/files/_dev_envs/golang
-just restore || source .envrc
-just build
-just test                      # All tests
-go test -run <TestName>        # Single test
-go test ./path/to/package      # Package tests
-```
-
-### .NET
-
-```bash
-cd home-manager/files/_dev_envs/dotnet
-just restore || source .envrc
-dotnet build
-just test                      # All tests
-dotnet test <project> --filter "Name~<TestName>"
-```
-
-### Lua
-
-```bash
-cd home-manager/files/_dev_envs/lua
-just build
-just test
-busted <path/to/file.lua>      # Run tests
-```
-
-### Zig
-
-```bash
-cd home-manager/files/_dev_envs/zig
-gyro update                    # Fetch dependencies
-just build
-just test
-just test-file path=<file.zig> # Single test
-```
-
----
-
-## 🗂️ Repository Structure
-
-```
-nix-config/
-├── flake.nix                    # Main flake definition
-├── justfile                     # Task automation
-├── readme.md                    # This file
-├── AGENTS.md                    # Agent coding guidelines
-├── cog.toml                     # Cocogitto versioning
-├── nixos/                       # System-level configs
-│   ├── hosts/                   # Machine configs
-│   │   ├── big-mach/
-│   │   ├── machbook/
-│   │   └── home-wsl/
-│   ├── system/                  # System-wide settings
-│   ├── apps/                    # System application configs
-│   ├── services/                # Services (Harmonia, nginx, etc.)
-│   ├── users/                   # User definitions
-│   └── network/                 # DNS, firewall, bridges
-├── home-manager/                # User-level configs
-│   ├── apps/                    # User applications
-│   ├── files/
-│   │   └── _dev_envs/          # Language dev environments
-│   └── home-*.nix              # Host-specific user configs
-├── secrets/                     # SOPS encrypted
-│   └── *.yaml
-└── none-secrets/               # Public keys
-    ├── binary-cache-public-key.pem
-    └── *-nix-builder.pub
-```
-
----
-
-## 📊 Supported Hosts
-
-### Linux
-
-- `big-mach`: Primary desktop workstation
-- `big-machbook`: Linux laptop
-- `think-mach`: ThinkPad config
-- `mach-serve-01,02,03`: Server infrastructure
-- `home-wsl, work-wsl`: Windows Subsystem for Linux
-
-### macOS
-
-- `machbook`: MacBook Pro (nix-darwin)
-- `mach-studio`: Mac Studio (nix-darwin)
-
----
-
-## 🔧 Binary Cache
-
-### Cache Health Check
-
-```bash
-just cache-health-check
-just test-cache-connection
-just cache-troubleshoot
-```
-
-### Integration & Performance
-
-```bash
-just test-cache-performance      # Compare local vs cache
-just verify-remote-build-setup   # For distributed builds
-just test-remote-build           # Test distributed build
-```
-
----
-
-## 🐛 Common Issues
-
-| Issue                                | Solution                                                                                              |
-| ------------------------------------ | ----------------------------------------------------------------------------------------------------- |
-| **Package not in approved-packages** | Add to `machinology/mach-approved-packages`, update flake with `just update-flakes approved-packages` |
-| **SOPS decryption fails**            | `just fix-sops-permissions` (check `/etc/sops/age/keys.txt`)                                          |
-| **Build fails "dirty git tree"**     | Commit/stash, or use `just sudo-rebuild-impure <hostname>`                                            |
-| **GitHub auth fails**                | `just set-github-auth`, verify `gh auth status`                                                       |
-
----
-
-## 🧩 Development Environments Structure
-
-Each language in `_dev_envs/` contains:
-
-- `flake.nix` - Nix development environment definition
-- `justfile` - Project-specific development tasks
-- Development-specific config files
-
-Examples: `rust/`, `python/`, `golang/`, `dotnet/`, `lua/`, `zig/`
-
----
-
-## 📜 System Rebuild Workflow
-
-1. **Auth**: `just set-github-auth` (GitHub token for approved-packages)
-2. **Secrets**: `just fix-sops-permissions` (age key permissions)
-3. **Rebuild**: Run appropriate `just sudo-*rebuild` command
-4. **Validate**: Run `nix flake check` after rebuild
-
-See `justfile` for complete task list: `just --list`
-
----
-
-# 📖 Detailed Technical Guidelines
-
-## Code Style Guidelines (Nix)
-
-### General Nix Patterns
-
-- **2 spaces** indentation (soft tabs, never hard tabs)
-- **trailing commas** on multi-line lists
-- **kebab-case.nix** for files: `apps-common.nix`, `github-runners-mac.nix`
-- **camelCase** for attributes: `enableSSH`, `systemPackages`, `hostName`
-- **relative paths** for imports (never absolute): `./module.nix`
-- String checks: `lib.hasPrefix`, `builtins.hasAttr`, `lib.hasSuffix`
-
-### Module Structure Template
+Correct:
 
 ```nix
-{
-  approved-packages,
-  config,
-  lib,
-  ...
-}: let
-  cfg = config.myModule;
-in {
-  options.myModule = {
-    enable = lib.mkEnableOption "my module";
-    somePath = lib.mkOption {
-      type = lib.types.str;
-      description = "Description";
-      default = "/default";
-    };
-  };
-
-  config = lib.mkMerge [
-    (lib.mkIf cfg.enable {
-      # Config when enabled
-    })
+{ approved-packages, ... }: {
+  environment.systemPackages = with approved-packages; [
+    fzf
+    bat
   ];
 }
 ```
 
-### Safe Attribute Access
-
-```nix
-# Check existence
-hasSecretsFile = builtins.hasAttr hostName secretsFileMap;
-
-# Safe access with fallback
-secretsFile = secretsFileMap.${hostName} or null;
-
-# String prefix check
-isRemote = lib.hasPrefix "ssh://" cfg.hostName;
-```
-
-### String Handling
-
-```nix
-# Simple - double quotes
-simplePath = "/etc/nixos";
-description = "This is a description";
-
-# Multi-line - triple quotes
-extraConfig = ''
-  line 1
-  line 2
-  line 3
-'';
-
-# Read file content
-publicKey = builtins.readFile ../../none-secrets/key.pub;
-```
-
-### Imports with Assertions
-
-```nix
-# Standard imports
-imports = [
-  ./relative/path/to/module.nix
-  inputs.some-flake.nixosModules.moduleName
-];
-
-# Never use absolute paths for local modules
-# ❌ imports = [ /home/user/nixos/module.nix ];
-# ✅ imports = [ ./module.nix ];
-```
-
-## Git Workflow (Cocogitto)
-
-### Commits
-
-**Types**: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`, `ci:`, `perf:`
-
-**Format**: `<type>(<scope>): <description>`
-
-**Examples**:
-
-```bash
-feat(nixos): add harmonia binary cache service
-fix(home-manager): correct zsh plugin loading order
-chore: update flake.lock dependencies
-```
-
-**Version Management**:
-
-```bash
-just get-current-version          # Show current version
-just get-next-version             # Preview next version
-just bump                         # Auto-bump from commits
-just bump-and-push               # Bump, tag, push to GitHub
-```
-
-## TDD Requirements
-
-**Strict Test-Driven Development**:
-
-- Write failing tests FIRST
-- Implement minimum code to pass
-- Refactor while keeping tests green
-- One failing test at a time
-- All tests must pass before completion
-
-Never write production code without a failing test first.
-
-### TDD Workflow Summary
-
-1. **Red**: Write a failing test that defines desired behavior
-2. **Green**: Write minimum code to make test pass
-3. **Refactor**: Improve code while keeping tests green
-
-Measure and report code coverage before and after changes.
-
-## Secrets Management (SOPS)
-
-### Configuration
-
-```nix
-sops.secrets.my-secret = {
-  sopsFile = ./secrets/hostname.yaml;  # Source file
-  path = "/etc/my-secret";             # Destination
-  owner = "root";
-  group = "root";  # Use "wheel" on macOS
-  mode = "0600";   # Octal permissions
-};
-
-# Reference in config
-services.myService.keyFile = config.sops.secrets.my-secret.path;
-```
-
-### Platform-Specific Secrets
-
-```nix
-sops.secrets.linux-only = lib.mkIf pkgs.stdenv.isLinux {
-  sopsFile = ./secrets/mysecret.yaml;
-};
-```
-
-### Permissions
-
-**macOS**: `sudo chown root:wheel /etc/sops/age/keys.txt`
-**Linux**: `sudo chown root:root /etc/sops/age/keys.txt`
-
-Test decryption with: `SOPS_AGE_KEY_FILE=/etc/sops/age/keys.txt sops -d secrets/mysecret.yaml`
-
-## Critical Nix Code Rules
-
-### NEVER USE `pkgs` DIRECTLY
-
-All packages MUST come from `approved-packages` flake input. This ensures consistent, approved packages across all environments.
-
-**✅ CORRECT**:
-
-```nix
-{ approved-packages, config, lib, ... }: {
-  environment.systemPackages = with approved-packages; [ fzf bat ];
-}
-```
-
-**❌ INCORRECT**:
+Wrong:
 
 ```nix
 { pkgs, ... }: {
-  environment.systemPackages = with pkgs; [ fzf ];
+  environment.systemPackages = with pkgs; [
+    fzf
+  ];
 }
 ```
 
-**specialArgs vs extraSpecialArgs**:
+`approved-packages` is passed into modules through:
 
-- `specialArgs`: For NixOS/nix-darwin modules
-- `extraSpecialArgs`: For Home Manager modules
-- Always pass `approved-packages` through these
+- `specialArgs` for NixOS / nix-darwin modules
+- `extraSpecialArgs` for Home Manager modules
 
-## Build & Test Commands Summary
+### How the repo is organized
 
-### System Commands
+- `flake.nix` - defines inputs and all system outputs
+- `nixos/hosts/` - host-specific machine definitions
+- `nixos/system/` - shared system-level modules
+- `nixos/apps/` - shared application/tooling modules
+- `nixos/services/` - shared services such as SSH, Harmonia, runners, and Open WebUI
+- `nixos/network/` - nameservers, firewall, and networking helpers
+- `nixos/users/` - user definitions
+- `nixos/k8s/` - k3s control-plane / agent modules
+- `home-manager/` - user-level config and host-specific Home Manager entrypoints
+- `home-manager/files/_dev_envs/` - language-specific development environments
+- `secrets/` - SOPS-encrypted secrets and SOPS module wiring
+- `none-secrets/` - public keys and other non-secret files
+
+### Safe workflow for making changes
+
+1. **Find the right layer**
+   - host-specific change -> `nixos/hosts/<hostname>/configuration.nix`
+   - shared system change -> `nixos/system/`, `nixos/services/`, `nixos/network/`, `nixos/apps/`
+   - user-level change -> `home-manager/`
+   - secret change -> `secrets/`
+
+2. **Inspect the host in `flake.nix`**
+   - see which modules it imports
+   - confirm whether the change should be shared or host-specific
+
+3. **Make the smallest reasonable change**
+   - prefer host-local changes first if you are unsure
+   - generalize into shared modules only when more than one host needs it
+
+4. **Format**
+
+   ```bash
+   just format
+   ```
+
+5. **Run checks**
+
+   ```bash
+   just check
+   ```
+
+   If evaluation state looks stale:
+
+   ```bash
+   just clean-check
+   ```
+
+6. **Before any rebuild, run these**
+
+   ```bash
+   just set-github-auth
+   just fix-sops-permissions
+   ```
+
+   Why:
+
+   - `set-github-auth` gives Nix access to `approved-packages`
+   - `fix-sops-permissions` makes sure SOPS can decrypt secrets
+
+### Core commands
+
+List tasks:
 
 ```bash
-just --list                    # Show all available tasks
-nix flake check                # Validate configuration
-nix fmt .                      # Format all Nix files
-nix flake update [flake-name]  # Update flake.lock
+just --list
 ```
 
-### Task Categories
+Format:
 
-- **rebuilds**: System configuration updates
-- **maintenance**: Flakes, formatting, caching
-- **validation**: Checks, tests, diagnostics
-- **utilities**: GitHub auth, SOPS, cache setup
-- **cache**: Binary cache health and performance
-- **github-runners**: Managing GitHub Actions runners
+```bash
+just format
+# or: nix fmt .
+```
+
+CI formatting check:
+
+```bash
+just format-check
+```
+
+Run repo checks:
+
+```bash
+just check
+# or: nix flake check
+```
+
+CI test task:
+
+```bash
+just test
+```
+
+CI build task:
+
+```bash
+just build
+```
+
+Clear eval cache and re-check:
+
+```bash
+just clean-check
+```
+
+### Rebuild commands
+
+Linux standard rebuild:
+
+```bash
+just sudo-rebuild <hostname>
+```
+
+Linux impure rebuild:
+
+```bash
+just sudo-rebuild-impure <hostname>
+```
+
+macOS rebuild:
+
+```bash
+just sudo-clean-rebuild-impure <hostname>
+```
+
+Remote rebuild:
+
+```bash
+just rebuild-remote <hostname>
+```
+
+### When and why `--impure` is needed
+
+Most rebuilds should stay **pure** when possible:
+
+```bash
+just sudo-rebuild <hostname>
+```
+
+A pure flake rebuild is preferable because it is more reproducible. It evaluates the system from the committed repo state plus `flake.lock`, without depending on extra machine-local state.
+
+Use an **impure** rebuild when the evaluation or rebuild needs to see state that is **not fully captured by the flake**. In practice, that usually means one of these cases:
+
+- you are rebuilding from a **dirty working tree** and want to apply local, uncommitted changes
+- the rebuild depends on **host-local or environment state** outside the flake snapshot
+- the host's established rebuild path in this repo already uses an impure recipe
+
+Examples in this repo:
+
+- `mach-serve-01` usually rebuilds with `just sudo-rebuild-impure mach-serve-01`
+- macOS uses `just sudo-clean-rebuild-impure <hostname>` as the normal path
+- if a pure rebuild fails because of dirty-tree or evaluation constraints, retry with the `-impure` variant
+
+What `--impure` is **not** for:
+
+- it does **not** replace `just set-github-auth`
+- it does **not** replace `just fix-sops-permissions`
+- it should not be the default for every host, because it weakens reproducibility and can make results depend on the current machine state
+
+Rule of thumb:
+
+- start with `just sudo-rebuild <hostname>` on standard Linux hosts
+- use `*-impure` for hosts that already standardize on it, or when you intentionally need local/external state included in the rebuild
+
+### Recommended default workflow
+
+If a machine has been offline for a long time, or Nix evaluation state appears stale, run:
+
+```bash
+just clean-check
+# optionally followed by: just check
+```
+
+This helps refresh evaluation state before you start the full rebuild sequence.
+
+For most changes:
+
+```bash
+just set-github-auth
+just format
+just check
+just fix-sops-permissions
+just sudo-rebuild <hostname>
+```
+
+For macOS:
+
+```bash
+just set-github-auth
+just format
+just check
+just fix-sops-permissions
+just sudo-clean-rebuild-impure machbook
+```
+
+For `mach-serve-01`, the usual rebuild path is impure:
+
+```bash
+just set-github-auth
+just format
+just check
+just fix-sops-permissions
+just sudo-rebuild-impure mach-serve-01
+```
+
+### Dev environment checks
+
+Language-specific dev environments live under `home-manager/files/_dev_envs/` and each has its own `justfile`.
+
+Examples:
+
+```bash
+cd home-manager/files/_dev_envs/rust && just test
+cd home-manager/files/_dev_envs/python && just test
+cd home-manager/files/_dev_envs/golang && just test
+cd home-manager/files/_dev_envs/dotnet && just test
+cd home-manager/files/_dev_envs/lua && just test
+cd home-manager/files/_dev_envs/zig && just test
+```
+
+Single-test examples:
+
+- Rust: `cargo test <test_name>`
+- Python: `pytest <file.py>::<test_name>`
+- Go: `go test -run <TestName>`
+- .NET: `dotnet test --filter "Name~<TestName>"`
+- Lua: `busted <file.lua>`
+- Zig: `just test-file path=<file.zig>`
+
+Repo guidance requires **TDD** for these dev environments: write the failing test first, implement the minimum change to pass, then refactor.
 
 ---
 
-**Type: NIX_CONFIG** - For agentic coding agents operating in this repository.
+## Current hosts and their roles
+
+The repo currently defines these hosts in `flake.nix`.
+
+### Linux / NixOS hosts
+
+#### `big-mach`
+Primary Linux desktop / workstation.
+
+Main features:
+
+- GNOME + NVIDIA setup
+- Podman
+- Nginx
+- monitoring modules
+- firewall config
+- personal and games app sets
+- Harmonia cache consumer
+- remote build client
+- Home Manager profile: `home-manager/home-big-mach.nix`
+
+#### `big-machbook`
+Linux laptop.
+
+Main features:
+
+- GNOME + NVIDIA setup
+- personal and games app sets
+- Harmonia cache consumer
+- remote build client
+- Home Manager profile: `home-manager/home-big-machbook.nix`
+
+#### `think-mach`
+Linux laptop / workstation with a more work-oriented desktop stack.
+
+Main features:
+
+- Plasma desktop
+- PipeWire
+- Docker enabled in host config
+- personal, work, and games app sets
+- Harmonia cache consumer
+- remote build client
+- Home Manager profile: `home-manager/home-think-mach.nix`
+
+#### `mach-serve-01`
+Primary infrastructure server and remote build target.
+
+Main features:
+
+- Harmonia binary cache server
+- Open WebUI service
+- remote builder service
+- build-performance tuning
+- password-less auth module
+- dnsmasq
+- scheduled shutdown
+- headless Home Manager profile: `home-manager/mach-serve.nix`
+
+Operational note:
+
+- this host usually rebuilds with `just sudo-rebuild-impure mach-serve-01`
+
+#### `mach-serve-02`
+Infrastructure / CI / k3s control-plane server.
+
+Main features:
+
+- GitHub runners
+- k3s control plane
+- scheduled shutdown
+- password-less auth module
+- Harmonia cache consumer
+- remote build client
+- headless Home Manager profile: `home-manager/mach-serve.nix`
+
+#### `mach-serve-03`
+Additional infrastructure server acting as a k3s worker.
+
+Main features:
+
+- k3s agent
+- scheduled shutdown
+- password-less auth module
+- Harmonia cache consumer
+- remote build client
+- headless Home Manager profile: `home-manager/mach-serve.nix`
+
+#### `home-wsl`
+Personal WSL environment.
+
+Main features:
+
+- `nixos-wsl` integration
+- Docker enabled
+- Harmonia cache consumer
+- remote build client
+- Home Manager profile: `home-manager/home-wsl.nix`
+
+#### `work-wsl`
+Work-focused WSL environment.
+
+Main features:
+
+- `nixos-wsl` integration
+- Docker enabled
+- work user profile
+- Home Manager profile: `home-manager/home-work.nix`
+
+### macOS / nix-darwin hosts
+
+#### `machbook`
+MacBook nix-darwin system.
+
+Main features:
+
+- nix-darwin base system
+- yabai module
+- zsh and direnv setup
+- shared app configuration
+- Harmonia cache consumer
+- Home Manager profile: `home-manager/home-machbookpro.nix`
+
+#### `mach-studio`
+Mac Studio nix-darwin workstation.
+
+Main features:
+
+- nix-darwin base system
+- macOS GitHub runners
+- Ollama daemon
+- zsh and direnv setup
+- shared app configuration
+- Home Manager profile: `home-manager/home-mach-studio.nix`
+
+---
+
+## Shared architecture
+
+Most Linux hosts share a common base layer from `flake.nix`, including modules such as:
+
+- common system config
+- locale and maintenance
+- Git, Zsh, fzf-git, direnv, and shared apps
+- GnuPG and nix registries
+- SSH and Atuin
+- SOPS integration
+- Home Manager integration
+
+Most hosts also receive:
+
+- `approved-packages` through module args
+- host-specific Home Manager config
+- a `nixvim-config` package in `environment.systemPackages`
+
+This means each machine is generally built as:
+
+- **shared base modules**
+- plus **role-specific service/system modules**
+- plus **host-specific machine config**
+- plus **host-specific Home Manager config**
+
+---
+
+## Common issues
+
+### `approved-packages` / GitHub access fails
+
+```bash
+just set-github-auth
+gh auth status
+```
+
+If it still fails, verify that the GitHub token in the local or CI environment has read access to the `approved-packages` repository and any required secrets.
+
+### SOPS decryption fails
+
+```bash
+just fix-sops-permissions
+```
+
+### CI fails with `attribute '<user>' missing` during SOPS evaluation
+
+If a shared module defines a SOPS secret owned by a user like `christian`, gate that secret so it is only created on hosts where `config.users.users.<name>` exists. This commonly affects multi-host CI evaluation.
+
+Best practice: when defining secrets in shared modules, use conditional logic such as `lib.mkIf` based on whether the target host actually defines that user. This prevents evaluation failures when CI or `nix flake check` evaluates multiple hosts with different user sets.
+
+### Dirty tree rebuild errors
+
+Commit or stash changes, or use an impure rebuild:
+
+```bash
+just sudo-rebuild-impure <hostname>
+```
+
+### Validation problems
+
+```bash
+just clean-check
+```

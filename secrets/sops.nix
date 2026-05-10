@@ -1,9 +1,11 @@
 {
+  config,
   pkgs,
   lib,
   ...
 }: let
   isLinux = pkgs.stdenv.isLinux;
+  hasChristianUser = builtins.hasAttr "christian" config.users.users;
 in {
   sops = {
     age.keyFile = "/etc/sops/age/keys.txt";
@@ -42,7 +44,9 @@ in {
           group = "root";
           mode = "0400";
         };
+      })
 
+      (lib.mkIf (isLinux && hasChristianUser) {
         ssh-private-key = {
           sopsFile = ./ssh-private-key.yaml;
           owner = "christian";
